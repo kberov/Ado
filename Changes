@@ -1,0 +1,6 @@
+Revision history for Ado
+      
+0.10  2013-11-23 19:56:09 CET
+    - We have a working application with several common 
+    predefined routes and controllers.
+

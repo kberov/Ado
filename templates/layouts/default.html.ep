@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head><title><%= title %></title></head>
+  <body><%= content %></body>
+  <!-- Produced by
+% if(stash->{controller}){
+%=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
+% }else{ 
+%=  'Template:'.stash->{'mojo.captures'}{template};
+% }
+  -->
+</html>

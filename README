@@ -1,0 +1,61 @@
+NAME
+    Ado - busy or delaying activity; bustle; fuss.
+
+DESCRIPTION
+    Ado is a lightweight and reliable base for building realtime web
+    applications with database backend for the enterprise. Ado is based on
+    Mojolicious. It adds some default configuration and a database schema.
+    Tables can be accessed and manipulated using DBI, DBIx::Simple and
+    Mojolicious::Plugin::DSC.
+
+INSTALLATION
+    Ado is meant to be installed into a folder of your choise. It can go
+    into the site/lib folder of your non-system Perl distro but better
+    install it in its own folder.
+
+    We do not recommend using Ado with the system Perl! Get a precompiled
+    Perl distro from ActiveState.com for your OS or prepare your own using
+    perlbrew.
+
+    To install Ado, run the following commands:
+
+            perl Build.PL --prefix $HOME/opt/ado
+            #if run without --prefix $HOME/opt/ado will be suggested
+            ./Build
+            ./Build installdeps
+            ./Build test
+            ./Build install
+
+SUPPORT AND DOCUMENTATION
+    After installing, you can find documentation with the perldoc command.
+
+        perldoc Ado
+
+    For better experience run the ado application and read the documentation
+    from your browser.
+
+      >$ $HOME/opt/ado/bin/ado daemon
+
+    Go to http:/localhost:3000/perldoc
+
+    You can also look for information at:
+
+        http://github.com/kberov/Ado/issues
+
+SEE ALSO
+    Mojolicious::Guides, Ado, <http://www.thefreedictionary.com/ado>,
+
+AUTHOR
+    Красимир Беров (Krasimir Berov)
+
+COPYRIGHT AND LICENSE
+    Copyright 2013 Красимир Беров (Krasimir Berov).
+
+    This program is free software, you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License v3 (LGPL-3.0).
+    You may copy, distribute and modify the software provided that
+    modifications are open source. However, software that includes the
+    license may release under a different license.
+
+    See http://opensource.org/licenses/lgpl-3.0.html for more information.
+
