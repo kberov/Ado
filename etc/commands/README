@@ -1,9 +1,12 @@
 Here we put Ado::Command::* specific configuratuon files.
 The files must be named after the commands for which they contain configuration.
-A command Ado::Command::hello will search its configuration in
+A command Ado::Command::hello will search its configuration
+first in the common etc/ado.conf at $app->config('commands')->{hello};
+then in
 $app->home->rel_dir('/etc/commands/hello.conf').
 The file must return a HASHREF:
-(the app keyword containing the current app instanc is available for use)
+(the app keyword containing the current application instance 
+  is available for use)
 #hello.conf
 {
   somekey =>'somevalue'

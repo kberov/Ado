@@ -1,1 +1,17 @@
-In this folder Ado keeps its configuration file.
+In this folder Ado keeps its configuration files.
+Here we have also the database files which are distributed 
+with Ado by default.
+These files are supposed to change locally but local 
+changes usualy do not have to go upstream.
+
+To ignore such files but keep them versioned
+one have to run the command "git update-index".
+Here is an example with ado.conf.
+  git update-index --assume-unchanged etc/ado.conf
+
+To make git track the file again, when you have a change 
+that you want to push upstream, simply run:
+  git update-index --no-assume-unchanged path/to/file.txt.
+
+See also:
+https://help.github.com/articles/ignoring-files#ignoring-versioned-files
