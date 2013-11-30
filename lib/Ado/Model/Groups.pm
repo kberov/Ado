@@ -1,5 +1,5 @@
 package Ado::Model::Groups; #A table/row class
-use 5.10.1;
+use 5.010001;
 use strict;
 use warnings;
 use utf8;

@@ -1,5 +1,5 @@
 package Ado::Model; #The schema/base class
-use 5.10.1;
+use 5.010001;
 use strict;
 use warnings;
 use utf8;
