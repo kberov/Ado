@@ -1,9 +1,11 @@
+ado.sqlite
 bin/ado
 bin/ado_perltidy
 Build.PL
 Changes
+etc/ado-sqlite-data.sql
+etc/ado-sqlite-schema.sql
 etc/ado.conf
-etc/ado.schema.sql
 etc/ado.sqlite
 etc/commands/README
 etc/README
@@ -15,6 +17,14 @@ lib/Ado/Control/Ado.pm
 lib/Ado/Control/Ado/Default.pm
 lib/Ado/Control/Default.pm
 lib/Ado/Manual.pod
+lib/Ado/Model.pm
+lib/Ado/Model/Domains.pm
+lib/Ado/Model/Groups.pm
+lib/Ado/Model/Sessions.pm
+lib/Ado/Model/SessionsOld.pm
+lib/Ado/Model/SqliteSequence.pm
+lib/Ado/Model/UserGroup.pm
+lib/Ado/Model/Users.pm
 LICENSE
 log/README
 MANIFEST			This list of files
