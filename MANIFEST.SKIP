@@ -74,3 +74,6 @@
 
 #Avoid log files
 \blog\/.+\.log
+
+#Avoid backups made by SQLite Manger
+\betc/ado_\d+\.sqlite
