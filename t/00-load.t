@@ -19,8 +19,8 @@ BEGIN {
       || print "Ado::Control::Ado::Default failed to load!\n";
     use_ok('Ado::Command') || print "Ado::Command failed to load!\n";
 }
-for('process_etc_files','process_public_files'){
-  can_ok('Ado::Build',$_);
+for ('process_etc_files', 'process_public_files') {
+    can_ok('Ado::Build', $_);
 }
 diag("Testing loading of Ado $Ado::VERSION, Perl $], $^X");
 

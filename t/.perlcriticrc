@@ -54,8 +54,10 @@ add_packages = Carp
 max_characters = 50
 #
 [RegularExpressions::RequireExtendedFormatting]
-minimum_regex_length_to_complain_about = 15
+minimum_regex_length_to_complain_about = 20
+#strict=0
 
 #Perl::Critic::Policy::InputOutput::RequireBriefOpen;
 [InputOutput::RequireBriefOpen]
 lines = 21
+

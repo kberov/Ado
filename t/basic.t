@@ -8,9 +8,10 @@ my $t = Test::Mojo->new('Ado');
 $t->get_ok('/добре/ок')->status_is(200)
   ->content_like(qr/Добре/i,     encode 'Content contains "Добре".')
   ->content_like(qr/ти си №1/i, encode 'Content contains "ти си №1".');
+
 #qrs
 $t->get_ok('/добре/ок/нещо')->status_is(200)
-  ->content_like(qr/нещо/i,     encode 'Content contains "нещо".');
+  ->content_like(qr/нещо/i, encode 'Content contains "нещо".');
 
 #default perldoc page
 $t->get_ok('/perldoc')->status_is(200)
@@ -22,17 +23,15 @@ $t->get_ok('/')->status_is(200)
   ->content_like(qr/Controller: Default; Action: index/);
 
 #default page
-$t->get_ok('/default')->status_is(200)
-  ->content_like(qr/Controller: default; Action: index/);
+$t->get_ok('/default')->status_is(200)->content_like(qr/Controller: default; Action: index/);
 
 #default page
 $t->get_ok('/default/index')->status_is(200)
   ->content_like(qr/Controller: default; Action: index/);
-$t->get_ok('/default/form')->status_is(200)
-  ->content_like(qr/Controller: default; Action: form/);
+$t->get_ok('/default/form')->status_is(200)->content_like(qr/Controller: default; Action: form/);
+
 #default ado page
-$t->get_ok('/ado')->status_is(200)
-  ->content_like(qr/Controller: ado-default; Action: index/);
+$t->get_ok('/ado')->status_is(200)->content_like(qr/Controller: ado-default; Action: index/);
 
 #default ado page
 $t->get_ok('/ado-default')->status_is(200)
