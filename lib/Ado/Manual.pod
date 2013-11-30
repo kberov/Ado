@@ -62,10 +62,11 @@ Feel invited to make pull requests for your contributions.
 
 =head1 SEE ALSO
 
-L<Mojolicious::Guides>, L<Ado>,
-L<Module::Build::Cookbook/prefix_vs_install_base>
-L<http://www.thefreedictionary.com/ado>, 
-L<Mojolicious::Guides::Contributing>
+L<Ado>,
+L<Mojolicious::Guides>, 
+L<Module::Build::Cookbook/prefix_vs_install_base>, 
+L<Mojolicious::Guides::Contributing>,
+L<http://www.thefreedictionary.com/ado>.
 
 
 =head1 AUTHOR

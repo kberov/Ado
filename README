@@ -2,48 +2,61 @@ NAME
     Ado - busy or delaying activity; bustle; fuss.
 
 DESCRIPTION
-    Ado is a lightweight and reliable base for building realtime web
+    Ado is a lightweight and reliable base for developing realtime web
     applications with database backend for the enterprise. Ado is based on
-    Mojolicious. It adds some default configuration and a database schema.
-    Tables can be accessed and manipulated using DBI, DBIx::Simple and
-    Mojolicious::Plugin::DSC.
+    Mojolicious and implements many of the recommendations from
+    Mojolicious::Guides. When in doubt it is recommended to follow these
+    recomendations.
+
+    Ado adds some default configuration and a database schema. A default
+    basic database is bundled in the distribution at etc/ado.sqlite to get
+    you up to speed quickly. The used RDBMS is DBD::SQLite. Tables can be
+    accessed and manipulated using DBI or any ORM. We prefer
+    DBIx::Simple::Class trough Mojolicious::Plugin::DSC. DBIx::Simple::Class
+    is a simple OM that provides representation of table records as plain
+    Perl objects.
 
 INSTALLATION
     Ado is meant to be installed into a folder of your choise. It can go
-    into the site/lib folder of your non-system Perl distro but better
+    into the "site" folder of your *non-system Perl distro* but better
     install it in its own folder.
 
-    We do not recommend using Ado with the system Perl! Get a precompiled
-    Perl distro from ActiveState.com for your OS or prepare your own using
-    perlbrew.
+    We do not recommend using Ado with your system Perl! Get a precompiled
+    Perl distro from <http://www.activestate.com/activeperl/downloads> for
+    your OS or prepare your own using perlbrew.
 
-    To install Ado, run the following commands:
+    To install Ado after downloading, run the following commands:
 
-            perl Build.PL --prefix $HOME/opt/ado
-            #if run without --prefix $HOME/opt/ado will be suggested
-            ./Build
-            ./Build installdeps
-            ./Build test
-            ./Build install
+      tar -zxf Ado-X.XX.tar.gz
+      cd Ado-X.XX/
+      perl Build.PL --install_base $HOME/path/to/ado
+      #if run without --install_base $HOME/opt/ado will be suggested
+      ./Build
+      ./Build installdeps
+      ./Build test
+      ./Build install
 
 SUPPORT AND DOCUMENTATION
     After installing, you can find documentation with the perldoc command.
 
         perldoc Ado
 
-    For better experience run the ado application and read the documentation
-    from your browser.
+    For better experience run the "ado" application and read the
+    documentation from your browser.
 
-      >$ $HOME/opt/ado/bin/ado daemon
+      $HOME/opt/ado/bin/ado daemon
 
     Go to http:/localhost:3000/perldoc
 
-    You can also look for information at:
-
-        http://github.com/kberov/Ado/issues
+    You can report bugs and suggest features at
+    <http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed
+    as time permits. Feel invited to make pull requests for your
+    contributions.
 
 SEE ALSO
-    Mojolicious::Guides, Ado, <http://www.thefreedictionary.com/ado>,
+    Ado, Mojolicious::Guides, "prefix_vs_install_base" in
+    Module::Build::Cookbook, Mojolicious::Guides::Contributing,
+    <http://www.thefreedictionary.com/ado>.
 
 AUTHOR
     Красимир Беров (Krasimir Berov)
