@@ -23,7 +23,7 @@ sub form {
 
 =head1 NAME
 
-Ado::Control::Ado::Default - The default controller for the back-office. 
+Ado::Control::Ado::Default - The default controller for the site. 
 
 =head1 SYNOPSIS
 

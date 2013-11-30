@@ -26,7 +26,7 @@ sub load_plugins {
 
     #HACK!
     #TODO: Inherit PODRenderer and implement an Ado Default perldoc plugin.
-    my $defaults = {module => 'Ado', format => 'html'};
+    my $defaults = {module => 'Ado/Manual', format => 'html'};
     ##no critic (ProtectPrivateSubs,ProhibitUnusedPrivateSubroutines,ProtectPrivateVars)
     $app->routes->any('/perldoc/:module' => $defaults => [module => qr/[^.]+/] =>
           \&Mojolicious::Plugin::PODRenderer::_perldoc);
@@ -109,10 +109,10 @@ Return $apps void.
 
 =head2 load_plugins
 
-Load Plugins mentioned in C<$config-E<gt>plugins>.
+Loads plugins mentioned in C<$config-E<gt>plugins>.
 This is a C<HASHREF> in which each key is the name of the plugin and the value is another C<HASHREF> containing the configuration for the plugin.
 Plugins can be Mojolicious or Ado specific plugins.
-Every L<Ado::Plugin>::Foo must inherit from L<Mojolicious::Plugin>
+Every L<Ado::Plugin>::Foo must inherit from L<Mojolicious::Plugin>.
 There are plenty of examples on CPAN.
 Return $apps void.
 
