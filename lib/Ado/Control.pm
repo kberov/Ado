@@ -12,9 +12,9 @@ sub config {
 sub debug;
 if ($DEV_MODE) {
 
-  sub debug {
-    return shift->app->log->debug(@_);
-  }
+    sub debug {
+        return shift->app->log->debug(@_);
+    }
 }
 
 1;

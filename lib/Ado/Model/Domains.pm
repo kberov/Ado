@@ -1,74 +1,63 @@
-package Ado::Model::Domains; #A table/row class
+package Ado::Model::Domains;    #A table/row class
 use 5.010001;
 use strict;
 use warnings;
 use utf8;
 use parent qw(Ado::Model);
 
-sub is_base_class{return 0}
+sub is_base_class { return 0 }
 my $TABLE_NAME = 'domains';
 
-sub TABLE {return $TABLE_NAME}
-sub PRIMARY_KEY{return 'id'}
-my $COLUMNS = [
-             'id',
-             'domain',
-             'site_name',
-             'description',
-             'owner_id',
-             'group_id',
-             'permissions',
-             'published'
-           ];
+sub TABLE       { return $TABLE_NAME }
+sub PRIMARY_KEY { return 'id' }
+my $COLUMNS = ['id', 'domain', 'site_name', 'description', 'owner_id', 'group_id', 'permissions',
+    'published'];
 
-sub COLUMNS {return $COLUMNS}
+sub COLUMNS { return $COLUMNS }
 my $ALIASES = {};
 
-sub ALIASES {return $ALIASES}
+sub ALIASES { return $ALIASES }
 my $CHECKS = {
-            'permissions' => {
-                               'required' => 1,
-                               'defined' => 1,
-                               'allow' => qr/(?^x:^.{1,10}$)/,
-                               'default' => '-rwxr-xr-x'
-                             },
-            'description' => {
-                               'required' => 1,
-                               'defined' => 1,
-                               'allow' => qr/(?^x:^.{1,255}$)/,
-                               'default' => ''
-                             },
-            'published' => {
-                             'required' => 1,
-                             'defined' => 1,
-                             'allow' => qr/(?^x:^-?\d{1,1}$)/
-                           },
-            'domain' => {
-                          'required' => 1,
-                          'defined' => 1,
-                          'allow' => qr/(?^x:^.{1,63}$)/
-                        },
-            'group_id' => {
-                            'allow' => qr/(?^x:^-?\d{1,}$)/
-                          },
-            'id' => {
-                      'required' => 1,
-                      'defined' => 1,
-                      'allow' => qr/(?^x:^-?\d{1,}$)/
-                    },
-            'owner_id' => {
-                            'allow' => qr/(?^x:^-?\d{1,}$)/
-                          },
-            'site_name' => {
-                             'required' => 1,
-                             'defined' => 1,
-                             'allow' => qr/(?^x:^.{1,63}$)/
-                           }
-          };
+    'permissions' => {
+        'required' => 1,
+        'defined'  => 1,
+        'allow'    => qr/(?^x:^.{1,10}$)/,
+        'default'  => '-rwxr-xr-x'
+    },
+    'description' => {
+        'required' => 1,
+        'defined'  => 1,
+        'allow'    => qr/(?^x:^.{1,255}$)/,
+        'default'  => ''
+    },
+    'published' => {
+        'required' => 1,
+        'defined'  => 1,
+        'allow'    => qr/(?^x:^-?\d{1,1}$)/
+    },
+    'domain' => {
+        'required' => 1,
+        'defined'  => 1,
+        'allow'    => qr/(?^x:^.{1,63}$)/
+    },
+    'group_id' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
+    'id'       => {
+        'required' => 1,
+        'defined'  => 1,
+        'allow'    => qr/(?^x:^-?\d{1,}$)/
+    },
+    'owner_id'  => {'allow' => qr/(?^x:^-?\d{1,}$)/},
+    'site_name' => {
+        'required' => 1,
+        'defined'  => 1,
+        'allow'    => qr/(?^x:^.{1,63}$)/
+    }
+};
 
-sub CHECKS {return $CHECKS}
+sub CHECKS { return $CHECKS }
 
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
+
 #__PACKAGE__->BUILD;#build accessors during load
 
 1;

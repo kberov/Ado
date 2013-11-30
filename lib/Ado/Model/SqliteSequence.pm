@@ -1,29 +1,27 @@
-package Ado::Model::SqliteSequence; #A table/row class
+package Ado::Model::SqliteSequence;    #A table/row class
 use 5.010001;
 use strict;
 use warnings;
 use utf8;
 use parent qw(Ado::Model);
 
-sub is_base_class{return 0}
+sub is_base_class { return 0 }
 my $TABLE_NAME = 'sqlite_sequence';
 
-sub TABLE {return $TABLE_NAME}
-sub PRIMARY_KEY{return ''}
-my $COLUMNS = [
-             'name',
-             'seq'
-           ];
+sub TABLE       { return $TABLE_NAME }
+sub PRIMARY_KEY { return '' }
+my $COLUMNS = ['name', 'seq'];
 
-sub COLUMNS {return $COLUMNS}
+sub COLUMNS { return $COLUMNS }
 my $ALIASES = {};
 
-sub ALIASES {return $ALIASES}
+sub ALIASES { return $ALIASES }
 my $CHECKS = {};
 
-sub CHECKS {return $CHECKS}
+sub CHECKS { return $CHECKS }
 
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
+
 #__PACKAGE__->BUILD;#build accessors during load
 
 1;

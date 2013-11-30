@@ -1,4 +1,4 @@
-package Ado::Model; #The schema/base class
+package Ado::Model;    #The schema/base class
 use 5.010001;
 use strict;
 use warnings;
@@ -6,15 +6,16 @@ use utf8;
 use parent qw(DBIx::Simple::Class);
 
 our $VERSION = '0.01';
-sub is_base_class{return 1}
+sub is_base_class { return 1 }
+
 sub dbix {
 
-  # Singleton DBIx::Simple instance
-  state $DBIx;
-  return ($_[1] ? ($DBIx = $_[1]) : $DBIx)
-    || croak('DBIx::Simple is not instantiated. Please first do '
-      . $_[0]
-      . '->dbix(DBIx::Simple->connect($DSN,$u,$p,{...})');
+    # Singleton DBIx::Simple instance
+    state $DBIx;
+    return ($_[1] ? ($DBIx = $_[1]) : $DBIx)
+      || croak('DBIx::Simple is not instantiated. Please first do '
+          . $_[0]
+          . '->dbix(DBIx::Simple->connect($DSN,$u,$p,{...})');
 }
 
 1;
