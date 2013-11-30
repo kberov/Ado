@@ -21,12 +21,19 @@ my $min_pc = 0.18;
 eval "use Pod::Coverage $min_pc";
 plan skip_all => "Pod::Coverage $min_pc required for testing POD coverage"
   if $@;
-my $trustme = { trustme => [qr/^(
+my $trustme = {
+    trustme => [
+        qr/^(
   ALIASES|CHECKS|COLUMNS|
   PRIMARY_KEY|TABLE|is_base_class|dbix
-)$/x] };
-do{
-  $_ =~ s/.*?(Ado:.+)/$1/;
-  pod_coverage_ok($_,$trustme,"All methods in $_ are mentioned.") 
-}for all_modules(dirname(__FILE__).'/../lib');
+)$/x
+    ]
+};
+do {
+    $_ =~ s/.*?(Ado:.+)/$1/;
+    pod_coverage_ok($_, $trustme, "All methods in $_ are mentioned.");
+  }
+  for all_modules(dirname(__FILE__) . '/../lib');
+
+done_testing();
 

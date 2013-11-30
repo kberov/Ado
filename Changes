@@ -7,6 +7,7 @@ Revision history for Ado
     - Fixed typos in documentation here and there.
     - Ado::Manual is the default page for PODRenderer
     - Added ACTION_install to Ado::Build.
+    - Switched from prefix to install_base.
 
 0.10  2013-11-23 19:56:09 CET
     - We have a working application with several common 

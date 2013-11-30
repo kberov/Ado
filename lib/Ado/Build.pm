@@ -22,10 +22,11 @@ sub process_etc_files {
     my $self = shift;
     for my $asset (@{$self->rscan_dir('etc')}) {
         if (-d $asset) {
-            File::Path::make_path(catdir('blib', $asset));
+            make_path(catdir('blib', $asset));
             next;
         }
-        File::Copy::copy($asset, catfile('blib', $asset));
+        copy($asset, catfile('blib', $asset))
+          unless $asset =~ /\d+\.sql/;
     }
     return;
 }
@@ -33,11 +34,12 @@ sub process_etc_files {
 sub ACTION_install {
     my $self = shift;
     $self->SUPER::ACTION_install;
-    my $asset_dir = catdir($self->prefix, 'etc');
+    my $etc_dir = $self->install_path('etc');
 
     #make some files writable by the application only
     for my $asset (qw(ado.sqlite ado.conf)) {
-        chmod(0600, catfile($asset_dir, $asset)) || Carp::cluck($!);
+        chmod(0600, catfile($etc_dir, $asset))
+          || Carp::cluck("Problem with $etc_dir/$asset: $!");
     }
     return;
 }

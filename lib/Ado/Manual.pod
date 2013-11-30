@@ -8,13 +8,17 @@ Ado - busy or delaying activity; bustle; fuss.
 
 Ado is a lightweight and reliable base for developing realtime 
 web applications with database backend for the enterprise.
-Ado is based on L<Mojolicious> and implements the recommendations from L<Mojolicious::Guides>. 
-It adds some default configuration and a database schema. 
-A default basic database is bundled in the distribution to get you 
-up to speed quickly. The used RDBMS is L<DBD::SQLite>.
+Ado is based on L<Mojolicious> and implements many of the 
+recommendations from L<Mojolicious::Guides>. 
+When in doubt it is recommended to follow these recomendations.
+
+Ado adds some default configuration and a database schema. 
+A default basic database is bundled in the distribution at etc/ado.sqlite
+to get you up to speed quickly. The used RDBMS is L<DBD::SQLite>.
 Tables can be accessed and manipulated using L<DBI> or any ORM.
-We prefer L<DBIx::Simple::Class> trough
-L<Mojolicious::Plugin::DSC>. It is not an ORM but provides representation of table records as plain Perl objects.
+We prefer L<DBIx::Simple::Class> trough L<Mojolicious::Plugin::DSC>. 
+L<DBIx::Simple::Class> is a simple OM that provides representation
+of table records as plain Perl objects.
 
 =head1 INSTALLATION
 
@@ -31,8 +35,8 @@ To install Ado after downloading, run the following commands:
 
   tar -zxf Ado-X.XX.tar.gz
   cd Ado-X.XX/
-  perl Build.PL --prefix $HOME/opt/ado
-  #if run without --prefix $HOME/opt/ado will be suggested
+  perl Build.PL --install_base $HOME/path/to/ado
+  #if run without --install_base $HOME/opt/ado will be suggested
   ./Build
   ./Build installdeps
   ./Build test
@@ -56,11 +60,10 @@ You can report bugs and suggest features at L<http://github.com/kberov/Ado/issue
 Bugs will be considered and fixed as time permits.
 Feel invited to make pull requests for your contributions.
 
-
-
 =head1 SEE ALSO
 
 L<Mojolicious::Guides>, L<Ado>,
+L<Module::Build::Cookbook/prefix_vs_install_base>
 L<http://www.thefreedictionary.com/ado>, 
 L<Mojolicious::Guides::Contributing>
 

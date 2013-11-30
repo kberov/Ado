@@ -1,7 +1,7 @@
 package Ado;
 use Mojo::Base 'Mojolicious';
 use Ado::Control;
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 # This method will run once at server start
 sub startup {

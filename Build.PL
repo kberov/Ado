@@ -15,12 +15,12 @@ my $builder = Ado::Build->new(
     create_license => 1,
     dist_author    => q{Красимир Беров <berov@cpan.org>},
 
-    #dist_version_from   => 'lib/Ado.pm',
     release_status     => 'unstable',
     configure_requires => {
         'Module::Build' => '0',
 
-        #Need only to get a Licence file in the distro
+        #Needed only to get a Licence file in the distro
+        # base directory.
         #'Software::License' => '0.103007',
     },
     build_requires => {
@@ -29,8 +29,9 @@ my $builder = Ado::Build->new(
 
     },
     requires => {
-        Mojolicious                => '4.57',
-        'Mojolicious::Plugin::DSC' => '0.997',
+        Mojolicious => 0,    #'4.57',
+
+        #'Mojolicious::Plugin::DSC' => '0.997',
     },
 
     recommends => {
@@ -62,18 +63,18 @@ my $builder = Ado::Build->new(
     etc_files => {'etc/ado.conf' => 'etc/ado.conf'},
 );
 $builder->add_build_element($_) for (qw(etc public));
-my $prefix = $builder->prefix;
-my $default_prefix = catdir($ENV{HOME}, 'opt', 'ado');
-$builder->prefix(
+my $install_base = $builder->install_base;
+my $default_install_base = catdir($ENV{HOME}, 'opt', 'ado');
+$builder->install_base(
     $builder->prompt(
-        'Where you want to install '
+        'Where do you want to install '
           . $builder->module_name . '?'
           . $/
-          . 'We recommend some private prefix:',
-        $default_prefix
+          . 'We insist on some private install_base:',
+        $default_install_base
     )
-) unless $prefix;
-$builder->install_path(etc    => catdir($builder->prefix, 'etc'));
-$builder->install_path(public => catdir($builder->prefix, 'public'));
+) unless $install_base;
+$builder->install_path(etc    => catdir($builder->install_base, 'etc'));
+$builder->install_path(public => catdir($builder->install_base, 'public'));
 
 $builder->create_build_script();
