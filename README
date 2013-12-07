@@ -40,6 +40,7 @@ SUPPORT AND DOCUMENTATION
     After installing, you can find documentation with the perldoc command.
 
         perldoc Ado
+        perldoc Ado::Manual #this page
 
     For better experience run the "ado" application and read the
     documentation from your browser.
@@ -52,6 +53,13 @@ SUPPORT AND DOCUMENTATION
     <http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed
     as time permits. Feel invited to make pull requests for your
     contributions.
+
+REST API
+    Ado strives for strict separation of concerns. As a result we came to
+    the conclusion that the best way to achieve this is to fully separate
+    the client from the server. Almost every resource is accessible via the
+    REST API. We follow closely the recommendations from
+    www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
 
 SEE ALSO
     Ado, Mojolicious::Guides, "prefix_vs_install_base" in
