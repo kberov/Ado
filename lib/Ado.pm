@@ -1,7 +1,7 @@
 package Ado;
 use Mojo::Base 'Mojolicious';
 use Ado::Control;
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 # This method will run once at server start
 sub startup {
@@ -13,7 +13,7 @@ sub startup {
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $app->plugin('Config', {file => 'etc/' . $app->moniker . '.conf'});
+    $app->plugin('Config', {file => $app->home->rel_file('etc/' . $app->moniker . '.conf')});
 
     return $app;
 }
@@ -31,7 +31,15 @@ sub load_plugins {
     $app->routes->any('/perldoc/:module' => $defaults => [module => qr/[^.]+/] =>
           \&Mojolicious::Plugin::PODRenderer::_perldoc);
 
-    #TODO: Handle plugins instances definitions from ado.conf
+    my $plugins = $app->config('plugins') || [];
+    foreach my $plugin (@$plugins) {
+        if (ref $plugin eq 'HASH') {
+            $app->plugin($plugin->{name} => $plugin->{config});
+        }
+        elsif ($plugin) {
+            $app->plugin($plugin);
+        }
+    }
     return $app;
 }
 
@@ -105,25 +113,32 @@ The startup method is where everything begins. Return $apps void.
 =head2 load_config
 
 Loads the configuration file C<$app-E<gt>home/etc/ado.conf>.
-Return $apps void.
+Returns $app.
 
 =head2 load_plugins
 
-Loads plugins mentioned in C<$config-E<gt>plugins>.
-This is a C<HASHREF> in which each key is the name of the plugin and the value is another C<HASHREF> containing the configuration for the plugin.
+Loads plugins listed in C<$config-E<gt>{plugins}>.
+This is an C<ARRAYREF> in which each element is a C<HASHREF> with
+keys C<name> and C<config>.
+The name of the plugin is expected to be string that can be passed to
+L<Mojolicious/plugin>.
+The C<config> values is another C<HASHREF> containing the configuration for the plugin.
 Plugins can be Mojolicious or Ado specific plugins.
-Every L<Ado::Plugin>::Foo must inherit from L<Mojolicious::Plugin>.
+Every L<Ado::Plugin>::Foo must inherit from L<Ado::Plugin> which C<ISA>
+L<Mojolicious::Plugin>.
+Of course Mojolicious plugins can be used - we count on this.
 There are plenty of examples on CPAN.
-Return $apps void.
+Returns $app.
 
 =head2 load_routes
 
-Loads predefined routes in
+Loads predefined routes in C<$config-E<gt>routes>
+Returns $app.
 
 =head2 define_hooks
 
 Defines some hooks to intervene in the default workflow of the requests.
-Return $apps void.
+Returns $app.
 
 =head1 SPONSORS
 

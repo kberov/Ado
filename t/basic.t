@@ -44,3 +44,4 @@ $t->get_ok('/ado-default/form')->status_is(200)
   ->content_like(qr/Controller: ado-default; Action: form/);
 
 done_testing();
+

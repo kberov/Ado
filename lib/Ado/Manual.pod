@@ -48,6 +48,7 @@ After installing, you can find documentation with the
 perldoc command.
 
     perldoc Ado
+    perldoc Ado::Manual #this page
 
 For better experience run the B<C<ado>> application and read the documentation
 from your browser.
@@ -59,6 +60,15 @@ Go to http:/localhost:3000/perldoc
 You can report bugs and suggest features at L<http://github.com/kberov/Ado/issues>.
 Bugs will be considered and fixed as time permits.
 Feel invited to make pull requests for your contributions.
+
+=head1 REST API
+
+Ado strives for strict separation of concerns. As a result we came to the
+conclusion that the best way to achieve this is to fully separate the 
+client from the server. Almost every resource is accessible via the REST API.
+We follow closely the recommendations from L<www.RestApiTutorial.com>.
+See L<Ado::Manual::RESTAPI>.
+
 
 =head1 SEE ALSO
 

@@ -29,9 +29,10 @@ my $builder = Ado::Build->new(
 
     },
     requires => {
-        Mojolicious => 0,    #'4.57',
+        Mojolicious       => '4.59',
+        'IO::Socket::SSL' => '1.957',
 
-        #'Mojolicious::Plugin::DSC' => '0.997',
+        'Mojolicious::Plugin::DSC' => '0.999',
     },
 
     recommends => {

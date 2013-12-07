@@ -13,6 +13,21 @@ sub form {
     $c->render(text => __PACKAGE__ . '::form', layout => 'default');
     return;
 }
+
+
+#available groups on this system
+sub groups {
+    my $c      = shift;
+    my @range  = ($c->param('limit') || 10, $c->param('offset') || 0,);
+    my @groups = Ado::Model::Groups->select_range(@range);
+
+    #content negotiation
+    return $c->respond_to(
+        json => {json => [map { $_->data } @groups],},
+        any => {text => '', status => 204}
+    );
+}
+
 1;
 
 =pod
@@ -49,7 +64,14 @@ C<index> is the default action for the back-office application L<Ado::Control::A
 
 =head2 form
 
-The form action
+The form action.
+
+=head2 groups
+
+Displays the groups of users this system has.
+Uses the request parameters C<from> and C<to> to display a range of items
+beginning at C<from> and ending at C<to>.
+
 
 =head1 SPONSORS
 

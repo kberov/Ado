@@ -13,9 +13,20 @@ sub dbix {
     # Singleton DBIx::Simple instance
     state $DBIx;
     return ($_[1] ? ($DBIx = $_[1]) : $DBIx)
-      || croak('DBIx::Simple is not instantiated. Please first do '
+      || Carp::croak('DBIx::Simple is not instantiated. Please first do '
           . $_[0]
           . '->dbix(DBIx::Simple->connect($DSN,$u,$p,{...})');
+}
+
+sub select_range {
+    my $class = shift;
+    state $dbix = $class->dbix;
+
+    #Could use "state" instead of "my"
+    # if this method is in a specific table-class.
+    my $SQL = $class->SQL('SELECT') . $class->SQL_LIMIT(@_);
+    warn $SQL;
+    return $dbix->query($SQL)->objects($class);
 }
 
 1;
@@ -52,6 +63,21 @@ The subclassses are:
 =item L<Ado::Model::Users> - A class for TABLE users in schema main
 
 =back
+
+=head2 METHODS
+
+Ado::Model inherits all methods from 
+and implements the following ones.
+
+=head2 select_range
+
+Returns an array of records.
+
+  my @users = Ado::Model::Users->select_range(2);
+  #users 1, and 2
+  my @users = Ado::Model::Users->select_range(2,4);
+  #users 3, and 4
+  
 
 =head1 GENERATOR
 
