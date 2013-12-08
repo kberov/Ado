@@ -4,15 +4,49 @@ use Mojo::Base 'Ado::Control::Ado';
 
 #available users on this system
 sub list {
-    my $c     = shift;
+    my $c = shift;
+    my $format = $c->stash('format') || '';
+    if ($format ne 'json') {
+        my $location = $c->url_for(format => 'json')->to_abs;
+        $c->res->headers->add('Content-Location' => $location);
+        $location = $c->link_to($location, {format => 'json'});
+        return $c->render(
+            inline => "415 - Unsupported Media Type $format. Please try $location!",
+            status => 415
+        );
+    }
+    $c->debug('rendering json only');
+
     my @range = ($c->param('limit') || 10, $c->param('offset') || 0,);
     my @users = Ado::Model::Users->select_range(@range);
+    $c->res->headers->content_range("users $range[1]-${\($range[0] + $range[1])}/*");
+
+    my $res = {
+        json => {
+            links => [
+                {   rel  => 'self',
+                    href => $c->url_with()->query(limit => $range[0], offset => $range[1])
+                },
+                {   rel => 'next',
+                    href =>
+                      $c->url_with()->query(limit => $range[0], offset => $range[0] + $range[1])
+                },
+                (   $range[1]
+                    ? { rel  => 'prev',
+                        href => $c->url_for()->query(
+                            limit  => $range[0],
+                            offset => $range[0] - $range[1]
+                        )
+                      }
+                    : ()
+                ),
+            ],
+            data => [map { $_->data } @users]
+        },
+    };
 
     #content negotiation
-    return $c->respond_to(
-        json => {json => [map { $_->data } @users],},
-        any => {text => '', status => 204}
-    );
+    return $c->respond_to(json => $res);
 }
 
 1;
@@ -54,6 +88,11 @@ L<Ado::Control::Ado::Users> inherits all the attributes from
 Displays the users this system has.
 Uses the request parameters C<limit> and C<offset> to display a range of items
 starting at C<offset> and ending at C<offset>+C<limit>.
+This method serves the resource C</ado-users/list.json>.
+If other format is requested returns status 415 with C<Content-location> header
+pointing to the proper URI.
+See L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16> and
+L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.14>.
 
 =head1 SPONSORS
 

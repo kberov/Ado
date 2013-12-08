@@ -25,7 +25,7 @@ sub select_range {
     #Could use "state" instead of "my"
     # if this method is in a specific table-class.
     my $SQL = $class->SQL('SELECT') . $class->SQL_LIMIT(@_);
-    warn $SQL;
+
     return $dbix->query($SQL)->objects($class);
 }
 

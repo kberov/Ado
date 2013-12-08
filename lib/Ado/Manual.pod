@@ -61,13 +61,21 @@ You can report bugs and suggest features at L<http://github.com/kberov/Ado/issue
 Bugs will be considered and fixed as time permits.
 Feel invited to make pull requests for your contributions.
 
+=head1 CONTRIBUTING
+
+Generally the rules outlined in L<Mojolicious::Guides::Contributing>
+apply for L<Ado> too.
+For specific to Ado rules see L<Ado::Manual::Contributing>.
+
+
 =head1 REST API
 
 Ado strives for strict separation of concerns. As a result we came to the
 conclusion that the best way to achieve this is to fully separate the 
-client from the server. Almost every resource is accessible via the REST API.
-We follow closely the recommendations from L<www.RestApiTutorial.com>.
-See L<Ado::Manual::RESTAPI>.
+client from the server. Ado is ideally suited for the purpose thanks to
+L<Mojolicious>. Almost every resource is accessible via the REST API.
+We try to follow closely the recommendations from "RESTful Service Best Practices" 
+at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
 
 =head1 SEE ALSO

@@ -47,21 +47,15 @@ sub load_plugins {
 sub load_routes {
     my ($app) = @_;
     my $routes = $app->routes;
-    my $config_routes = $app->config('routes') || {};
+    my $config_routes = $app->config('routes') || [];
 
-    foreach my $route (
-        sort { ($config_routes->{$a}{order} || 11111) <=> ($config_routes->{$b}{order} || 11111) }
-        keys %$config_routes
-      )
-    {
-        my ($to, $via, $qrs) = (
-            $config_routes->{$route}{to},
-            $config_routes->{$route}{via},
-            $config_routes->{$route}{qrs} || {}
-        );
+    foreach my $route (@$config_routes) {
+        my ($pattern) = keys %$route;    #$pattern is the only key
+        my ($to, $via, $qrs) =
+          ($route->{$pattern}{to}, $route->{$pattern}{via}, $route->{$pattern}{qrs} || {});
 
         next unless $to;
-        my $r = keys %$qrs ? $routes->route($route, %$qrs) : $routes->route($route);
+        my $r = keys %$qrs ? $routes->route($pattern, %$qrs) : $routes->route($pattern);
 
         #TODO: support other routes descriptions beside 'via'
         if ($via) {
