@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-How to help making Ado I<B<the ERP solution for the enterprise>>
+Ado::Manual::Contributing - Making Ado I<B<the ERP solution for the enterprise>>
 
 =head1 DESCRIPTION
 

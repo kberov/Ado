@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.13 2013-12-10 01:44:30 CET
+    - Removed usage of PoweredBy.
+    - Decreised required Perl version to 5.014002.
+    - Temporarily disabled pod-coverage tests.
+
 0.12  2013-12-09 00:33:05 CET
     - Requiring Mojolicious::Plugin::DSC 0.999,
     IO::Socket::SSL 1.957, Mojolicious 4.59.

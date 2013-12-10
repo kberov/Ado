@@ -1,24 +1,30 @@
 ##!perl -T
-use 5.016003;
+use 5.014002;
 use strict;
 use warnings FATAL => 'all';
 use Test::More;
+use File::Find;
 
 #TODO: Think about abstracting $ENV{XXX} usage via $app->env
 # so we can run under -T switch. Disable -T switch because of Mojo till then.
 #$ENV{MOJO_BASE_DEBUG}=0;
+my @files;
+find(
+    {   wanted => sub { /\.pm$/ and push @files, $File::Find::name },
+        no_chdir => 1
+    },
+    -e 'blib' ? 'blib' : 'lib',
+);
 
+for my $file (@files) {
+    my $module = $file;
+    $module =~ s,\.pm$,,;
+    $module =~ s,.*/?lib/,,;
+    $module =~ s,/,::,g;
 
-BEGIN {
-    use_ok('Ado')                   || print "Ado failed to load!\n";
-    use_ok('Ado::Build')            || print "Ado::Build failed to load!\n";
-    use_ok('Ado::Control')          || print "Ado::Control failed to load!\n";
-    use_ok('Ado::Control::Default') || print "Ado::Control::Default failed to load!\n";
-    use_ok('Ado::Control::Ado')     || print "Ado::Control::Ado failed to load!\n";
-    use_ok('Ado::Control::Ado::Default')
-      || print "Ado::Control::Ado::Default failed to load!\n";
-    use_ok('Ado::Command') || print "Ado::Command failed to load!\n";
+    use_ok($module) || diag $@;
 }
+
 for ('process_etc_files', 'process_public_files') {
     can_ok('Ado::Build', $_);
 }

@@ -80,8 +80,8 @@ at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
 =head1 SEE ALSO
 
-L<Ado>,
-L<Mojolicious::Guides>, 
+
+L<Ado>, L<Mojolicious::Guides>, 
 L<Module::Build::Cookbook/prefix_vs_install_base>, 
 L<Mojolicious::Guides::Contributing>,
 L<http://www.thefreedictionary.com/ado>.

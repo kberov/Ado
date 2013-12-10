@@ -1,9 +1,14 @@
 #!perl -T
-use 5.016003;
+use 5.014002;
 use strict;
 use warnings FATAL => 'all';
 use Test::More;
 use File::Basename;
+
+BEGIN {
+    unshift @INC, dirname(__FILE__) . '/../lib';
+}
+plan(skip_all => 'Temporarily disabled');
 if (not $ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
     plan(skip_all => $msg);
@@ -29,11 +34,8 @@ my $trustme = {
 )$/x
     ]
 };
-do {
-    $_ =~ s/.*?(Ado:.+)/$1/;
-    pod_coverage_ok($_, $trustme, "All methods in $_ are mentioned.");
-  }
-  for all_modules(dirname(__FILE__) . '/../lib');
+all_pod_coverage_ok($trustme);
+
 
 done_testing();
 
