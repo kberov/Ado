@@ -1,8 +1,14 @@
 Revision history for Ado
 
+0.14 2013-12-10 23:51:48 CET
+    - Again changed the routes structure in config. 
+      Every route description is simply a HASHREF.
+    - Enhanced documentation.
+    - Reenabled pod-coverage tests.
+
 0.13 2013-12-10 01:44:30 CET
     - Removed usage of PoweredBy.
-    - Decreised required Perl version to 5.014002.
+    - Lower required Perl version to 5.014002.
     - Temporarily disabled pod-coverage tests.
 
 0.12  2013-12-09 00:33:05 CET

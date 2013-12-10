@@ -62,14 +62,14 @@ Ado::Control::Ado::Users - The controller to manage users.
 
 =head1 SYNOPSIS
 
-#in your browser go to
-http://your-host/ado-users/list
-#or
-http://your-host/ado-users
-#and
-http://your-host/ado-users/edit/$id
-#and
-http://your-host/ado-users/add
+  #in your browser go to
+  http://your-host/ado-users/list
+  #or
+  http://your-host/ado-users
+  #and
+  http://your-host/ado-users/edit/$id
+  #and
+  http://your-host/ado-users/add
 
 =head1 DESCRIPTION
 
@@ -99,6 +99,7 @@ L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.14>.
 The original author
 
 =head1 SEE ALSO
+
 L<Ado::Control::Ado::Default>,
 L<Ado::Control>, L<Mojolicious::Controller>,
 L<Mojolicious::Guides::Growing/Model_View_Controller>,

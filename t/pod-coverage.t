@@ -8,7 +8,8 @@ use File::Basename;
 BEGIN {
     unshift @INC, dirname(__FILE__) . '/../lib';
 }
-plan(skip_all => 'Temporarily disabled');
+
+#plan(skip_all => 'Temporarily disabled');
 if (not $ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
     plan(skip_all => $msg);

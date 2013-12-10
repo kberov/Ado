@@ -3,8 +3,8 @@
 =encoding utf8
 
 =head1 NAME
-                           
-REST API - all resources provided by Ado
+
+RESTAPI - all resources provided by Ado.
 
 
 
