@@ -1,7 +1,8 @@
 Revision history for Ado
 
-0.14 2013-12-10 23:51:48 CET
-    - Again changed the routes structure in config. 
+0.14 2013-12-12 01:41:00 CET
+    - Implemented Ado::Plugin::Routes.
+    - Again changed the routes structure in config.
       Every route description is simply a HASHREF.
     - Enhanced documentation.
     - Reenabled pod-coverage tests.

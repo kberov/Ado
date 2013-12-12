@@ -20,7 +20,7 @@ The original author
 
 =head1 SEE ALSO
 
-L<Mojolicious::PLugins>, L<Mojolicious::PLugin>, 
+L<Mojolicious::Plugins>, L<Mojolicious::Plugin>, 
 
 
 =head1 AUTHOR

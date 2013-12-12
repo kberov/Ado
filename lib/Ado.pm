@@ -33,6 +33,7 @@ sub load_plugins {
 
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
+        $app->log->debug('Loading Plugin:' . $app->dumper($plugin));
         if (ref $plugin eq 'HASH') {
             $app->plugin($plugin->{name} => $plugin->{config});
         }
@@ -45,9 +46,9 @@ sub load_plugins {
 
 #load routes defined in ado.conf
 sub load_routes {
-    my ($app) = @_;
+    my ($app, $config_routes) = @_;
+    $config_routes ||= $app->config('routes') || [];
     my $routes = $app->routes;
-    my $config_routes = $app->config('routes') || [];
 
     foreach my $route (@$config_routes) {
         my ($pattern, $to, $via, $params) =
