@@ -46,6 +46,7 @@ t/basic.t
 t/boilerplate.t
 t/manifest.t
 t/perl-critic.t
+t/plugin_routes.t
 t/pod-coverage.t
 t/pod.t
 t/restapi.t

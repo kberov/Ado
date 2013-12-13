@@ -11,7 +11,10 @@ Ado::Manual::Plugin - How to write an Ado::Plugin?
 
 There is I<almost> nothing special about writing an L<Ado::Plugin>.
 
+
 =head1 SYNOPSIS
+
+TODO:...
 
 
 =head1 SPONSORS

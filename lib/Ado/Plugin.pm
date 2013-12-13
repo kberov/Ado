@@ -14,14 +14,14 @@ sub _get_plugin_config {
     state $app = $self->app;
     my $name = $self->name;
 
-    #only try (plugin specific configuration file)
-
+    #Only try (plugin specific configuration file).
     my $conf_file = $app->home->rel_dir('etc/plugins/' . decamelize($name) . '.conf');
     if (my $config = eval { Mojolicious::Plugin::Config->new->load($conf_file, {}, $app) }) {
         return $config;
     }
     else {
-        Carp::croak($@);
+        Carp::carp("Could not load configuration from file $conf_file! " . $@);
+        return {};
     }
 }
 
@@ -52,7 +52,7 @@ Ado::Plugin - base class for Ado specific plugins.
 
   sub register {
     my ($self, $app, $conf) = @_;
-    $self->app($app);
+    $self->app($app);#!Needed in $self->config!
     #Merge passed configuration with configuration 
     #from  etc/ado.conf and etc/plugins/my_plugin.conf
     $conf = {%{$self->config},%{$conf?$conf:{}}};
@@ -108,7 +108,7 @@ The original author
 
 =head1 SEE ALSO
 
-L<Ado::Manual::Plugin>,L<Ado::Plugin::Routes>, L<Mojolicious::Plugin>, 
+L<Ado::Manual::Plugin>, L<Ado::Plugin::Routes>, L<Mojolicious::Plugin>, 
 L<Mojolicious::Plugin>, 
 
 
