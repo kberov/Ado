@@ -1,6 +1,9 @@
 Revision history for Ado
 
-0.14 2013-12-13 02:44:10 CET
+0.14 2013-12-14 00:36:00 CET
+    - Enhanced the Build process, 
+    added ACTION_build, ACTION_dist process_log_files 
+    and _empty_log_files  to Ado::Build
     - Enhanced Ado::Plugin::Routes, added tests.
     - Implemented Ado::Plugin::Routes.
     - Again changed the routes structure in config.

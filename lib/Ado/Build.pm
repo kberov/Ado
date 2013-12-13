@@ -31,16 +31,76 @@ sub process_etc_files {
     return;
 }
 
+sub process_log_files {
+    my $self = shift;
+    for my $asset (@{$self->rscan_dir('log')}) {
+        if (-d $asset) {
+            make_path(catdir('blib', $asset));
+            next;
+        }
+        copy($asset, catfile('blib', $asset));
+    }
+    return;
+}
+
+sub ACTION_build {
+    my $self = shift;
+
+    #Make sure *log files are empty before moving them to blib
+    _empty_log_files('log');
+
+    #Do other interventions before the real build...
+    $self->SUPER::ACTION_build;
+    return;
+}
+
+sub ACTION_dist {
+    my $self = shift;
+
+    #Make sure *log files are empty before including them into the distro
+    _empty_log_files('blib/log');
+
+    #Do other interventions before the real dist..
+    $self->SUPER::ACTION_dist;
+    return;
+}
+
 sub ACTION_install {
     my $self = shift;
-    $self->SUPER::ACTION_install;
-    my $etc_dir = $self->install_path('etc');
 
-    #make some files writable by the application only
-    for my $asset (qw(ado.sqlite ado.conf)) {
-        chmod(0600, catfile($etc_dir, $asset))
-          || Carp::cluck("Problem with $etc_dir/$asset: $!");
+    #Custom functionality before installation
+    #here...
+    $self->SUPER::ACTION_install;
+
+    #Custom functionality after installation
+    my $etc_dir = $self->install_path('etc');
+    my $log_dir = $self->install_path('log');
+
+    #make some files writable and/or readable only by the user that runs the application
+    #TODO: Think about what to do with *.conf and *.sqlite files in case of upgrade!!!
+    for my $asset (qw(ado.conf plugins/routes.conf)) {
+        chmod(0400, catfile($etc_dir, $asset))
+          || Carp::carp("Problem with $etc_dir/$asset: $!");
     }
+    chmod(0600, catfile($etc_dir, 'ado.sqlite'))
+      || Carp::carp("Problem with $etc_dir/ado.sqlite: $!");
+
+    #Make sure *log files are existing and empty
+    _empty_log_files($self->install_path('log'));
+    for my $asset (qw(development production)) {
+        chmod(0600, catfile($log_dir, "$asset.log"))
+          || Carp::carp("Problem with $log_dir/$asset.log: $!");
+    }
+    return;
+}
+
+#Empties log files in a given directory.
+sub _empty_log_files {
+    (my ($log_dir) = @_) || Carp::croak('Please provide $log_dir');
+    open my $logd, ">", "$log_dir/development.log" || Carp::croak $!;
+    close $logd;
+    open my $logp, ">", "$log_dir/production.log" || Carp::croak $!;
+    close $logp;
     return;
 }
 1;
@@ -76,20 +136,36 @@ executed during the installation of L<Ado> by L<Module::Build>;
 Moves files found in C<Ado/etc> to C<Ado/blib/etc>.
 Returns void.
 
+=head2 process_log_files
+
+Moves files found in C<Ado/log> to C<Ado/blib/log>.
+Returns void.
+
 =head2 process_public_files
 
 Moves files found in C<Ado/public> to C<Ado/blib/public>.
 Returns void.
 
+=head2 ACTION_build
+
+You can put additional custom functionality here.
+
+=head2 ACTION_dist
+
+You can put additional custom functionality here.
+
 =head2 ACTION_install
 
 Changes file permissions to C<0600> of some files 
-like C<etc/ado.sqlite> and C<etc/ado.conf> that need it 
-during runtime.
+like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
+You can put additional custom functionality here.
 
 =head1 SEE ALSO
 
 L<Module::Build::API/CONSTRUCTORS>,
+
+L<Module::Build::Cookbook/ADVANCED_RECIPES>,
+
 L<Module::Build::API/METHODS>, Build.PL in Ado distribution directory.
 
 =head1 AUTHOR

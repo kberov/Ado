@@ -1,3 +1,7 @@
-In this folder Ado writes its log files.
-They are named development.log and production.log
+In this folder reside Ado log-files.
+They are named development.log and production.log.
+Depending on the environment variable MOJO_MODE 
+Ado writes to one or the other.
+$ENV{MOJO_MODE}==development => development.log
+$ENV{MOJO_MODE}==production  => production.log
 

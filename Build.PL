@@ -17,11 +17,11 @@ my $builder = Ado::Build->new(
 
     release_status     => 'unstable',
     configure_requires => {
-        'Module::Build' => '0',
+        'Module::Build' => '0.3800',
 
         #Needed only to get a Licence file in the distro
         # base directory.
-        #'Software::License' => '0.103007',
+        'Software::License' => '0.103007',
     },
     build_requires => {
         'Test::More' => '0',
@@ -29,9 +29,8 @@ my $builder = Ado::Build->new(
 
     },
     requires => {
-        Mojolicious       => '4.59',
-        'IO::Socket::SSL' => '1.957',
-
+        Mojolicious                => '4.59',
+        'IO::Socket::SSL'          => '1.957',
         'Mojolicious::Plugin::DSC' => '0.999',
     },
 
@@ -46,8 +45,8 @@ my $builder = Ado::Build->new(
         'Devel::Cover'        => '1.08',
 
         #We cope with DBD::SQLite just fine,
-        #but DBD::mysql is also supported
-        'DBD::mysql'  => '4.025',
+        #but DBD::mysql will be also supported some day
+        #'DBD::mysql'  => '4.025',
         'DBD::SQLite' => '1.40',
     },
     recursive_test_files => 1,
@@ -60,10 +59,10 @@ my $builder = Ado::Build->new(
     },
 
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', 'log/*.log', '*.bak'],
-    etc_files => {'etc/ado.conf' => 'etc/ado.conf'},
+    add_to_cleanup => ['Ado-*', '*.bak'],
+    etc_files      => {'etc/ado.conf' => 'etc/ado.conf'},
 );
-$builder->add_build_element($_) for (qw(etc public));
+$builder->add_build_element($_) for (qw(etc public log));
 my $install_base = $builder->install_base;
 my $default_install_base = catdir($ENV{HOME}, 'opt', 'ado');
 $builder->install_base(
@@ -71,11 +70,15 @@ $builder->install_base(
         'Where do you want to install '
           . $builder->module_name . '?'
           . $/
-          . 'We insist on some private install_base:',
+          . 'Some private install_base directory is *highly* recommended.'
+          . $/
+          . 'The whole path will be created if it does not exist.'
+          . $/,
         $default_install_base
     )
 ) unless $install_base;
 $builder->install_path(etc    => catdir($builder->install_base, 'etc'));
 $builder->install_path(public => catdir($builder->install_base, 'public'));
+$builder->install_path(log    => catdir($builder->install_base, 'log'));
 
 $builder->create_build_script();

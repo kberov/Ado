@@ -33,6 +33,8 @@ lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
 lib/Ado/Plugin/Routes.pm
 LICENSE
+log/development.log
+log/production.log
 log/README
 MANIFEST			This list of files
 META.json

@@ -72,8 +72,6 @@
 # Avoid archives of this distribution
 \bAdo-[\d\.\_]+
 
-#Avoid log files
-\blog\/.+\.log
-
-#Avoid backups made by SQLite Manger
+#Avoid backups made by SQLite Manager
 \betc/ado_\d+\.sqlite
+
