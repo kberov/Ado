@@ -2,14 +2,23 @@
 
 use strict;
 use warnings;
-
 use FindBin;
+use File::Spec::Functions qw(catdir updir);
+use Cwd qw(abs_path);
+$ENV{MOJO_MODE} ||= 'development';
 
-BEGIN {
-    unshift @INC, "$FindBin::Bin/../lib/perl5";
-    unshift @INC, "$FindBin::Bin/../lib";
+#$ENV{MOJO_MODE}='production';
+FindBin->again;
+$ENV{MOJO_HOME} ||= abs_path(catdir($FindBin::Bin, updir));
 
-    #unshift @INC, "$FindBin::Bin/../lib/perl5/another_directory"
+
+for my $d (
+    catdir($ENV{MOJO_HOME}, 'lib',  'perl5'),
+    catdir($ENV{MOJO_HOME}, 'site', 'lib'),
+    catdir($ENV{MOJO_HOME}, 'lib')
+  )
+{
+    unshift @INC, $d if -d $d;
 }
 
 # Start command line interface for application
