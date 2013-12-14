@@ -67,13 +67,9 @@ my $install_base = $builder->install_base;
 my $default_install_base = catdir($ENV{HOME}, 'opt', 'ado');
 $builder->install_base(
     $builder->prompt(
-        'Where do you want to install '
-          . $builder->module_name . '?'
-          . $/
-          . 'Some private install_base directory is *highly* recommended.'
-          . $/
-          . 'The whole path will be created if it does not exist.'
-          . $/,
+        "$/Where do you want to install ${\$builder->module_name}?$/"
+          . "Some private install_base directory is *highly* recommended.$/"
+          . "The whole path will be created if it does not exist.$/",
         $default_install_base
     )
 ) unless $install_base;
