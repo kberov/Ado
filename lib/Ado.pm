@@ -1,5 +1,15 @@
 package Ado;
 use Mojo::Base 'Mojolicious';
+use File::Spec::Functions qw(splitdir catdir catfile);
+
+BEGIN {
+    return if $ENV{MOJO_HOME};
+    my @home = splitdir File::Basename::dirname(__FILE__);
+    while (pop @home) {
+        $ENV{MOJO_HOME} ||= catdir(@home) if -s catfile(@home, 'bin', 'ado');
+    }
+}
+
 use Ado::Control;
 our $VERSION = '0.14';
 
@@ -13,8 +23,8 @@ sub startup {
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $app->plugin('Config', {file => $app->home->rel_file('etc/' . $app->moniker . '.conf')});
-
+    $ENV{MOJO_CONFIG} ||= catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');
+    $app->plugin('Config');
     return $app;
 }
 

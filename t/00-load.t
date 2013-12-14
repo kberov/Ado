@@ -25,7 +25,11 @@ for my $file (@files) {
     use_ok($module) || diag $@;
 }
 
-for ('process_etc_files', 'process_public_files') {
+for (
+    qw(_empty_log_files process_etc_files process_public_files
+    process_log_files ACTION_build ACTION_dist ACTION_install)
+  )
+{
     can_ok('Ado::Build', $_);
 }
 diag("Testing loading of Ado $Ado::VERSION, Perl $], $^X");
