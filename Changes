@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.16 2013-12-15 23:36:31 CET
+    - Moved code from Build.PL to Ado::Build::create_build_script().
+    - Requiring Mojolicious 4.60
+
 0.15 2013-12-15 17:44:48 CET
     - Now we requre and set ADO_HOME upon install so plugins can 
     easily find their installation paths

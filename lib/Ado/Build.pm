@@ -6,6 +6,44 @@ use File::Path qw(make_path);
 use File::Copy qw(copy);
 use parent 'Module::Build';
 
+sub create_build_script {
+    my $self = shift;
+    if ($ENV{ADO_HOME} && -d catdir($ENV{ADO_HOME}, 'lib')) {
+        CORE::say $self->module_name
+          . ' seems to be already installed.'
+          . "$/Please make a backup of your existing installation,"
+          . "$/unset ADO_HOME and rerun this script!";
+        return;
+    }
+    if ($self->module_name ne 'Ado') {
+        CORE::say __PACKAGE__
+          . ' is intended for installing'
+          . $self->module_name
+          . ' only.'
+          . "$/Please implement your own build module!";
+        return;
+    }
+    my $install_base = $self->install_base;
+    $self->add_build_element($_) for (qw(etc public log));
+    my $default_install_base = catdir($ENV{HOME}, 'opt', 'ado');
+    $self->install_base(
+        $self->prompt(
+            "$/Where do you want to install ${\$self->module_name}?$/"
+              . "Some private install_base directory is *highly* recommended.$/"
+              . "The path will be created if it does not exist.$/",
+            $default_install_base
+        )
+    ) unless $install_base;
+    $self->install_path(lib    => catdir($self->install_base, 'lib'));
+    $self->install_path(arch   => catdir($self->install_base, 'lib'));
+    $self->install_path(etc    => catdir($self->install_base, 'etc'));
+    $self->install_path(public => catdir($self->install_base, 'public'));
+    $self->install_path(log    => catdir($self->install_base, 'log'));
+
+    $self->SUPER::create_build_script();
+    return;
+}
+
 sub process_public_files {
     my $self = shift;
     for my $asset (@{$self->rscan_dir('public')}) {
@@ -170,9 +208,9 @@ Ado::Build - Custom routines for Ado installation
 
     #See Build.PL
     use Ado::Build;
-    my $builder = Ado::Build->new(..);
+    my $self = Ado::Build->new(..);
     #...
-    #$builder->create_build_script();
+    #$self->create_build_script();
 
 =head1 DESCRIPTION
 
