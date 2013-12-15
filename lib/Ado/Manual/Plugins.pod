@@ -1,11 +1,10 @@
-
 =pod
 
 =encoding utf8
 
 =head1 NAME
 
-Ado::Manual::Plugin - How to write an Ado::Plugin?
+Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 
 =head1 DESCRIPTION
 
@@ -16,6 +15,17 @@ There is I<almost> nothing special about writing an L<Ado::Plugin>.
 
 TODO:...
 
+=head1 PLUGINS
+
+Ado comes with the following default plugins.
+
+=over 2
+
+=item L<Ado::Plugin::Routes>
+
+Keep routes separately.
+
+=back
 
 =head1 SPONSORS
 

@@ -20,7 +20,7 @@ lib/Ado/Control/Ado/Users.pm
 lib/Ado/Control/Default.pm
 lib/Ado/Manual.pod
 lib/Ado/Manual/Contributing.pod
-lib/Ado/Manual/Plugin.pod
+lib/Ado/Manual/Plugins.pod
 lib/Ado/Manual/RESTAPI.pod
 lib/Ado/Model.pm
 lib/Ado/Model/Domains.pm

@@ -95,7 +95,7 @@ Ado::Plugin provides the following methods for use by subclases.
 The configuration which is for the plugin only.
 
   $self->config 
-  #everything in '/etc/plugins/'.decamelize('MyPlugin').'.conf'
+  #everything in '$ENV{MOJO_HOME}/etc/plugins/'.decamelize('MyPlugin').'.conf'
   #or under  $app->config('MyPlugin') 
   #or $app->config('my_plugin') - in this order
   

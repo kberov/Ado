@@ -103,6 +103,22 @@ sub _empty_log_files {
     close $logp;
     return;
 }
+
+sub do_create_readme {
+    my $self = shift;
+    if ($self->dist_version_from =~ /Ado\.pm$/) {
+
+        #HACK to create README from Ado::Manual.pod
+        require Pod::Text;
+        my $readme_from = catfile('lib', 'Ado', 'Manual.pod');
+        my $parser = Pod::Text->new(sentence => 0, indent => 2, width => 80);
+        $parser->parse_from_file($readme_from, 'README');
+    }
+    else {
+        $self->SUPER::do_create_readme();
+    }
+    return;
+}
 1;
 
 __END__
@@ -153,6 +169,11 @@ You can put additional custom functionality here.
 =head2 ACTION_dist
 
 You can put additional custom functionality here.
+
+=head2 do_create_readme
+
+Creates the README file. It will be called during C<./Build dist> 
+if you set the property C<create_readme> in C<Build.PL>.
 
 =head2 ACTION_install
 

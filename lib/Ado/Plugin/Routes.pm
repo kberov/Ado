@@ -26,7 +26,7 @@ sub register {
 
 =head1 NAME
 
-Ado::Plugin::Routes - keep routes separately 
+Ado::Plugin::Routes - Keep routes separately.
 
 
 =head1 SYNOPSIS

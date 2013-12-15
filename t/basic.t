@@ -15,7 +15,7 @@ $t->get_ok('/добре/ок/нещо')->status_is(200)
 
 #default perldoc page
 $t->get_ok('/perldoc')->status_is(200)
-  ->content_like(qr/Ado - busy or/i, encode 'Content contains "Ado - busy or".');
+  ->content_like(qr/Ado::Manual - Getting/i, encode '"/perldoc" Content contains "Ado::Manual".');
 
 #default page
 $t->get_ok('/')->status_is(200)

@@ -1,5 +1,11 @@
 Revision history for Ado
 
+0.15 2013-12-15 02:14:03 CET
+    - Enhanced documentation.
+    - Implemented custom automatic README 
+      generation from Ado::Nabual.
+    - Improved Build.PL
+
 0.14 2013-12-14 14:11:45 CET
     - Setting explicitly MOJO_MODE in bin/ado
     - Better detection for MOJO_HOME and MOJO_CONFIG

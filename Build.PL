@@ -6,15 +6,15 @@ use warnings FATAL => 'all';
 use File::Spec::Functions qw(catdir);
 use Data::Dumper;
 use FindBin;
+use Module::Build;
 BEGIN { unshift @INC, "$FindBin::Bin/lib" }
-
-use Ado::Build;
-my $builder = Ado::Build->new(
-    module_name    => 'Ado',
-    license        => 'LGPL_3_0',
-    create_license => 1,
-    dist_author    => q{Красимир Беров <berov@cpan.org>},
-
+my $builder = Module::Build->new(
+    module_name        => 'Ado',
+    license            => 'LGPL_3_0',
+    create_license     => 1,
+    create_readme      => 1,
+    dist_author        => q{Красимир Беров <berov@cpan.org>},
+    build_class        => 'Ado::Build',
     release_status     => 'unstable',
     configure_requires => {
         'Module::Build' => '0.3800',

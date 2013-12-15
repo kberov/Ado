@@ -11,7 +11,7 @@ BEGIN {
 }
 
 use Ado::Control;
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 # This method will run once at server start
 sub startup {

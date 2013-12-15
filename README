@@ -1,82 +1,97 @@
 NAME
-    Ado - busy or delaying activity; bustle; fuss.
+  Ado::Manual - Getting started with Ado
 
 DESCRIPTION
-    Ado is a lightweight and reliable base for developing realtime web
-    applications with database backend for the enterprise. Ado is based on
-    Mojolicious and implements many of the recommendations from
-    Mojolicious::Guides. When in doubt it is recommended to follow these
-    recomendations.
+  Ado is a lightweight and reliable base for developing realtime web
+  applications with database backend for the enterprise. Ado is based on
+  Mojolicious and implements many of the recommendations from
+  Mojolicious::Guides. When in doubt it is recommended to follow these
+  recomendations.
 
-    Ado adds some default configuration and a database schema. A default
-    basic database is bundled in the distribution at etc/ado.sqlite to get
-    you up to speed quickly. The used RDBMS is DBD::SQLite. Tables can be
-    accessed and manipulated using DBI or any ORM. We prefer
-    DBIx::Simple::Class trough Mojolicious::Plugin::DSC. DBIx::Simple::Class
-    is a simple OM that provides representation of table records as plain
-    Perl objects.
+  Ado adds some default configuration and a database schema. A database is
+  bundled in the distribution at "etc/ado.sqlite" to get started quickly. The
+  used RDBMS is DBD::SQLite. Tables can be accessed and manipulated using DBI or
+  any ORM. We prefer DBIx::Simple::Class trough Mojolicious::Plugin::DSC.
+  DBIx::Simple::Class is a simple OM that provides representation of table
+  records as plain Perl objects.
 
 INSTALLATION
-    Ado is meant to be installed into a folder of your choise. It can go
-    into the "site" folder of your *non-system Perl distro* but better
-    install it in its own folder.
+  Ado is meant to be installed into a folder of your choise. It can go into the
+  "site" folder of your *non-system Perl distro* but better install it in its
+  own folder.
 
-    We do not recommend using Ado with your system Perl! Get a precompiled
-    Perl distro from <http://www.activestate.com/activeperl/downloads> for
-    your OS or prepare your own using perlbrew.
+  We do not recommend using Ado with your system Perl! Get a precompiled Perl
+  distro like "Citrus Perl" (<http://www.citrusperl.com/download.html>) or
+  "ActivePerl Community Edition"
+  (<http://www.activestate.com/activeperl/downloads>) for your OS, or build your
+  own using App::perlbrew.
 
-    To install Ado after downloading, run the following commands:
+  Ado can be downloaded from CPAN <http://search.cpan.org/dist/Ado/> or
+  installed via the "cpan" commandline tool. To install manually Ado after
+  downloading, run the following commands:
 
-      tar -zxf Ado-X.XX.tar.gz
-      cd Ado-X.XX/
-      perl Build.PL --install_base $HOME/path/to/ado
-      #if run without --install_base $HOME/opt/ado will be suggested
-      ./Build
-      ./Build installdeps
-      ./Build test
-      ./Build install
+    tar -zxf Ado-X.XX.tar.gz
+    cd Ado-X.XX/
+    perl Build.PL --install_base $HOME/path/to/ado
+    #if run without --install_base $HOME/opt/ado will be suggested
+    ./Build
+    ./Build installdeps
+    ./Build test
+    ./Build install
 
 SUPPORT AND DOCUMENTATION
-    After installing, you can find documentation with the perldoc command.
+  After installing, you can find documentation with the perldoc command.
 
-        perldoc Ado
-        perldoc Ado::Manual #this page
+      perldoc Ado
+      perldoc Ado::Manual #this page
 
-    For better experience run the "ado" application and read the
-    documentation from your browser.
+  To use c<perldoc> for reading documentation you need to add the full path to
+  Ado "lib/" directory to "PERL5LIB" environment variable. For better experience
+  run the "ado" application and read the documentation from your browser.
 
-      $HOME/opt/ado/bin/ado daemon
+    $HOME/opt/ado/bin/ado daemon
 
-    Go to http:/localhost:3000/perldoc
+  Go to http:/localhost:3000/perldoc
 
-    You can report bugs and suggest features at
-    <http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed
-    as time permits. Feel invited to make pull requests for your
-    contributions.
+  You can report bugs and suggest features at
+  <http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed as
+  time permits. Feel invited to make pull requests for your contributions.
+
+CONTRIBUTING
+  Generally the rules outlined in Mojolicious::Guides::Contributing apply for
+  Ado too. For specific to Ado rules see Ado::Manual::Contributing.
 
 REST API
-    Ado strives for strict separation of concerns. As a result we came to
-    the conclusion that the best way to achieve this is to fully separate
-    the client from the server. Almost every resource is accessible via the
-    REST API. We follow closely the recommendations from
-    www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
+  Ado strives for strict separation of concerns. The best way to achieve this is
+  to fully separate the client code from the server code. Ado is ideally suited
+  for the purpose thanks to Mojolicious. Every resource is accessible via the
+  REST API. We follow closely and elaborate on the recommendations in "RESTful
+  Service Best Practices" at www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
+
+PLUGINS
+  One way to contribute to Ado is by writing plugins. They work the same way as
+  Mojolicious::Plugins and share the same common base trough Ado::Plugin. Ado
+  plugins have one small additional feature. They can store separately their own
+  configuration in "$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf".
+  Business-specific applications for an Ado-based system are usually implemented
+  as plugins. See Ado::Manual::Plugins and Ado::Plugin for more information.
 
 SEE ALSO
-    Ado, Mojolicious::Guides, "prefix_vs_install_base" in
-    Module::Build::Cookbook, Mojolicious::Guides::Contributing,
-    <http://www.thefreedictionary.com/ado>.
+  Ado, Mojolicious::Guides, Mojolicious::Guides::Contributing,
+  "prefix_vs_install_base" in Module::Build::Cookbook,
+  <http://www.thefreedictionary.com/ado>.
 
 AUTHOR
-    Красимир Беров (Krasimir Berov)
+  Красимир Беров (Krasimir Berov)
 
 COPYRIGHT AND LICENSE
-    Copyright 2013 Красимир Беров (Krasimir Berov).
+  Copyright 2013 Красимир Беров (Krasimir Berov).
 
-    This program is free software, you can redistribute it and/or modify it
-    under the terms of the GNU Lesser General Public License v3 (LGPL-3.0).
-    You may copy, distribute and modify the software provided that
-    modifications are open source. However, software that includes the
-    license may release under a different license.
+  This program is free software, you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may
+  copy, distribute and modify the software provided that modifications are open
+  source. However, software that includes the license may release under a
+  different license.
 
-    See http://opensource.org/licenses/lgpl-3.0.html for more information.
+  See http://opensource.org/licenses/lgpl-3.0.html for more information.
 

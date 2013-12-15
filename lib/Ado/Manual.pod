@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Ado - busy or delaying activity; bustle; fuss. 
+Ado::Manual - Getting started with Ado 
 
 =head1 DESCRIPTION
 
@@ -13,8 +13,8 @@ recommendations from L<Mojolicious::Guides>.
 When in doubt it is recommended to follow these recomendations.
 
 Ado adds some default configuration and a database schema. 
-A default basic database is bundled in the distribution at etc/ado.sqlite
-to get you up to speed quickly. The used RDBMS is L<DBD::SQLite>.
+A database is bundled in the distribution at C<etc/ado.sqlite>
+to get started quickly. The used RDBMS is L<DBD::SQLite>.
 Tables can be accessed and manipulated using L<DBI> or any ORM.
 We prefer L<DBIx::Simple::Class> trough L<Mojolicious::Plugin::DSC>. 
 L<DBIx::Simple::Class> is a simple OM that provides representation
@@ -27,11 +27,15 @@ It can go into the C<site> folder of your B<I<non-system Perl distro>> but
 better install it in its own folder.
 
 We do not recommend using Ado with your system Perl!
-Get a precompiled Perl distro from
-L<http://www.activestate.com/activeperl/downloads> for your OS 
-or prepare your own using L<perlbrew>.
+Get a precompiled Perl distro like "Citrus Perl" 
+(L<http://www.citrusperl.com/download.html>) or
+"ActivePerl Community Edition"
+(L<http://www.activestate.com/activeperl/downloads>) for your OS, 
+or build your own using L<App::perlbrew>.
 
-To install Ado after downloading, run the following commands:
+Ado can be downloaded from CPAN L<http://search.cpan.org/dist/Ado/>
+or installed via the C<cpan> commandline tool.
+To install manually Ado after downloading, run the following commands:
 
   tar -zxf Ado-X.XX.tar.gz
   cd Ado-X.XX/
@@ -45,11 +49,13 @@ To install Ado after downloading, run the following commands:
 =head1 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
-perldoc command.
+perldoc command.  
 
     perldoc Ado
     perldoc Ado::Manual #this page
 
+To use c<perldoc> for reading documentation you need to add 
+the full path to L<Ado> C<lib/> directory to C<PERL5LIB> environment variable.
 For better experience run the B<C<ado>> application and read the documentation
 from your browser.
 
@@ -70,20 +76,33 @@ For specific to Ado rules see L<Ado::Manual::Contributing>.
 
 =head1 REST API
 
-Ado strives for strict separation of concerns. As a result we came to the
-conclusion that the best way to achieve this is to fully separate the 
-client from the server. Ado is ideally suited for the purpose thanks to
-L<Mojolicious>. Almost every resource is accessible via the REST API.
-We try to follow closely the recommendations from "RESTful Service Best Practices" 
+Ado strives for strict separation of concerns. The best way to achieve 
+this is to fully separate the client code from the server code. 
+Ado is ideally suited for the purpose thanks to
+L<Mojolicious>. Every resource is accessible via the REST API.
+We follow closely and elaborate on the recommendations in
+"RESTful Service Best Practices" 
 at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
+=head1 PLUGINS
+
+One way to contribute to L<Ado> is by writing plugins.
+They work the same way as L<Mojolicious::Plugins> and share 
+the same common base trough L<Ado::Plugin>.
+Ado plugins have one small additional feature. 
+They can store separately their own configuration in
+C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
+Business-specific applications for an Ado-based system 
+are usually implemented as plugins.
+See L<Ado::Manual::Plugins> and L<Ado::Plugin> 
+for more information.
 
 =head1 SEE ALSO
 
 
 L<Ado>, L<Mojolicious::Guides>, 
-L<Module::Build::Cookbook/prefix_vs_install_base>, 
 L<Mojolicious::Guides::Contributing>,
+L<Module::Build::Cookbook/prefix_vs_install_base>, 
 L<http://www.thefreedictionary.com/ado>.
 
 
