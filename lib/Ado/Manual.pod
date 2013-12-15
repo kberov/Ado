@@ -12,13 +12,13 @@ Ado is based on L<Mojolicious> and implements many of the
 recommendations from L<Mojolicious::Guides>. 
 When in doubt it is recommended to follow these recomendations.
 
-Ado adds some default configuration and a database schema. 
-A database is bundled in the distribution at C<etc/ado.sqlite>
-to get started quickly. The used RDBMS is L<DBD::SQLite>.
-Tables can be accessed and manipulated using L<DBI> or any ORM.
-We prefer L<DBIx::Simple::Class> trough L<Mojolicious::Plugin::DSC>. 
-L<DBIx::Simple::Class> is a simple OM that provides representation
-of table records as plain Perl objects.
+Ado is a tipical Mojo application but it adds some default configuration and
+a model layer. An SQLite database is bundled in the distribution at
+C<etc/ado.sqlite> to get started quickly. Tables can be accessed and 
+manipulated using L<DBI>, L<DBIx::Simple> or any ORM. 
+We prefer L<DBIx::Simple::Class> trough L<Mojolicious::Plugin::DSC>.
+L<DBIx::Simple::Class> is a simple OM that provides representation 
+of table records as plain Perl objects.                                   
 
 =head1 INSTALLATION
 

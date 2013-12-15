@@ -1,6 +1,11 @@
 Revision history for Ado
 
-0.15 2013-12-15 02:14:03 CET
+0.15 2013-12-15 17:44:48 CET
+    - Now we requre and set ADO_HOME upon install so plugins can 
+    easily find their installation paths
+    - Put bin/ado environment initialization into _set_env().
+    Added informative message about ADO_HOME.
+    - Set lib and arch install paths to "lib".
     - Enhanced documentation.
     - Implemented custom automatic README 
       generation from Ado::Nabual.

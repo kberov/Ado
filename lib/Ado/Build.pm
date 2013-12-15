@@ -91,6 +91,41 @@ sub ACTION_install {
         chmod(0600, catfile($log_dir, "$asset.log"))
           || Carp::carp("Problem with $log_dir/$asset.log: $!");
     }
+    $self->_set_env();
+    return;
+}
+
+#Sets Environmnent varable ADO_HOME in $HOME/.bashrc
+sub _set_env {
+    my $self = shift;
+    return if ($ENV{ADO_HOME});    #ADO_HOME is set
+
+    my $ado_home         = 'export ADO_HOME=' . $self->install_base;
+    my $ADO_HOME_MESSAGE = <<"MESS";
+
+Please do not forget to set ADO_HOME in your shell specific .*rc file:
+$ado_home
+so Ado plugins can easily find it.
+MESS
+    my $ADO_HOME_MESSAGE_SET_OK = <<"MESS";
+
+Do you want me to write ADO_HOME to $ENV{HOME}/.bashrc 
+so Ado plugins can easily find it?
+MESS
+    my $bashrc_file = catfile($ENV{HOME}, '.bashrc');
+    if (!(-w $bashrc_file)) {
+        $self->prompt($ADO_HOME_MESSAGE);
+    }
+    elsif (my $y = $self->prompt($ADO_HOME_MESSAGE_SET_OK, $ado_home)) {
+        if (open my $bashrc, '>>', $bashrc_file) {
+            say $bashrc "$/$ado_home$/";
+            close $bashrc;
+        }
+        else {
+            CORE::say STDERR 'ADO_HOME was not successfully set! Reason:' . $!
+              . "$/Please do it manually.";
+        }
+    }
     return;
 }
 
