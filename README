@@ -8,12 +8,12 @@ DESCRIPTION
   Mojolicious::Guides. When in doubt it is recommended to follow these
   recomendations.
 
-  Ado adds some default configuration and a database schema. A database is
-  bundled in the distribution at "etc/ado.sqlite" to get started quickly. The
-  used RDBMS is DBD::SQLite. Tables can be accessed and manipulated using DBI or
-  any ORM. We prefer DBIx::Simple::Class trough Mojolicious::Plugin::DSC.
-  DBIx::Simple::Class is a simple OM that provides representation of table
-  records as plain Perl objects.
+  Ado is a tipical Mojo application but it adds some default configuration and a
+  model layer. An SQLite database is bundled in the distribution at
+  "etc/ado.sqlite" to get started quickly. Tables can be accessed and
+  manipulated using DBI, DBIx::Simple or any ORM. We prefer DBIx::Simple::Class
+  trough Mojolicious::Plugin::DSC. DBIx::Simple::Class is a simple OM that
+  provides representation of table records as plain Perl objects.
 
 INSTALLATION
   Ado is meant to be installed into a folder of your choise. It can go into the
