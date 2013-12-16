@@ -1,10 +1,19 @@
 package Ado::Build;
 use strict;
 use warnings FATAL => 'all';
-use File::Spec::Functions qw(catdir catfile);
+use File::Spec::Functions qw(catdir catfile catpath);
 use File::Path qw(make_path);
 use File::Copy qw(copy);
 use parent 'Module::Build';
+
+#Shamelessly stollen from File::HomeDir::Windows
+my $HOME =
+     $ENV{HOME}
+  || $ENV{USERPROFILE}
+  || ( $ENV{HOMEDRIVE} && $ENV{HOMEPATH} ? 
+      catpath($ENV{HOMEDRIVE}, $ENV{HOMEPATH}, '') : 
+        Cwd::abs_path('../')
+     );
 
 sub create_build_script {
     my $self = shift;
@@ -25,7 +34,7 @@ sub create_build_script {
     }
     my $install_base = $self->install_base;
     $self->add_build_element($_) for (qw(etc public log));
-    my $default_install_base = catdir($ENV{HOME}, 'opt', 'ado');
+    my $default_install_base = catdir($HOME, 'opt', 'ado');
     $self->install_base(
         $self->prompt(
             "$/Where do you want to install ${\$self->module_name}?$/"
@@ -147,10 +156,10 @@ so Ado plugins can easily find it.
 MESS
     my $ADO_HOME_MESSAGE_SET_OK = <<"MESS";
 
-Do you want me to write ADO_HOME to $ENV{HOME}/.bashrc 
+Do you want me to write ADO_HOME to $HOME/.bashrc 
 so Ado plugins can easily find it?
 MESS
-    my $bashrc_file = catfile($ENV{HOME}, '.bashrc');
+    my $bashrc_file = catfile($HOME, '.bashrc');
     if (!(-w $bashrc_file)) {
         $self->prompt($ADO_HOME_MESSAGE);
     }
@@ -192,9 +201,9 @@ sub do_create_readme {
     }
     return;
 }
+
 1;
 
-__END__
 
 =pod
 
@@ -214,15 +223,31 @@ Ado::Build - Custom routines for Ado installation
 
 =head1 DESCRIPTION
 
-This is where we place custom functionality, 
-executed during the installation of L<Ado> by L<Module::Build>;
+This is a subclass of L<Module::Build>. We use L<Module::Build::API> to add
+custom functionality so we can install Ado in a location chosen by the user.
 
 
 =head1 METHODS
 
+Ado::Build inherits all methods from L<Module::Build> and implements 
+the following ones.
+
+=head2 create_build_script
+
+This method is called in C<Build.PL>.
+It checks if C<$ENV{ADO_HOME}> is set and if L<Ado> is installed there.
+If so suggests backup of the existing installation.
+in this method we also call c<add_build_element>
+for C<etc> C<public>  and C<log> folders. 
+Also here is the functionality for prompting the user about the
+L<Module::Build/install_base> directory this will be C<$ENV{ADO_HOME}>.
+Finally we set all the c<install_path>s for the distro
+and we call C<$self-E<gt>SUPER::create_build_script>.
+
 =head2 process_etc_files
 
 Moves files found in C<Ado/etc> to C<Ado/blib/etc>.
+See L<Module::Build::API/METHODS>
 Returns void.
 
 =head2 process_log_files
@@ -237,9 +262,22 @@ Returns void.
 
 =head2 ACTION_build
 
-You can put additional custom functionality here.
+We will put here custom functionality executed around the
+C<$self-E<gt>SUPER::ACTION_build>.
 
 =head2 ACTION_dist
+
+We will put here custom functionality executed around the
+C<$self-E<gt>SUPER::ACTION_dist>.
+
+=head2 ACTION_install
+
+Changes file permissions to C<0600> of some files 
+like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
+Finally prompts the user to add C<$ENV{ADO_HOME}> to ~/.bashrc.
+This is currently not implemented for Windows. 
+The user will have to add C<$ENV{ADO_HOME}> as environment 
+variable him self.
 
 You can put additional custom functionality here.
 
@@ -248,19 +286,11 @@ You can put additional custom functionality here.
 Creates the README file. It will be called during C<./Build dist> 
 if you set the property C<create_readme> in C<Build.PL>.
 
-=head2 ACTION_install
-
-Changes file permissions to C<0600> of some files 
-like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
-You can put additional custom functionality here.
-
 =head1 SEE ALSO
 
-L<Module::Build::API/CONSTRUCTORS>,
-
+L<Module::Build::API>,
 L<Module::Build::Cookbook/ADVANCED_RECIPES>,
-
-L<Module::Build::API/METHODS>, Build.PL in Ado distribution directory.
+Build.PL in Ado distribution directory.
 
 =head1 AUTHOR
 
@@ -278,3 +308,6 @@ modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
+
+=cut
+

@@ -16,11 +16,9 @@ my $builder = Ado::Build->new(
     create_readme      => 1,
     dist_author        => q{Красимир Беров <berov@cpan.org>},
     release_status     => 'unstable',
-    configure_requires => {
-        'Module::Build' => '0.3800',
-    },
-    build_requires => {'Test::More' => '0',},
-    requires       => {
+    configure_requires => {'Module::Build' => '0.3800',},
+    build_requires     => {'Test::More' => '0',},
+    requires           => {
         Mojolicious                => '4.60',
         'IO::Socket::SSL'          => '1.957',
         'Mojolicious::Plugin::DSC' => '0.999',
@@ -47,9 +45,9 @@ my $builder = Ado::Build->new(
         resources => {
             repository => "http://github.com/kberov/Ado",
             bugtracker => "http://github.com/kberov/Ado/issues",
-            license     => [ 'http://opensource.org/licenses/lgpl-3.0.html' ],
+            license    => ['http://opensource.org/licenses/lgpl-3.0.html'],
         },
-        keywords =>[qw/Ado Mojolicious web ERP REST CMS enterprise/]
+        keywords => [qw/Ado Mojolicious web ERP REST CMS enterprise/]
     },
 
     script_files   => 'bin',
