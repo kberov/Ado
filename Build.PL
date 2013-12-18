@@ -7,7 +7,7 @@ use Ado::Build;
 
 my $builder = Ado::Build->new(
     module_name        => 'Ado',
-    license            => 'lgpl_3_0',
+    license            => 'LGPL_3_0',
     create_readme      => 1,
     dist_author        => q{Красимир Беров <berov@cpan.org>},
     release_status     => 'unstable',
@@ -40,7 +40,7 @@ my $builder = Ado::Build->new(
         resources => {
             repository => "http://github.com/kberov/Ado",
             bugtracker => "http://github.com/kberov/Ado/issues",
-            license    => ['http://opensource.org/licenses/lgpl-3.0.html'],
+            license    => 'http://www.gnu.org/licenses/lgpl-3.0.txt',
         },
         keywords => [qw/Ado Mojolicious web ERP REST CMS enterprise/]
     },

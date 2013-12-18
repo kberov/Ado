@@ -1,7 +1,7 @@
 Revision history for Ado
 
-0.16 2013-12-18 02:06:55 CET
-    - Implemented Ado::BuildPlugin.
+0.16 2013-12-19 00:03:47 CET
+    - Implemented Ado::BuildPlugin (untested).
     - Enhanced Ado::Build documentation and 
     added $ENV{HOME} directory detection.
     - Moved code from Build.PL to Ado::Build::create_build_script().

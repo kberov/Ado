@@ -20,52 +20,33 @@ my $HOME =
     : Cwd::abs_path('./')
   );
 
-sub _create_plugin_build_script {
-    my $self = shift;
-    $ENV{ADO_HOME} ||= $self->install_base;
-    if (!$ENV{ADO_HOME} || !-d catdir($ENV{ADO_HOME}, 'lib')) {
-        CORE::say <<"MSG";
-       Ado was not found!
-       Please first install Ado!"
-       Do not forget to set ADO_HOME environment variable
-       so Ado plugins can easily find it!
-MSG
-        return;
-    }
-    $self->install_base($ENV{ADO_HOME});
-    return
-
-}
 
 sub create_build_script {
     my $self = shift;
     if ($self->module_name ne 'Ado') {    #A plugin!!!
-        $self->Ado::Build::_create_plugin_build_script();
+        CORE::say 'Please use Ado::BuildPlugin for installing plugins!';
+        return;
     }
-    else {
-        if ($ENV{ADO_HOME} && -d catdir($ENV{ADO_HOME}, 'lib')) {
-            CORE::say $self->module_name
-              . ' seems to be already installed.'
-              . "$/Please make a backup of your existing installation,"
-              . "$/unset ADO_HOME and rerun this script!";
-            return;
-        }
+    if ($ENV{ADO_HOME} && -d catdir($ENV{ADO_HOME}, 'lib')) {
+        CORE::say $self->module_name
+          . ' seems to be already installed.'
+          . "$/Please make a backup of your existing installation,"
+          . "$/unset ADO_HOME and rerun this script!";
+        return;
+    }
 
-        my $install_base = $self->install_base;
-        my $default_install_base = catdir($HOME, 'opt', 'ado');
-        $self->install_base(
-            $self->prompt(
-                "$/Where do you want to install ${\$self->module_name}?$/"
-                  . "Some private install_base directory is *highly* recommended.$/"
-                  . "The path will be created if it does not exist.$/",
-                $default_install_base
-            )
-        ) unless $install_base;
-    }
-    $self->install_path(lib  => catdir($self->install_base, 'lib'));
+    my $install_base = $self->install_base;
+    my $default_install_base = catdir($HOME, 'opt', 'ado');
+    $self->install_base(
+        $self->prompt(
+            "$/Where do you want to install ${\$self->module_name}?$/"
+              . "Some private install_base directory is *highly* recommended.$/"
+              . "The path will be created if it does not exist.$/",
+            $default_install_base
+        )
+    ) unless $install_base;
     $self->install_path(arch => catdir($self->install_base, 'lib'));
-    for my $be (qw(etc public log templates)) {
-        next unless -d $be;
+    for my $be (qw(lib etc public log templates)) {
         $self->add_build_element($be);
         $self->install_path($be => catdir($self->install_base, $be));
     }
@@ -87,11 +68,6 @@ sub process_public_files {
 
 sub process_etc_files {
     my $self = shift;
-    unless (-d 'etc') {
-        CORE::say 'No configuration files to install.';
-        return;
-    }
-
     for my $asset (@{$self->rscan_dir('etc')}) {
         if (-d $asset) {
             make_path(catdir('blib', $asset));
@@ -105,10 +81,6 @@ sub process_etc_files {
 
 sub process_log_files {
     my $self = shift;
-    unless (-d 'log') {
-        CORE::say 'No log files to install.';
-        return;
-    }
     for my $asset (@{$self->rscan_dir('log')}) {
         if (-d $asset) {
             make_path(catdir('blib', $asset));
@@ -121,10 +93,6 @@ sub process_log_files {
 
 sub process_templates_files {
     my $self = shift;
-    unless (-d 'templates') {
-        CORE::say 'No templates to install.';
-        return;
-    }
     for my $asset (@{$self->rscan_dir('templates')}) {
         if (-d $asset) {
             make_path(catdir('blib', $asset));
@@ -312,6 +280,11 @@ Returns void.
 =head2 process_public_files
 
 Moves files found in C<Ado/public> to C<Ado/blib/public>.
+Returns void.
+
+=head2 process_templates_files
+
+Moves files found in C<Ado/templates> to C<Ado/blib/templates>.
 Returns void.
 
 =head2 ACTION_build
