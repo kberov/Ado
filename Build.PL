@@ -1,15 +1,10 @@
-#use 5.016003;
-
 use 5.014002;
 use strict;
 use warnings FATAL => 'all';
-use File::Spec::Functions qw(catdir);
-use Data::Dumper;
 use FindBin;
-
-# TODO: Decide what to do if Ado is already installed...
-BEGIN { unshift @INC, "$FindBin::Bin/lib" }
+use lib("$FindBin::Bin/lib");
 use Ado::Build;
+
 my $builder = Ado::Build->new(
     module_name        => 'Ado',
     license            => 'lgpl_3_0',
@@ -56,3 +51,4 @@ my $builder = Ado::Build->new(
 );
 
 $builder->create_build_script();
+

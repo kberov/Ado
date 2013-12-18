@@ -5,50 +5,70 @@ use File::Spec::Functions qw(catdir catfile catpath);
 use File::Path qw(make_path);
 use File::Copy qw(copy);
 use parent 'Module::Build';
+use Exporter qw( import );    #export functionality to consumers
+our @EXPORT_OK =
+  (qw(create_build_script process_etc_files process_public_files process_templates_files));
+
 
 #Shamelessly stollen from File::HomeDir::Windows
 my $HOME =
      $ENV{HOME}
   || $ENV{USERPROFILE}
-  || ( $ENV{HOMEDRIVE} && $ENV{HOMEPATH} ? 
-      catpath($ENV{HOMEDRIVE}, $ENV{HOMEPATH}, '') : 
-        Cwd::abs_path('../')
-     );
+  || (
+    $ENV{HOMEDRIVE} && $ENV{HOMEPATH}
+    ? catpath($ENV{HOMEDRIVE}, $ENV{HOMEPATH}, '')
+    : Cwd::abs_path('./')
+  );
+
+sub _create_plugin_build_script {
+    my $self = shift;
+    $ENV{ADO_HOME} ||= $self->install_base;
+    if (!$ENV{ADO_HOME} || !-d catdir($ENV{ADO_HOME}, 'lib')) {
+        CORE::say <<"MSG";
+       Ado was not found!
+       Please first install Ado!"
+       Do not forget to set ADO_HOME environment variable
+       so Ado plugins can easily find it!
+MSG
+        return;
+    }
+    $self->install_base($ENV{ADO_HOME});
+    return
+
+}
 
 sub create_build_script {
     my $self = shift;
-    if ($ENV{ADO_HOME} && -d catdir($ENV{ADO_HOME}, 'lib')) {
-        CORE::say $self->module_name
-          . ' seems to be already installed.'
-          . "$/Please make a backup of your existing installation,"
-          . "$/unset ADO_HOME and rerun this script!";
-        return;
+    if ($self->module_name ne 'Ado') {    #A plugin!!!
+        $self->Ado::Build::_create_plugin_build_script();
     }
-    if ($self->module_name ne 'Ado') {
-        CORE::say __PACKAGE__
-          . ' is intended for installing'
-          . $self->module_name
-          . ' only.'
-          . "$/Please implement your own build module!";
-        return;
-    }
-    my $install_base = $self->install_base;
-    $self->add_build_element($_) for (qw(etc public log));
-    my $default_install_base = catdir($HOME, 'opt', 'ado');
-    $self->install_base(
-        $self->prompt(
-            "$/Where do you want to install ${\$self->module_name}?$/"
-              . "Some private install_base directory is *highly* recommended.$/"
-              . "The path will be created if it does not exist.$/",
-            $default_install_base
-        )
-    ) unless $install_base;
-    $self->install_path(lib    => catdir($self->install_base, 'lib'));
-    $self->install_path(arch   => catdir($self->install_base, 'lib'));
-    $self->install_path(etc    => catdir($self->install_base, 'etc'));
-    $self->install_path(public => catdir($self->install_base, 'public'));
-    $self->install_path(log    => catdir($self->install_base, 'log'));
+    else {
+        if ($ENV{ADO_HOME} && -d catdir($ENV{ADO_HOME}, 'lib')) {
+            CORE::say $self->module_name
+              . ' seems to be already installed.'
+              . "$/Please make a backup of your existing installation,"
+              . "$/unset ADO_HOME and rerun this script!";
+            return;
+        }
 
+        my $install_base = $self->install_base;
+        my $default_install_base = catdir($HOME, 'opt', 'ado');
+        $self->install_base(
+            $self->prompt(
+                "$/Where do you want to install ${\$self->module_name}?$/"
+                  . "Some private install_base directory is *highly* recommended.$/"
+                  . "The path will be created if it does not exist.$/",
+                $default_install_base
+            )
+        ) unless $install_base;
+    }
+    $self->install_path(lib  => catdir($self->install_base, 'lib'));
+    $self->install_path(arch => catdir($self->install_base, 'lib'));
+    for my $be (qw(etc public log templates)) {
+        next unless -d $be;
+        $self->add_build_element($be);
+        $self->install_path($be => catdir($self->install_base, $be));
+    }
     $self->SUPER::create_build_script();
     return;
 }
@@ -67,6 +87,11 @@ sub process_public_files {
 
 sub process_etc_files {
     my $self = shift;
+    unless (-d 'etc') {
+        CORE::say 'No configuration files to install.';
+        return;
+    }
+
     for my $asset (@{$self->rscan_dir('etc')}) {
         if (-d $asset) {
             make_path(catdir('blib', $asset));
@@ -80,6 +105,10 @@ sub process_etc_files {
 
 sub process_log_files {
     my $self = shift;
+    unless (-d 'log') {
+        CORE::say 'No log files to install.';
+        return;
+    }
     for my $asset (@{$self->rscan_dir('log')}) {
         if (-d $asset) {
             make_path(catdir('blib', $asset));
@@ -89,6 +118,23 @@ sub process_log_files {
     }
     return;
 }
+
+sub process_templates_files {
+    my $self = shift;
+    unless (-d 'templates') {
+        CORE::say 'No templates to install.';
+        return;
+    }
+    for my $asset (@{$self->rscan_dir('templates')}) {
+        if (-d $asset) {
+            make_path(catdir('blib', $asset));
+            next;
+        }
+        copy($asset, catfile('blib', $asset));
+    }
+    return;
+}
+
 
 sub ACTION_build {
     my $self = shift;
@@ -204,7 +250,6 @@ sub do_create_readme {
 
 1;
 
-
 =pod
 
 =encoding utf8
@@ -215,17 +260,26 @@ Ado::Build - Custom routines for Ado installation
 
 =head1 SYNOPSIS
 
-    #See Build.PL
-    use Ado::Build;
-    my $self = Ado::Build->new(..);
-    #...
-    #$self->create_build_script();
+  #See Build.PL
+  use 5.014002;
+  use strict;
+  use warnings FATAL => 'all';
+  use FindBin;
+  use lib("$FindBin::Bin/lib");
+  use Ado::Build;
+  my $builder = Ado::Build->new(..);
+  $self->create_build_script();
 
 =head1 DESCRIPTION
 
 This is a subclass of L<Module::Build>. We use L<Module::Build::API> to add
 custom functionality so we can install Ado in a location chosen by the user.
 
+
+This module and L<Ado::BuildPlugin> exist just because of the aditional install paths
+that we use beside c<lib> and <bin>. These modules also can serve as examples 
+for your own builders if you have some custom things to do during 
+build, test, install and even if you need to add a new C<ACTION_*> to your setup.
 
 =head1 METHODS
 
@@ -288,6 +342,7 @@ if you set the property C<create_readme> in C<Build.PL>.
 
 =head1 SEE ALSO
 
+L<Ado::BuildPlugin>,
 L<Module::Build::API>,
 L<Module::Build::Cookbook/ADVANCED_RECIPES>,
 Build.PL in Ado distribution directory.

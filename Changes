@@ -1,7 +1,9 @@
 Revision history for Ado
 
-0.16 2013-12-17 00:25:24 CET
-    - Enhanced Ado::Build documentation and added $ENV{HOME} directory detection.
+0.16 2013-12-18 02:06:55 CET
+    - Implemented Ado::BuildPlugin.
+    - Enhanced Ado::Build documentation and 
+    added $ENV{HOME} directory detection.
     - Moved code from Build.PL to Ado::Build::create_build_script().
     - Requiring Mojolicious 4.60
 

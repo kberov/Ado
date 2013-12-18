@@ -16,19 +16,18 @@ sub _set_env {
     $ENV{MOJO_MODE} ||= 'development';
 
     #$ENV{MOJO_MODE}='production';
-    FindBin->again;
     $ENV{MOJO_HOME} ||= abs_path(catdir($FindBin::Bin, updir));
     $ENV{MOJO_CONFIG} ||= $ENV{MOJO_HOME} . '/etc/ado.conf';
-
-    for my $d (catdir($ENV{MOJO_HOME}, 'site', 'lib'), catdir($ENV{MOJO_HOME}, 'lib')) {
+    my @libs = (catdir($ENV{MOJO_HOME}, 'site', 'lib'), catdir($ENV{MOJO_HOME}, 'lib'));
+    for my $d (@libs) {
         unshift @INC, $d if -d $d;
     }
     my $ADO_HOME_MESSAGE = <<"MESS";
-  ADO_HOME environment variable is not set 
-  to the automatically discovered Ado home directory
-  $ENV{MOJO_HOME}
-  or at all.
-  Probably you run ado from its installation directory?
+
+  \$ENV{ADO_HOME} is not the same as 
+  the automatically discovered Ado home directory
+  \$ENV{MOJO_HOME}: $ENV{MOJO_HOME}
+  You run "ado" from $FindBin::Bin.
 
   Please set 
   export ADO_HOME=/path/to/ado 

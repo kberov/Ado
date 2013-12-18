@@ -12,6 +12,7 @@ etc/plugins/routes.conf
 etc/README
 lib/Ado.pm
 lib/Ado/Build.pm
+lib/Ado/BuildPlugin.pm
 lib/Ado/Command.pm
 lib/Ado/Control.pm
 lib/Ado/Control/Ado.pm
