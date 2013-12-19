@@ -58,7 +58,7 @@ This method is called by C<$app-E<gt>plugin>.
 Registers the plugin in L<Ado> application and merges routes 
 configuration from C<$MOJO_HOME/etc/ado.conf> with routes defined in
 C<$MOJO_HOME/etc/plugins/routes.conf>. Routes defined in C<ado.conf>
-can overrwite those defined in C<plugins/routes.conf>.
+can overwrite those defined in C<plugins/routes.conf>.
 
 =head1 SEE ALSO
 

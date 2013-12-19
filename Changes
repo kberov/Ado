@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.17 2013-12-19 14:08:38 CET
+    - Added tests for POD spelling.
+    - Spellchecked and corrected all the POD.
+
 0.16 2013-12-19 00:03:47 CET
     - Implemented Ado::BuildPlugin (untested).
     - Enhanced Ado::Build documentation and 

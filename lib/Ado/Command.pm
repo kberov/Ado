@@ -77,7 +77,7 @@ Ado::Command - Ado namespace for Mojo commands!
 =head1 DESCRIPTION
 
 Ado::Command is the base class for eventual functionality that we 
-can run directly from the commandline or from controlers.
+can run directly from the commandline or from controllers.
 In this class we can put common functionality shared among all the commands.
 
 =head1 ATTRIBUTES
@@ -115,10 +115,10 @@ Must return C<$self>.
 A default C<$command-E<gt>run(@args)> method for all Ado::Command commands.
 This is the entry point to your mini application.
 Looks for subcommands/actions which are looked up in
-the C<--do> commans line argument and executed.
+the C<--do> commands line argument and executed.
 Dies with an error message advising you to implement the subcommand
 if it is not found in  C<$self-E<gt>config-E<gt>{actions}>.
-Override it if you want specific behaviour.
+Override it if you want specific behavior.
 
     # as script/pwprefligt alabala --do action --param1 value
     Ado::Command::alabala->run(@ARGV);

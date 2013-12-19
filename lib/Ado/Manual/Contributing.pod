@@ -6,7 +6,7 @@ Ado::Manual::Contributing - Making Ado I<B<the ERP solution for the enterprise>>
 
 =head1 DESCRIPTION
 
-Todo....
+TODO....
 
 =head1 AUTHOR
 

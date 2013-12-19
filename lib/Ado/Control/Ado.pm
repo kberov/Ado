@@ -26,7 +26,7 @@ Ado::Control::Ado is the base controller class for all back-office controllers.
 =head1 ATTRIBUTES
 
 Ado::Control::Ado inherits all the attributes from 
-<Ado::Control> and defines attributes shared among all back-office controlers.
+<Ado::Control> and defines attributes shared among all back-office controllers.
 
 
 

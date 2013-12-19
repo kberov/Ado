@@ -10,7 +10,7 @@ Ado is a lightweight and reliable base for developing realtime
 web applications with database backend for the enterprise.
 Ado is based on L<Mojolicious> and implements many of the 
 recommendations from L<Mojolicious::Guides>. 
-When in doubt it is recommended to follow these recomendations.
+When in doubt it is recommended to follow these recommendations.
 
 Ado is a tipical Mojo application but it adds some default configuration and
 a model layer. An SQLite database is bundled in the distribution at
@@ -22,7 +22,7 @@ of table records as plain Perl objects.
 
 =head1 INSTALLATION
 
-Ado is meant to be installed into a folder of your choise.
+Ado is meant to be installed into a folder of your choice.
 It can go into the C<site> folder of your B<I<non-system Perl distro>> but
 better install it in its own folder.
 

@@ -67,7 +67,7 @@ It provides some methods specific to L<Ado> only.
 
 =head1 ATTRIBUTES
 
-Ado::Plugin provides the following attributes for use by subclases.
+Ado::Plugin provides the following attributes for use by subclasses.
 
 =head2 app
 
@@ -88,7 +88,7 @@ The name - only the plugin name without the namespace.
 =head1 METHODS
 
 
-Ado::Plugin provides the following methods for use by subclases.
+Ado::Plugin provides the following methods for use by subclasses.
 
 =head2 config
 

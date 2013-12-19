@@ -51,6 +51,7 @@ t/manifest.t
 t/perl-critic.t
 t/plugin_routes.t
 t/pod-coverage.t
+t/pod-spelling.t
 t/pod.t
 t/restapi.t
 templates/layouts/default.html.ep

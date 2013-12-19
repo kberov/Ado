@@ -244,7 +244,7 @@ This is a subclass of L<Module::Build>. We use L<Module::Build::API> to add
 custom functionality so we can install Ado in a location chosen by the user.
 
 
-This module and L<Ado::BuildPlugin> exist just because of the aditional install paths
+This module and L<Ado::BuildPlugin> exist just because of the additional install paths
 that we use beside c<lib> and <bin>. These modules also can serve as examples 
 for your own builders if you have some custom things to do during 
 build, test, install and even if you need to add a new C<ACTION_*> to your setup.

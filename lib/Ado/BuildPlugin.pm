@@ -56,7 +56,7 @@ so we can install Ado  and it plugins in a location chosen by the user.
 To use this module for installing your plugins
 $ENV{ADO_HOME} must be available and Ado installed there.
 
-This module and L<Ado::Build> exist because of the aditional install paths
+This module and L<Ado::Build> exist because of the additional install paths
 that we use beside c<lib> and <bin>. These modules also can serve as examples 
 for your own builders if you have some custom things to do during 
 build, test, install and even if you need to add a new C<ACTION_*> to your setup.

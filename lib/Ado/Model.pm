@@ -44,7 +44,7 @@ Ado::Model - the base schema class.
 =head1 DESCRIPTION
 
 This is the base class for using table records as plain Perl objects.
-The subclassses are:
+The subclasses are:
 
 =over
 

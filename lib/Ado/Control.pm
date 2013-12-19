@@ -29,7 +29,7 @@ Ado::Control - The base class for all controllers!
 
 =head1 SYNOPSIS
 
-It must be inherited by all controlers.
+It must be inherited by all controllers.
 Put code here only to be shared by it's subclasses or used in hooks.
 
   package Ado::Control::Hello;
