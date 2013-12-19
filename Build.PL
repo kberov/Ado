@@ -15,6 +15,8 @@ my $builder = Ado::Build->new(
     build_requires     => {'Test::More' => '0',},
     requires           => {
         Mojolicious                => '4.60',
+        EV                         => '4.15',
+        'IO::Socket::IP'           => '0.24',
         'IO::Socket::SSL'          => '1.957',
         'Mojolicious::Plugin::DSC' => '0.999',
     },

@@ -1,6 +1,9 @@
 Revision history for Ado
 
-0.17 2013-12-19 14:08:38 CET
+0.17 2013-12-19 19:40:37 CET
+    - Enhanced POD.
+    - Requiering EV and  IO::Socket::IP as recommended
+    in Mojo::IOLoop for better scalabality and non-blocking apps.
     - Added tests for POD spelling.
     - Spellchecked and corrected all the POD.
 
