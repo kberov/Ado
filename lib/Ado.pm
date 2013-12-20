@@ -62,8 +62,8 @@ sub load_routes {
     $config_routes ||= $app->config('routes') || [];
     my $routes = $app->routes;
 
-    #hide some controller methods and atteibutes
-    $routes->hide(qw(debug config require_format));
+    #hide Ado::Control methods and attributes
+    $routes->hide(qw(debug config require_format list_for_json));
 
     foreach my $route (@$config_routes) {
         my ($pattern, $to, $via, $params) =
