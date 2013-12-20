@@ -1,4 +1,4 @@
-use 5.014002;
+use 5.014000;
 use strict;
 use warnings FATAL => 'all';
 use FindBin;
@@ -38,7 +38,7 @@ my $builder = Ado::Build->new(
     },
     recursive_test_files => 1,
     meta_merge           => {
-        requires  => {perl => '5.014002'},
+        requires  => {perl => '5.014000'},
         resources => {
             repository => "http://github.com/kberov/Ado",
             bugtracker => "http://github.com/kberov/Ado/issues",

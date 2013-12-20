@@ -174,19 +174,27 @@ Do you want me to write ADO_HOME to $HOME/.bashrc
 so Ado plugins can easily find it?
 MESS
     my $bashrc_file = catfile($HOME, '.bashrc');
-    if (!(-w $bashrc_file)) {
+    require Mojo::Util;
+    if ((-w $bashrc_file) && Mojo::Util::slurp($bashrc_file) =~ $ado_home) {
+        CORE::say "$/'$ado_home' is already present in $bashrc_file.$/";
+    }
+    elsif (!(-w $bashrc_file)) {
         $self->prompt($ADO_HOME_MESSAGE);
     }
     elsif (my $y = $self->prompt($ADO_HOME_MESSAGE_SET_OK, $ado_home)) {
-        if (open my $bashrc, '>>', $bashrc_file) {
-            say $bashrc "$/$ado_home$/";
-            close $bashrc;
+        if (my $bashrc = IO::File->new(">>$bashrc_file")) {
+            $bashrc->say("$/$ado_home$/");
+            $bashrc->close;
+            CORE::say "$/'$ado_home' was written to $bashrc_file.$/";
         }
         else {
             CORE::say STDERR 'ADO_HOME was not successfully set! Reason:' . $!
               . "$/Please do it manually.";
         }
     }
+    CORE::say "You may need to open a new terminal window"
+      . " or source $bashrc_file$/for \$ADO_HOME to be used.";
+
     return;
 }
 
@@ -229,7 +237,7 @@ Ado::Build - Custom routines for Ado installation
 =head1 SYNOPSIS
 
   #See Build.PL
-  use 5.014002;
+  use 5.014000;
   use strict;
   use warnings FATAL => 'all';
   use FindBin;

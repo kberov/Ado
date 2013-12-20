@@ -1,6 +1,8 @@
 Revision history for Ado
 
-0.17 2013-12-19 19:40:37 CET
+0.17 2013-12-20 12:53:40 CET
+    - Enhanced _set_env in Ado::Build.
+    - Lower required Perl version to 5.014000.
     - Enhanced POD.
     - Requiering EV and  IO::Socket::IP as recommended
     in Mojo::IOLoop for better scalabality and non-blocking apps.
