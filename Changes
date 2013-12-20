@@ -1,6 +1,7 @@
 Revision history for Ado
 
-0.17 2013-12-20 22:30:23 CET
+0.17 2013-12-20 22:38:49 CET
+    - First attempt for a logo.
     - Added dummy missing actions to Ado::Control::Ado::Users.
     - Added $c->require_formats(['json', 'xml', 'etc']) to Ado::Control. 
     - Enhanced _set_env in Ado::Build.
