@@ -175,7 +175,7 @@ so Ado plugins can easily find it?
 MESS
     my $bashrc_file = catfile($HOME, '.bashrc');
     require Mojo::Util;
-    if ((-w $bashrc_file) && Mojo::Util::slurp($bashrc_file) =~ $ado_home) {
+    if ((-r $bashrc_file) && Mojo::Util::slurp($bashrc_file) =~ $ado_home) {
         CORE::say "$/'$ado_home' is already present in $bashrc_file.$/";
     }
     elsif (!(-w $bashrc_file)) {
@@ -193,7 +193,8 @@ MESS
         }
     }
     CORE::say "You may need to open a new terminal window"
-      . " or source $bashrc_file$/for \$ADO_HOME to be used.";
+      . " or source $bashrc_file$/for \$ADO_HOME to be used."
+      unless $ENV{ADO_HOME};
 
     return;
 }

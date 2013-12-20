@@ -5,7 +5,7 @@ use Mojo::Base 'Ado::Control::Ado';
 #available users on this system
 sub list {
     my $c = shift;
-    $c->require_format('json')||return;
+    $c->require_formats(['json']) || return;
     $c->debug('rendering json only');
 
     my @range = ($c->param('limit') || 10, $c->param('offset') || 0,);
@@ -41,17 +41,19 @@ sub list {
 }
 
 sub add {
-  return shift->render(text=>'not implemented...');
+    return shift->render(text => 'not implemented...');
 }
+
 sub show {
-  return shift->render(text=>'not implemented...');
+    return shift->render(text => 'not implemented...');
 }
+
 sub update {
-  return shift->render(text=>'not implemented...');
+    return shift->render(text => 'not implemented...');
 }
 
 sub disable {
-  return shift->render(text=>'not implemented...');
+    return shift->render(text => 'not implemented...');
 }
 
 

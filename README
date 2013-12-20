@@ -6,7 +6,7 @@ DESCRIPTION
   applications with database backend for the enterprise. Ado is based on
   Mojolicious and implements many of the recommendations from
   Mojolicious::Guides. When in doubt it is recommended to follow these
-  recomendations.
+  recommendations.
 
   Ado is a tipical Mojo application but it adds some default configuration and a
   model layer. An SQLite database is bundled in the distribution at
@@ -16,7 +16,7 @@ DESCRIPTION
   provides representation of table records as plain Perl objects.
 
 INSTALLATION
-  Ado is meant to be installed into a folder of your choise. It can go into the
+  Ado is meant to be installed into a folder of your choice. It can go into the
   "site" folder of your *non-system Perl distro* but better install it in its
   own folder.
 

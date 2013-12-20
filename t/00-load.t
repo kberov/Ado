@@ -26,11 +26,19 @@ for my $file (@files) {
 }
 
 for (
-    qw(_empty_log_files process_etc_files process_public_files
-    process_log_files ACTION_build ACTION_dist ACTION_install)
+    qw(_empty_log_files process_etc_files _set_env
+    process_public_files process_log_files process_templates_files
+    ACTION_build ACTION_dist ACTION_install)
   )
 {
     can_ok('Ado::Build', $_);
+}
+for (
+    qw(process_etc_files process_public_files process_templates_files
+    ACTION_build ACTION_dist ACTION_install)
+  )
+{
+    can_ok('Ado::BuildPlugin', $_);
 }
 diag("Testing loading of Ado $Ado::VERSION, Perl $], $^X");
 
