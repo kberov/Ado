@@ -8,36 +8,12 @@ sub list {
     $c->require_formats(['json']) || return;
     $c->debug('rendering json only');
 
-    my @range = ($c->param('limit') || 10, $c->param('offset') || 0,);
-    my @users = Ado::Model::Users->select_range(@range);
+    my @range = ($c->param('limit') || 10, $c->param('offset') || 0);
     $c->res->headers->content_range("users $range[1]-${\($range[0] + $range[1])}/*");
 
-    my $res = {
-        json => {
-            links => [
-                {   rel  => 'self',
-                    href => $c->url_with()->query(limit => $range[0], offset => $range[1])
-                },
-                {   rel => 'next',
-                    href =>
-                      $c->url_with()->query(limit => $range[0], offset => $range[0] + $range[1])
-                },
-                (   $range[1]
-                    ? { rel  => 'prev',
-                        href => $c->url_for()->query(
-                            limit  => $range[0],
-                            offset => $range[0] - $range[1]
-                        )
-                      }
-                    : ()
-                ),
-            ],
-            data => [map { $_->data } @users]
-        },
-    };
-
     #content negotiation
-    return $c->respond_to(json => $res);
+    return $c->respond_to(
+        json => $c->list_for_json(\@range, [Ado::Model::Users->select_range(@range)]));
 }
 
 sub add {

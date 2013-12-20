@@ -23,12 +23,12 @@ if ($DEV_MODE) {
 sub require_formats {
     my ($c, $formats) = @_;
     my $format = $c->stash->{format} || '';
-    if (! List::Util::first {$format eq $_} @$formats) {
+    if (!List::Util::first { $format eq $_ } @$formats) {
         my $location = $c->url_for(format => $formats->[0])->to_abs;
         $c->res->headers->add('Content-Location' => $location);
         $location = $c->link_to($location, {format => $formats->[0]});
         my $message = "415 - Unsupported Media Type $format. Please try $location!";
-        $c->debug($c->url_for . " requires ".join(',',$formats).". Rendering: $message")
+        $c->debug($c->url_for . " requires " . join(',', $formats) . ". Rendering: $message")
           if $DEV_MODE;
         $c->render(
             inline => $message,
@@ -37,8 +37,34 @@ sub require_formats {
         return '';
     }
     return 1;
-
 }
+
+sub list_for_json {
+    my ($c, $range, $dsc_objects) = @_;
+    return {
+        json => {
+            links => [
+                {   rel  => 'self',
+                    href => $c->url_with()->query(limit => $$range[0], offset => $$range[1])
+                },
+                {   rel  => 'next',
+                    href => $c->url_with()
+                      ->query(limit => $$range[0], offset => $$range[0] + $$range[1])
+                },
+                (   $$range[1]
+                    ? { rel  => 'prev',
+                        href => $c->url_for()->query(
+                            limit  => $$range[0],
+                            offset => $$range[0] - $$range[1]
+                        )
+                      }
+                    : ()
+                ),
+            ],
+            data => [map { $_->data } @$dsc_objects]
+        },
+    };
+}    # end sub list_for_json
 1;
 
 =pod
@@ -66,12 +92,6 @@ and implements the following new ones.
 
 Methods shared among subclasses and in hooks
 
-=head2 debug
-
-A shortcut to:
-
-  $c->app->log->debug(@_);
-
 =head2 config
 
 Overwrites the default helper L<Mojolicious::Plugin::DefaultHelpers/config>
@@ -86,13 +106,39 @@ Returns configuration specific to the I<current controller> package only.
 
 To access the application-wide configuration use C<$c-E<gt>app-E<gt>config('key')>.
 
+=head2 debug
+
+A shortcut to:
+
+  $c->app->log->debug(@_);
+
+=head2 list_for_json
+
+Prepares a structure suitable for rendering as JSON for 
+listing L<Ado::Model>* objects returned by L<Ado::Model/select_range> and returns it.
+Accepts two C<ARRAYREF>s as parameters:
+
+  my $res = $c->list_for_json([$limit, $offset], \@list_of_objects);
+
+Use this method to ensure uniform and predictable representation 
+across all listing resources.
+See L<http://127.0.0.1:3000/ado-users/list.json> for example output
+and L<Ado::Control::Ado::Users/list> for the example source.
+
+  my @range = ($c->param('limit') || 10, $c->param('offset') || 0);
+  return $c->respond_to(
+    json => $c->list_for_json(
+      \@range, 
+      [Ado::Model::Users->select_range(@range)])
+  );
+
 =head2 require_formats
 
 Require a list of relevant formats or renders "415 - Unsupported Media Type"
 with a text/html type and link to the resource using the first 
 of the preferred formats, and returns false.
 If the URL is in the required format, returns true.
-Adds a header C<Content-Location> with the proper URL to the resource
+Adds a header C<Content-Location> with the proper URL to the resource.
 
   #in an action serving only json
   sub list {

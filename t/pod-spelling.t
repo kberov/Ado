@@ -18,7 +18,7 @@ add_stopwords(
     qw(
       Krasimir Berov Красимир Беров berov URI http html org
       Mojolicious Mojo app apps Foo CPAN ENV SQLite ActivePerl
-      OM ORM precompiled perldoc API RESTful tstamp ERP TODO
+      OM ORM precompiled perldoc API RESTful JSON tstamp ERP TODO
       accessor accessors seq distro bashrc
       )
 );
