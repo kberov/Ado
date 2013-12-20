@@ -5,16 +5,7 @@ use Mojo::Base 'Ado::Control::Ado';
 #available users on this system
 sub list {
     my $c = shift;
-    my $format = $c->stash('format') || '';
-    if ($format ne 'json') {
-        my $location = $c->url_for(format => 'json')->to_abs;
-        $c->res->headers->add('Content-Location' => $location);
-        $location = $c->link_to($location, {format => 'json'});
-        return $c->render(
-            inline => "415 - Unsupported Media Type $format. Please try $location!",
-            status => 415
-        );
-    }
+    $c->require_format('json')||return;
     $c->debug('rendering json only');
 
     my @range = ($c->param('limit') || 10, $c->param('offset') || 0,);
@@ -48,6 +39,21 @@ sub list {
     #content negotiation
     return $c->respond_to(json => $res);
 }
+
+sub add {
+  return shift->render(text=>'not implemented...');
+}
+sub show {
+  return shift->render(text=>'not implemented...');
+}
+sub update {
+  return shift->render(text=>'not implemented...');
+}
+
+sub disable {
+  return shift->render(text=>'not implemented...');
+}
+
 
 1;
 
@@ -93,6 +99,22 @@ If other format is requested returns status 415 with C<Content-location> header
 pointing to the proper URI.
 See L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16> and
 L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.14>.
+
+=head2 add
+
+Adds a user to the table users. Not implemented yet
+
+=head2 show
+
+Displays a user. Not implemented yet
+
+=head2 update
+
+Updates a user. Not implemented yet
+
+=head2 disable
+
+Disables a user. Not implemented yet
 
 =head1 SPONSORS
 

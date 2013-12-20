@@ -61,7 +61,10 @@ sub load_routes {
     my ($app, $config_routes) = @_;
     $config_routes ||= $app->config('routes') || [];
     my $routes = $app->routes;
-
+    
+    #hide some controller methods and atteibutes
+    $routes->hide(qw(debug config require_format));
+    
     foreach my $route (@$config_routes) {
         my ($pattern, $to, $via, $params) =
           ($route->{route}, $route->{to}, $route->{via}, $route->{params});
