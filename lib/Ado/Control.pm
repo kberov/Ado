@@ -41,22 +41,19 @@ sub require_formats {
 
 sub list_for_json {
     my ($c, $range, $dsc_objects) = @_;
+    my $url = $c->url_with(format => $c->stash->{format});
     return {
         json => {
             links => [
                 {   rel  => 'self',
-                    href => $c->url_with()->query(limit => $$range[0], offset => $$range[1])
+                    href => "" . $url->query([offset => $$range[1]])
                 },
                 {   rel  => 'next',
-                    href => $c->url_with()
-                      ->query(limit => $$range[0], offset => $$range[0] + $$range[1])
+                    href => "" . $url->query([offset => $$range[0] + $$range[1]])
                 },
                 (   $$range[1]
                     ? { rel  => 'prev',
-                        href => $c->url_for()->query(
-                            limit  => $$range[0],
-                            offset => $$range[0] - $$range[1]
-                        )
+                        href => "" . $url->query([offset => $$range[1] - $$range[0]])
                       }
                     : ()
                 ),

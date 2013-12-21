@@ -6,10 +6,9 @@ use Mojo::Base 'Ado::Control::Ado';
 sub list {
     my $c = shift;
     $c->require_formats(['json']) || return;
-    $c->debug('rendering json only');
-
     my @range = ($c->param('limit') || 10, $c->param('offset') || 0);
     $c->res->headers->content_range("users $range[1]-${\($range[0] + $range[1])}/*");
+    $c->debug("rendering json only [@range]");
 
     #content negotiation
     return $c->respond_to(
