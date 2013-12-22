@@ -40,6 +40,9 @@ log/README
 MANIFEST			This list of files
 META.json
 META.yml
+public/img/logo.png
+public/img/logo.svg
+public/img/ose.02.gif
 public/index.html
 README
 t/.perlcriticrc

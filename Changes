@@ -1,13 +1,15 @@
 Revision history for Ado
 
-0.17 2013-12-22 17:22:15 CET
+0.18 2013-12-22 17:34:32 CET
     - Removed release_status=>'unstable' from Build.PL.
       This does not mean much.
     - Started developing an external plugin - Ado::Plugin::Mess.
+    - First attempt for a logo.
+
+0.17 2013-12-21 00:11:06 CET
     - Refactored list() in Ado::Control::Ado::Users
       and implemented list_for_json in Ado::Control.
     - Added test users test1 and test2.
-    - First attempt for a logo.
     - Added dummy missing actions to Ado::Control::Ado::Users.
     - Added $c->require_formats(['json', 'xml', 'etc']) to Ado::Control.
     - Enhanced _set_env in Ado::Build.
