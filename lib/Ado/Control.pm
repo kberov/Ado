@@ -35,7 +35,7 @@ sub require_formats {
             inline => $message,
             status => 415
         );
-        return undef;
+        return;
     }
     return 1;
 }
