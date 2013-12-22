@@ -13,9 +13,21 @@ sub register {
     # My magic here! :)
     push @{$app->routes->namespaces}, @{$conf->{namespaces}}
       if @{$conf->{namespaces} || []};
+
+    #Add some conditions: Someday
+#    $app->routes->add_condition(
+#        require_formats => sub {
+#            my ($route, $c, $captures, $formats) = @_;
+#            $c->debug('$route, $c, $captures, $formats:'
+#                  . $c->dumper( $route, ref $c, $captures, $formats));
+#             #Carp::cluck(caller);
+#            return ($c->require_formats($formats) ? 1 : undef);
+#        }
+#    );
     $app->load_routes($conf->{routes});
     return $self;
 }
+
 
 1;
 
@@ -59,6 +71,23 @@ Registers the plugin in L<Ado> application and merges routes
 configuration from C<$MOJO_HOME/etc/ado.conf> with routes defined in
 C<$MOJO_HOME/etc/plugins/routes.conf>. Routes defined in C<ado.conf>
 can overwrite those defined in C<plugins/routes.conf>.
+
+=head1 CONDITIONS
+
+This plugin provides some convenient conditions that you can add to
+your routes. They will be always available and you can use them 
+in your plugins. How to write I<conditions> is explained in 
+L<Mojolicious::Guides::Routing/Conditions> and L<Mojolicious::Guides::Routing/Condition_plugins>.
+TODO.
+
+=cut
+
+#=head2 require_formats
+#
+#Adds a more user friendly status message "415 - Unsupported Media Type"
+#when you want to tell the user how to access a resourse.
+#See L<Ado::Control/require_formats> for details.
+
 
 =head1 SEE ALSO
 

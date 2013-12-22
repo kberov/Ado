@@ -66,13 +66,17 @@ sub load_routes {
     $routes->hide(qw(debug config require_format list_for_json));
 
     foreach my $route (@$config_routes) {
-        my ($pattern, $to, $via, $params) =
-          ($route->{route}, $route->{to}, $route->{via}, $route->{params});
+        my ($pattern, $over, $to, $via, $params) =
+          ($route->{route}, $route->{over}, $route->{to}, $route->{via}, $route->{params});
 
         next unless $to;
         my $r = $params ? $routes->route($pattern, %$params) : $routes->route($pattern);
 
-        #TODO: support other routes descriptions beside 'via'
+        if ($over) {
+            if    (ref $over eq 'ARRAY') { $r->over(@$over); }
+            elsif (ref $over eq 'HASH')  { $r->over(%$over); }
+            else                         { $r->over($over); }
+        }
         if ($via) {
             $r->via(@$via);
         }

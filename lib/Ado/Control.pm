@@ -23,25 +23,28 @@ if ($DEV_MODE) {
 sub require_formats {
     my ($c, $formats) = @_;
     my $format = $c->stash->{format} || '';
-    if (!List::Util::first { $format eq $_ } @$formats) {
+    $c->debug('format:' . $format);
+    unless ((List::Util::first { $format eq $_ } @$formats)) {
         my $location = $c->url_for(format => $formats->[0])->to_abs;
         $c->res->headers->add('Content-Location' => $location);
         $location = $c->link_to($location, {format => $formats->[0]});
         my $message = "415 - Unsupported Media Type $format. Please try $location!";
-        $c->debug($c->url_for . " requires " . join(',', $formats) . ". Rendering: $message")
+        $c->debug($c->url_for . " requires " . join(',', @$formats) . ". Rendering: $message")
           if $DEV_MODE;
         $c->render(
             inline => $message,
             status => 415
         );
-        return '';
+        return undef;
     }
     return 1;
 }
 
 sub list_for_json {
     my ($c, $range, $dsc_objects) = @_;
-    my $url = $c->url_with(format => $c->stash->{format});
+    my $url = $c->url_with(format => $c->stash->{format})->query('limit' => $$range[0]);
+    my $prev = $$range[1] - $$range[0];
+    $prev = $prev > 0 ? $prev : 0;
     return {
         json => {
             links => [
@@ -53,7 +56,7 @@ sub list_for_json {
                 },
                 (   $$range[1]
                     ? { rel  => 'prev',
-                        href => "" . $url->query([offset => $$range[1] - $$range[0]])
+                        href => "" . $url->query([offset => $prev])
                       }
                     : ()
                 ),
