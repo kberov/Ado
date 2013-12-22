@@ -1,4 +1,5 @@
 package Ado::Build;
+use 5.014;
 use strict;
 use warnings FATAL => 'all';
 use File::Spec::Functions qw(catdir catfile catpath);
@@ -24,27 +25,36 @@ my $HOME =
 sub create_build_script {
     my $self = shift;
     if ($self->module_name ne 'Ado') {    #A plugin!!!
-        CORE::say 'Please use Ado::BuildPlugin for installing plugins!';
+        say 'Please use Ado::BuildPlugin for installing plugins!';
         return;
     }
-    if ($ENV{ADO_HOME} && -d catdir($ENV{ADO_HOME}, 'lib')) {
-        CORE::say $self->module_name
+    if ($ENV{ADO_HOME} && -s catfile($ENV{ADO_HOME}, 'lib', 'Ado.pm')) {
+        say $self->module_name
           . ' seems to be already installed.'
           . "$/Please make a backup of your existing installation,"
           . "$/unset ADO_HOME and rerun this script!";
         return;
     }
 
-    my $install_base = $self->install_base;
+    my $install_base = $self->install_base || '';
     my $default_install_base = catdir($HOME, 'opt', 'ado');
-    $self->install_base(
-        $self->prompt(
-            "$/Where do you want to install ${\$self->module_name}?$/"
-              . "Some private install_base directory is *highly* recommended.$/"
-              . "The path will be created if it does not exist.$/",
-            $default_install_base
-        )
-    ) unless $install_base;
+
+    my $cwd = Cwd::cwd;
+
+    #This happened - believe me!
+    my $bad_ib = ($install_base && ($install_base =~ /$cwd/ || $cwd =~ /$install_base/));
+    say "$/Are you sure you want to install to $install_base?!?"
+      if $bad_ib;
+    if (not $install_base or $bad_ib) {
+        $self->install_base(
+            $self->prompt(
+                "$/Where do you want to install ${\$self->module_name}?$/"
+                  . "Some private install_base directory is *highly* recommended.$/"
+                  . "The path will be created if it does not exist.$/",
+                $default_install_base
+            )
+        );
+    }
     $self->install_path(arch => catdir($self->install_base, 'lib'));
     for my $be (qw(lib etc public log templates)) {
         $self->add_build_element($be);
@@ -176,23 +186,23 @@ MESS
     my $bashrc_file = catfile($HOME, '.bashrc');
     require Mojo::Util;
     if ((-r $bashrc_file) && Mojo::Util::slurp($bashrc_file) =~ $ado_home) {
-        CORE::say "$/'$ado_home' is already present in $bashrc_file.$/";
+        say "$/'$ado_home' is already present in $bashrc_file.$/";
     }
     elsif (!(-w $bashrc_file)) {
         $self->prompt($ADO_HOME_MESSAGE);
     }
-    elsif (my $y = $self->prompt($ADO_HOME_MESSAGE_SET_OK, $ado_home)) {
+    elsif (my $y = $self->y_n($ADO_HOME_MESSAGE_SET_OK, "yes")) {
         if (my $bashrc = IO::File->new(">>$bashrc_file")) {
             $bashrc->say("$/$ado_home$/");
             $bashrc->close;
-            CORE::say "$/'$ado_home' was written to $bashrc_file.$/";
+            say "$/'$ado_home' was written to $bashrc_file.$/";
         }
         else {
-            CORE::say STDERR 'ADO_HOME was not successfully set! Reason:' . $!
+            say STDERR 'ADO_HOME was not successfully set! Reason:' . $!
               . "$/Please do it manually.";
         }
     }
-    CORE::say "You may need to open a new terminal window"
+    say "You may need to open a new terminal window"
       . " or source $bashrc_file$/for \$ADO_HOME to be used."
       unless $ENV{ADO_HOME};
 

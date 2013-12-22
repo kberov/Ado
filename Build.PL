@@ -6,15 +6,16 @@ use lib("$FindBin::Bin/lib");
 use Ado::Build;
 
 my $builder = Ado::Build->new(
-    module_name        => 'Ado',
-    license            => 'LGPL_3_0',
-    create_readme      => 1,
-    dist_author        => q{Красимир Беров <berov@cpan.org>},
+    module_name   => 'Ado',
+    license       => 'LGPL_3_0',
+    create_readme => 1,
+    dist_author   => q{Красимир Беров <berov@cpan.org>},
+
     #release_status     => 'unstable',
     configure_requires => {'Module::Build' => '0.3800',},
-    build_requires     => {'Test::More' => '0',},
+    build_requires     => {'Test::More'    => '0',},
     requires           => {
-      'perl' => '5.14.0',
+        'perl'                     => '5.14.0',
         Mojolicious                => '4.60',
         EV                         => '4.15',
         'IO::Socket::IP'           => '0.24',

@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.19 2013-12-23 00:37:22 CET
+    - More strict checks regarding --install_base.
+      use 5.014 to enable say().
+
 0.18 2013-12-22 17:34:32 CET
     - Removed release_status=>'unstable' from Build.PL.
       This does not mean much.

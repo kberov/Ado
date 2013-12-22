@@ -1,4 +1,5 @@
 package Ado::BuildPlugin;
+use 5.014;
 use strict;
 use warnings FATAL => 'all';
 use File::Spec::Functions qw(catdir catfile catpath);
@@ -11,10 +12,10 @@ sub create_build_script {
     my $self = shift;
     $ENV{ADO_HOME} ||= $self->install_base;
     if (!$ENV{ADO_HOME} || !-d catdir($ENV{ADO_HOME}, 'lib')) {
-        CORE::say <<"MSG";
+        say <<"MSG";
        Ado was not found!
        Please first install Ado!"
-       Do not forget to set ADO_HOME environment variable
+       Do not forget to set \$ADO_HOME environment variable
        so Ado plugins can easily find it!
 MSG
         return;
