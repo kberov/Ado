@@ -226,7 +226,7 @@ sub do_create_readme {
         #HACK to create README from Ado::Manual.pod
         require Pod::Text;
         my $readme_from = catfile('lib', 'Ado', 'Manual.pod');
-        my $parser = Pod::Text->new(sentence => 0, indent => 2, width => 80);
+        my $parser = Pod::Text->new(sentence => 0, indent => 2, width => 76);
         $parser->parse_from_file($readme_from, 'README');
     }
     else {
@@ -264,7 +264,7 @@ custom functionality so we can install Ado in a location chosen by the user.
 
 
 This module and L<Ado::BuildPlugin> exist just because of the additional install paths
-that we use beside c<lib> and <bin>. These modules also can serve as examples 
+that we use beside C<lib> and C<bin>. These modules also can serve as examples 
 for your own builders if you have some custom things to do during 
 build, test, install and even if you need to add a new C<ACTION_*> to your setup.
 
@@ -277,12 +277,11 @@ the following ones.
 
 This method is called in C<Build.PL>.
 It checks if C<$ENV{ADO_HOME}> is set and if L<Ado> is installed there.
-If so suggests backup of the existing installation.
-in this method we also call c<add_build_element>
-for C<etc> C<public>  and C<log> folders. 
+If so suggests backup of the existing installation. In this method we also 
+call C<add_build_element> for C<etc> C<public>  and C<log> folders. 
 Also here is the functionality for prompting the user about the
 L<Module::Build/install_base> directory this will be C<$ENV{ADO_HOME}>.
-Finally we set all the c<install_path>s for the distro
+Finally we set all the C<install_path>s for the distro
 and we call C<$self-E<gt>SUPER::create_build_script>.
 
 =head2 process_etc_files

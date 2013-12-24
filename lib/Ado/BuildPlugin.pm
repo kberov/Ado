@@ -55,12 +55,12 @@ Ado::BuildPlugin - Custom routines for Ado::Plugin::* installation
 
 This is a subclass of L<Module::Build>. 
 We use L<Module::Build::API> to add custom functionality 
-so we can install Ado  and it plugins in a location chosen by the user.
+so we can install Ado  and its plugins in a location chosen by the user.
 To use this module for installing your plugins
 $ENV{ADO_HOME} must be available and Ado installed there.
 
 This module and L<Ado::Build> exist because of the additional install paths
-that we use beside c<lib> and <bin>. These modules also can serve as examples 
+that we use beside C<lib> and C<bin>. These modules also can serve as examples 
 for your own builders if you have some custom things to do during 
 build, test, install and even if you need to add a new C<ACTION_*> to your setup.
 
