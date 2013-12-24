@@ -36,7 +36,21 @@ Get a precompiled Perl distro like "Citrus Perl"
 or build your own using L<App::perlbrew>.
 
 Ado can be downloaded from CPAN L<http://search.cpan.org/dist/Ado/>
-or installed via the C<cpan> commandline tool.
+or installed directly from CPAN using C<cpan> or cpanm commandline tools.
+
+  cpan[2]> install Ado
+  Running install for module 'Ado'
+  Running make for B/BE/BEROV/Ado-0.20.tar.gz
+  ...  
+  Where do you want to install Ado?
+  Some private install_base directory is *highly* recommended.
+  The path will be created if it does not exist.
+   [/home/berov/opt/ado ]
+  /home/berov/opt/ado 
+  ...
+    BEROV/Ado-0.20.tar.gz
+  ./Build install install  -- OK
+
 To install manually Ado after downloading, run the following commands:
 
   tar -zxf Ado-X.XX.tar.gz
@@ -70,10 +84,14 @@ Feel invited to make pull requests for your contributions.
 
 =head1 CONTRIBUTING
 
+Of course anybody can contribute by reporting issues via github.
+To be able to contribute with code some rules need to be kept.
+This is mandatory for any community project.
 Generally the rules outlined in L<Mojolicious::Guides::Contributing>
 apply for L<Ado> too.
 For specific to Ado rules see L<Ado::Manual::Contributing>.
 
+We expect that you know how to write perl Modules.
 
 =head1 REST API
 

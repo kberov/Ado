@@ -3,7 +3,9 @@ use 5.014000;
 use strict;
 use warnings FATAL => 'all';
 use Test::More;
-
+$SIG{__WARN__} = sub{
+  return if $_[0] =~m|Wide\scharacter\sin\sprint|x
+};
 # Ensure use Test::Pod::Spelling is installed
 eval "use Test::Pod::Spelling";
 plan skip_all => "Test::Pod::Spelling is required for testing POD spelling." if $@;
@@ -16,10 +18,12 @@ if (not $ENV{TEST_AUTHOR}) {
 #or find another way to shut up "Wide character in print" warnings
 add_stopwords(
     qw(
-      Krasimir Berov Красимир Беров berov URI http html org
-      Mojolicious Mojo app apps Foo CPAN ENV SQLite ActivePerl
-      OM ORM precompiled perldoc API RESTful JSON tstamp ERP TODO
-      accessor accessors seq distro bashrc
+      Krasimir Berov Красимир Беров berov http html org
+      Mojolicious Mojo app apps Foo SQLite ActivePerl
+      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API
+      precompiled perldoc RESTful tstamp
+      accessor accessors seq distro bashrc perltidy perltidyrc
+      cpan cpanm perl
       )
 );
 all_pod_files_spelling_ok();
