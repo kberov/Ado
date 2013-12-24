@@ -20,7 +20,7 @@ This document still evolves but we have to start from somewhere...
 
 The rules outlined in L<Mojolicious::Guides::Contributing>
 apply for L<Ado> too.
-For specific to L<Ado> rules see Below.
+For specific to L<Ado> rules see below.
 
 =head2 PERL STYLE
 
@@ -88,13 +88,20 @@ your templates if you have such.
 
 Put your database related code under the L<Model> namespace. 
 Use L<DBIx::Simple::Class>. 
-Generate your classes from tables using L<dsc_dump_schema.pl> utility.
+Generate your classes from tables using C<dsc_dump_schema.pl> utility
+that comes with DBIx::Simple::Class.
 Feel free to contribute to L<DBIx::Simple::Class>.
+Minimize SQL complexity. Write ANSI SQL if you need to write SQL. 
+Write your SQL in a way to be compatible with 
+L<SQLite|http://sqlite.org/>, L<MySQL|http://dev.mysql.com/> 
+and L<PostgreSQL|http://www.postgresql.org/>.
+Use the L<DBIx::Simple::Class/SQL> feature to achieve this.
 
 =head2 PLUGINS
 
 Feel free to write L<Ado::Plugin>s but first see if there isn't already 
-a L<Mojolicious::Plugin>::* that meets your needs.
+a L<Mojolicious::Plugin>::* that meets your needs. 
+Try first to contribute to the respective plugin.
 Feel free to suggest Mojolicious plugins to be added as dependencies to Ado.
 Be ready to explain well your proposal.
 
