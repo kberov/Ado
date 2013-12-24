@@ -3,17 +3,19 @@ NAME
 
 DESCRIPTION
   Ado is a lightweight and reliable base for developing realtime web
-  applications with database backend for the enterprise. Ado is based on
-  Mojolicious and implements many of the recommendations from
-  Mojolicious::Guides. When in doubt it is recommended to follow these
-  recommendations.
+  applications with database backend for the enterprise.
 
-  Ado is a tipical Mojo application but it adds some default configuration and a
+  Ado is based on Mojolicious and implements many of the recommendations found
+  in Mojolicious::Guides. When in doubt how to implement something we first
+  recur to these recommendations.
+
+  Ado is a typical Mojo application yet it adds some default configuration and a
   model layer. An SQLite database is bundled in the distribution at
   "etc/ado.sqlite" to get started quickly. Tables can be accessed and
   manipulated using DBI, DBIx::Simple or any ORM. We prefer DBIx::Simple::Class
-  trough Mojolicious::Plugin::DSC. DBIx::Simple::Class is a simple OM that
-  provides representation of table records as plain Perl objects.
+  trough Mojolicious::Plugin::DSC. DBIx::Simple::Class was developed in fact for
+  Ado as a simple OM that provides representation of table records as plain Perl
+  objects. Ado is the successor of MYDLjE <https://github.com/kberov/MYDLjE>.
 
 INSTALLATION
   Ado is meant to be installed into a folder of your choice. It can go into the
@@ -34,20 +36,21 @@ INSTALLATION
     cd Ado-X.XX/
     perl Build.PL --install_base $HOME/path/to/ado
     #if run without --install_base $HOME/opt/ado will be suggested
-    ./Build
     ./Build installdeps
+    ./Build
     ./Build test
     ./Build install
 
 SUPPORT AND DOCUMENTATION
-  After installing, you can find documentation with the perldoc command.
+  After installing, you can find documentation with the perldoc command. To use
+  "perldoc" for reading documentation you need to add the full path to Ado
+  "lib/" directory to "PERL5LIB" environment variable.
 
       perldoc Ado
       perldoc Ado::Manual #this page
 
-  To use c<perldoc> for reading documentation you need to add the full path to
-  Ado "lib/" directory to "PERL5LIB" environment variable. For better experience
-  run the "ado" application and read the documentation from your browser.
+  For better experience run the "ado" application and read the documentation
+  from your browser.
 
     $HOME/opt/ado/bin/ado daemon
 

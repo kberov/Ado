@@ -5,10 +5,8 @@ use warnings FATAL => 'all';
 use Test::More;
 use File::Basename;
 
-BEGIN {
-    unshift @INC, dirname(__FILE__) . '/../lib';
-}
-
+plan skip_all => "Pod::Coverage does not discover distro modules under $]"
+  if $] =~/5\.014/;
 #plan(skip_all => 'Temporarily disabled');
 if (not $ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';

@@ -5,8 +5,8 @@ export PERL5LIB=$ADO_HOME/lib
 echo "perltidy Ado source code------------"
 
 perltidy -pro=$ADO_HOME/t/.perltidyrc \
-  $ADO_HOME/Build.PL $ADO_HOME/etc/ado.conf $ADO_HOME/etc/plugins/routes.conf \
-  $ADO_HOME/bin/ado \
+  $ADO_HOME/Build.PL $ADO_HOME/bin/ado \
+  `find $ADO_HOME/etc -name '*.conf'`\
   `find $ADO_HOME/lib -name '*.pm'`\
   `find $ADO_HOME/bin -name '*.pl'`\
   `find $ADO_HOME/t -name '*.t'`

@@ -8,17 +8,19 @@ Ado::Manual - Getting started with Ado
 
 Ado is a lightweight and reliable base for developing realtime 
 web applications with database backend for the enterprise.
-Ado is based on L<Mojolicious> and implements many of the 
-recommendations from L<Mojolicious::Guides>. 
-When in doubt it is recommended to follow these recommendations.
 
-Ado is a tipical Mojo application but it adds some default configuration and
+Ado is based on L<Mojolicious> and implements many of the 
+recommendations found in L<Mojolicious::Guides>. When in doubt how 
+to implement something we first recur to these recommendations.
+
+Ado is a typical Mojo application yet it adds some default configuration and
 a model layer. An SQLite database is bundled in the distribution at
 C<etc/ado.sqlite> to get started quickly. Tables can be accessed and 
 manipulated using L<DBI>, L<DBIx::Simple> or any ORM. 
 We prefer L<DBIx::Simple::Class> trough L<Mojolicious::Plugin::DSC>.
-L<DBIx::Simple::Class> is a simple OM that provides representation 
-of table records as plain Perl objects.                                   
+L<DBIx::Simple::Class> was developed in fact for Ado as a simple OM that 
+provides representation of table records as plain Perl objects.
+Ado is the successor of L<MYDLjE|https://github.com/kberov/MYDLjE>.
 
 =head1 INSTALLATION
 
@@ -41,21 +43,20 @@ To install manually Ado after downloading, run the following commands:
   cd Ado-X.XX/
   perl Build.PL --install_base $HOME/path/to/ado
   #if run without --install_base $HOME/opt/ado will be suggested
-  ./Build
   ./Build installdeps
+  ./Build
   ./Build test
   ./Build install
 
 =head1 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
-perldoc command.  
+perldoc command. To use C<perldoc> for reading documentation you need to add 
+the full path to L<Ado> C<lib/> directory to C<PERL5LIB> environment variable.
 
     perldoc Ado
     perldoc Ado::Manual #this page
 
-To use c<perldoc> for reading documentation you need to add 
-the full path to L<Ado> C<lib/> directory to C<PERL5LIB> environment variable.
 For better experience run the B<C<ado>> application and read the documentation
 from your browser.
 

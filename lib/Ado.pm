@@ -12,7 +12,7 @@ BEGIN {
 
 use Ado::Control;
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.19';
+our $VERSION   = '0.20';
 
 
 # This method will run once at server start

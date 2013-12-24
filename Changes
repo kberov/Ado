@@ -1,5 +1,11 @@
 Revision history for Ado
 
+0.20 2013-12-24 03:22:10 CET
+    - Removed dependency IO::Socket::SSL - not mandatory yet
+    - Upgraded to Mojolicious 4.63
+    - Enhanced Ado::Manual
+    - Skipping pod-coverage.t under Perl 5.014
+
 0.19 2013-12-23 00:37:22 CET
     - More strict checks regarding --install_base.
       use 5.014 to enable say().
