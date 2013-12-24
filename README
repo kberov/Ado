@@ -5,32 +5,47 @@ DESCRIPTION
   Ado is a lightweight and reliable base for developing realtime web
   applications with database backend for the enterprise.
 
-  Ado is based on Mojolicious and implements many of the recommendations found
-  in Mojolicious::Guides. When in doubt how to implement something we first
-  recur to these recommendations.
+  Ado is based on Mojolicious and implements many of the recommendations
+  found in Mojolicious::Guides. When in doubt how to implement something we
+  first recur to these recommendations.
 
-  Ado is a typical Mojo application yet it adds some default configuration and a
-  model layer. An SQLite database is bundled in the distribution at
+  Ado is a typical Mojo application yet it adds some default configuration
+  and a model layer. An SQLite database is bundled in the distribution at
   "etc/ado.sqlite" to get started quickly. Tables can be accessed and
-  manipulated using DBI, DBIx::Simple or any ORM. We prefer DBIx::Simple::Class
-  trough Mojolicious::Plugin::DSC. DBIx::Simple::Class was developed in fact for
-  Ado as a simple OM that provides representation of table records as plain Perl
-  objects. Ado is the successor of MYDLjE <https://github.com/kberov/MYDLjE>.
+  manipulated using DBI, DBIx::Simple or any ORM. We prefer
+  DBIx::Simple::Class trough Mojolicious::Plugin::DSC. DBIx::Simple::Class
+  was developed in fact for Ado as a simple OM that provides representation
+  of table records as plain Perl objects. Ado is the successor of MYDLjE
+  <https://github.com/kberov/MYDLjE>.
 
 INSTALLATION
-  Ado is meant to be installed into a folder of your choice. It can go into the
-  "site" folder of your *non-system Perl distro* but better install it in its
-  own folder.
+  Ado is meant to be installed into a folder of your choice. It can go into
+  the "site" folder of your *non-system Perl distro* but better install it
+  in its own folder.
 
-  We do not recommend using Ado with your system Perl! Get a precompiled Perl
-  distro like "Citrus Perl" (<http://www.citrusperl.com/download.html>) or
-  "ActivePerl Community Edition"
-  (<http://www.activestate.com/activeperl/downloads>) for your OS, or build your
-  own using App::perlbrew.
+  We do not recommend using Ado with your system Perl! Get a precompiled
+  Perl distro like "Citrus Perl" (<http://www.citrusperl.com/download.html>)
+  or "ActivePerl Community Edition"
+  (<http://www.activestate.com/activeperl/downloads>) for your OS, or build
+  your own using App::perlbrew.
 
   Ado can be downloaded from CPAN <http://search.cpan.org/dist/Ado/> or
-  installed via the "cpan" commandline tool. To install manually Ado after
-  downloading, run the following commands:
+  installed directly from CPAN using "cpan" or cpanm commandline tools.
+
+    cpan[2]> install Ado
+    Running install for module 'Ado'
+    Running make for B/BE/BEROV/Ado-0.20.tar.gz
+    ...  
+    Where do you want to install Ado?
+    Some private install_base directory is *highly* recommended.
+    The path will be created if it does not exist.
+     [/home/berov/opt/ado ]
+    /home/berov/opt/ado 
+    ...
+      BEROV/Ado-0.20.tar.gz
+    ./Build install install  -- OK
+
+  To install manually Ado after downloading, run the following commands:
 
     tar -zxf Ado-X.XX.tar.gz
     cd Ado-X.XX/
@@ -42,9 +57,9 @@ INSTALLATION
     ./Build install
 
 SUPPORT AND DOCUMENTATION
-  After installing, you can find documentation with the perldoc command. To use
-  "perldoc" for reading documentation you need to add the full path to Ado
-  "lib/" directory to "PERL5LIB" environment variable.
+  After installing, you can find documentation with the perldoc command. To
+  use "perldoc" for reading documentation you need to add the full path to
+  Ado "lib/" directory to "PERL5LIB" environment variable.
 
       perldoc Ado
       perldoc Ado::Manual #this page
@@ -57,27 +72,35 @@ SUPPORT AND DOCUMENTATION
   Go to http:/localhost:3000/perldoc
 
   You can report bugs and suggest features at
-  <http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed as
-  time permits. Feel invited to make pull requests for your contributions.
+  <http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed
+  as time permits. Feel invited to make pull requests for your
+  contributions.
 
 CONTRIBUTING
-  Generally the rules outlined in Mojolicious::Guides::Contributing apply for
-  Ado too. For specific to Ado rules see Ado::Manual::Contributing.
+  Of course anybody can contribute by reporting issues via github. To be
+  able to contribute with code some rules need to be kept. This is mandatory
+  for any community project. Generally the rules outlined in
+  Mojolicious::Guides::Contributing apply for Ado too. For specific to Ado
+  rules see Ado::Manual::Contributing.
+
+  We expect that you know how to write perl Modules.
 
 REST API
-  Ado strives for strict separation of concerns. The best way to achieve this is
-  to fully separate the client code from the server code. Ado is ideally suited
-  for the purpose thanks to Mojolicious. Every resource is accessible via the
-  REST API. We follow closely and elaborate on the recommendations in "RESTful
-  Service Best Practices" at www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
+  Ado strives for strict separation of concerns. The best way to achieve
+  this is to fully separate the client code from the server code. Ado is
+  ideally suited for the purpose thanks to Mojolicious. Every resource is
+  accessible via the REST API. We follow closely and elaborate on the
+  recommendations in "RESTful Service Best Practices" at
+  www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
 
 PLUGINS
-  One way to contribute to Ado is by writing plugins. They work the same way as
-  Mojolicious::Plugins and share the same common base trough Ado::Plugin. Ado
-  plugins have one small additional feature. They can store separately their own
-  configuration in "$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf".
-  Business-specific applications for an Ado-based system are usually implemented
-  as plugins. See Ado::Manual::Plugins and Ado::Plugin for more information.
+  One way to contribute to Ado is by writing plugins. They work the same way
+  as Mojolicious::Plugins and share the same common base trough Ado::Plugin.
+  Ado plugins have one small additional feature. They can store separately
+  their own configuration in "$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf".
+  Business-specific applications for an Ado-based system are usually
+  implemented as plugins. See Ado::Manual::Plugins and Ado::Plugin for more
+  information.
 
 SEE ALSO
   Ado, Mojolicious::Guides, Mojolicious::Guides::Contributing,
@@ -90,11 +113,11 @@ AUTHOR
 COPYRIGHT AND LICENSE
   Copyright 2013 Красимир Беров (Krasimir Berov).
 
-  This program is free software, you can redistribute it and/or modify it under
-  the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may
-  copy, distribute and modify the software provided that modifications are open
-  source. However, software that includes the license may release under a
-  different license.
+  This program is free software, you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License v3 (LGPL-3.0).
+  You may copy, distribute and modify the software provided that
+  modifications are open source. However, software that includes the license
+  may release under a different license.
 
   See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
