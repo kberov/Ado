@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.21 013-12-24 14:18:23 CET
+0.21 2013-12-24 15:27:01 CET 
     - Huge enhancements in documentation (Ado::Manual::Contributing).
     - Shut up "Wide character in print" from Pod::Spelling.
 
