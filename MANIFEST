@@ -47,7 +47,8 @@ public/img/ose.02.gif
 public/index.html
 README
 t/.perlcriticrc
-t/.perltidyrc
+o
+.perltidyrc
 t/00-load.t
 t/basic.t
 t/boilerplate.t
