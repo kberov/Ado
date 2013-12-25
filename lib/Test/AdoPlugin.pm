@@ -12,7 +12,7 @@ our $OUTPUT_ENCODING = $^O =~ /win/i ? 'cp866' : 'utf8';
 #setup the needed environment
 sub setup {
     my ($class, $file) = @_;
-    $ENV{MOJO_MODE} = 'development';
+    $ENV{MOJO_MODE} = 'development';    ## no critic (RequireLocalizedPunctuationVars)
     ($ENV{MOJO_HOME}) = abs_path($file) =~ m|^(.+)/[^/]+$|;
     my @libs = (
         catdir($ENV{ADO_HOME}, 'site', 'lib'),
@@ -25,7 +25,8 @@ sub setup {
     for my $d (@libs) {
         unshift @INC, $d if -d $d and not(List::Util::first { $d eq $_ } @INC);
     }
-    $ENV{MOJO_CONFIG} = catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');
+    $ENV{MOJO_CONFIG} =
+      catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');   ##no critic (RequireLocalizedPunctuationVars)
     binmode STDOUT, ":$OUTPUT_ENCODING";
     $T = Test::Mojo->new('Ado');
     return $T;

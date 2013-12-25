@@ -45,15 +45,22 @@ sub list_for_json {
     my $url = $c->url_with(format => $c->stash->{format})->query('limit' => $$range[0]);
     my $prev = $$range[1] - $$range[0];
     $prev = $prev > 0 ? $prev : 0;
+    my $data = [map { $_->data } @$dsc_objects];
     return {
         json => {
+
+            #TODO: Strive to implement linking using this reference:
+            # http://www.iana.org/assignments/link-relations/link-relations.xhtml
             links => [
                 {   rel  => 'self',
                     href => "" . $url->query([offset => $$range[1]])
                 },
-                {   rel  => 'next',
-                    href => "" . $url->query([offset => $$range[0] + $$range[1]])
-                },
+                (   @$data == $$range[0]
+                    ? { rel  => 'next',
+                        href => "" . $url->query([offset => $$range[0] + $$range[1]])
+                      }
+                    : ()
+                ),
                 (   $$range[1]
                     ? { rel  => 'prev',
                         href => "" . $url->query([offset => $prev])
@@ -65,6 +72,49 @@ sub list_for_json {
         },
     };
 }    # end sub list_for_json
+
+#validates input parameters given a rules template
+sub validate_input {
+    my ($c, $template) = @_;
+    my $v      = $c->validation;
+    my $errors = {};
+    foreach my $param (keys %$template) {
+        my $checks = $template->{$param};
+        $checks || next;    #not in $template
+
+        #field
+        my $f =
+          delete $checks->{required}
+          ? $v->required($param)
+          : $v->optional($param);
+        foreach my $check (keys %$checks) {
+            if (ref $$checks{$check} eq 'HASH') {
+                $f->$check(%{$checks->{$check}});
+            }
+            elsif (ref $$checks{$check} eq 'ARRAY') {
+                $f->$check(@{$checks->{$check}});
+            }
+            else { $f->$check($checks->{$check}) }
+        }    #end foreach my $check
+        $errors->{$param} = $f->error($param)
+          if $f->error($param);
+
+    }    #end foreach my $param
+
+    return {
+        (   !!keys $errors
+            ? ( errors => $errors,
+                json   => {
+                    status  => 'error',
+                    code    => 400,
+                    message => $errors,
+                    data    => 'validate_input'
+                }
+              )
+            : (output => $v->output)
+        )
+    };
+}
 1;
 
 =pod
@@ -152,10 +202,44 @@ Adds a header C<Content-Location> with the proper URL to the resource.
 This method exists only to show more descriptive message to the end user
 and to give a chance to user agents to go to the proper resource URL.
 
+=head2 validate_input
+
+Uses L<Mojolicious::Controller/validation> to validate all input parameters at once
+given a validation template.
+The template consists of keys matching the input parameters to be validated.
+The values are HASH references describing the rules. Each rule name corresponds 
+to a method/check in L<Mojolicious::Validator/CHECKS>. You can use your own
+checks if you add them using L<Mojolicious::Validator/add_check>.
+
+Returns a HASH reference. 
+In case of errors it contains C<errors> and C<json> HASH references.
+In case of success contains only C<output> HASH reference from 
+L<Mojolicious::Validator::Validation/output>.
+
+    my $rules = {
+        to_uid => {
+            'required' => 1, like => qr/^\d{1,20}$/
+        },
+        subject => {
+            'required' => 1, like => qr/^.{1,255}$/
+        },
+        #...
+    }
+    my $result = $c->validate_input($rules);
+
+    #400 Bad Request
+    return $c->render(
+        status => 400,
+        json   => $result->{json}
+    ) if $result->{errors};
+
+
+
+
 =head1 SEE ALSO
 
-L<Mojolicious::Controller>, L<Ado::Manual::Controllers>
-
+L<Mojolicious::Controller>, L<Ado::Manual::Controllers>,
+L<Ado::Manual::RESTAPI>
 
 =head1 AUTHOR
 

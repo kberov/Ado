@@ -1,8 +1,11 @@
 Revision history for Ado
 
-0.21 2013-12-24 16:38:40 CET
+0.21 2013-12-25 13:57:29 CET
+    - Improved list_for_json in Ado::Control.
+    - Implemented validate_input in Ado::Control.
     - Implemented Test::AdoPlugin.
-    - Huge enhancements in documentation (Ado::Manual::Contributing).
+    - Huge enhancements in documentation 
+      (mostly in Ado::Manual::Contributing).
     - Shut up "Wide character in print" from Pod::Spelling.
 
 0.20 2013-12-24 03:22:10 CET

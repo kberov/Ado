@@ -4,9 +4,15 @@
 
 =head1 NAME
 
-RESTAPI - all resources provided by Ado.
+Ado::Manual::RESTAPI - all resources provided by Ado.
 
 
+=head1 RESOURCES
+
+This REST API was developed in an essay to get the best from the following ressources.
+L<Web Linking|http://tools.ietf.org/html/rfc5988>, 
+L<Link Relations|http://www.iana.org/assignments/link-relations/link-relations.xhtml>,
+L<http://www.restapitutorial.com/>
 
 =cut
 
