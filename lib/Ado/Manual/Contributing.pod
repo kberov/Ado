@@ -26,11 +26,11 @@ For specific to L<Ado> rules see below.
 
 The code must look uniformly as if it is written by one person.
 No matter if you write code for the L<Ado> core or you write a plugin,
-your code must be passed through perltidy using the C<t/.perltidyrc>
+your code must be passed through perltidy using the C<.perltidyrc>
 file found in the Ado distribution. A helper bash script is available
 C<bin/ado_perltidy>. It will be implemented as
 L<Ado::Command::perltidy>(TODO) soon. Feel free to propose more rules 
-to C<t/.perltidyrc>. Be ready to explain well your proposal.
+to C<.perltidyrc>. Be ready to explain well your proposal.
 
 =cut
 
