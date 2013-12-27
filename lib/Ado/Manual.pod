@@ -36,7 +36,7 @@ Get a precompiled Perl distro like "Citrus Perl"
 or build your own using L<App::perlbrew>.
 
 Ado can be downloaded from CPAN L<http://search.cpan.org/dist/Ado/>
-or installed directly from CPAN using C<cpan> or cpanm commandline tools.
+or installed directly from CPAN using C<cpan> or C<cpanm> commandline tools.
 
   cpan[2]> install Ado
   Running install for module 'Ado'
