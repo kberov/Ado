@@ -141,14 +141,16 @@ sub ACTION_install {
 
     #Custom functionality before installation
     #here...
+    #TODO: Think about what to do with *.conf and *.sqlite files in case of upgrade!!!
+    #TODO: (upgrade)rotate logs - archive existing log files before emptying.
     $self->SUPER::ACTION_install;
 
     #Custom functionality after installation
+    #see below
     my $etc_dir = $self->install_path('etc');
     my $log_dir = $self->install_path('log');
 
     #make some files writable and/or readable only by the user that runs the application
-    #TODO: Think about what to do with *.conf and *.sqlite files in case of upgrade!!!
     for my $asset (qw(ado.conf plugins/routes.conf)) {
         chmod(0400, catfile($etc_dir, $asset))
           || Carp::carp("Problem with $etc_dir/$asset: $!");
