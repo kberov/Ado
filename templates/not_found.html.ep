@@ -1,0 +1,9 @@
+<html>
+  <head>
+    <title>Not Found</title>
+  </head>
+  <body>  
+    <h1>Not Found</h1>
+    <p>The path <%=$self->req->url->path%> was not found. Sorry!..</p>
+  </body>
+</html>
