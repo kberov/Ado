@@ -80,7 +80,7 @@ sub validate_input {
     my $errors = {};
     foreach my $param (keys %$template) {
         my $checks = $template->{$param};
-        $checks || next;    #not in $template
+        $checks || next;    #false or undefined?!?
 
         #field
         my $f =
