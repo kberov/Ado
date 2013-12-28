@@ -264,12 +264,14 @@ sub _empty_log_files {
 sub do_create_readme {
     my $self = shift;
     if ($self->dist_version_from =~ /Ado\.pm$/) {
-
-        #HACK to create README from Ado::Manual.pod
-        require Pod::Text;
-        my $readme_from = catfile('lib', 'Ado', 'Manual.pod');
-        my $parser = Pod::Text->new(sentence => 0, indent => 2, width => 76);
-        $parser->parse_from_file($readme_from, 'README');
+        eval {
+            use Mojo::Util qw(spurt);
+            use Pod::Markdown;
+            my $parser    = Pod::Markdown->new;
+            my $readme_fh = IO::File->new("lib/Ado/Manual.pod");
+            $parser->parse_from_filehandle($readme_fh);
+            spurt $parser->as_markdown, 'README.md';
+        };
     }
     else {
         $self->SUPER::do_create_readme();

@@ -34,6 +34,7 @@ my $builder = Ado::Build->new(
         'Test::Pod::Coverage' => '1.08',
         'Test::Pod'           => '1.48',
         'Devel::Cover'        => '1.08',
+        'Pod::Markdown'       => '0',
 
         #We cope with DBD::SQLite just fine,
         #but DBD::mysql will be also supported some day

@@ -45,7 +45,7 @@ public/img/logo.png
 public/img/logo.svg
 public/img/ose.02.gif
 public/index.html
-README
+README.md
 t/.perlcriticrc
 t/00-load.t
 t/basic.t
