@@ -35,6 +35,8 @@ Get a precompiled Perl distro like "Citrus Perl"
 (L<http://www.activestate.com/activeperl/downloads>) for your OS, 
 or build your own using L<App::perlbrew>.
 
+=head2 CPAN
+
 Ado can be downloaded from CPAN L<http://search.cpan.org/dist/Ado/>
 or installed directly from CPAN using C<cpan> or C<cpanm> commandline tools.
 
@@ -51,6 +53,8 @@ or installed directly from CPAN using C<cpan> or C<cpanm> commandline tools.
     BEROV/Ado-0.20.tar.gz
   ./Build install install  -- OK
 
+=head2 MANUAL
+
 To install manually Ado after downloading, run the following commands:
 
   tar -zxf Ado-X.XX.tar.gz
@@ -61,6 +65,16 @@ To install manually Ado after downloading, run the following commands:
   ./Build
   ./Build test
   ./Build install
+
+=head2 PERLBREW
+
+Installing Ado under the perlbrew environment
+
+  perlbrew init
+  perlbrew install -n perl-5.18.1 --as ado -j 3
+  perlbrew switch ado
+  perlbrew install-cpanm
+  cpanm Ado
 
 =head1 SUPPORT AND DOCUMENTATION
 
