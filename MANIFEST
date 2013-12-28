@@ -1,6 +1,5 @@
 .perltidyrc
 bin/ado
-bin/ado_perltidy
 Build.PL
 Changes
 etc/ado-sqlite-data.sql
