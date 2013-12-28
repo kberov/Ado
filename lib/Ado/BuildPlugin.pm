@@ -6,7 +6,10 @@ use File::Spec::Functions qw(catdir catfile catpath);
 use File::Path qw(make_path);
 use File::Copy qw(copy);
 use parent 'Module::Build';
-use Ado::Build qw(process_etc_files process_public_files process_templates_files);
+use Ado::Build qw(
+  process_etc_files process_public_files
+  process_templates_files
+  ACTION_perltidy ACTION_submit);
 
 sub create_build_script {
     my $self = shift;
@@ -75,7 +78,9 @@ C<process_templates_files> from L<Ado::Build>.
 =head2 create_build_script
 
 Creates a C<Build> script for instaling an L<Ado> plugin.
-
+This method will be called 
+during C<./Build dist> if you set the property C<create_readme> 
+in your C<Build.PL>.
 
 =head1 AUTHOR
 

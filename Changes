@@ -1,6 +1,9 @@
 Revision history for Ado
 
-0.21 2013-12-25 13:57:29 CET
+0.21 2013-12-28 03:33:14 CET
+    - Added build action submit (draft).
+    - Added build action "perltidy" - see Ado::Build.
+      Thanks to Vulcho Nedelchev(WEBY) for the inspiration.
     - Improved list_for_json in Ado::Control.
     - Implemented validate_input in Ado::Control.
     - Implemented Test::AdoPlugin.

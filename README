@@ -30,7 +30,7 @@ INSTALLATION
   your own using App::perlbrew.
 
   Ado can be downloaded from CPAN <http://search.cpan.org/dist/Ado/> or
-  installed directly from CPAN using "cpan" or cpanm commandline tools.
+  installed directly from CPAN using "cpan" or "cpanm" commandline tools.
 
     cpan[2]> install Ado
     Running install for module 'Ado'

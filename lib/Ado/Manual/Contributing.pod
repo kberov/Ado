@@ -26,11 +26,9 @@ For specific to L<Ado> rules see below.
 
 The code must look uniformly as if it is written by one person.
 No matter if you write code for the L<Ado> core or you write a plugin,
-your code must be passed through perltidy using the C<t/.perltidyrc>
-file found in the Ado distribution. A helper bash script is available
-C<bin/ado_perltidy>. It will be implemented as
-L<Ado::Command::perltidy>(TODO) soon. Feel free to propose more rules 
-to C<t/.perltidyrc>. Be ready to explain well your proposal.
+your code must be passed through perltidy using the C<./Build perltidy>
+action in the Ado distribution. Feel free to propose more rules 
+to C<.perltidyrc>. Be ready to explain well your proposal.
 
 =cut
 
@@ -58,7 +56,7 @@ The C<t/pod-coverage.t>, C<t/pod.t> and C<t/pod-spelling.t> must always PASS.
 Your code I<B<must at least>> prove that it behaves as expected. 
 This is achieved by writing tests. By Imposing Perl Best Practices 
 we also decrease the amount and complexity of needed test code. 
-Use C<Build testcover> to measure the amount of test coverage for your
+Use C<./Build testcover> to measure the amount of test coverage for your
 code. It is up to you how much coverage is enough but B<I<coverage under 70%
 is not acceptable>> (TODO).
 
@@ -73,7 +71,7 @@ Ado is a system that will provide REST services out of the box.
 Separation of concerns must be to its maximum. Your REST API must be 
 self describing. Elaborate on the recommendations in
 "RESTful Service Best Practices" at L<www.RestApiTutorial.com>. 
-You must have a reference implementation of a user-agent residing in 
+You must have a reference implementation of a browser-based user-agent(yourpluginroute.html) residing in 
 C<Ado/public/>. It would be best if your code is CORS-ready this 
 should be easy if your code depends on Ado::Plugin::CORS(TODO).
 See L<Ado::Manual::RESTAPI>(TODO). Feel free to propose additional best
@@ -81,6 +79,7 @@ practices. Be ready to explain well your proposal.
 
 =head2 TEMPLATES
 
+We have a minimal set of templates residing in the C<templates> directory.
 Separation of concerns must be to its maximum. Strive for minimal logic in
 your templates if you have such.
 
@@ -96,6 +95,15 @@ Write your SQL in a way to be compatible with
 L<SQLite|http://sqlite.org/>, L<MySQL|http://dev.mysql.com/> 
 and L<PostgreSQL|http://www.postgresql.org/>.
 Use the L<DBIx::Simple::Class/SQL> feature to achieve this.
+See L<DBIx::Simple::Class/SQL> and its source to figure out how to do it.
+To guess the current driver:
+
+  use DBI::Const::GetInfoType;
+  #...
+  my $dbms = $self->dbh->get_info( $GetInfoType{SQL_DBMS_NAME} );
+  if($dbms eq 'SQLite'){
+  ...
+  }
 
 =head2 PLUGINS
 

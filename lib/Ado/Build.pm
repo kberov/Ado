@@ -5,10 +5,13 @@ use warnings FATAL => 'all';
 use File::Spec::Functions qw(catdir catfile catpath);
 use File::Path qw(make_path);
 use File::Copy qw(copy);
+use Cwd qw(abs_path);
 use parent 'Module::Build';
-use Exporter qw( import );    #export functionality to consumers
-our @EXPORT_OK =
-  (qw(create_build_script process_etc_files process_public_files process_templates_files));
+use Exporter qw( import );    #export functionality to Ado::BuildPlugin etc..
+our @EXPORT_OK = qw(
+  create_build_script process_etc_files
+  process_public_files process_templates_files
+  ACTION_perltidy ACTION_submit);
 
 
 #Shamelessly stollen from File::HomeDir::Windows
@@ -18,7 +21,7 @@ my $HOME =
   || (
     $ENV{HOMEDRIVE} && $ENV{HOMEPATH}
     ? catpath($ENV{HOMEDRIVE}, $ENV{HOMEPATH}, '')
-    : Cwd::abs_path('./')
+    : abs_path('./')
   );
 
 
@@ -127,6 +130,7 @@ sub ACTION_build {
 
 sub ACTION_dist {
     my $self = shift;
+    $self->depends_on("perltidy");
 
     #Make sure *log files are empty before including them into the distro
     _empty_log_files('blib/log');
@@ -165,6 +169,42 @@ sub ACTION_install {
           || Carp::carp("Problem with $log_dir/$asset.log: $!");
     }
     $self->_set_env();
+    return;
+}
+
+sub ACTION_perltidy {
+    my $self = shift;
+    require File::Find;
+    eval { require Perl::Tidy } || do {
+        say "Perl::Tidy is not installed$/" . "Please install it and rerun ./Build perltidy";
+        return;
+    };
+    my @files;
+    File::Find::find(
+        {   no_chdir => 1,
+            wanted   => sub {
+                return if -d $File::Find::name;
+                my $file = $File::Find::name;
+                unlink $file and return if $file =~ /.bak/;
+                push @files, $file
+                  if $file =~ m/(\.conf|\.pm|.pl|Build\.PL|ado\|\.t)$/x;
+            },
+        },
+        map { abs_path($_) } (qw(bin lib etc t))
+    );
+
+    #We use ./.perltidyrc for all arguments
+    Perl::Tidy::perltidy(argv => [@files]);
+    foreach my $file (@files) {
+        unlink("$file.bak") if -f "$file.bak";
+    }
+    return;
+}
+
+sub ACTION_submit {
+    my $self = shift;
+    $self->depends_on("perltidy");
+    say "TODO: commit and push after tidying and testing and who knows what";
     return;
 }
 
@@ -258,6 +298,19 @@ Ado::Build - Custom routines for Ado installation
   use Ado::Build;
   my $builder = Ado::Build->new(..);
   $self->create_build_script();
+  
+  #on the command line
+  cd /path/to/cloned/Ado
+  perl Build.PL
+  ./Build
+  ./Build test
+  #change/add some code
+  ./Build test
+  ./Build perltidy
+  ./Build dist
+  ./Build submit
+  #.... and so on
+
 
 =head1 DESCRIPTION
 
@@ -309,13 +362,13 @@ Returns void.
 
 =head2 ACTION_build
 
-We will put here custom functionality executed around the
-C<$self-E<gt>SUPER::ACTION_build>.
+We put here custom functionality executed around the
+C<$self-E<gt>SUPER::ACTION_build>. See the source for details.
 
 =head2 ACTION_dist
 
-We will put here custom functionality executed around the
-C<$self-E<gt>SUPER::ACTION_dist>.
+We put here custom functionality executed around the
+C<$self-E<gt>SUPER::ACTION_dist>. See the sources for details.
 
 =head2 ACTION_install
 
@@ -324,19 +377,35 @@ like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
 Finally prompts the user to add C<$ENV{ADO_HOME}> to ~/.bashrc.
 This is currently not implemented for Windows. 
 The user will have to add C<$ENV{ADO_HOME}> as environment 
-variable him self.
+variable him self. You can put additional custom functionality here.
 
-You can put additional custom functionality here.
+=head2 ACTION_perltidy
+
+This is a custom action. Tidies all C<*.conf, *.pm, *.pl,*.t> 
+files found in directories C<./lib, ./t ./etc>
+in the distribution. uses the C<./pertidyrc> found in the root 
+directory of the distribution.
+This action is run first always when you run C<./Build dist>.
+
+  ./Build perltidy
+
+=head2 ACTION_submit
+
+TODO: commit and push after testing tidying and who knows what..
+
+  ./Build submit
+
+
 
 =head2 do_create_readme
 
-Creates the README file. It will be called during C<./Build dist> 
-if you set the property C<create_readme> in C<Build.PL>.
+Creates the README file from C<lib/Ado/Manual.pod>. 
 
 =head1 SEE ALSO
 
 L<Ado::BuildPlugin>,
 L<Module::Build::API>,
+L<Module::Build::Authoring>,
 L<Module::Build::Cookbook/ADVANCED_RECIPES>,
 Build.PL in Ado distribution directory.
 

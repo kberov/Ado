@@ -27,7 +27,7 @@ sub setup {
     for my $d (@libs) {
         unshift @INC, $d if -d $d and not(List::Util::first { $d eq $_ } @INC);
     }
-    $ENV{MOJO_CONFIG} = ## no critic (RequireLocalizedPunctuationVars)
+    $ENV{MOJO_CONFIG} =    ## no critic (RequireLocalizedPunctuationVars)
       catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');   ##no critic (RequireLocalizedPunctuationVars)
     binmode STDOUT, ":$OUTPUT_ENCODING";
     $T = Test::Mojo->new('Ado');
