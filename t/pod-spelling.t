@@ -10,7 +10,7 @@ $SIG{__WARN__} = sub {
 # Ensure use Test::Pod::Spelling is installed
 eval "use Test::Pod::Spelling";
 plan skip_all => "Test::Pod::Spelling is required for testing POD spelling." if $@;
-if (not $ENV{TEST_AUTHOR}) {
+if (!$ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
     plan(skip_all => $msg);
 }
@@ -21,7 +21,7 @@ add_stopwords(
     qw(
       Krasimir Berov Красимир Беров berov http html org
       Mojolicious Mojo app apps Foo SQLite ActivePerl
-      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API
+      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
       precompiled perldoc RESTful tstamp
       accessor accessors seq distro bashrc perltidy perltidyrc
       cpan cpanm perl
