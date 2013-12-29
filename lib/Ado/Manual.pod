@@ -4,29 +4,26 @@
 
 Ado::Manual - Getting started with Ado 
 
+=head1 SYNOPSIS
+
+  cd where/is/Ado
+  bin/ado daemon
+  Server available at http://127.0.0.1:3000
+
 =head1 DESCRIPTION
 
-Ado is a lightweight and reliable base for developing realtime 
-web applications with database backend for the enterprise.
-
-Ado is based on L<Mojolicious> and implements many of the 
-recommendations found in L<Mojolicious::Guides>. When in doubt how 
-to implement something we first recur to these recommendations.
+Ado is a framework for web projects based on L<Mojolicious>,
+written in the L<Perl programming language|http://www.perl.org/>.
 
 Ado is a typical Mojo application yet it adds some default configuration and
-a model layer. An SQLite database is bundled in the distribution at
-C<etc/ado.sqlite> to get started quickly. Tables can be accessed and 
-manipulated using L<DBI>, L<DBIx::Simple> or any ORM. 
-We prefer L<DBIx::Simple::Class> trough L<Mojolicious::Plugin::DSC>.
-L<DBIx::Simple::Class> was developed in fact for Ado as a simple OM that 
-provides representation of table records as plain Perl objects.
-Ado is the successor of L<MYDLjE|https://github.com/kberov/MYDLjE>.
+a model layer - L<Mojolicious::Plugin::DSC>. An SQLite database is bundled 
+in the distribution at C<etc/ado.sqlite> to get started quickly. 
 
 =head1 INSTALLATION
 
-Ado is meant to be installed into a folder of your choice.
+Ado is meant to be I<installed into a folder of your choice>.
 It can go into the C<site> folder of your B<I<non-system Perl distro>> but
-better install it in its own folder.
+B<better> install it in its own folder.
 
 We do not recommend using Ado with your system Perl!
 Get a precompiled Perl distro like "Citrus Perl" 
@@ -35,23 +32,8 @@ Get a precompiled Perl distro like "Citrus Perl"
 (L<http://www.activestate.com/activeperl/downloads>) for your OS, 
 or build your own using L<App::perlbrew>.
 
-=head2 CPAN
-
 Ado can be downloaded from CPAN L<http://search.cpan.org/dist/Ado/>
-or installed directly from CPAN using C<cpan> or C<cpanm> commandline tools.
-
-  cpan[2]> install Ado
-  Running install for module 'Ado'
-  Running make for B/BE/BEROV/Ado-0.20.tar.gz
-  ...  
-  Where do you want to install Ado?
-  Some private install_base directory is *highly* recommended.
-  The path will be created if it does not exist.
-   [/home/berov/opt/ado ]
-  /home/berov/opt/ado 
-  ...
-    BEROV/Ado-0.20.tar.gz
-  ./Build install install  -- OK
+and installed manually or installed directly from CPAN using C<cpan> or C<cpanm> commandline tools.
 
 =head2 MANUAL
 
@@ -59,12 +41,24 @@ To install manually Ado after downloading, run the following commands:
 
   tar -zxf Ado-X.XX.tar.gz
   cd Ado-X.XX/
-  perl Build.PL --install_base $HOME/path/to/ado
-  #if run without --install_base $HOME/opt/ado will be suggested
+  perl Build.PL --install_base $HOME/opt/ado
   ./Build installdeps
   ./Build
   ./Build test
   ./Build install
+
+=head2 CPAN
+
+  cpanm Ado
+  #or
+  cpan[1]> install Ado
+  Running install for module 'Ado'
+  Running make for B/BE/BEROV/Ado-0.22.tar.gz
+  ...  
+  ...
+    BEROV/Ado-0.22.tar.gz
+  ./Build install install  -- OK
+
 
 =head2 PERLBREW
 
@@ -79,8 +73,9 @@ Installing Ado under the perlbrew environment
 =head1 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
-perldoc command. To use C<perldoc> for reading documentation you need to add 
-the full path to L<Ado> C<lib/> directory to C<PERL5LIB> environment variable.
+perldoc command. To use C<perldoc> for reading documentation you may 
+need to add the full path to L<Ado> C<lib/> directory to C<PERL5LIB>
+environment variable.
 
     perldoc Ado
     perldoc Ado::Manual #this page

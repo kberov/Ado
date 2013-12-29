@@ -12,31 +12,15 @@ require Mojolicious::Commands;
 Mojolicious::Commands->start_app('Ado');
 
 sub _set_env {
-    $ENV{ADO_HOME}  ||= '';
     $ENV{MOJO_MODE} ||= 'development';
 
     #$ENV{MOJO_MODE}='production';
     $ENV{MOJO_HOME} ||= abs_path(catdir($FindBin::Bin, updir));
     $ENV{MOJO_CONFIG} ||= $ENV{MOJO_HOME} . '/etc/ado.conf';
-    my @libs = (catdir($ENV{MOJO_HOME}, 'site', 'lib'), catdir($ENV{MOJO_HOME}, 'lib'));
+    my @libs = (catdir($ENV{MOJO_HOME}, 'site', 'lib'),
+      catdir($ENV{MOJO_HOME}, 'lib'));
     for my $d (@libs) {
         unshift @INC, $d if -d $d;
     }
-    my $ADO_HOME_MESSAGE = <<"MESS";
-
-  \$ENV{ADO_HOME} is not the same as 
-  the automatically discovered Ado home directory
-  \$ENV{MOJO_HOME}: $ENV{MOJO_HOME}
-  You run "ado" from $FindBin::Bin.
-
-  Please set 
-  export ADO_HOME=/path/to/ado 
-  in your .bashrc
-  after installing Ado so Ado plugins can easily find it.
-  Current value: ADO_HOME='$ENV{ADO_HOME}'
-MESS
-    my $PERL5LIB_MESSAGE = <<"MESS";
-MESS
-    say STDERR $ADO_HOME_MESSAGE unless $ENV{ADO_HOME} eq $ENV{MOJO_HOME};
     return;
 }

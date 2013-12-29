@@ -61,3 +61,5 @@ minimum_regex_length_to_complain_about = 20
 [InputOutput::RequireBriefOpen]
 lines = 21
 
+[Variables::RequireLocalizedPunctuationVars]
+allow = %ENV

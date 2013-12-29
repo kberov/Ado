@@ -9,10 +9,14 @@ my $builder = Ado::Build->new(
     module_name   => 'Ado',
     license       => 'LGPL_3_0',
     create_readme => 1,
+    create_license=>1,
     dist_author   => q{Красимир Беров <berov@cpan.org>},
 
     #release_status     => 'unstable',
-    configure_requires => {'Module::Build' => '0.3800',},
+    configure_requires => {
+    'Module::Build' => '0.3800',
+    'Software::License' => '0.103007',
+    },
     build_requires     => {'Test::More'    => '0',},
     requires           => {
         'perl'           => '5.14.0',
@@ -43,11 +47,9 @@ my $builder = Ado::Build->new(
     },
     recursive_test_files => 1,
     meta_merge           => {
-        requires  => {perl => '5.014000'},
         resources => {
             repository => "http://github.com/kberov/Ado",
             bugtracker => "http://github.com/kberov/Ado/issues",
-            license    => 'http://www.gnu.org/licenses/lgpl-3.0.txt',
         },
         keywords => [qw/Ado Mojolicious web ERP REST CMS enterprise/]
     },

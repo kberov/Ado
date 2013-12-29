@@ -26,7 +26,7 @@ for my $file (@files) {
 }
 
 for (
-    qw(_empty_log_files process_etc_files _set_env
+    qw(_empty_log_files process_etc_files
     process_public_files process_log_files process_templates_files
     ACTION_build ACTION_dist ACTION_install ACTION_perltidy ACTION_submit)
   )

@@ -1,7 +1,10 @@
 Revision history for Ado
 
-0.22 2013-12-28 18:22:49 CET
-    - Wellcome Vylcho to the core team :).
+0.22 2013-12-29 02:26:55 CET
+    - Wellcome Vylcho to the core team :)!
+    - Removed $ADO_HOME (by popular demand) 
+    and symplified installation process a lot.
+    - Improved Manual.pod/README.
 
 0.21 2013-12-28 03:37:42 CET
     - Added build action submit (draft).

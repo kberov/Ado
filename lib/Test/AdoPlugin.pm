@@ -17,8 +17,6 @@ sub setup {
     $ENV{MOJO_MODE} = 'development';    ## no critic (RequireLocalizedPunctuationVars)
     ($ENV{MOJO_HOME}) = abs_path($file) =~ m|^(.+)/[^/]+$|;
     my @libs = (
-        catdir($ENV{ADO_HOME}, 'site', 'lib'),
-        catdir($ENV{ADO_HOME}, 'lib'),
         -e catdir($ENV{MOJO_HOME}, '..', 'blib')
         ? catdir($ENV{MOJO_HOME}, '..', 'blib')
         : catdir($ENV{MOJO_HOME}, '..', 'lib')
@@ -27,7 +25,7 @@ sub setup {
     for my $d (@libs) {
         unshift @INC, $d if -d $d and not(List::Util::first { $d eq $_ } @INC);
     }
-    $ENV{MOJO_CONFIG} =    ## no critic (RequireLocalizedPunctuationVars)
+    $ENV{MOJO_CONFIG} =
       catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');   ##no critic (RequireLocalizedPunctuationVars)
     binmode STDOUT, ":$OUTPUT_ENCODING";
     $T = Test::Mojo->new('Ado');

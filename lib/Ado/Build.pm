@@ -26,40 +26,19 @@ my $HOME =
 
 
 sub create_build_script {
-    my $self = shift;
+    my $self           = shift;
+    my @build_elements = qw(lib etc public log templates);
     if ($self->module_name ne 'Ado') {    #A plugin!!!
         say 'Please use Ado::BuildPlugin for installing plugins!';
         return;
     }
-    if ($ENV{ADO_HOME} && -s catfile($ENV{ADO_HOME}, 'lib', 'Ado.pm')) {
-        say $self->module_name
-          . ' seems to be already installed.'
-          . "$/Please make a backup of your existing installation,"
-          . "$/unset ADO_HOME and rerun this script!";
-        return;
-    }
 
-    my $install_base = $self->install_base || '';
-    my $default_install_base = catdir($HOME, 'opt', 'ado');
-
-    my $cwd = Cwd::cwd;
-
-    #This happened - believe me!
-    my $bad_ib = ($install_base && ($install_base =~ /$cwd/ || $cwd =~ /$install_base/));
-    say "$/Are you sure you want to install to $install_base?!?"
-      if $bad_ib;
-    if (not $install_base or $bad_ib) {
-        $self->install_base(
-            $self->prompt(
-                "$/Where do you want to install ${\$self->module_name}?$/"
-                  . "Some private install_base directory is *highly* recommended.$/"
-                  . "The path will be created if it does not exist.$/",
-                $default_install_base
-            )
-        );
-    }
+    #setting default install_base
+    my $c = $self->{config};
+    $self->install_base || $self->install_base($c->get('siteprefixexp'));
     $self->install_path(arch => catdir($self->install_base, 'lib'));
     for my $be (qw(lib etc public log templates)) {
+        next unless -d $be;
         $self->add_build_element($be);
         $self->install_path($be => catdir($self->install_base, $be));
     }
@@ -168,7 +147,7 @@ sub ACTION_install {
         chmod(0600, catfile($log_dir, "$asset.log"))
           || Carp::carp("Problem with $log_dir/$asset.log: $!");
     }
-    $self->_set_env();
+
     return;
 }
 
@@ -198,7 +177,7 @@ sub ACTION_perltidy {
     foreach my $file (@files) {
         unlink("$file.bak") if -f "$file.bak";
     }
-    return;
+    return 1;
 }
 
 sub ACTION_submit {
@@ -208,48 +187,6 @@ sub ACTION_submit {
     return;
 }
 
-#Sets Environmnent varable ADO_HOME in $HOME/.bashrc
-sub _set_env {
-    my $self = shift;
-    return if ($ENV{ADO_HOME});    #ADO_HOME is set
-
-    my $ado_home         = 'export ADO_HOME=' . $self->install_base;
-    my $ADO_HOME_MESSAGE = <<"MESS";
-
-Please do not forget to set ADO_HOME in your shell specific .*rc file:
-$ado_home
-so Ado plugins can easily find it.
-MESS
-    my $ADO_HOME_MESSAGE_SET_OK = <<"MESS";
-
-Do you want me to write ADO_HOME to $HOME/.bashrc 
-so Ado plugins can easily find it?
-MESS
-    my $bashrc_file = catfile($HOME, '.bashrc');
-    require Mojo::Util;
-    if ((-r $bashrc_file) && Mojo::Util::slurp($bashrc_file) =~ $ado_home) {
-        say "$/'$ado_home' is already present in $bashrc_file.$/";
-    }
-    elsif (!(-w $bashrc_file)) {
-        $self->prompt($ADO_HOME_MESSAGE);
-    }
-    elsif (my $y = $self->y_n($ADO_HOME_MESSAGE_SET_OK, "yes")) {
-        if (my $bashrc = IO::File->new(">>$bashrc_file")) {
-            $bashrc->say("$/$ado_home$/");
-            $bashrc->close;
-            say "$/'$ado_home' was written to $bashrc_file.$/";
-        }
-        else {
-            say STDERR 'ADO_HOME was not successfully set! Reason:' . $!
-              . "$/Please do it manually.";
-        }
-    }
-    say "You may need to open a new terminal window"
-      . " or source $bashrc_file$/for \$ADO_HOME to be used."
-      unless $ENV{ADO_HOME};
-
-    return;
-}
 
 #Empties log files in a given directory.
 sub _empty_log_files {
@@ -333,11 +270,8 @@ the following ones.
 =head2 create_build_script
 
 This method is called in C<Build.PL>.
-It checks if C<$ENV{ADO_HOME}> is set and if L<Ado> is installed there.
-If so suggests backup of the existing installation. In this method we also 
-call C<add_build_element> for C<etc> C<public>  and C<log> folders. 
-Also here is the functionality for prompting the user about the
-L<Module::Build/install_base> directory this will be C<$ENV{ADO_HOME}>.
+In this method we also call C<add_build_element> for C<etc> C<public>,
+C<templates> and C<log> folders. 
 Finally we set all the C<install_path>s for the distro
 and we call C<$self-E<gt>SUPER::create_build_script>.
 
@@ -376,10 +310,7 @@ C<$self-E<gt>SUPER::ACTION_dist>. See the sources for details.
 
 Changes file permissions to C<0600> of some files 
 like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
-Finally prompts the user to add C<$ENV{ADO_HOME}> to ~/.bashrc.
-This is currently not implemented for Windows. 
-The user will have to add C<$ENV{ADO_HOME}> as environment 
-variable him self. You can put additional custom functionality here.
+You can put additional custom functionality here.
 
 =head2 ACTION_perltidy
 
