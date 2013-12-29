@@ -26,21 +26,17 @@ my $HOME =
 
 
 sub create_build_script {
-    my $self           = shift;
-    my @build_elements = qw(lib etc public log templates);
-    if ($self->module_name ne 'Ado') {    #A plugin!!!
-        say 'Please use Ado::BuildPlugin for installing plugins!';
-        return;
-    }
+    my $self = shift;
 
-    #setting default install_base
+    #Deciding where to install
     my $c = $self->{config};
-    $self->install_base || $self->install_base($c->get('siteprefixexp'));
-    $self->install_path(arch => catdir($self->install_base, 'lib'));
-    for my $be (qw(lib etc public log templates)) {
+    my $prefix = $self->install_base || $c->get('siteprefixexp');
+    for my $be (qw(etc public log templates)) {
+
+        #in case of installing a plugin, check if folder exists
         next unless -d $be;
         $self->add_build_element($be);
-        $self->install_path($be => catdir($self->install_base, $be));
+        $self->install_path($be => catdir($prefix, $be));
     }
     $self->SUPER::create_build_script();
     return;
