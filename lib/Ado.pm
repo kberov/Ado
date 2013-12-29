@@ -96,7 +96,6 @@ sub define_hooks {
     return $app;
 }
 
-
 1;
 
 
