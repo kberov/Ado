@@ -181,14 +181,14 @@ sub ACTION_perltidy {
                 my $file = $File::Find::name;
                 unlink $file and return if $file =~ /.bak/;
                 push @files, $file
-                  if $file =~ m/(\.conf|\.pm|.pl|Build\.PL|ado\|\.t)$/x;
+                  if $file =~ m/(\.conf|\.pm|.pl|ado\|\.t)$/x;
             },
         },
         map { abs_path($_) } (qw(bin lib etc t))
     );
 
     #We use ./.perltidyrc for all arguments
-    Perl::Tidy::perltidy(argv => [@files]);
+    Perl::Tidy::perltidy(argv => [@files, 'Build.PL']);
     foreach my $file (@files) {
         unlink("$file.bak") if -f "$file.bak";
     }

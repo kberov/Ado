@@ -5,31 +5,11 @@ use FindBin;
 use lib("$FindBin::Bin/lib");
 use Ado::Build;
 
-my $builder = Ado::Build->new(
-    module_name   => 'Ado',
-    license       => 'LGPL_3_0',
-    create_readme => 1,
-    create_license=>1,
-    dist_author   => q{Красимир Беров <berov@cpan.org>},
-
-    #release_status     => 'unstable',
-    configure_requires => {
-    'Module::Build' => '0.3800',
-    'Software::License' => '0.103007',
-    },
-    build_requires     => {'Test::More'    => '0',},
-    requires           => {
-        'perl'           => '5.14.0',
-        Mojolicious      => '4.63',
-        EV               => '4.15',
-        'IO::Socket::IP' => '0.24',
-
-        #not needed... yet
-        #'IO::Socket::SSL'          => '1.957',
-        'Mojolicious::Plugin::DSC' => '0.999',
-    },
-
-    recommends => {
+#unset temporarily $ENV{TEST_AUTHOR}
+#to generate fewer dependencies dynamically
+#see http://localhost:3000/perldoc/CPAN/Meta/Spec#dynamic_config
+my $author = {
+    build_requires => {
 
         #Modules for QA - while developping
         'Perl::Tidy'          => '0',
@@ -39,9 +19,38 @@ my $builder = Ado::Build->new(
         'Test::Pod'           => '1.48',
         'Devel::Cover'        => '1.08',
         'Pod::Markdown'       => '0',
+    },
+    configure_requires => {},
+    requires           => {'IO::Socket::SSL' => '1.957',},
+};
+my $builder = Ado::Build->new(
+    module_name   => 'Ado',
+    license       => 'lgpl_3_0',
+    create_readme => 1,
+    dist_author   => q{Красимир Беров <berov@cpan.org>},
+
+    #release_status     => 'unstable',
+    configure_requires => {
+        'Module::Build' => '0.3800',
+        $ENV{TEST_AUTHOR} ? (%{$$author{configure_requires}}) : (),
+    },
+    build_requires => {
+        'Test::More' => '0',
+        $ENV{TEST_AUTHOR} ? (%{$$author{build_requires}}) : (),
+    },
+    requires => {
+        'perl'           => '5.14.0',
+        Mojolicious      => '4.63',
+        EV               => '4.15',
+        'IO::Socket::IP' => '0.24',
+        $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
+        'Mojolicious::Plugin::DSC' => '0.999',
+    },
+
+    recommends => {
 
         #We cope with DBD::SQLite just fine,
-        #but DBD::mysql will be also supported some day
+        #but DBD::mysql will be also thoroughly tested some day
         #'DBD::mysql'  => '4.025',
         'DBD::SQLite' => '1.40',
     },
@@ -51,7 +60,11 @@ my $builder = Ado::Build->new(
             repository => "http://github.com/kberov/Ado",
             bugtracker => "http://github.com/kberov/Ado/issues",
         },
-        keywords => [qw/Ado Mojolicious web ERP REST CMS enterprise/]
+        keywords => [qw/Ado Mojolicious web ERP REST CMS enterprise/],
+        no_index => {
+            namespace =>
+              ['Ado::Model', 'Ado::Command', 'Ado::Control', 'Ado::Plugin', 'Test::Ado'],
+        }
     },
 
     script_files   => 'bin',

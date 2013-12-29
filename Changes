@@ -1,6 +1,11 @@
 Revision history for Ado
 
-0.23 013-12-29 18:37:44 CET
+0.23 2013-12-29 23:00:10 CETT
+    - Fixed ACTION_perltidy - did not tidy Build.PL
+    - Dynamically generating  META.json and META.yml
+      depending on if $ENV{TEST_AUTHOR} is set 
+      thus requiring fewer dependencies.
+    - Updated Manual.pod
     - Added uninstall and fakeuninstall actions to Ado::Build (Valcho).
     - Fixed wrong install_path for lib directory
       when "--install_base" is not passed as argument.

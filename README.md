@@ -13,25 +13,28 @@ Ado::Manual - Getting started with Ado
 Ado is a framework for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
 written in the [Perl programming language](http://www.perl.org/).
 
-Ado is a typical Mojo application yet it adds some default configuration and
-a model layer - [Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). An SQLite database is bundled 
-in the distribution at `etc/ado.sqlite` to get started quickly. 
+Ado is a typical [Mojo](https://metacpan.org/pod/Mojo) application yet it adds some default 
+configuration and a model layer - [Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). 
+An SQLite database is bundled in the distribution at `etc/ado.sqlite` 
+to get started quickly. 
 
 # INSTALLATION
 
 Ado is meant to be _installed into a folder of your choice_.
-It can go into the `site` folder of your ___non-system Perl distro___ but
-__better__ install it in its own folder.
+It can go into the `siteprefixexp` folder of your 
+___non-system Perl distro___ or in its own folder.
 
 We do not recommend using Ado with your system Perl!
+
 Get a precompiled Perl distro like "Citrus Perl" 
 ([http://www.citrusperl.com/download.html](http://www.citrusperl.com/download.html)) or
 "ActivePerl Community Edition"
 ([http://www.activestate.com/activeperl/downloads](http://www.activestate.com/activeperl/downloads)) for your OS, 
 or build your own using [App::perlbrew](https://metacpan.org/pod/App::perlbrew).
 
-Ado can be downloaded from CPAN [http://search.cpan.org/dist/Ado/](http://search.cpan.org/dist/Ado/)
-and installed manually or installed directly from CPAN using `cpan` or `cpanm` commandline tools.
+Ado can be downloaded from [CPAN](http://search.cpan.org/dist/Ado/)
+and installed manually or installed directly from CPAN using `cpan` or
+`cpanm` commandline tools. 
 
 ## MANUAL
 
@@ -40,6 +43,8 @@ To install manually Ado after downloading, run the following commands:
     tar -zxf Ado-X.XX.tar.gz
     cd Ado-X.XX/
     perl Build.PL --install_base $HOME/opt/ado
+    #or simply
+    perl Build.PL
     ./Build installdeps
     ./Build
     ./Build test
@@ -51,17 +56,17 @@ To install manually Ado after downloading, run the following commands:
     #or
     cpan[1]> install Ado
     Running install for module 'Ado'
-    Running make for B/BE/BEROV/Ado-0.22.tar.gz
+    Running make for B/BE/BEROV/Ado-0.23.tar.gz
     ...  
     ...
-      BEROV/Ado-0.22.tar.gz
+      BEROV/Ado-0.23.tar.gz
     ./Build install install  -- OK
 
 
 
 ## PERLBREW
 
-Installing Ado under the perlbrew environment
+Installing Ado under your own perlbrew environment
 
     perlbrew init
     perlbrew install -n perl-5.18.1 --as ado -j 3
@@ -73,8 +78,8 @@ Installing Ado under the perlbrew environment
 
 After installing, you can find documentation with the
 perldoc command. To use `perldoc` for reading documentation you may 
-need to add the full path to [Ado](https://metacpan.org/pod/Ado) `lib/` directory to `PERL5LIB`
-environment variable.
+need to add the full path to [Ado](https://metacpan.org/pod/Ado) `lib/Perl5` directory to `PERL5LIB`
+environment variable in case you passed the `--install_base` to `Build.PL`.
 
     perldoc Ado
     perldoc Ado::Manual #this page
@@ -83,6 +88,10 @@ For better experience run the __`ado`__ application and read the documentation
 from your browser.
 
     $HOME/opt/ado/bin/ado daemon
+
+If you installed `ado` in your Perl distro, you can simply type:
+
+    ado daemon
 
 Go to http:/localhost:3000/perldoc
 
@@ -99,7 +108,8 @@ Generally the rules outlined in [Mojolicious::Guides::Contributing](https://meta
 apply for [Ado](https://metacpan.org/pod/Ado) too.
 For specific to Ado rules see [Ado::Manual::Contributing](https://metacpan.org/pod/Ado::Manual::Contributing).
 
-We expect that you know how to write perl Modules.
+We expect that you know how to write perl Modules and 
+are familiar with [Mojolicious](https://metacpan.org/pod/Mojolicious).
 
 # REST API
 
@@ -113,27 +123,22 @@ at [www.RestApiTutorial.com](https://metacpan.org/pod/www.RestApiTutorial.com). 
 
 # PLUGINS
 
-One way to contribute to [Ado](https://metacpan.org/pod/Ado) is by writing plugins.
-They work the same way as [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins) and share 
+Ado plugins work the same way as [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins) and share 
 the same common base trough [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin).
 Ado plugins have one small additional feature. 
-They can store separately their own configuration in
+They can load their own configuration from
 `$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`.
-Business-specific applications for an Ado-based system 
-are usually implemented as plugins.
-See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) 
-for more information.
+Business-specific applications for an Ado-based system are usually implemented 
+as plugins. One way to contribute to [Ado](https://metacpan.org/pod/Ado) is by writing plugins.
+
+See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) for more information.
 
 # SEE ALSO
-
-
 
 [Ado](https://metacpan.org/pod/Ado), [Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides), 
 [Mojolicious::Guides::Contributing](https://metacpan.org/pod/Mojolicious::Guides::Contributing),
 ["prefix_vs_install_base" in Module::Build::Cookbook](https://metacpan.org/pod/Module::Build::Cookbook#prefix_vs_install_base), 
 [http://www.thefreedictionary.com/ado](http://www.thefreedictionary.com/ado).
-
-
 
 # AUTHOR
 

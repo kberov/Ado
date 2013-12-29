@@ -15,25 +15,28 @@ Ado::Manual - Getting started with Ado
 Ado is a framework for web projects based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 
-Ado is a typical Mojo application yet it adds some default configuration and
-a model layer - L<Mojolicious::Plugin::DSC>. An SQLite database is bundled 
-in the distribution at C<etc/ado.sqlite> to get started quickly. 
+Ado is a typical L<Mojo> application yet it adds some default 
+configuration and a model layer - L<Mojolicious::Plugin::DSC>. 
+An SQLite database is bundled in the distribution at C<etc/ado.sqlite> 
+to get started quickly. 
 
 =head1 INSTALLATION
 
 Ado is meant to be I<installed into a folder of your choice>.
-It can go into the C<site> folder of your B<I<non-system Perl distro>> but
-B<better> install it in its own folder.
+It can go into the C<siteprefixexp> folder of your 
+B<I<non-system Perl distro>> or in its own folder.
 
 We do not recommend using Ado with your system Perl!
+
 Get a precompiled Perl distro like "Citrus Perl" 
 (L<http://www.citrusperl.com/download.html>) or
 "ActivePerl Community Edition"
 (L<http://www.activestate.com/activeperl/downloads>) for your OS, 
 or build your own using L<App::perlbrew>.
 
-Ado can be downloaded from CPAN L<http://search.cpan.org/dist/Ado/>
-and installed manually or installed directly from CPAN using C<cpan> or C<cpanm> commandline tools.
+Ado can be downloaded from L<CPAN|http://search.cpan.org/dist/Ado/>
+and installed manually or installed directly from CPAN using C<cpan> or
+C<cpanm> commandline tools. 
 
 =head2 MANUAL
 
@@ -42,6 +45,8 @@ To install manually Ado after downloading, run the following commands:
   tar -zxf Ado-X.XX.tar.gz
   cd Ado-X.XX/
   perl Build.PL --install_base $HOME/opt/ado
+  #or simply
+  perl Build.PL
   ./Build installdeps
   ./Build
   ./Build test
@@ -53,16 +58,16 @@ To install manually Ado after downloading, run the following commands:
   #or
   cpan[1]> install Ado
   Running install for module 'Ado'
-  Running make for B/BE/BEROV/Ado-0.22.tar.gz
+  Running make for B/BE/BEROV/Ado-0.23.tar.gz
   ...  
   ...
-    BEROV/Ado-0.22.tar.gz
+    BEROV/Ado-0.23.tar.gz
   ./Build install install  -- OK
 
 
 =head2 PERLBREW
 
-Installing Ado under the perlbrew environment
+Installing Ado under your own perlbrew environment
 
   perlbrew init
   perlbrew install -n perl-5.18.1 --as ado -j 3
@@ -74,8 +79,8 @@ Installing Ado under the perlbrew environment
 
 After installing, you can find documentation with the
 perldoc command. To use C<perldoc> for reading documentation you may 
-need to add the full path to L<Ado> C<lib/> directory to C<PERL5LIB>
-environment variable.
+need to add the full path to L<Ado> C<lib/Perl5> directory to C<PERL5LIB>
+environment variable in case you passed the C<--install_base> to C<Build.PL>.
 
     perldoc Ado
     perldoc Ado::Manual #this page
@@ -84,6 +89,10 @@ For better experience run the B<C<ado>> application and read the documentation
 from your browser.
 
   $HOME/opt/ado/bin/ado daemon
+
+If you installed C<ado> in your Perl distro, you can simply type:
+
+  ado daemon
 
 Go to http:/localhost:3000/perldoc
 
@@ -100,7 +109,8 @@ Generally the rules outlined in L<Mojolicious::Guides::Contributing>
 apply for L<Ado> too.
 For specific to Ado rules see L<Ado::Manual::Contributing>.
 
-We expect that you know how to write perl Modules.
+We expect that you know how to write perl Modules and 
+are familiar with L<Mojolicious>.
 
 =head1 REST API
 
@@ -114,25 +124,22 @@ at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
 =head1 PLUGINS
 
-One way to contribute to L<Ado> is by writing plugins.
-They work the same way as L<Mojolicious::Plugins> and share 
+Ado plugins work the same way as L<Mojolicious::Plugins> and share 
 the same common base trough L<Ado::Plugin>.
 Ado plugins have one small additional feature. 
-They can store separately their own configuration in
+They can load their own configuration from
 C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
-Business-specific applications for an Ado-based system 
-are usually implemented as plugins.
-See L<Ado::Manual::Plugins> and L<Ado::Plugin> 
-for more information.
+Business-specific applications for an Ado-based system are usually implemented 
+as plugins. One way to contribute to L<Ado> is by writing plugins.
+
+See L<Ado::Manual::Plugins> and L<Ado::Plugin> for more information.
 
 =head1 SEE ALSO
-
 
 L<Ado>, L<Mojolicious::Guides>, 
 L<Mojolicious::Guides::Contributing>,
 L<Module::Build::Cookbook/prefix_vs_install_base>, 
 L<http://www.thefreedictionary.com/ado>.
-
 
 =head1 AUTHOR
 
