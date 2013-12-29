@@ -93,12 +93,12 @@ sub process_templates_files {
 }
 
 sub _get_packlist {
-    my $self   = shift;
-    
-	my $module = $self->module_name;
+    my $self = shift;
+
+    my $module    = $self->module_name;
     my $installed = ExtUtils::Installed->new;
-    
-	return $installed->packlist($module)->packlist_file;
+
+    return $installed->packlist($module)->packlist_file;
 }
 
 sub ACTION_uninstall {
