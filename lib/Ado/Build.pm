@@ -201,14 +201,19 @@ sub _empty_log_files {
 sub do_create_readme {
     my $self = shift;
     if ($self->dist_version_from =~ /Ado\.pm$/) {
-        eval {
-            use Mojo::Util qw(spurt);
-            use Pod::Markdown;
-            my $parser    = Pod::Markdown->new;
-            my $readme_fh = IO::File->new("lib/Ado/Manual.pod");
-            $parser->parse_from_filehandle($readme_fh);
-            spurt $parser->as_markdown, 'README.md';
-        };
+
+        #Create README from Ado::Manual.pod
+        require Pod::Text;
+        my $readme_from = catfile('lib', 'Ado', 'Manual.pod');
+        my $parser = Pod::Text->new(sentence => 0, indent => 2, width => 76);
+        $parser->parse_from_file($readme_from, 'README');
+        $self->log_info('Created README' . $/);
+
+        #add README.md just to be cool..
+        eval { require Pod::Markdown }
+          || return $self->log_warn('Pod::Markdown required for creating README.md' . $/);
+        Pod::Markdown->new->parse_from_file('lib/Ado/Manual.pod', 'README.md');
+        $self->log_info('Created README.md' . $/);
     }
     else {
         $self->SUPER::do_create_readme();
