@@ -6,13 +6,14 @@ use File::Spec::Functions qw(catdir catfile catpath);
 use File::Path qw(make_path);
 use File::Copy qw(copy);
 use Cwd qw(abs_path);
+use ExtUtils::Installed;
+use ExtUtils::Install;
 use parent 'Module::Build';
 use Exporter qw( import );    #export functionality to Ado::BuildPlugin etc..
 our @EXPORT_OK = qw(
   create_build_script process_etc_files
   process_public_files process_templates_files
   ACTION_perltidy ACTION_submit);
-
 
 #Shamelessly stollen from File::HomeDir::Windows
 my $HOME =
@@ -91,6 +92,24 @@ sub process_templates_files {
     return;
 }
 
+sub _get_packlist {
+    my $self   = shift;
+    
+	my $module = $self->module_name;
+    my $installed = ExtUtils::Installed->new;
+    
+	return $installed->packlist($module)->packlist_file;
+}
+
+sub ACTION_uninstall {
+    my $self = shift;
+    return ExtUtils::Install::uninstall($self->_get_packlist, 1);
+}
+
+sub ACTION_fakeuninstall {
+    my $self = shift;
+    return ExtUtils::Install::uninstall($self->_get_packlist, 1, 1);
+}
 
 sub ACTION_build {
     my $self = shift;
@@ -321,6 +340,14 @@ C<$self-E<gt>SUPER::ACTION_dist>. See the sources for details.
 Changes file permissions to C<0600> of some files 
 like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
 You can put additional custom functionality here.
+
+=head2 ACTION_fakeuninstall
+
+Dry run for uninstall operation against module Ado.
+
+=head2 ACTION_uninstall
+
+Perform uninstall operation against Ado module.
 
 =head2 ACTION_perltidy
 
