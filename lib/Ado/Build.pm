@@ -212,8 +212,17 @@ sub do_create_readme {
         #add README.md just to be cool..
         eval { require Pod::Markdown }
           || return $self->log_warn('Pod::Markdown required for creating README.md' . $/);
-        Pod::Markdown->new->parse_from_file('lib/Ado/Manual.pod', 'README.md');
-        $self->log_info('Created README.md' . $/);
+        require Mojo::Util;
+        $parser = Pod::Markdown->new;
+        my $manual = 'lib/Ado/Manual.pod';
+        if (my $readme_fh = IO::File->new($manual)) {
+            $parser->parse_from_filehandle($readme_fh);
+            Mojo::Util::spurt($parser->as_markdown, 'README.md');
+            $self->log_info('Created README.md' . $/);
+        }
+        else {
+            $self->log_warn("Could not open $manual:$!$/");
+        }
     }
     else {
         $self->SUPER::do_create_readme();

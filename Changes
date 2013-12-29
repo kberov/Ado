@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.22 2013-12-29 03:12:52 CET
+0.22 2013-12-29 03:30:38 CET
     - Refactored creation of README.md, kept README.
     - Wellcome Vylcho to the core team :)!
     - Removed $ADO_HOME (by popular demand) 
