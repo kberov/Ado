@@ -1,6 +1,7 @@
 Revision history for Ado
 
-0.23 2013-12-29 16:49:50 CET
+0.23 013-12-29 18:37:44 CET
+    - Added uninstall and fakeuninstall actions to Ado::Build (Valcho).
     - Fixed wrong install_path for lib directory
       when "--install_base" is not passed as argument.
     - Using Perl's $Config{siteprefixexp} for
