@@ -1,6 +1,7 @@
 Revision history for Ado
 
-0.23 2013-12-29 23:00:10 CETT
+0.23 2013-12-30 03:14:17 CET
+    - Added experimental tests for Ado::Build.
     - Fixed ACTION_perltidy - did not tidy Build.PL
     - Dynamically generating  META.json and META.yml
       depending on if $ENV{TEST_AUTHOR} is set 

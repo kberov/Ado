@@ -39,8 +39,7 @@ sub create_build_script {
         $self->add_build_element($be);
         $self->install_path($be => catdir($prefix, $be));
     }
-    $self->SUPER::create_build_script();
-    return;
+    return $self->SUPER::create_build_script();
 }
 
 sub process_public_files {

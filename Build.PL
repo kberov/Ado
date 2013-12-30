@@ -13,6 +13,7 @@ my $author = {
 
         #Modules for QA - while developping
         'Perl::Tidy'          => '0',
+        'Test::Output'        => '0.16',
         'Test::Perl::Critic'  => '0',
         'Test::CheckManifest' => '0',
         'Test::Pod::Coverage' => '1.08',

@@ -49,6 +49,7 @@ README
 README.md
 t/.perlcriticrc
 t/00-load.t
+t/ado-build.t
 t/basic.t
 t/boilerplate.t
 t/manifest.t
