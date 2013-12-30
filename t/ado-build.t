@@ -99,7 +99,7 @@ Creating\sAdo-\d\.d{2}\.tar.gz\n/x;
 
 stdout_like(
     sub { $build->dispatch('perltidy', verbose => 1) },
-    qr/Build\.PL.+35\sfiles...\nperltidy-ed\sdistribution.\n/msx,
+    qr/Build\.PL.+\d+\sfiles\.\.\.\nperltidy-ed\sdistribution.\n/msx,
     "perltidy ok"
 );
 
