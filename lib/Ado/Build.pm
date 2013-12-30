@@ -167,31 +167,27 @@ sub ACTION_install {
 
 sub ACTION_perltidy {
     my $self = shift;
-    require File::Find;
     eval { require Perl::Tidy } || do {
-        say "Perl::Tidy is not installed$/" . "Please install it and rerun ./Build perltidy";
+        $self->log_warn(
+            "Perl::Tidy is not installed$/" . "Please install it and rerun ./Build perltidy$/");
         return;
     };
     my @files;
-    File::Find::find(
-        {   no_chdir => 1,
-            wanted   => sub {
-                return if -d $File::Find::name;
-                my $file = $File::Find::name;
-                unlink $file and return if $file =~ /.bak/;
-                push @files, $file
-                  if $file =~ m/(\.conf|\.pm|.pl|ado\|\.t)$/x;
-            },
-        },
-        map { abs_path($_) } (qw(bin lib etc t))
-    );
+    for my $dir (qw(bin lib etc t)) {
+        my $dir_files = $self->rscan_dir(catdir($self->base_dir, $dir));
+        for my $file (@$dir_files) {
+            push @files, $file
+              if -f $file && $file =~ m{(\.pl|/ado|\.pm|\.conf|\.t)$}x;
+        }
+    }
+    push @files, catfile($self->base_dir, 'Build.PL');
 
     #We use ./.perltidyrc for all arguments
-    Perl::Tidy::perltidy(argv => [@files, 'Build.PL']);
+    Perl::Tidy::perltidy(argv => [@files]);
     foreach my $file (@files) {
         unlink("$file.bak") if -f "$file.bak";
     }
-    return 1;
+    return;
 }
 
 sub ACTION_submit {
