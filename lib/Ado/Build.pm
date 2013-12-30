@@ -96,6 +96,8 @@ sub _uninstall {
     my $dryrun  = shift;
     my $verbose = shift || 1;    # true by default
 
+    unshift @INC, $self->install_base if $self->install_base;
+
     my $module    = $self->module_name;
     my $installed = ExtUtils::Installed->new;
     my $packlist  = $installed->packlist($module)->packlist_file;
