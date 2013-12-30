@@ -194,18 +194,23 @@ sub ACTION_perltidy {
         }
     }
     push @files, catfile($self->base_dir, 'Build.PL');
+    if ($self->verbose) {
+        say join($/, @files) . "$/perltidy-ing " . @files . " files...";
+    }
 
     #We use ./.perltidyrc for all arguments
     Perl::Tidy::perltidy(argv => [@files]);
     foreach my $file (@files) {
         unlink("$file.bak") if -f "$file.bak";
     }
+    say "perltidy-ed distribution.";
     return;
 }
 
 sub ACTION_submit {
     my $self = shift;
-    $self->depends_on("perltidy");
+
+    #$self->depends_on("perltidy");
     say "TODO: commit and push after tidying and testing and who knows what";
     return;
 }

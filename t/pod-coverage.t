@@ -1,4 +1,4 @@
-#!perl -T
+#pod-coverage.t
 use 5.014000;
 use strict;
 use warnings FATAL => 'all';
