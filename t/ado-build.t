@@ -97,7 +97,7 @@ stdout_like(
     "perltidy ok"
 );
 
-ok(!(grep { $_ =~ /\.bak/ } @{$build->rscan_dir($build->base_dir)}), 'no .bak files ok');
+ok(!(grep { $_ =~ /\.bak$/ } @{$build->rscan_dir($build->base_dir)}), 'no .bak files ok');
 
 
 my $tempdir = tempdir(CLEANUP => 1);
