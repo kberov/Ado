@@ -6,6 +6,7 @@ use Test::More;
 use Test::Output;
 use File::stat;
 use File::Spec::Functions qw(catdir catfile catpath);
+use File::Temp qw(tempdir);
 use lib(-d 'blib' ? 'blib/lib' : 'lib');
 use Ado::Build;
 use Mojo::Util qw(slurp);
@@ -72,11 +73,11 @@ stdout_is(
 #check if created files look fresh.
 my $t = time();
 my $R = stat('README');
-ok($R->ctime-$t<=1, 'README is fresh ok');
-ok($R->size > 12, 'README has size ok');
+ok($R->ctime - $t <= 1, 'README is fresh ok');
+ok($R->size > 12,       'README has size ok');
 $R = stat('README.md');
-ok($R->ctime-$t<=1, 'README.md is fresh ok');
-ok($R->size > 12, 'README.md has size ok');
+ok($R->ctime - $t <= 1, 'README.md is fresh ok');
+ok($R->size > 12,       'README.md has size ok');
 
 my $dist_out = qr/
 Created\sREADME\n
@@ -86,7 +87,34 @@ Creating\sAdo-\d\.d{2}\n
 Creating\sAdo-\d\.d{2}\.tar.gz\n/x;
 
 #stdout_like(sub { $build->dispatch('dist') }, $dist_out, 'ACTION_dist output ok');
+stdout_is(sub { $build->dispatch('distmeta') }, "Created META.yml and META.json\n", "distmeta");
 
+my $tempdir = tempdir(CLEANUP => 1);
+$build->install_base($tempdir);
+
+stdout_like(
+    sub { $build->dispatch('fakeinstall') },
+    qr{Installing $tempdir},
+    "fakeinstall in $tempdir ok"
+);
+
+stdout_like(
+    sub { $build->dispatch('install') },
+    qr{Installing $tempdir},
+    "install in $tempdir ok"
+);
+
+stdout_like(
+    sub { $build->dispatch('fakeuninstall') },
+    qr{unlink $tempdir},
+    "fakeuninstall in $tempdir ok"
+);
+
+stdout_like(
+    sub { $build->dispatch('uninstall') },
+    qr{unlink $tempdir},
+    "uninstall in $tempdir ok"
+);
 
 done_testing();
 
