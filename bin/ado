@@ -16,12 +16,12 @@ sub _set_env {
 
     #$ENV{MOJO_MODE}='production';
     $ENV{MOJO_HOME} ||= abs_path(catdir($FindBin::Bin, updir));
-    $ENV{MOJO_CONFIG} ||= catfile($ENV{MOJO_HOME},  'etc','ado.conf');
+    $ENV{MOJO_CONFIG} ||= catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');
     my @libs = (
-      catdir($ENV{MOJO_HOME}, 'lib','perl5'),
-      catdir($ENV{MOJO_HOME}, 'site', 'lib'),
-      catdir($ENV{MOJO_HOME}, 'lib')
-      );
+        catdir($ENV{MOJO_HOME}, 'lib',  'perl5'),
+        catdir($ENV{MOJO_HOME}, 'site', 'lib'),
+        catdir($ENV{MOJO_HOME}, 'lib')
+    );
     for my $d (@libs) {
         unshift @INC, $d if -d $d;
     }
