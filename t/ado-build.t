@@ -16,10 +16,6 @@ if (not $ENV{TEST_AUTHOR}) {
     plan(skip_all => $msg);
 }
 
-#delete $ENV{TEST_AUTHOR} for this script to avoid complications
-delete $ENV{TEST_AUTHOR};
-
-
 my $perl = Ado::Build->find_perl_interpreter;
 
 #Build script
@@ -28,8 +24,6 @@ like(
     qr/Creating\snew\s'Build'\sscript/,
     'running Build.PL is ok'
 );
-
-#warn $out;
 
 #MYMETA.json and yml
 my $mymeta = slurp('MYMETA.json');
