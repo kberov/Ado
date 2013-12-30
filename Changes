@@ -1,5 +1,10 @@
 Revision history for Ado
 
+
+0.24 2013-12-30 20:50:44 CET
+    - Fixed ACTION_perltidy - was not tidying t/*.t files.
+    - Added tests for ACTION_perltidy.
+
 0.23 2013-12-30 03:14:17 CET
     - Added experimental tests for Ado::Build.
     - Fixed ACTION_perltidy - did not tidy Build.PL
