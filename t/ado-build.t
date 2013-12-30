@@ -25,8 +25,6 @@ like(
     'running Build.PL is ok'
 );
 
-#warn $out;
-
 #MYMETA.json and yml
 my $mymeta = slurp('MYMETA.json');
 unlike($mymeta, qr/Perl\:\:Tidy/,    'ok - no $AUTHOR_TEST  build_requires');
@@ -40,6 +38,7 @@ isa_ok(
     ),
     'Module::Build'
 );
+
 stdout_like(
     sub { $build->create_build_script(); },
     qr/Creating\snew\s'Build'\sscript/,
@@ -79,6 +78,9 @@ $R = stat('README.md');
 ok($R->ctime - $t <= 1, 'README.md is fresh ok');
 ok($R->size > 12,       'README.md has size ok');
 
+stdout_is(sub { $build->dispatch('distmeta') }, "Created META.yml and META.json\n",
+    "distmeta ok");
+
 my $dist_out = qr/
 Created\sREADME\n
 Created\sREADME.md\n
@@ -86,8 +88,17 @@ Created\sMETA.yml\sand\sMETA.json\n
 Creating\sAdo-\d\.d{2}\n
 Creating\sAdo-\d\.d{2}\.tar.gz\n/x;
 
+#on this test the script hangs - no idea how to fix this!
 #stdout_like(sub { $build->dispatch('dist') }, $dist_out, 'ACTION_dist output ok');
-stdout_is(sub { $build->dispatch('distmeta') }, "Created META.yml and META.json\n", "distmeta");
+
+stdout_like(
+    sub { $build->dispatch('perltidy', verbose => 1) },
+    qr/Build\.PL.+\d+\sfiles\.\.\.\nperltidy-ed\sdistribution.\n/msx,
+    "perltidy ok"
+);
+
+ok(!(grep { $_ =~ /\.bak$/ } @{$build->rscan_dir($build->base_dir)}), 'no .bak files ok');
+
 
 my $tempdir = tempdir(CLEANUP => 1);
 $build->install_base($tempdir);
