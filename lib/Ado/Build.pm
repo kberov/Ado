@@ -91,23 +91,36 @@ sub process_templates_files {
     return;
 }
 
-sub _get_packlist {
-    my $self = shift;
+sub _uninstall {
+    my $self    = shift;
+    my $dryrun  = shift;
+    my $verbose = shift || 1;    # true by default
+
+    unshift @INC, $self->install_base if $self->install_base;
 
     my $module    = $self->module_name;
     my $installed = ExtUtils::Installed->new;
+    my $packlist  = $installed->packlist($module)->packlist_file;
 
-    return $installed->packlist($module)->packlist_file;
+    # Remove all installed files
+    ExtUtils::Install::uninstall($packlist, $verbose, $dryrun);
+
+    # Remove empty installation directories
+    foreach (reverse sort $installed->directories($module)) {
+        say "rmdir $_" and next if $verbose and $dryrun;
+        say rmdir $_ ? "rmdir $_" : "rmdir $_ - $!" if not $dryrun;
+    }
+    return;
 }
 
 sub ACTION_uninstall {
     my $self = shift;
-    return ExtUtils::Install::uninstall($self->_get_packlist, 1);
+    return $self->_uninstall;
 }
 
 sub ACTION_fakeuninstall {
     my $self = shift;
-    return ExtUtils::Install::uninstall($self->_get_packlist, 1, 1);
+    return $self->_uninstall('dry-run');
 }
 
 sub ACTION_build {
