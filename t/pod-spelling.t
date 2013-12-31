@@ -21,7 +21,7 @@ add_stopwords(
     qw(
       Krasimir Berov Красимир Беров berov
       kumcho vulcho com Вълчо Неделчев Nedelchev Valcho
-      http html org
+      http html org metacpan
       Mojolicious Mojo app apps Foo SQLite ActivePerl
       URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
       precompiled perldoc RESTful tstamp
