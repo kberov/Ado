@@ -1,9 +1,16 @@
 Revision history for Ado
 
 
-0.24 2013-12-30 20:50:44 CET
+0.24 2013-12-31 14:02:23 CET
+    - This is an important release. 
+      CODENAME: "Азъ" - U+2C00 GLAGOLITIC CAPITAL LETTER AZU(Ⰰ)
+    - Introduced Ado::Command::version and the concept of $CODENAME.
+    - We have a stabylised Build process. 
+    - Fixed ACTION_uninstall and ACTION_fakeuninstall (Valcho). 
+    - Fixed failing pod-coverage.t because of -T switch (Valcho).
     - Fixed ACTION_perltidy - was not tidying t/*.t files.
     - Added tests for ACTION_perltidy.
+    - Introduced t/ado-build.t.
 
 0.23 2013-12-30 03:14:17 CET
     - Added experimental tests for Ado::Build.
