@@ -31,13 +31,14 @@ sub version {
       . Mojo::Util::encode(Mojo::Message->new->default_charset,
         $Ado::VERSION . ' - ' . $Ado::CODENAME);
     my $latest = $self->latest;
-    $msg .= "$/This version is up to date, have fun!$/"
-      if $latest == $Ado::VERSION;
-    $msg .= "$/Thanks for testing a development release, you are awesome!$/"
-      if $latest < $Ado::VERSION;
-    $msg .= "$/You might want to update your Ado to $latest.$/"
-      if $latest > $Ado::VERSION;
-
+    if ($latest) {
+        $msg .= "$/This version is up to date, have fun!$/"
+          if $latest == $Ado::VERSION;
+        $msg .= "$/Thanks for testing a development release, you are awesome!$/"
+          if $latest < $Ado::VERSION;
+        $msg .= "$/You might want to update your Ado to $latest.$/"
+          if $latest > $Ado::VERSION;
+    }
     say "$msg$/Mojolicious:";
     Mojolicious::Command::version->new->run();
     return;
@@ -87,10 +88,19 @@ Short description of this command, used for the command list.
 
 Usage information for this command, used for the help screen.
 
+=head2 latest
+
+Checks for the latest version on metacpan.org and returns it 
+if successfully connected
+
 =head1 METHODS
 
 L<Ado::Command::version> inherits all methods from
 L<Ado::Command> and implements the following new ones.
+
+=head2 init
+
+Default initialization.
 
 =head2 version
 

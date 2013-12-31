@@ -14,6 +14,7 @@ lib/Ado.pm
 lib/Ado/Build.pm
 lib/Ado/BuildPlugin.pm
 lib/Ado/Command.pm
+lib/Ado/Command/version.pm
 lib/Ado/Control.pm
 lib/Ado/Control/Ado.pm
 lib/Ado/Control/Ado/Default.pm
@@ -52,6 +53,7 @@ t/00-load.t
 t/ado-build.t
 t/basic.t
 t/boilerplate.t
+t/command/version.t
 t/manifest.t
 t/perl-critic.t
 t/plugin_routes.t

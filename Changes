@@ -1,11 +1,11 @@
 Revision history for Ado
 
 
-0.24 2013-12-31 16:27:32 CET
+0.24 2013-12-31 17:09:24 CET
     - This is an important release. 
-      CODENAME: "Азъ" - U+2C00 GLAGOLITIC CAPITAL LETTER AZU(Ⰰ)
+      CODENAME: "Азь" - U+2C00 GLAGOLITIC CAPITAL LETTER AZU(Ⰰ)
     - Introduced Ado::Command::version and the concept of $CODENAME.
-    - We have a stabylised Build process. 
+    - We have a stabilised Build process. 
     - Fixed ACTION_uninstall and ACTION_fakeuninstall (Valcho). 
     - Fixed failing pod-coverage.t because of -T switch (Valcho).
     - Fixed ACTION_perltidy - was not tidying t/*.t files.
