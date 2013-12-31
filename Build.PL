@@ -33,6 +33,7 @@ my $author = {
         'IO::Socket::SSL' => '1.957',
         'EV'              => '4.15',
         'IO::Socket::IP'  => '0.24',
+
         #'DBD::mysql'      => '4.025',
     },
 };
