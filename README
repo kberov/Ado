@@ -121,8 +121,12 @@ SEE ALSO
   "prefix_vs_install_base" in Module::Build::Cookbook,
   <http://www.thefreedictionary.com/ado>.
 
-AUTHOR
-  Красимир Беров (Krasimir Berov)
+AUTHORS
+  Authors in order of joining the core team.
+
+  Красимир Беров (Krasimir Berov)(berov@cpan.org)
+
+  Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
 
 COPYRIGHT AND LICENSE
   Copyright 2013 Красимир Беров (Krasimir Berov).

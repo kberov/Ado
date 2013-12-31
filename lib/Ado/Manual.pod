@@ -141,9 +141,13 @@ L<Mojolicious::Guides::Contributing>,
 L<Module::Build::Cookbook/prefix_vs_install_base>, 
 L<http://www.thefreedictionary.com/ado>.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Красимир Беров (Krasimir Berov)
+Authors in order of joining the core team.
+
+Красимир Беров (Krasimir Berov)(berov@cpan.org)
+
+Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -140,9 +140,13 @@ See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [A
 ["prefix_vs_install_base" in Module::Build::Cookbook](https://metacpan.org/pod/Module::Build::Cookbook#prefix_vs_install_base), 
 [http://www.thefreedictionary.com/ado](http://www.thefreedictionary.com/ado).
 
-# AUTHOR
+# AUTHORS
 
-Красимир Беров (Krasimir Berov)
+Authors in order of joining the core team.
+
+Красимир Беров (Krasimir Berov)(berov@cpan.org)
+
+Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
 
 # COPYRIGHT AND LICENSE
 
