@@ -25,6 +25,10 @@ my $HOME =
     : abs_path('./')
   );
 
+sub PERL_FILES {
+    state $dirs = [map { catdir($_[0]->base_dir, $_) } qw(bin lib etc t)];
+    return @$dirs;
+}
 
 sub create_build_script {
     my $self = shift;
@@ -136,7 +140,6 @@ sub ACTION_build {
 
 sub ACTION_dist {
     my $self = shift;
-    $self->depends_on("perltidy");
 
     #Make sure *log files are empty before including them into the distro
     _empty_log_files('blib/log');
@@ -186,22 +189,22 @@ sub ACTION_perltidy {
         return;
     };
     my @files;
-    for my $dir (qw(bin lib etc t)) {
-        my $dir_files = $self->rscan_dir(catdir($self->base_dir, $dir));
+    for my $dir ($self->PERL_FILES) {
+        my $dir_files = $self->rscan_dir($dir);
         for my $file (@$dir_files) {
             push @files, $file
               if -f $file && $file =~ m{(\.pl|/ado|\.pm|\.conf|\.t)$}x;
         }
     }
-    push @files, catfile($self->base_dir, 'Build.PL');
+
     if ($self->verbose) {
         say join($/, @files) . "$/perltidy-ing " . @files . " files...";
     }
 
     #We use ./.perltidyrc for all arguments
     Perl::Tidy::perltidy(argv => [@files]);
-    foreach my $file (@files) {
-        unlink("$file.bak") if -f "$file.bak";
+    foreach my $file (@{$self->rscan_dir($self->base_dir)}) {
+        unlink($file) if $file =~ /\.bak$/;
     }
     say "perltidy-ed distribution.";
     return;
@@ -304,6 +307,21 @@ that we use beside C<lib> and C<bin>. These modules also can serve as examples
 for your own builders if you have some custom things to do during 
 build, test, install and even if you need to add a new C<ACTION_*> to your setup.
 
+=head1 ATTRIBUTES
+
+Ado::Build defines some attributes, used across different actions.
+
+=head2 PERL_FILES
+
+Returns the list of absolute paths to directories in the project 
+containing Perl files.
+Read-only.
+
+  $self->PERL_FILES;
+  #(/base/dir/bin, /base/dir/lib, /base/dir/t, /base/dir/etc) 
+
+
+
 =head1 METHODS
 
 Ado::Build inherits all methods from L<Module::Build> and implements 
@@ -364,13 +382,17 @@ Perform uninstall operation against Ado module.
 
 =head2 ACTION_perltidy
 
-This is a custom action. Tidies all C<*.conf, *.pm, *.pl,*.t> 
-files found in directories C<./lib, ./t ./etc>
-in the distribution. uses the C<./pertidyrc> found in the root 
-directory of the distribution.
-This action is run first always when you run C<./Build dist>.
+Tidies all C<*.conf, *.pm, *.pl, *.t> files found in project 
+directories C<bin, lib, t, etc> in the distribution. 
+Uses the C<./pertidyrc> found in the project root directory.
+Cleans up all C<.bak> files.
+This action does not tidies C<Build.PL>. 
+Use C<perltidy Build.PL> for that.
 
+  perl Build.PL
   ./Build perltidy
+  ./Build
+  ...
 
 =head2 ACTION_submit
 

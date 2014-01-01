@@ -82,18 +82,15 @@ stdout_is(sub { $build->dispatch('distmeta') }, "Created META.yml and META.json\
     "distmeta ok");
 
 my $dist_out = qr/
-Created\sREADME\n
-Created\sREADME.md\n
-Created\sMETA.yml\sand\sMETA.json\n
-Creating\sAdo-\d\.d{2}\n
-Creating\sAdo-\d\.d{2}\.tar.gz\n/x;
+Creating\sAdo-\d+\.\d{2}\n
+Creating\sAdo-\d+\.\d{2}\.tar.gz\n/x;
 
-#on this test the script hangs - no idea how to fix this!
-#stdout_like(sub { $build->dispatch('dist') }, $dist_out, 'ACTION_dist output ok');
+stdout_like(sub { $build->dispatch('dist') }, $dist_out, 'ACTION_dist output ok');
+my $directories_rx = join $/, map { $_ . '.+?' } $build->PERL_FILES;
 
 stdout_like(
     sub { $build->dispatch('perltidy', verbose => 1) },
-    qr/Build\.PL.+\d+\sfiles\.\.\.\nperltidy-ed\sdistribution.\n/msx,
+    qr/$directories_rx\d+\sfiles\.\.\.\nperltidy-ed\sdistribution.\n/msx,
     "perltidy ok"
 );
 
