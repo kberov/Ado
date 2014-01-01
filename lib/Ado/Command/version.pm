@@ -104,15 +104,16 @@ Default initialization.
 
 =head2 version
 
-  #in init
+  #set in init().
   $self->args->{do} ='version';
   
 The default and only action this command implements.
+See L<Ado::Command/run>.
 
 
 =head1 SEE ALSO
 
-L<Mojolicious::Command::version>, L<Ado::Manual>,
+L<Mojolicious::Command::version>, L<Ado::Command> L<Ado::Manual>,
 L<Mojolicious>, L<Mojolicious::Guides>.
 
 =cut

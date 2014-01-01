@@ -17,10 +17,11 @@ if (not $ENV{TEST_AUTHOR}) {
 }
 
 my $perl = Ado::Build->find_perl_interpreter;
+my $tempdir = tempdir(CLEANUP => 1);
 
 #Build script
 like(
-    my $out = qx(TEST_AUTHOR=0 $perl Build.PL),
+    my $out = qx(TEST_AUTHOR=0 $perl Build.PL --install_base=$tempdir),
     qr/Creating\snew\s'Build'\sscript/,
     'running Build.PL is ok'
 );
@@ -39,24 +40,43 @@ isa_ok(
     'Module::Build'
 );
 
+subtest 'missing build element' => sub {
+    ok(rename('log', 'log_'), 'no "log" dir');
+    stdout_like(
+        sub { $build->create_build_script(); },
+        qr/Creating\snew\s'Build'\sscript/,
+        'create_build_script()(no "log" dir) output ok'
+    );
+    my $elems = join('', qw(etc public templates));
+    like(join('', @{$build->build_elements()}), qr/$elems$/, " build_elements($elems) present");
+
+    ok(rename('log_', 'log'), 'yes "log" dir');
+    done_testing();
+};
+
 stdout_like(
     sub { $build->create_build_script(); },
     qr/Creating\snew\s'Build'\sscript/,
     'create_build_script() output ok'
 );
 
-#test install_paths;
-my $c              = $build->{config};
-my $prefix         = $c->get('siteprefixexp');
 my $build_elements = [qw(etc public log templates)];
-is_deeply(
-    $build->install_path,
-    {map { $_ => catdir($prefix, $_) } @$build_elements},
-    'ok - install paths'
-);
-my $elems = join('', @$build_elements);
-like(join('', @{$build->build_elements()}),
-    qr/$elems/, " build_elements(@$build_elements) present");
+
+subtest 'install_paths and build elements' => sub {
+    my $c      = $build->{config};
+    my $prefix = $c->get('siteprefixexp');
+    is_deeply(
+        $build->install_path,
+        {map { $_ => catdir($prefix, $_) } @$build_elements},
+        'ok - install paths'
+    );
+
+    my $all_elems = join('', @{$build->build_elements()});
+    for my $be (@$build_elements) {
+        like($all_elems, qr/$be/, " build_element $be is present");
+    }
+    done_testing();
+};
 
 stdout_is(sub { $build->dispatch('build') }, "Building Ado\n", 'ACTION_build output ok');
 for my $be (@$build_elements) {
@@ -96,8 +116,6 @@ stdout_like(
 
 ok(!(grep { $_ =~ /\.bak$/ } @{$build->rscan_dir($build->base_dir)}), 'no .bak files ok');
 
-
-my $tempdir = tempdir(CLEANUP => 1);
 $build->install_base($tempdir);
 
 stdout_like(
@@ -105,6 +123,8 @@ stdout_like(
     qr{Installing $tempdir},
     "fakeinstall in $tempdir ok"
 );
+stderr_like(sub { Ado::Build::_chmod(0600, catfile($tempdir, 'log', 'development.log')) },
+    qr{Could not change mode for});
 
 stdout_like(
     sub { $build->dispatch('install') },

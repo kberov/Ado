@@ -164,21 +164,25 @@ sub ACTION_install {
     my $log_dir = $self->install_path('log');
 
     #make some files writable and/or readable only by the user that runs the application
+    my $ro = oct('0400');
+    my $rw = oct('0600');
     for my $asset (qw(ado.conf plugins/routes.conf)) {
-        chmod(0400, catfile($etc_dir, $asset))
-          || Carp::carp("Problem with $etc_dir/$asset: $!");
+        _chmod($ro, catfile($etc_dir, $asset));
     }
-    chmod(0600, catfile($etc_dir, 'ado.sqlite'))
-      || Carp::carp("Problem with $etc_dir/ado.sqlite: $!");
+    _chmod($rw, catfile($etc_dir, 'ado.sqlite'));
 
     #Make sure *log files are existing and empty
     _empty_log_files($self->install_path('log'));
     for my $asset (qw(development production)) {
-        chmod(0600, catfile($log_dir, "$asset.log"))
-          || Carp::carp("Problem with $log_dir/$asset.log: $!");
+        _chmod($rw, catfile($log_dir, "$asset.log"));
     }
-
     return;
+}
+
+sub _chmod {
+    my ($mode, $file) = @_;
+    return chmod($mode, $file)
+      || Carp::carp("Could not change mode for $file: $!");
 }
 
 sub ACTION_perltidy {
