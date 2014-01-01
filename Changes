@@ -1,7 +1,8 @@
 Revision history for Ado
 
-0.25 2014-01-01 20:15:25 CET
+0.25 2014-01-01 20:27:50 CET
     - Fixed ACTION_perltidy. We do not modify Build.PL any more.
+    - Fixed stupid bug in manifest.t
 
 0.24 2013-12-31 17:09:24 CET
     - This is an important release. 
