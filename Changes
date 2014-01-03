@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.26 2014-01-03 21:34:57 CET
+    - Fixed failing test because of missing Test::Output.
+
+
 0.25 2014-01-01 20:27:50 CET
     - Added more tests for Ado::Build (test coverage is > 90%).
     - Fixed ACTION_perltidy. We do not modify Build.PL any more.

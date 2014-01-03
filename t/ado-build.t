@@ -3,7 +3,6 @@ use 5.014000;
 use strict;
 use warnings;
 use Test::More;
-use Test::Output;
 use File::stat;
 use File::Spec::Functions qw(catdir catfile catpath);
 use File::Temp qw(tempdir);
@@ -15,6 +14,9 @@ if (not $ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
     plan(skip_all => $msg);
 }
+eval "use Test::Output;";
+plan skip_all => "Test::Output required for this test" if $@;
+
 
 my $perl = Ado::Build->find_perl_interpreter;
 my $tempdir = tempdir(CLEANUP => 1);
