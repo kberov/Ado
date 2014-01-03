@@ -34,8 +34,7 @@ sub create_build_script {
     my $self = shift;
 
     #Deciding where to install
-    my $c = $self->{config};
-    my $prefix = $self->install_base || $c->get('siteprefixexp');
+    my $prefix = $self->install_base || $self->config('siteprefix');
     for my $be (qw(etc public log templates)) {
 
         #in case of installing a plugin, check if folder exists
@@ -247,11 +246,13 @@ sub do_create_readme {
         #add README.md just to be cool..
         eval { require Pod::Markdown }
           || return $self->log_warn('Pod::Markdown required for creating README.md' . $/);
-        require Mojo::Util;
-        $parser = Pod::Markdown->new;
-        my $manual = 'lib/Ado/Manual.pod';
-        if (my $readme_fh = IO::File->new($manual)) {
-            $parser->parse_from_filehandle($readme_fh);
+        my $manual = catfile('lib', 'Ado', 'Manual.pod');
+        if (open(my $fh, "<", $manual)) {
+            $parser = Pod::Markdown->new;
+            $parser->parse_from_filehandle($fh);
+            $fh->close;
+            require Mojo::Util;
+
             Mojo::Util::spurt($parser->as_markdown, 'README.md');
             $self->log_info('Created README.md' . $/);
         }

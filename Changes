@@ -1,6 +1,8 @@
 Revision history for Ado
 
-0.26 2014-01-03 21:34:57 CET
+0.26 2014-01-03 21:57:17 CET
+    - Fixed small bug in create_readme().
+    - Installing to the more popular "siteprefix" by default.
     - Fixed failing test because of missing Test::Output.
 
 
