@@ -247,14 +247,17 @@ sub do_create_readme {
         eval { require Pod::Markdown }
           || return $self->log_warn('Pod::Markdown required for creating README.md' . $/);
         my $manual = catfile('lib', 'Ado', 'Manual.pod');
-        if (open(my $fh, "<", $manual)) {
+        if (open(my $in, "<", $manual)) {
             $parser = Pod::Markdown->new;
-            $parser->parse_from_filehandle($fh);
-            $fh->close;
-            require Mojo::Util;
-
-            Mojo::Util::spurt($parser->as_markdown, 'README.md');
-            $self->log_info('Created README.md' . $/);
+            $parser->parse_from_filehandle($in);
+            $in->close;
+            my $readme_md = 'README.md';
+            if (open(my $out, ">", $readme_md)) {
+                $out->say($parser->as_markdown);
+                $out->close;
+                $self->log_info("Created $readme_md$/");
+            }
+            else { Carp::croak("Could not create $readme_md... $!"); }
         }
         else {
             $self->log_warn("Could not open $manual:$!$/");
