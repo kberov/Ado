@@ -4,8 +4,7 @@ Ado::Manual - Getting started with Ado
 
 # SYNOPSIS
 
-    cd where/is/Ado
-    bin/ado daemon
+    ado daemon
     Server available at http://127.0.0.1:3000
 
 # DESCRIPTION
@@ -20,10 +19,6 @@ to get started quickly.
 
 # INSTALLATION
 
-Ado is meant to be _installed into a folder of your choice_.
-It can go into the `siteprefixexp` folder of your 
-___non-system Perl distro___ or in its own folder.
-
 We do not recommend using Ado with your system Perl!
 
 Get a precompiled Perl distro like "Citrus Perl" 
@@ -35,6 +30,11 @@ or build your own using [App::perlbrew](https://metacpan.org/pod/App::perlbrew).
 Ado can be downloaded from [CPAN](http://search.cpan.org/dist/Ado/)
 and installed manually or installed directly from CPAN using `cpan` or
 `cpanm` commandline tools. 
+
+Ado is meant to be _installed into a folder of your choice_.
+It can go into the `siteprefix` folder of your ___non-system Perl distro___ 
+or in its own folder. When installing Ado in its own folder add the 
+`/path/to/ado/bin` to your `$PATH` environment variable.
 
 ## MANUAL
 
@@ -56,13 +56,11 @@ To install manually Ado after downloading, run the following commands:
     #or
     cpan[1]> install Ado
     Running install for module 'Ado'
-    Running make for B/BE/BEROV/Ado-0.23.tar.gz
+    Running make for B/BE/BEROV/Ado-0.26.tar.gz
     ...  
     ...
-      BEROV/Ado-0.23.tar.gz
+      BEROV/Ado-0.26.tar.gz
     ./Build install install  -- OK
-
-
 
 ## PERLBREW
 

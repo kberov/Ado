@@ -241,27 +241,20 @@ sub do_create_readme {
         my $readme_from = catfile('lib', 'Ado', 'Manual.pod');
         my $parser = Pod::Text->new(sentence => 0, indent => 2, width => 76);
         $parser->parse_from_file($readme_from, 'README');
-        $self->log_info('Created README' . $/);
+        $self->log_info("Created README$/");
 
         #add README.md just to be cool..
         eval { require Pod::Markdown }
           || return $self->log_warn('Pod::Markdown required for creating README.md' . $/);
-        my $manual = catfile('lib', 'Ado', 'Manual.pod');
-        if (open(my $in, "<", $manual)) {
-            $parser = Pod::Markdown->new;
-            $parser->parse_from_filehandle($in);
-            $in->close;
-            my $readme_md = 'README.md';
-            if (open(my $out, ">", $readme_md)) {
-                $out->say($parser->as_markdown);
-                $out->close;
-                $self->log_info("Created $readme_md$/");
-            }
-            else { Carp::croak("Could not create $readme_md... $!"); }
+        $parser = Pod::Markdown->new;
+        $parser->parse_from_file($readme_from);
+        my $readme_md = 'README.md';
+        if (open(my $out, '>', $readme_md)) {
+            $out->say($parser->as_markdown);
+            $out->close;
+            $self->log_info("Created $readme_md$/");
         }
-        else {
-            $self->log_warn("Could not open $manual:$!$/");
-        }
+        else { Carp::croak("Could not create $readme_md... $!"); }
     }
     else {
         $self->SUPER::do_create_readme();
