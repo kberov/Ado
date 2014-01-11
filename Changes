@@ -1,6 +1,7 @@
 Revision history for Ado
 
 0.26 2014-01-11
+    - Improved Ado::Command::version output.
     - Improved Ado::Manual.
     - Not depending on Mojo::Util in Ado::Build.
     - Fixed small bug in create_readme() and optimized it.
