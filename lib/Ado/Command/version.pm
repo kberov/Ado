@@ -27,19 +27,19 @@ sub init {
 sub version {
     my $self = shift;
 
-    my $msg = $/
+    my $msg = "$/ADO:$/  "
       . Mojo::Util::encode(Mojo::Message->new->default_charset,
         $Ado::VERSION . ' - ' . $Ado::CODENAME);
     my $latest = $self->latest;
     if ($latest) {
-        $msg .= "$/This version is up to date, have fun!$/"
+        $msg .= "$/  This version is up to date, have fun!$/"
           if $latest == $Ado::VERSION;
-        $msg .= "$/Thanks for testing a development release, you are awesome!$/"
+        $msg .= "$/  Thanks for testing a development release, you are awesome!$/"
           if $latest < $Ado::VERSION;
-        $msg .= "$/You might want to update your Ado to $latest.$/"
+        $msg .= "$/  You might want to update your Ado to $latest.$/"
           if $latest > $Ado::VERSION;
     }
-    say "$msg$/Mojolicious:";
+    say $msg;
     Mojolicious::Command::version->new->run();
     return;
 }
