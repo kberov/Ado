@@ -141,7 +141,7 @@ sub ACTION_dist {
     my $self = shift;
 
     #Make sure *log files are empty before including them into the distro
-    _empty_log_files('blib/log');
+    _empty_log_files('log');
 
     #Do other interventions before the real dist..
     $self->SUPER::ACTION_dist;

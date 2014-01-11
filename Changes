@@ -3,6 +3,8 @@ Revision history for Ado
 0.27 2014-01-11
     - Experimental CORS-ready Ado sessions
       provided by Ado::Model::Sessions.
+    - Fixed bug in Ado::Build::ACTION_dist.
+      It was not emptying log files.
 
 0.26 2014-01-11
     - Improved Ado::Command::version output.
