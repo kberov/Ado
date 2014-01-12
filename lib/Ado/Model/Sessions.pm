@@ -18,11 +18,11 @@ my $ALIASES = {};
 sub ALIASES { return $ALIASES }
 my $CHECKS = {
     'sessiondata' => {
-        'required' => 1,
+        'required' => 0,
         'defined'  => 1
     },
     'tstamp' => {
-        'required' => 1,
+        'required' => 0,
         'defined'  => 1,
         'allow'    => qr/(?^x:^-?\d{1,11}$)/
     },

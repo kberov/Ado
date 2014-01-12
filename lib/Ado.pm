@@ -11,9 +11,13 @@ BEGIN {
 }
 
 use Ado::Control;
+use Ado::Sessions;
+
 our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.27';
 our $CODENAME  = 'U+2C00 GLAGOLITIC CAPITAL LETTER AZU (Ⰰ)';
+
+has sessions  => sub { Ado::Sessions::getInstance('db') };
 
 # This method will run once at server start
 sub startup {
