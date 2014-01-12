@@ -41,7 +41,7 @@ sub store {
     }
 
     my $session = $stash->{'mojo.session'} || {};
-    $sess->id($id)->sessiondata( Mojo::JSON->new->encode($session) )->save();
+    $sess->id($id)->sessiondata( Mojo::JSON->new->encode($session) )->tstamp(gmtime)->save();
 
     $c->cookie( $self->cookie_name => $id );
     $c->app->log->debug( ref($self) . "->store(" . $id . ")" );

@@ -8,7 +8,7 @@ use Ado::Sessions::File;
 has cookie_name => 'adosessionid';
 
 sub generate_id {
-    Mojo::Util->sha1_hex( rand() . $$ . {} . time );
+    Mojo::Util::sha1_hex( rand() . $$ . {} . time );
 }
 
 sub session_id_from {
@@ -17,7 +17,7 @@ sub session_id_from {
       or $c->cookie( $self->cookie_name );
 }
 
-sub getInstance {
+sub get_instance {
     my $of = shift;
 
     Carp::confess('Method requires single string argument: file, db, mojo')
