@@ -2,7 +2,7 @@ package Ado::Sessions;
 use Mojo::Base -base;
 
 use Carp;
-use Ado::Sessions::Db;
+use Ado::Sessions::Database;
 use Ado::Sessions::File;
 
 has cookie_name => 'adosessionid';
@@ -23,9 +23,9 @@ sub get_instance {
     Carp::confess('Method requires single string argument: file, db, mojo')
       unless $of;
 
-    return Ado::Sessions::File->new   if lc $of eq 'file';
-    return Ado::Sessions::Db->new     if lc $of eq 'db';
-    return Mojolicious::Sessions->new if lc $of eq 'mojo';
+    return Ado::Sessions::File->new     if lc $of eq 'file';
+    return Ado::Sessions::Database->new if lc $of eq 'db';
+    return Mojolicious::Sessions->new   if lc $of eq 'mojo';
 
     Carp::confess('Method requires single string argument: file, db, mojo');
 }

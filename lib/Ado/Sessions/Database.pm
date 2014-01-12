@@ -1,4 +1,4 @@
-package Ado::Sessions::Db;
+package Ado::Sessions::Database;
 use Mojo::Base 'Ado::Sessions';
 use Mojo::JSON;
 use Mojo::Util;

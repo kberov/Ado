@@ -7,7 +7,7 @@ use_ok 'Ado::Sessions';
 use_ok 'Mojolicious::Sessions';
 
 isa_ok my $f = Ado::Sessions::get_instance('file'), 'Ado::Sessions::File';
-isa_ok my $d = Ado::Sessions::get_instance('db'),   'Ado::Sessions::Db';
+isa_ok my $d = Ado::Sessions::get_instance('db'),   'Ado::Sessions::Database';
 isa_ok my $m = Ado::Sessions::get_instance('mojo'), 'Mojolicious::Sessions';
 
 foreach my $method (qw(load store)) {
