@@ -17,7 +17,7 @@ our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.27';
 our $CODENAME  = 'U+2C00 GLAGOLITIC CAPITAL LETTER AZU (Ⰰ)';
 
-has sessions  => sub { Ado::Sessions::get_instance(shift->config('session_type')||'mojo') };
+has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 # This method will run once at server start
 sub startup {
