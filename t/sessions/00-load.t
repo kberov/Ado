@@ -1,4 +1,4 @@
-#sessions/00-load.t
+#t/sessions/00-load.t
 use Mojo::Base -strict;
 use Test::More;
 
