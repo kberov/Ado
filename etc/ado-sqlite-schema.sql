@@ -93,8 +93,6 @@ DROP TABLE IF EXISTS sessions;
 CREATE TABLE IF NOT EXISTS sessions (
 --  'Mojo::Util::sha1_hex(id)',
   id VARCHAR(40) PRIMARY KEY,
---  'Which user is this session for?',
-  user_id INT(11)  REFERENCES users(id),
 --  'Last modification time - last HTTP request.',
   tstamp INT(11) NOT NULL DEFAULT 0,
 --  'Session data serialized in JSON and packed with Base64',
@@ -105,8 +103,6 @@ DROP TABLE IF EXISTS sessions_old;
 CREATE TABLE IF NOT EXISTS sessions_old (
 --  'Mojo::Util::sha1_hex(id)',
   id VARCHAR(40) PRIMARY KEY,
---  'Count ID - number of unique visitors so far.',
-  user_id INT(11),
 --  'Last modification time - last HTTP request.',
   tstamp INT(11) NOT NULL DEFAULT 0,
 --  'Session data serialized in JSON and packed with Base64',
