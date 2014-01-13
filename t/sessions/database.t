@@ -1,30 +1,31 @@
-#t/sessions/mojolicious.t
+#t/sessions/database.t
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 
 my $t = Test::Mojo->new('Ado');
 
-#default configuration from etc/ado.conf(Mojolicious::Sessions)
+#switch to Ado::Sessions::Database
+$t->app->config(
+    session => {
+        type    => 'database',
+        options => {cookie_name => 'ado_session_id'}
+    }
+);
 my $cookie_name = $t->app->config('session')->{options}{cookie_name};
+
+is($cookie_name, 'ado_session_id', '$cookie_name is ado_session_id');
 
 # Create new SID
 $t->get_ok('/добре/ок');
 my $sid = $t->tx->res->cookie($cookie_name)->value;
-ok $sid, 'new sid $sid ok';
-
+ok $sid, "new sid $sid ok";
 $t->get_ok("/?$cookie_name=$sid");
 is $sid, $t->tx->res->cookie($cookie_name)->value, 'Param $sid ok';
 
 $t->get_ok("/");
 is $sid, $t->tx->res->cookie($cookie_name)->value, 'Cookie $sid ok';
 
-#$t->get_ok("/?adosessionid=wrong");
-#isnt $sid, $t->tx->res->cookie('adosessionid')->value, 'Param wrong sid ok';
-
-#$t->tx->req->cookie('adosessionid', 'WRONG!');
-#$t->get_ok("/");
-#isnt $sid, $t->tx->res->cookie('adosessionid')->value, 'Bad SID ok';
 
 done_testing();
 

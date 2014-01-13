@@ -16,12 +16,12 @@ sub session_id {
     my ($self, $c) = @_;
 
     #once
-    state $cookie_name = $c->app->config('session')->{options}{cookie_name};
+    state $cookie_name = $self->cookie_name;
 
     return
          $c->param($cookie_name)
       || $c->cookie($cookie_name)
-      || $c->req->headers('X-' . $cookie_name);
+      || $c->req->headers->header('X-' . $cookie_name);
 }
 
 sub get_instance {

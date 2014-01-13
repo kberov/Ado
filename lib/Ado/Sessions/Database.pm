@@ -7,46 +7,79 @@ use Data::Dumper;
 use Ado::Model::Sessions;
 
 sub load {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
-    $c->app->log->debug( ref($self) . "->load()" );
+    my $id = $self->session_id($c) || '';
 
-    my $id = $self->session_id_from($c);
+    $c->app->log->debug(ref($self) . "->load(), id:$id");
 
+    my $session = {};
     if ($id) {
-        my $session = Ado::Model::Sessions->find($id);
-        if ( $session->data ) {
-            return Mojo::JSON->new->decode( $session->data->sessiondata );
+        my $adosession = Ado::Model::Sessions->find($id);
+        if ($adosession->data) {
+            return
+              unless $session = Mojo::JSON->new->decode(b64_decode $adosession->sessiondata);
         }
     }
+
+    # "expiration" value is inherited
+    my $expiration = $session->{expiration} // $self->default_expiration;
+    return if !(my $expires = delete $session->{expires}) && $expiration;
+    return if defined $expires && $expires <= time;
+
+    my $stash = $c->stash;
+    return unless $stash->{'mojo.active_session'} = keys %$session;
+    $stash->{'mojo.session'} = $session;
+    $session->{flash} = delete $session->{new_flash} if $session->{new_flash};
 
     return;
 }
 
 sub store {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
+
+    # Make sure session was active
     my $stash = $c->stash;
-    my $id    = $self->session_id_from($c);
+    return unless my $session = $stash->{'mojo.session'};
+    return unless keys %$session || $stash->{'mojo.active_session'};
 
-    $c->app->log->debug( ref($self) . "->store->find($id)" );
+    # Don't reset flash for static files
+    my $old = delete $session->{flash};
+    @{$session->{new_flash}}{keys %$old} = values %$old
+      if $stash->{'mojo.static'};
+    delete $session->{new_flash} unless keys %{$session->{new_flash}};
 
-    my $sess = Ado::Model::Sessions->find($id);
-    if ( not $sess->data ) {
-        $c->app->log->debug(
-            "Session with id $id not found, will generate new one."
-              . Dumper($sess) );
-        $id = $self->generate_id($c);
-        $c->app->log->debug("New session id is $id");
+    # Generate "expires" value from "expiration" if necessary
+    my $expiration = $session->{expiration} // $self->default_expiration;
+    my $default = delete $session->{expires};
+    $session->{expires} = $default || time + $expiration
+      if $expiration || $default;
+
+
+    my $id = $self->session_id($c) || $self->generate_id();
+    my $options = {
+        domain   => $self->cookie_domain,
+        expires  => $session->{expires},
+        httponly => 1,
+        path     => $self->cookie_path,
+        secure   => $self->secure
+    };
+
+    #once
+    state $cookie_name = $self->cookie_name;
+    $c->cookie($cookie_name, $id, $options);
+    $c->res->headers('X-' . $cookie_name => $id);    #CORS
+
+    my $value = b64_encode(Mojo::JSON->new->encode($session), '');
+    my $adosession = Ado::Model::Sessions->find($id);
+    if ($adosession->data) {
+        $adosession->sessiondata($value)->update();
+        return;
     }
-
-    my $session = $stash->{'mojo.session'} || {};
-    $sess->id($id)->sessiondata( Mojo::JSON->new->encode($session) )->tstamp(gmtime)->save();
-
-    $c->cookie( $self->cookie_name => $id );
-    $c->app->log->debug( ref($self) . "->store(" . $id . ")" );
+    Ado::Model::Sessions->create(id => $id, tstamp => time(), sessiondata => $value);
+    return;
 }
-
 1;
 
 
