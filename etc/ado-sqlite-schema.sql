@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS user_group (
 DROP TABLE IF EXISTS sessions;
 CREATE TABLE IF NOT EXISTS sessions (
 --  'Mojo::Util::sha1_hex(id)',
-  id VARCHAR(40) PRIMARY KEY,
---  'Last modification time - last HTTP request.',
+  id CHAR(40) PRIMARY KEY,
+--  'Last modification time - last HTTP request. Only for statistics',
   tstamp INT(11) NOT NULL DEFAULT 0,
 --  'Session data serialized in JSON and packed with Base64',
   sessiondata BLOB NOT NULL
@@ -102,8 +102,8 @@ CREATE TABLE IF NOT EXISTS sessions (
 DROP TABLE IF EXISTS sessions_old;
 CREATE TABLE IF NOT EXISTS sessions_old (
 --  'Mojo::Util::sha1_hex(id)',
-  id VARCHAR(40) PRIMARY KEY,
---  'Last modification time - last HTTP request.',
+  id CHAR(40) PRIMARY KEY,
+--  'Last modification time - last HTTP request. Only for statistics',
   tstamp INT(11) NOT NULL DEFAULT 0,
 --  'Session data serialized in JSON and packed with Base64',
   sessiondata BLOB NOT NULL

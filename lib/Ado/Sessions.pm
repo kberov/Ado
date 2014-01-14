@@ -18,10 +18,8 @@ sub session_id {
     #once
     state $cookie_name = $self->cookie_name;
 
-    return
-         $c->param($cookie_name)
-      || $c->cookie($cookie_name)
-      || $c->req->headers->header('X-' . $cookie_name);
+    return $c->param($cookie_name)
+      || $c->cookie($cookie_name);
 }
 
 sub get_instance {
@@ -37,4 +35,46 @@ sub get_instance {
 }
 
 1;
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Ado::Sessions - A factory for HTTP Sessions in Ado
+
+=head1 DESCRIPTION
+
+Ado::Sessions choses the desired type of sessions and loads it.
+
+=head1 SYNOPSIS
+
+  #in ado.conf
+  session => {
+    type => 'database',
+    options => {
+        cookie_name        => 'ado',
+        default_expiration => 86400,
+    }         
+  }
+
+
+
+=head2 session_id
+
+
+Retreives the session id from a parameter or cookie defaulting to L<cookie_name>. 
+The C<cookie_name> can be set in C<ado.conf> section C<session>.
+
+  my $id = $self->session_id($c);
+
+
+=head1 SEE ALSO
+
+L<Mojolicious::Sessions>, L<Ado::Sessions::File>, L<Ado::Sessions::Database>,
+L<Using CORS|http://www.html5rocks.com/en/tutorials/cors/>
+
+=cut
+
 

@@ -1,9 +1,7 @@
 package Ado::Sessions::Database;
 use Mojo::Base 'Ado::Sessions';
 use Mojo::JSON;
-use Mojo::Util;
-
-use Data::Dumper;
+use Mojo::Util qw(b64_decode b64_encode);
 use Ado::Model::Sessions;
 
 sub load {
@@ -11,7 +9,6 @@ sub load {
 
     my $id = $self->session_id($c) || '';
 
-    $c->app->log->debug(ref($self) . "->load(), id:$id");
 
     my $session = {};
     if ($id) {
@@ -37,7 +34,6 @@ sub load {
 
 sub store {
     my ($self, $c) = @_;
-
 
     # Make sure session was active
     my $stash = $c->stash;
@@ -69,7 +65,6 @@ sub store {
     #once
     state $cookie_name = $self->cookie_name;
     $c->cookie($cookie_name, $id, $options);
-    $c->res->headers('X-' . $cookie_name => $id);    #CORS
 
     my $value = b64_encode(Mojo::JSON->new->encode($session), '');
     my $adosession = Ado::Model::Sessions->find($id);
@@ -82,4 +77,26 @@ sub store {
 }
 1;
 
+=pod
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Ado::Sessions::Database - manage sessions stored in the database
+
+=head1 DESCRIPTION
+
+L<Ado::Sessions::Database> manages sessions for
+L<Ado>. All data gets serialized with L<Mojo::JSON> and stored
+C<Base64> encoded in the database. A cookie or a request parameter can be used to 
+share the session id between the server and the user agents.
+
+
+
+
+
+=cut
 
