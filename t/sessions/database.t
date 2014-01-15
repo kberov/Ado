@@ -15,8 +15,9 @@ is($cookie_name, 'ado_session_id', '$cookie_name is ado_session_id');
 $t->get_ok('/добре/ок', 'created new session in template ok');
 my $sid = $t->tx->res->cookie($cookie_name)->value;
 ok $sid, "new sid $sid ok";
-$t->get_ok("/?$cookie_name=$sid")->header_is("X-$cookie_name", $sid, 'Custom header is ok');
-is $sid, $t->tx->res->cookie($cookie_name)->value, 'Param $sid ok';
+
+#$t->get_ok("/?$cookie_name=$sid")->header_is("X-$cookie_name", $sid, 'Custom header is ok');
+#is $sid, $t->tx->res->cookie($cookie_name)->value, 'Param $sid ok';
 
 $t->get_ok("/");
 is $sid, $t->tx->res->cookie($cookie_name)->value, 'Cookie $sid ok';
