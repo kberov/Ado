@@ -66,6 +66,7 @@ t/pod.t
 t/restapi.t
 t/sessions/00-load.t
 t/sessions/mojolicious.t
+t/sessions/database.t
 templates/exception.development.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep
