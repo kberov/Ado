@@ -127,6 +127,10 @@ Ado inherits all attributes from Mojolicious.
 Ado inherits all methods from Mojolicious and implements 
 the following new ones.
 
+=head2 sessions
+
+Method to access the Ado sessions instance.
+
 =head2 startup
 
 The startup method is where everything begins. Return $apps void.
