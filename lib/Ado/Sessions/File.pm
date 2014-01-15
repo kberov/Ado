@@ -3,15 +3,13 @@ package Ado::Sessions::File;
 use Mojo::Base 'Ado::Sessions';
 use Mojo::Util qw(slurp spurt);
 
-use File::Temp;
-
 sub dstdir {
     return $ENV{TMP} || $ENV{TEMP} || $ENV{TMPDIR} || '/tmp';
 }
 
 sub dstfile {
     my ($self, $id) = @_;
-    return $self->dstdir . '/ado.' . $id;
+    return 'ado.' . $id;
 }
 
 sub absfile {
@@ -21,19 +19,26 @@ sub absfile {
 
 sub load {
     my ($self, $c) = @_;
-    $c->app->log->debug(ref($self) . "->load()");
-    return;
+
+    my $session     = {};
+    my $id          = $self->session_id($c) || '';
+    my $cookie_file = $self->absfile($id);
+
+    if ($id and -e $cookie_file) {
+        my $sessiondata = slurp $cookie_file;
+        return
+          unless $session = Mojo::JSON->new->decode(Mojo::Util::b64_decode($sessiondata));
+    }
+
+    return $self->SUPER::load($c, $session);
 }
 
 sub store {
     my ($self, $c) = @_;
-    $c->app->log->debug(ref($self) . "->store()");
 
-    my $id   = $self->generate_id();
-    my $file = $self->absfile($id);
+    my ($id, $value) = $self->SUPER::store($c);
+    spurt $value, $self->absfile($id);
 
-    $c->app->log->debug(ref($self) . "->store($file)");
-    $c->cookie($self->cookie_name => $id);
     return;
 }
 

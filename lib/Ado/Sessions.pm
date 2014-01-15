@@ -84,7 +84,7 @@ sub store {
     state $cookie_name = $self->cookie_name;
     $c->cookie($cookie_name, $id, $options);
 
-    my $value = b64_encode(Mojo::JSON->new->encode($session), '');
+    my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
 
     return ($id, $value);
 }
