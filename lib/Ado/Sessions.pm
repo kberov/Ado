@@ -34,6 +34,61 @@ sub get_instance {
     return Carp::croak('Please provide valid session type:(mojo,file,database)');
 }
 
+sub load {
+    my ($self, $c, $session) = @_;
+
+    # "expiration" value is inherited
+    my $expiration = $session->{expiration} // $self->default_expiration;
+    return if !(my $expires = delete $session->{expires}) && $expiration;
+    return if defined $expires && $expires <= time;
+
+    my $stash = $c->stash;
+    return unless $stash->{'mojo.active_session'} = keys %$session;
+    $stash->{'mojo.session'} = $session;
+    $session->{flash} = delete $session->{new_flash} if $session->{new_flash};
+
+    return;
+}
+
+sub store {
+    my ($self, $c) = @_;
+
+    # Make sure session was active
+    my $stash = $c->stash;
+    return unless my $session = $stash->{'mojo.session'};
+    return unless keys %$session || $stash->{'mojo.active_session'};
+
+    # Don't reset flash for static files
+    my $old = delete $session->{flash};
+    @{$session->{new_flash}}{keys %$old} = values %$old
+      if $stash->{'mojo.static'};
+    delete $session->{new_flash} unless keys %{$session->{new_flash}};
+
+    # Generate "expires" value from "expiration" if necessary
+    my $expiration = $session->{expiration} // $self->default_expiration;
+    my $default = delete $session->{expires};
+    $session->{expires} = $default || time + $expiration
+      if $expiration || $default;
+
+
+    my $id = $self->session_id($c) || $self->generate_id();
+    my $options = {
+        domain   => $self->cookie_domain,
+        expires  => $session->{expires},
+        httponly => 1,
+        path     => $self->cookie_path,
+        secure   => $self->secure
+    };
+
+    #once
+    state $cookie_name = $self->cookie_name;
+    $c->cookie($cookie_name, $id, $options);
+
+    my $value = b64_encode(Mojo::JSON->new->encode($session), '');
+
+    return ($id, $value);
+}
+
 1;
 
 =pod
@@ -46,7 +101,7 @@ Ado::Sessions - A factory for HTTP Sessions in Ado
 
 =head1 DESCRIPTION
 
-Ado::Sessions choses the desired type of sessions and loads it.
+Ado::Sessions chooses the desired type of sessions and loads it.
 
 =head1 SYNOPSIS
 
@@ -59,12 +114,45 @@ Ado::Sessions choses the desired type of sessions and loads it.
     }         
   }
 
+=head2 cookie_domain
 
+Cookie domain accessor
+
+=head2 cookie_name
+
+Cookie name accessor
+
+=head2 cookie_path
+
+Cookie path accessor
+
+=head2 default_expiration
+
+Cookie default expiration accessor
+
+=head2 generate_id
+
+Session id generator
+
+=head2 get_instance
+
+Factory method for creating Ado session instance
+
+=head2 load
+
+Shares common logic and derived class should call
+
+=head2 secure
+
+Cookie is secure, flag
+
+=head2 store
+
+Shares common logic and derived class should call
 
 =head2 session_id
 
-
-Retreives the session id from a parameter or cookie defaulting to L<cookie_name>. 
+Retrieves the session id from a parameter or cookie defaulting to L<cookie_name>. 
 The C<cookie_name> can be set in C<ado.conf> section C<session>.
 
   my $id = $self->session_id($c);
