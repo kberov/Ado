@@ -1,7 +1,6 @@
 package Ado::Sessions;
 use Mojo::Base -base;
 use Mojo::JSON;
-use Mojo::Util qw(b64_decode b64_encode);
 
 has [qw(cookie_domain secure)];
 has cookie_name        => 'ado';
@@ -18,23 +17,35 @@ sub session_id {
     #once
     state $cookie_name = $self->cookie_name;
 
-    return $c->param($cookie_name)
-      || $c->cookie($cookie_name);
+    return
+         $c->param($cookie_name)
+      || $c->cookie($cookie_name)
+      || '';
 }
 
 sub get_instance {
     my $config  = shift;
     my $options = $config->{session}{options} || {};
-    my $type    = $config->{session}{type} || 'mojo';    #sane default
-    return Mojolicious::Sessions->new(%$options) if lc $type eq 'mojo';
-    return require Ado::Sessions::File && Ado::Sessions::File->new(%$options)
-      if lc $type eq 'file';
-    return require Ado::Sessions::Database && Ado::Sessions::Database->new(%$options)
-      if lc $type eq 'database';
-    return Carp::croak('Please provide valid session type:(mojo,file,database)');
+    my $type    = lc $config->{session}{type} || 'mojo';    #sane default
+
+    if ($type eq 'mojo') {
+        return Mojolicious::Sessions->new(%$options);
+    }
+    elsif ($type eq 'file') {
+        require Ado::Sessions::File;
+        return Ado::Sessions::File->new(%$options);
+    }
+    elsif ($type eq 'database') {
+        require Ado::Sessions::Database;
+        return Ado::Sessions::Database->new(%$options);
+    }
+    else {
+        Carp::croak('Please provide valid session type:(mojo,file,database)');
+    }
+    return;
 }
 
-sub load {
+sub prepare_load {
     my ($self, $c, $session) = @_;
 
     # "expiration" value is inherited
@@ -50,7 +61,7 @@ sub load {
     return;
 }
 
-sub store {
+sub prepare_store {
     my ($self, $c) = @_;
 
     # Make sure session was active
@@ -70,7 +81,6 @@ sub store {
     $session->{expires} = $default || time + $expiration
       if $expiration || $default;
 
-
     my $id = $self->session_id($c) || $self->generate_id();
     my $options = {
         domain   => $self->cookie_domain,
@@ -84,9 +94,7 @@ sub store {
     state $cookie_name = $self->cookie_name;
     $c->cookie($cookie_name, $id, $options);
 
-    my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
-
-    return ($id, $value);
+    return ($id, $session);
 }
 
 1;
@@ -101,7 +109,7 @@ Ado::Sessions - A factory for HTTP Sessions in Ado
 
 =head1 DESCRIPTION
 
-Ado::Sessions chooses the desired type of sessions and loads it.
+Ado::Sessions chooses the desired type of session storage and loads it.
 
 =head1 SYNOPSIS
 
@@ -113,6 +121,10 @@ Ado::Sessions chooses the desired type of sessions and loads it.
         default_expiration => 86400,
     }         
   }
+
+  #in Ado.pm we use the above configuration
+  has sessions => sub { Ado::Sessions::get_instance(shift->config) };
+
 
 =head2 cookie_domain
 
@@ -138,17 +150,27 @@ Session id generator
 
 Factory method for creating Ado session instance
 
-=head2 load
+=head2 prepare_load
 
-Shares common logic and derived class should call
+Shares common logic which is compatible with L<Mojolicious::Sessions>.
+The storage implementation class should call this method after it loads
+the session from the respective storage.
+
+    $self->prepare_load($c, $session);
 
 =head2 secure
 
 Cookie is secure, flag
 
-=head2 store
+=head2 prepare_store
 
-Shares common logic and derived class should call
+Shares common logic which is compatible with L<Mojolicious::Sessions>.
+The storage implementation class should call this method before it stores
+the session to the the respective storage.
+Returns the session id and the session ready to be serialized
+and base 64 encoded.
+
+    my ($id, $session) = $self->prepare_store($c);
 
 =head2 session_id
 

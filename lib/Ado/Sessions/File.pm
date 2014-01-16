@@ -30,13 +30,15 @@ sub load {
           unless $session = Mojo::JSON->new->decode(Mojo::Util::b64_decode($sessiondata));
     }
 
-    return $self->SUPER::load($c, $session);
+    return $self->prepare_load($c, $session);
 }
 
 sub store {
     my ($self, $c) = @_;
 
-    my ($id, $value) = $self->SUPER::store($c);
+    my ($id, $session) = $self->prepare_store($c);
+    my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
+
     spurt $value, $self->absfile($id);
 
     return;
@@ -55,13 +57,13 @@ sub cleanup {
 
 =head1 NAME
 
-Ado::Sessions::File - manage sessions stored in the files
+Ado::Sessions::File - manage sessions stored in files
 
 =head1 DESCRIPTION
 
 L<Ado::Sessions::File> manages sessions for
 L<Ado>. All data gets serialized with L<Mojo::JSON> and stored
-C<Base64> encoded in the file. A cookie or a request parameter can be used to 
+C<Base64> encoded in a file. A cookie or a request parameter can be used to
 share the session id between the server and the user agents.
 
 =head1 METHODS
@@ -90,5 +92,11 @@ Load session data from file.
 
 Store session data in file.
 
+
+=head1 SEE ALSO
+
+L<Mojolicious::Sessions>, L<Ado::Sessions::Database>
+
 =cut
+
 

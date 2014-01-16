@@ -18,13 +18,14 @@ sub load {
         }
     }
 
-    return $self->SUPER::load($c, $session);
+    return $self->prepare_load($c, $session);
 }
 
 sub store {
     my ($self, $c) = @_;
 
-    my ($id, $value) = $self->SUPER::store($c);
+    my ($id, $session) = $self->prepare_store($c);
+    my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
 
     my $adosession = Ado::Model::Sessions->find($id);
     if ($adosession->data) {
@@ -50,8 +51,8 @@ Ado::Sessions::Database - manage sessions stored in the database
 
 L<Ado::Sessions::Database> manages sessions for
 L<Ado>. All data gets serialized with L<Mojo::JSON> and stored
-C<Base64> encoded in the database. A cookie or a request parameter can be used to 
-share the session id between the server and the user agents.
+C<Base64> encoded in the database. A cookie or a request parameter can
+be used to share the session id between the server and the user agents.
 
 =head1 METHODS
 
@@ -63,5 +64,8 @@ Load session data from database.
 
 Save session data in database.
 
-=cut
+=head1 SEE ALSO
 
+L<Mojolicious::Sessions>, L<Ado::Sessions::File>
+
+=cut
