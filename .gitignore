@@ -20,6 +20,8 @@ Ado-*.tar.gz
 etc/ado_*.sqlite
 etc/ado.sqlite
 *.swp
+/*.komodoproject
+/tags
 log/development.log
 log/production.log
 
