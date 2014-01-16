@@ -38,5 +38,7 @@ $t->get_ok("/добре/ок");
 my $new_session_id = $t->tx->res->cookie($cookie_name)->value;
 isnt($old_session_id, $new_session_id, 'new id is different');
 
+$t->app->dbix->dbh->do('DELETE FROM sessions');
+$t->app->dbix->dbh->do('VACUUM');
 done_testing();
 
