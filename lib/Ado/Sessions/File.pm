@@ -4,6 +4,8 @@ use Mojo::Base 'Ado::Sessions';
 use Mojo::Util qw(slurp spurt);
 
 sub dstdir {
+
+    # TODO: Replace this with File::Spec->tmpdir
     return $ENV{TMP} || $ENV{TEMP} || $ENV{TMPDIR} || '/tmp';
 }
 
@@ -47,6 +49,14 @@ sub store {
 # TODO
 sub cleanup {
 
+    # go to session dir
+    # find all ado.* files
+    # filter against file age where is older than session timeout
+    # unlink all old files
+
+    # Warning!
+    # This action will slow down the application performance, so considering
+    # any other GC, like cronjob or watchdog would be a better solution.
 }
 
 1;
