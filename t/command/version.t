@@ -3,6 +3,19 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Output;
+use Mojo::UserAgent;
+
+# skip this test when offline
+{
+    my $ua = Mojo::UserAgent->new(max_redirects => 10);
+    $ua->proxy->detect;
+    my $tx = $ua->get('api.metacpan.org');
+    if (not $tx->success) {
+        plan(skip_all => $tx->error);
+
+        #plan(skip_all => "Because we are offline.");
+    }
+}
 
 use_ok('Ado');
 my $ACV = 'Ado::Command::version';
