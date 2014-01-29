@@ -102,7 +102,7 @@ sub validate_input {
     }    #end foreach my $param
 
     return {
-        (   !!keys $errors
+        (   !!keys %{$errors}
             ? ( errors => $errors,
                 json   => {
                     status  => 'error',
