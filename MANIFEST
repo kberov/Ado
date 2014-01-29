@@ -34,6 +34,9 @@ lib/Ado/Model/UserGroup.pm
 lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
 lib/Ado/Plugin/Routes.pm
+lib/Ado/Sessions.pm
+lib/Ado/Sessions/Database.pm
+lib/Ado/Sessions/File.pm
 lib/Test/AdoPlugin.pm
 LICENSE
 log/development.log
@@ -61,6 +64,10 @@ t/pod-coverage.t
 t/pod-spelling.t
 t/pod.t
 t/restapi.t
+t/sessions/00-load.t
+t/sessions/mojolicious.t
+t/sessions/database.t
+t/sessions/file.t
 templates/exception.development.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep

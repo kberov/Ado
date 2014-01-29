@@ -11,9 +11,13 @@ BEGIN {
 }
 
 use Ado::Control;
+use Ado::Sessions;
+
 our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.27';
 our $CODENAME  = 'U+2C00 GLAGOLITIC CAPITAL LETTER AZU (Ⰰ)';
+
+has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 # This method will run once at server start
 sub startup {
@@ -122,6 +126,10 @@ Ado inherits all attributes from Mojolicious.
 
 Ado inherits all methods from Mojolicious and implements 
 the following new ones.
+
+=head2 sessions
+
+Method to access the Ado sessions instance.
 
 =head2 startup
 

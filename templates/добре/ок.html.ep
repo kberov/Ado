@@ -8,3 +8,6 @@ This page was generated from the template
 and the layout <b>"<%== layout %>"</b>,
 <a href="<%== url_for %>">click here</a> to reload the page or
 <a href="/index.html">here</a> to move forward to a static page.
+
+% #the next is used only to test sessions
+% session(current_time=>time);

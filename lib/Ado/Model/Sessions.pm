@@ -10,7 +10,7 @@ my $TABLE_NAME = 'sessions';
 
 sub TABLE       { return $TABLE_NAME }
 sub PRIMARY_KEY { return 'id' }
-my $COLUMNS = ['id', 'user_id', 'tstamp', 'sessiondata'];
+my $COLUMNS = ['id', 'tstamp', 'sessiondata'];
 
 sub COLUMNS { return $COLUMNS }
 my $ALIASES = {};
@@ -26,8 +26,12 @@ my $CHECKS = {
         'defined'  => 1,
         'allow'    => qr/(?^x:^-?\d{1,11}$)/
     },
-    'user_id' => {'allow' => qr/(?^x:^-?\d{1,11}$)/},
-    'id'      => {'allow' => qr/(?^x:^.{1,40}$)/}
+    'id' => {
+        'required' => 1,
+        'defined'  => 1,
+
+        'allow' => qr/(?^x:^.{1,40}$)/
+    }
 };
 
 sub CHECKS { return $CHECKS }
