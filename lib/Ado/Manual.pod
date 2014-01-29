@@ -11,7 +11,7 @@ Ado::Manual - Getting started with Ado
 
 =head1 DESCRIPTION
 
-Ado is a framework for web projects based on L<Mojolicious>,
+L<Ado> is a framework for web projects based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 
 Ado is a typical L<Mojo> application yet it adds some default 
