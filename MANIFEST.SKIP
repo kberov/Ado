@@ -53,9 +53,6 @@
 \bcover_db\b
 \bcovered\b
 
-# Avoid MYMETA files
-^MYMETA\.
-#!end included /home/berov/opt/ActivePerl-5.16.3/lib/ExtUtils/MANIFEST.SKIP
 
 # Avoid configuration metadata file
 ^MYMETA\.
@@ -74,4 +71,8 @@
 
 #Avoid backups made by SQLite Manager
 \betc/ado_\d+\.sqlite
+#Avoid files created by some IDEs and editors
+\.komodoproject$
+\.swp$
+^tags$
 
