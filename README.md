@@ -9,7 +9,7 @@ Ado::Manual - Getting started with Ado
 
 # DESCRIPTION
 
-Ado is a framework for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
+[Ado](https://metacpan.org/pod/Ado) is a framework for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
 written in the [Perl programming language](http://www.perl.org/).
 
 Ado is a typical [Mojo](https://metacpan.org/pod/Mojo) application yet it adds some default 
