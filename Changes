@@ -1,7 +1,9 @@
 Revision history for Ado
 
 0.28 2014-01-31
-    This is a bugfix release.
+    - This is a bugfix release.
+    - Checking for Test::Output in t/command/version.t
+    - Creating README only if $ENV{TEST_AUTHOR}.
 
 0.27 2014-01-29
     - Upgraded to Mojolicious 4.71.

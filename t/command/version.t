@@ -2,8 +2,10 @@ use 5.014000;
 use strict;
 use warnings;
 use Test::More;
-use Test::Output;
 use Mojo::UserAgent;
+eval "use Test::Output;";
+
+plan skip_all => "Test::Output required for this test" if $@;
 
 # skip this test when offline
 {
