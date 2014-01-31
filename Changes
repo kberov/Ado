@@ -1,9 +1,11 @@
 Revision history for Ado
 
-0.27 2014-01-11
+0.28 2014-01-31
+    This is a bugfix release.
+
+0.27 2014-01-29
     - Upgraded to Mojolicious 4.71.
-    - Experimental CORS-ready Ado sessions
-      provided by Ado::Model::Sessions.
+    - Experimental CORS-ready Ado::Sessions with file and database storage.
     - Fixed bug in Ado::Build::ACTION_dist.
       It was not emptying log files.
 
