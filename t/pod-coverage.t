@@ -3,7 +3,6 @@ use 5.014000;
 use strict;
 use warnings FATAL => 'all';
 use Test::More;
-use File::Basename;
 
 if (not $ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
