@@ -1,9 +1,13 @@
 Revision history for Ado
 
+0.29 2014-02-02
+    - Upgraded to Mojolicious 4.75.
+    - Fixed stupid mistakes in t/session/database.t. 
+
 0.28 2014-02-02
     - This is a bugfix release.
-    - Have a testing copy of ado.conf and ado.sqlite in t/etc
-    - Checking for Test::Output in t/command/version.t
+    - Have a testing copy of ado.conf and ado.sqlite in t/etc.
+    - Checking for Test::Output in t/command/version.t.
     - Creating README only if $ENV{TEST_AUTHOR}.
 
 0.27 2014-01-29

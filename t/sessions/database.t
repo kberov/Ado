@@ -3,9 +3,11 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 use Time::Piece;
+use File::Basename qw(dirname);
+use Cwd qw(abs_path);
 
 #use alternative configuration and database
-$ENV{MOJO_CONFIG} = Cwd::abs_path(File::Basename::dirname(__FILE__)) . '/../etc/ado.conf';
+$ENV{MOJO_CONFIG} = abs_path(dirname(__FILE__)) . '/../etc/ado.conf';
 
 my $t = Test::Mojo->new('Ado');
 

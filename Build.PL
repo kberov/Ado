@@ -54,7 +54,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '4.71',
+        'Mojolicious'              => '4.75',
         'Mojolicious::Plugin::DSC' => '0.999',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
     },
