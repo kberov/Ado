@@ -3,6 +3,10 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 use Time::Piece;
+
+#use alternative configuration and database
+$ENV{MOJO_CONFIG} = Cwd::abs_path(File::Basename::dirname(__FILE__)) . '/../etc/ado.conf';
+
 my $t = Test::Mojo->new('Ado');
 
 #switch to Ado::Sessions::Database
@@ -40,5 +44,6 @@ isnt($old_session_id, $new_session_id, 'new id is different');
 
 $t->app->dbix->dbh->do('DELETE FROM sessions');
 $t->app->dbix->dbh->do('VACUUM');
+
 done_testing();
 

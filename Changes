@@ -1,7 +1,8 @@
 Revision history for Ado
 
-0.28 2014-01-31
+0.28 2014-02-02
     - This is a bugfix release.
+    - Have a testing copy of ado.conf and ado.sqlite in t/etc
     - Checking for Test::Output in t/command/version.t
     - Creating README only if $ENV{TEST_AUTHOR}.
 

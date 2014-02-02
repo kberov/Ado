@@ -57,6 +57,9 @@ t/ado-build.t
 t/basic.t
 t/boilerplate.t
 t/command/version.t
+t/etc/ado.conf
+t/etc/ado.sqlite
+t/etc/README
 t/manifest.t
 t/perl-critic.t
 t/plugin_routes.t
@@ -65,9 +68,9 @@ t/pod-spelling.t
 t/pod.t
 t/restapi.t
 t/sessions/00-load.t
-t/sessions/mojolicious.t
 t/sessions/database.t
 t/sessions/file.t
+t/sessions/mojolicious.t
 templates/exception.development.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep
