@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.30 2014-02-02
+    - Fixed tests by making sure touched files have proper permissions.
+    - Removed unneeded t/etc.
+
+
 0.29 2014-02-02
     - Upgraded to Mojolicious 4.75.
     - Fixed stupid mistakes in t/session/database.t. 

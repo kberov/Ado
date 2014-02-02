@@ -137,6 +137,17 @@ sub ACTION_build {
     return;
 }
 
+sub ACTION_test {
+    my $self = shift;
+
+    #Custom functionality before test
+    $self->_process_custom_files(catdir('blib', 'etc'), catdir('blib', 'log'))
+      if -e 'blib';
+    $self->_process_custom_files('etc', 'log');
+    $self->SUPER::ACTION_test;
+    return;
+}
+
 sub ACTION_dist {
     my $self = shift;
 
@@ -158,9 +169,12 @@ sub ACTION_install {
     $self->SUPER::ACTION_install;
 
     #Custom functionality after installation
-    #see below
-    my $etc_dir = $self->install_path('etc');
-    my $log_dir = $self->install_path('log');
+    $self->_process_custom_files($self->install_path('etc'), $self->install_path('log'));
+    return;
+}
+
+sub _process_custom_files {
+    my ($self, $etc_dir, $log_dir) = @_;
 
     #make some files writable and/or readable only by the user that runs the application
     my $ro = oct('0400');
@@ -171,7 +185,7 @@ sub ACTION_install {
     _chmod($rw, catfile($etc_dir, 'ado.sqlite'));
 
     #Make sure *log files are existing and empty
-    _empty_log_files($self->install_path('log'));
+    _empty_log_files($log_dir);
     for my $asset (qw(development production)) {
         _chmod($rw, catfile($log_dir, "$asset.log"));
     }
@@ -361,6 +375,11 @@ Returns void.
 
 We put here custom functionality executed around the
 C<$self-E<gt>SUPER::ACTION_build>. See the source for details.
+
+=head2 ACTION_test
+
+We put here custom functionality executed around the
+C<$self-E<gt>SUPER::ACTION_test>. See the source for details.
 
 =head2 ACTION_dist
 

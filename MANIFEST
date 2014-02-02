@@ -57,9 +57,6 @@ t/ado-build.t
 t/basic.t
 t/boilerplate.t
 t/command/version.t
-t/etc/ado.conf
-t/etc/ado.sqlite
-t/etc/README
 t/manifest.t
 t/perl-critic.t
 t/plugin_routes.t
