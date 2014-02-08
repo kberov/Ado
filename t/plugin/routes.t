@@ -1,4 +1,4 @@
-#plugin_routes.t
+#t/plugin/routes.t
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;

@@ -58,7 +58,12 @@ my $builder = Ado::Build->new(
         'Mojolicious::Plugin::DSC' => '0.999',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
     },
-    recommends           => {'DBD::SQLite' => '1.40',},
+    recommends => {
+        'DBD::SQLite' => '1.40',
+
+        #Default markdown renderer
+        'Text::MultiMarkdown' => '1.000034',
+    },
     recursive_test_files => 1,
     meta_merge           => {
         resources => {

@@ -74,7 +74,8 @@ t/boilerplate.t
 t/command/version.t
 t/manifest.t
 t/perl-critic.t
-t/plugin_routes.t
+t/plugin/markdown_renderer.t
+t/plugin/routes.t
 t/pod-coverage.t
 t/pod-spelling.t
 t/pod.t

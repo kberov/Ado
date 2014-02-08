@@ -26,7 +26,7 @@ add_stopwords(
       URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
       precompiled perldoc RESTful tstamp
       accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew
+      cpan cpanm perl perlbrew rawr
       )
 );
 all_pod_files_spelling_ok();

@@ -15,7 +15,7 @@ use Ado::Sessions;
 
 our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.31';
-our $CODENAME  = 'U+2C00 GLAGOLITIC CAPITAL LETTER AZU (Ⰰ)';
+our $CODENAME  = 'U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)';
 
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
