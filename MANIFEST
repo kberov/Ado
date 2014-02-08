@@ -7,6 +7,7 @@ etc/ado-sqlite-schema.sql
 etc/ado.conf
 etc/ado.sqlite
 etc/commands/README
+etc/plugins/markdown_renderer.conf
 etc/plugins/README
 etc/plugins/routes.conf
 etc/README
@@ -33,6 +34,7 @@ lib/Ado/Model/SqliteSequence.pm
 lib/Ado/Model/UserGroup.pm
 lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
+lib/Ado/Plugin/MarkdownRenderer.pm
 lib/Ado/Plugin/Routes.pm
 lib/Ado/Sessions.pm
 lib/Ado/Sessions/Database.pm
@@ -45,10 +47,23 @@ log/README
 MANIFEST			This list of files
 META.json
 META.yml
+public/doc/bg/cover.md
+public/doc/bg/img/default_admin_screen.epz
+public/doc/bg/img/default_admin_screen.png
+public/doc/bg/intro.md
+public/doc/bg/toc.md
 public/img/logo.png
 public/img/logo.svg
 public/img/ose.02.gif
 public/index.html
+public/vendor/pagedown/LICENSE.txt
+public/vendor/pagedown/Markdown.Converter.js
+public/vendor/pagedown/Markdown.Editor.js
+public/vendor/pagedown/Markdown.Sanitizer.js
+public/vendor/pagedown/node-pagedown.js
+public/vendor/pagedown/package.json
+public/vendor/pagedown/README.txt
+public/vendor/pagedown/wmd-buttons.png
 README
 README.md
 t/.perlcriticrc
