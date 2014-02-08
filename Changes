@@ -4,7 +4,8 @@ Revision history for Ado
     - Implementented Ado::Plugin::MarkdownRenderer
     - Added minimal functional documentation and used the 
       above plugin to render it.
-    - $CODENAME changed to "Буки" - U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)
+    - $CODENAME changed to
+      "Буки" - U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)
       because we have the first end-user application in Ado now.
 
 
@@ -25,7 +26,8 @@ Revision history for Ado
 
 0.27 2014-01-29
     - Upgraded to Mojolicious 4.71.
-    - Experimental CORS-ready Ado::Sessions with file and database storage.
+    - Experimental CORS-ready Ado::Sessions with file
+      and database storage.
     - Fixed bug in Ado::Build::ACTION_dist.
       It was not emptying log files.
 

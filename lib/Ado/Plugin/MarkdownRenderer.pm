@@ -19,11 +19,10 @@ sub register {
 }
 
 sub md_to_html {
-    my $c = shift;    #current controller
-    state $config      = $c->config('plugins')->{markdown_renderer};
-    state $md_renderer = $config->{md_renderer};
+    my ($c, $config) = @_;
 
-    my $e = Mojo::Loader->load($md_renderer);
+    my $md_renderer = $config->{md_renderer};
+    my $e           = Mojo::Loader->load($md_renderer);
     if (ref $e) {
         Carp::cluck("Exception: $e");
         return '';
@@ -37,7 +36,8 @@ sub md_to_html {
         ) if $e2;
         return '';
     }
-    $md_renderer->new();
+    return $md_renderer->new(%{$config->{md_renderer}{options}})->markdown();
+
 }
 
 1;
@@ -75,10 +75,58 @@ See Ado::Control::Doc for an example.
 The code of this plugin is a good example for learning to build new plugins,
 you're welcome to fork it.
 
+=head1 OPTIONS
+
+=head2 md_renderer
+
+  md_renderer => 'Text::MultiMarkdown',
+
+  The class to load. This option exists because hte use may want to use
+  L<Text::Markdown> or L<Text::Markup> instead.
+
+=head2  md_method
+
+  md_method => 'markdown',
+
+Method that will be used internally to produce the C<$HTML>.
+Can also be a code referrence.
+First paramether is the md_renderer instance and the 
+second is the markdown text.
+
+
 =head1 HELPERS
+
+L<Ado::Plugin::MarkdownRenderer> exports the following helper for use in  
+L<Ado::Control> methods and templates.
 
 =head2 md_to_html
 
-Given a Markdown string returns the HTML produced by L<Text::Markdown/markdown>.
+Given a Markdown string returns the HTML produced by the renderer - 
+L<Text::Markdown> by default.
+
+  #Markdown from $MOJO_HOME/public/doc/bg/intro.md
+  #http://example.com/doc/bg/intro.md
+  my $html = $c->md_to_html(); 
+
+  my $html = $c->md_to_html($markdown); 
+
+  % #in a template
+  <%= md_to_html();%>
+
+=head1 METHODS
+
+L<Ado::Plugin::MarkdownRenderer> inherits all methods from
+L<Ado::Plugin> and implements the following new ones.
+
+=head2 register
+
+  my $route = $plugin->register(Ado->new);
+  my $route = $plugin->register(Ado->new, {options => {...}});
+
+Register renderer and helper in L<Mojolicious> application.
+
+=head1 SEE ALSO
+
+L<Ado::Plugin>, L<Ado::Manual>.
 
 =cut
