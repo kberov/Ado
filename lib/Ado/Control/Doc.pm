@@ -3,7 +3,18 @@ use Mojo::Base 'Ado::Control';
 
 #Renders the page found in md_file
 sub show {
-    my $c = shift;
+    my $c        = shift;
+    my $document = $c->md_to_html();
+    $document = Mojo::DOM->new($document);
+    my $title = $document->find('h1,h2,h3')->[0];
+    if (not $title) {
+        $title = 'Няма Заглавие!';
+        $document->at('article')->prepend_content(qq|<h1 class="error">$title</h1>|);
+    }
+    else {
+        $c->title($title->text);
+    }
+    $c->stash(document => $document->to_string);
 
     return $c->render();
 }
@@ -22,7 +33,7 @@ Ado::Control::Doc - The controller for the end-user documentation
 =head1 SYNOPSIS
 
   #in your browser go to
-  http://your-host/doc
+  http://your-host/help
 
 =head1 DESCRIPTION
 

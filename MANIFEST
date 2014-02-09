@@ -52,6 +52,7 @@ public/doc/bg/cover.md
 public/doc/bg/img/default_admin_screen.epz
 public/doc/bg/img/default_admin_screen.png
 public/doc/bg/intro.md
+public/doc/bg/no_title.md
 public/doc/bg/toc.md
 public/img/logo.png
 public/img/logo.svg
@@ -89,6 +90,7 @@ templates/doc/show.html.ep
 templates/exception.development.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep
+templates/layouts/doc.html.ep
 templates/not_found.development.html.ep
 templates/not_found.html.ep
 templates/добре/ок.html.ep

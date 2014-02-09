@@ -1,12 +1,14 @@
 Revision history for Ado
 
-0.31 2014-02-08
+0.31 2014-02-09
     - Implementented Ado::Plugin::MarkdownRenderer
     - Added minimal functional documentation and used the 
       above plugin to render it.
     - $CODENAME changed to
       "Буки" - U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)
       because we have the first end-user application in Ado now.
+      We started adding end-user features now.
+    - Upgraded to Mojolicious 4.77.
 
 
 0.30 2014-02-02
