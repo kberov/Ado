@@ -21,6 +21,7 @@ lib/Ado/Control/Ado.pm
 lib/Ado/Control/Ado/Default.pm
 lib/Ado/Control/Ado/Users.pm
 lib/Ado/Control/Default.pm
+lib/Ado/Control/Doc.pm
 lib/Ado/Manual.pod
 lib/Ado/Manual/Contributing.pod
 lib/Ado/Manual/Plugins.pod
@@ -84,6 +85,7 @@ t/sessions/00-load.t
 t/sessions/database.t
 t/sessions/file.t
 t/sessions/mojolicious.t
+templates/doc/show.html.ep
 templates/exception.development.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep
