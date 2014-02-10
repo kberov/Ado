@@ -244,7 +244,9 @@ Become a sponsor and help make L<Ado> the ERP for the enterprise!
 
 =head1 SEE ALSO
 
-L<Ado::Control::Doc>, L<Ado::Plugin>, L<Ado::Manual>.
+L<Ado::Control::Doc>, 
+L<Text::MultiMarkdown>, L<http://fletcherpenney.net/multimarkdown/>,
+L<Ado::Plugin>, L<Ado::Manual>.
 
 =head1 AUTHOR
 
