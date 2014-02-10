@@ -3,12 +3,14 @@ use Mojo::Base 'Ado::Control';
 
 #Renders the page found in md_file
 sub show {
-    my $c        = shift;
-    my $document = $c->md_to_html();
+    my $c = shift;
+    my $document = $c->md_to_html() || return;
     $document = Mojo::DOM->new($document);
     my $title = $document->find('h1,h2,h3')->[0];
+
     if (not $title) {
         $title = 'Няма Заглавие!';
+        $c->title($title);
         $document->at('article')->prepend_content(qq|<h1 class="error">$title</h1>|);
     }
     else {

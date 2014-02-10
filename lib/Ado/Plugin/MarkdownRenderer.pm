@@ -23,11 +23,11 @@ sub register {
     $config->{md_helper}       ||= 'md_to_html';
     $config->{md_root}         ||= $app->home->rel_dir('public/doc');
     $config->{md_file_sufixes} ||= ['.md'];
-
     $app->helper($config->{md_helper} => sub { md_to_html(shift, $config, @_) });
 
     #load routes if they are passed
-    $app->load_routes($config->{routes}) if scalar @{$config->{routes} || ()};
+    $app->load_routes($config->{routes})
+      if (ref($config->{routes}) eq 'ARRAY' && scalar @{$config->{routes}});
     return $self;
 }
 
@@ -51,6 +51,14 @@ sub md_to_html {
         return b($html_filepath)->slurp->decode;
     }
 
+    #404 Not Found
+    my $md_filepath = catfile($path, "$name$suffix");
+    unless (-s $md_filepath) {
+        $c->app->log->error("Not found $md_filepath!");
+        $c->render(template => 'not_found', status => 404);
+        return;
+    }
+
     my $md_renderer = $config->{md_renderer};
     my $e           = Mojo::Loader->load($md_renderer);
     if (ref $e) {
@@ -66,8 +74,6 @@ sub md_to_html {
         ) if $e2;
         return '';
     }
-    my $md_filepath = catfile($path, "$name$suffix");
-    $c->debug($md_filepath);
     my $markdown = Mojo::Util::slurp($md_filepath);
     my $html     = $md_renderer->new(%{$config->{options}})->markdown($markdown);
 

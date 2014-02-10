@@ -1,4 +1,3 @@
 
 % layout('doc');
-% $self->debug($document);
 <%== $document %>
