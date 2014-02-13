@@ -19,7 +19,7 @@ my $md_root = $plugin->config('md_root');
 like($md_root, qr/doc$/, "ok md_root:$md_root");
 like(
     $app->md_to_html('bg/no_title.md'),
-    qr/^\<article\>.+?Няма\sЗаглавие/sx,
+    qr/\<p\>.+?Няма\sЗаглавие/sx,
     'md_to_html works basicaly'
 );
 
@@ -46,10 +46,10 @@ $t->get_ok('/help/bg/toc.md')->status_is(200)->text_is('h1' => 'Съдържан
 #no_title
 $t->get_ok('/help/bg/no_title.md')->status_is(200)
   ->text_is('title' => 'Няма Заглавие!')
-  ->text_is('h1'    => 'Няма Заглавие!');
+  ->text_is('h1' => 'Няма Заглавие!')->content_like(qr/<article>/, '<article> ok');
 
 #not found
-$t->get_ok('/help/bg/alabala.md')->status_is(404)->text_like('p' => qr|/help/bg/alabala\.md|);
+$t->get_ok('/help/bg/alabala.md')->status_is(404)->text_is('h1' => 'Page not found... yet!');
 
 #test missing/default configuration
 $plugin->{config} = {};

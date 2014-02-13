@@ -21,7 +21,7 @@ Since version 0.31 [Ado](https://metacpan.org/pod/Ado) goes together with the fo
 
 - [Ado::Plugin::MarkdownRenderer](https://metacpan.org/pod/Ado::Plugin::MarkdownRenderer) - Render static files in markdown format.
 You can create a personal blog or enterprise wiki using static files in markdown format.
-See the Functional documentation at [http://localhost:3000/doc](http://localhost:3000/doc) for an example.
+See the Functional documentation at [http://localhost:3000/help](http://localhost:3000/help) for an example.
 
 # INSTALLATION
 

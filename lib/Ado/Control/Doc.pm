@@ -5,7 +5,7 @@ use Mojo::Base 'Ado::Control';
 sub show {
     my $c = shift;
     my $document = $c->md_to_html() || return;
-    $document = Mojo::DOM->new($document);
+    $document = Mojo::DOM->new("<article>$document</article>");
     my $title = $document->find('h1,h2,h3')->[0];
 
     if (not $title) {

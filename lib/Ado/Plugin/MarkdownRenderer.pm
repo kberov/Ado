@@ -33,13 +33,13 @@ sub register {
 
 sub md_to_html {
     my ($c, $config, $file_path) = @_;
-    $file_path ||= $c->stash('md_file');
+    $file_path ||= ($c->stash('md_file') || return '');
+
+    unless ($file_path) { $c->render_not_found && return '' }
     my $fullname = catfile($config->{md_root}, $file_path);
-    $c->debug("md_file: $file_path");
-    $c->debug("\$fullname: $fullname");
+    $c->debug("md_file: $file_path;\$fullname: $fullname");
 
     my ($name, $path, $suffix) = fileparse($fullname, @{$config->{md_file_sufixes}});
-    $c->debug("$name,$path,$suffix");
     my $html_filepath = catfile($path, "$name.html");
 
     #Reuse previously produced html file if md_file is older than the html file.
@@ -53,11 +53,7 @@ sub md_to_html {
 
     #404 Not Found
     my $md_filepath = catfile($path, "$name$suffix");
-    unless (-s $md_filepath) {
-        $c->app->log->error("Not found $md_filepath!");
-        $c->render(template => 'not_found', status => 404);
-        return;
-    }
+    unless (-s $md_filepath) { $c->render_not_found && return '' }
 
     my $md_renderer = $config->{md_renderer};
     my $e           = Mojo::Loader->load($md_renderer);
@@ -77,7 +73,7 @@ sub md_to_html {
     my $markdown = Mojo::Util::slurp($md_filepath);
     my $html     = $md_renderer->new(%{$config->{options}})->markdown($markdown);
 
-    return b(qq|<article>$html</article>|)->spurt($html_filepath)->decode();
+    return b($html)->spurt($html_filepath)->decode();
 }
 
 1;
