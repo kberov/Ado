@@ -8,6 +8,8 @@ Revision history for Ado
       "Буки" - U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)
       because we have the first end-user application in Ado now.
       We started adding end-user features now.
+    - Added accessor 'CODENAME' to Ado.
+    - Added accessors 'keywords' and 'description' to Ado::Control.
     - Upgraded to Mojolicious 4.77.
 
 
