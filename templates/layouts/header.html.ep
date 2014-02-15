@@ -1,0 +1,11 @@
+% #standart generic header for all pages
+% my $description = $self->{stash}{description} || $self->description;
+% my $keywords = $self->{stash}{keywords} || $self->keywords;
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" 
+      content="<%= ref(app).' '.app->VERSION.' ('. app->CODENAME.')' %>" />
+    <meta name="description" content="<%= $description %>" />
+    <meta name="keywords" content="<%= $keywords %>" />
+    <title><%= title %></title>

@@ -91,6 +91,7 @@ templates/exception.development.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
+templates/layouts/header.html.ep
 templates/not_found.development.html.ep
 templates/not_found.html.ep
 templates/добре/ок.html.ep
