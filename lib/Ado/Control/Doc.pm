@@ -27,10 +27,9 @@ sub show {
 
     #Prepare a title for the HTML
     $c->_set_title($document);
-    $document = $toc . $document;
 
     #Use template show.html.ep with layout doc.html.ep
-    return $c->render(document => $document);
+    return $c->render(document => $toc . $document);
 }
 
 #prepare a title for the html>head

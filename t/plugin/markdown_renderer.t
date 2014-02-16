@@ -37,7 +37,7 @@ find(
 #help
 $t->get_ok('/help/bg/toc.md')->status_is(200)->text_is('h1' => 'Съдържание')
   ->text_is('title' => 'Съдържание')->content_like(qr/<aside.+id="toc"/, '<aside> ok')
-  ->content_unlike(qr/<article.+id="/, 'no artice in toc page ok');
+  ->content_unlike(qr/<article.+id="/, 'no article in toc page ok');
 
 #help created already
 $t->get_ok('/help/bg/toc.md')->status_is(200)->text_is('h1' => 'Съдържание')
