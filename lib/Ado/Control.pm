@@ -2,6 +2,9 @@ package Ado::Control;
 use Mojo::Base 'Mojolicious::Controller';
 
 our $DEV_MODE = ($ENV{MOJO_MODE} || '' =~ /dev/);
+has description => 'Ado is a framework for web projects based on Mojolicious,'
+  . ' written in the Perl programming language.';
+has keywords => 'SSOT,CRM,ERP,CMS,Perl,SQL';
 
 sub config {
     my ($c, $key) = @_;
@@ -137,6 +140,14 @@ Put code here only to be shared by it's subclasses or used in hooks.
 
 Ado::Control inherits all attributes from L<Mojolicious::Controller> 
 and implements the following new ones.
+
+=head2 description
+
+Returns a default description used in C<head> element of HTML pages.
+
+=head2 keywords
+
+Returns default keywords used in C<head> element of HTML pages.
 
 =head1 SUBROUTINES/METHODS
 

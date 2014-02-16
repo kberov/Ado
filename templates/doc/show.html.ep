@@ -1,0 +1,11 @@
+
+% layout('doc');
+
+<main class="ui">
+  <aside class="ui black launch right attached button">
+    <i class="icon list layout"></i>
+  </aside>
+  <%==$document %>
+</main>
+<script type="text/javascript" src="/js/help_toc.js"></script>
+

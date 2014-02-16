@@ -54,9 +54,13 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '4.75',
+        'Mojolicious'              => '4.81',
         'Mojolicious::Plugin::DSC' => '0.999',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
+
+        #Default markdown renderer
+        'Text::MultiMarkdown' => '1.000034',
+
     },
     recommends           => {'DBD::SQLite' => '1.40',},
     recursive_test_files => 1,

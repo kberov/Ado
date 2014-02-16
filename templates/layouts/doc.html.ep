@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= include 'layouts/header'; %>
+  </head>
+  <body><%= content %></body>
+</html>

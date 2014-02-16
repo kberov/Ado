@@ -1,5 +1,21 @@
 Revision history for Ado
 
+0.31 2014-02-16
+    - Implementented Ado::Plugin::MarkdownRenderer
+    - Included "Semantic UI" CSS and JavaScript framework.
+      It will be the default UI framwework for Ado.
+    - Implemented simple functional documentation system (/help)
+      and used Ado::Plugin::MarkdownRenderer and Semantic UI
+      to render documentation. Added dummy "lorem ipsum" content.
+    - $CODENAME changed to
+      "Буки" - U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)
+      because we have the first end-user application in Ado now.
+    - We started adding end-user features now.
+    - Added accessor 'CODENAME' to Ado.
+    - Added accessors 'keywords' and 'description' to Ado::Control.
+    - Upgraded to Mojolicious 4.81.
+
+
 0.30 2014-02-02
     - Fixed tests by making sure touched files have proper permissions.
     - Removed unneeded t/etc.
@@ -17,7 +33,8 @@ Revision history for Ado
 
 0.27 2014-01-29
     - Upgraded to Mojolicious 4.71.
-    - Experimental CORS-ready Ado::Sessions with file and database storage.
+    - Experimental CORS-ready Ado::Sessions with file
+      and database storage.
     - Fixed bug in Ado::Build::ACTION_dist.
       It was not emptying log files.
 

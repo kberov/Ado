@@ -14,9 +14,9 @@ use Ado::Control;
 use Ado::Sessions;
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.30';
-our $CODENAME  = 'U+2C00 GLAGOLITIC CAPITAL LETTER AZU (Ⰰ)';
-
+our $VERSION   = '0.31';
+our $CODENAME  = 'U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)';
+has CODENAME => $CODENAME;
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 # This method will run once at server start
@@ -90,6 +90,7 @@ sub load_routes {
             $r->via(@$via);
         }
         $r->to(ref $to eq 'HASH' ? %$to : $to);
+        $app->log->debug('load_routes: name:' . $r->name . '; pattern:' . $r->to_string);
     }
 
     return $app;
@@ -119,17 +120,20 @@ Ado - busy or delaying activity; bustle; fuss.
 
 =head1 ATTRIBUTES
 
-Ado inherits all attributes from Mojolicious.
+Ado inherits all attributes from Mojolicious and implements the following ones.
 
+=head2 CODENAME
+
+Returns the current C<CODENAME>.
+
+=head2 sessions
+
+Access the Ado sessions instance.
 
 =head1 METHODS
 
 Ado inherits all methods from Mojolicious and implements 
 the following new ones.
-
-=head2 sessions
-
-Method to access the Ado sessions instance.
 
 =head2 startup
 

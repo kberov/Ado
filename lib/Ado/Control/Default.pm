@@ -45,6 +45,9 @@ Ado::Control::Default inherits all the attributes from
 
 =head1 METHODS/ACTIONS
 
+L<Ado::Control::Default> inherits all the methods from 
+L<Ado::Control> and defines the following ones.
+
 =head2 index
 
 C<index> is the default action.
@@ -58,6 +61,7 @@ The form action.
 The original author
 
 =head1 SEE ALSO
+
 L<Ado::Control::Ado>,
 L<Ado::Control>, L<Mojolicious::Controller>, L<Mojolicious::Guides::Growing/Model_View_Controller>,
 L<Mojolicious::Guides::Growing/Controller_class>

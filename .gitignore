@@ -22,6 +22,7 @@ etc/ado.sqlite
 *.swp
 /*.komodoproject
 /tags
+.tags*
 log/development.log
 log/production.log
 

@@ -25,6 +25,7 @@ sub _get_plugin_config {
     }
 }
 
+#plugin configuration getter
 sub config {
     my ($self, $key) = @_;
     $self->{config} ||= $self->_get_plugin_config();

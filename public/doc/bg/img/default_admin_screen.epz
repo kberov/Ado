@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Document xmlns="http://www.evolus.vn/Namespace/Pencil"><Properties/><Pages><Page><Properties><Property name="name">Untitled Page</Property><Property name="id">1391472647609_5759</Property><Property name="width">980</Property><Property name="height">538</Property><Property name="dimBackground"/><Property name="transparentBackground"/><Property name="backgroundColor">#ffffff</Property></Properties><Content><g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.Common:RectWithGradient" id="56e78b22bcd44b6ebadaa14fb0da122d" transform="matrix(1,0,0,1,-43,-15)"><p:metadata><p:property name="box"><![CDATA[1025,75]]></p:property><p:property name="withBlur"><![CDATA[false]]></p:property><p:property name="radius"><![CDATA[0,0]]></p:property><p:property name="textPadding"><![CDATA[0,4.6875]]></p:property><p:property name="startFillColor"><![CDATA[#C0C0C0FF]]></p:property><p:property name="endFillColor"><![CDATA[#FFFFFFFF]]></p:property><p:property name="strokeColor"><![CDATA[#1B3280FF]]></p:property><p:property name="strokeStyle"><![CDATA[2|]]></p:property><p:property name="textContent"><![CDATA[
+                ]]></p:property><p:property name="textFont"><![CDATA[Arial|normal|normal|13px|none]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textAlign"><![CDATA[1,1]]></p:property></p:metadata>
+
+            <defs>
+                <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" p:name="linearFill" id="36be4582de964e90968b9d4a8d0823fa">
+                    <stop style="stop-color: rgb(192, 192, 192); stop-opacity: 1;" offset="0" p:name="stop1" id="97ba4839a4a8438c832d3b69c28106b0"/>
+                    <stop style="stop-color: rgb(255, 255, 255); stop-opacity: 1;" offset="1" p:name="stop2" id="4f79e103cdb646b8a85a0656bf5af6c8"/>
+                </linearGradient>
+                <rect width="1025" height="75" rx="0" ry="0" x="0" y="0" style="stroke-width: 2; fill: url(&quot;#36be4582de964e90968b9d4a8d0823fa&quot;) none; stroke: rgb(27, 50, 128); stroke-opacity: 1;" p:name="rrRect" id="65fcfb10486244958422f3bb02cdb947" transform="translate(0,0)"/>
+                <filter height="1.2558399" y="-0.12792" width="1.06396" x="-0.03198" p:name="shadingFilter" id="36fe3410734e42e0a6254778df8c1601">
+                    <feGaussianBlur stdDeviation="1" in="SourceAlpha"/>
+                </filter>
+            </defs>
+            <use xlink:href="#65fcfb10486244958422f3bb02cdb947" xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(2, 2)" p:filter="url(#36fe3410734e42e0a6254778df8c1601)" style="opacity: 0.5; visibility: hidden; display: none;" p:heavy="true" p:name="bgCopy" id="61d5ae5cd4d242379fec3cecec6f1fc4"/>
+            <use xlink:href="#65fcfb10486244958422f3bb02cdb947" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+            <foreignObject x="4.6875" y="38" width="1015.62" height="0" p:name="text" id="2590d4e6d9b8435ca672185452f3421e" style="font-family: Arial; font-size: 13px; font-weight: normal; font-style: normal; text-decoration: none; color: rgb(0, 0, 0); opacity: 1; text-align: center;"><div xmlns="http://www.w3.org/1999/xhtml">
+                </div></foreignObject>
+        </g><g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.NativeGUI:TabBox" id="6ff879e699b24995aa71b74c272f566f" transform="matrix(1,0,0,1,1,36)"><p:metadata><p:property name="box"><![CDATA[976,506]]></p:property><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="tabLabel"><![CDATA[#Управление|Сайт|Покупки|Продажби]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA["Liberation Sans",Arial,sans-serif|normal|normal|13px|none]]></p:property></p:metadata>
+            <foreignObject x="0" y="0" width="976" height="506" p:name="htmlObject" id="66a6f4f3ef2e468b9e711d6f75acab97" style="font-family: &quot;Liberation Sans&quot;,Arial,sans-serif; font-size: 13px; font-weight: normal; font-style: normal; text-decoration: none; fill: rgb(0, 0, 0); fill-opacity: 1;">
+                <html:div xmlns:html="http://www.w3.org/1999/xhtml" style="-moz-box-sizing: border-box; overflow: hidden; position: relative; width: 976px; height: 506px;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" p:name="div" id="8c19dd92e887443b8168fe61d16b433e">
+                    <tabbox flex="1" style="pointer-events: none; margin: 0px ! important; width: 976px; height: 506px; font-family: &quot;Liberation Sans&quot;,Arial,sans-serif; font-size: 13px; font-weight: normal; font-style: normal; text-decoration: none; color: rgb(0, 0, 0); opacity: 1;" p:name="tabbox" id="0cd43f266a4945c587d51ebedd51bf02" width="976" height="506" disabled="false">
+                      <tabs p:name="tabs" id="72c551467bcc459aa1f0d9c6db590ff3"><tab label="Управление" selected="true"/><tab label="Сайт" selected="false"/><tab label="Покупки" selected="false"/><tab label="Продажби" selected="false"/></tabs>
+                      <tabpanels flex="1">
+                        <tabpanel/>
+                      </tabpanels>
+                    </tabbox>
+                    <html:div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></html:div>
+                </html:div>
+            </foreignObject>
+        </g><g xmlns="http://www.w3.org/2000/svg" p:type="Shape" xmlns:p="http://www.evolus.vn/Namespace/Pencil" p:def="Evolus.NativeGUI:Listbox" id="211483412b4d45a2909ff2958f3e05c6" transform="matrix(1,0,0,1,1,60)"><p:metadata><p:property name="box"><![CDATA[140,478]]></p:property><p:property name="disabled"><![CDATA[false]]></p:property><p:property name="items"><![CDATA[Групи
+Потребители]]></p:property><p:property name="textColor"><![CDATA[#000000FF]]></p:property><p:property name="textFont"><![CDATA["Liberation Sans",Arial,sans-serif|normal|normal|13px|none]]></p:property></p:metadata>
+            <foreignObject x="0" y="0" width="140" height="478" p:name="htmlObject" id="b86902bea256473ebad2901ae3d49f8c" style="">
+                <html:div xmlns:html="http://www.w3.org/1999/xhtml" style="-moz-box-sizing: border-box; overflow: hidden; position: relative; font-size: 0px; width: 140px; height: 478px;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" p:name="div" id="4e51a234767149c69edfd6869b323f88">
+                    <listbox style="margin: 0px ! important; min-width: 0px ! important; -moz-box-sizing: border-box; vertical-align: middle; width: 140px; height: 478px; font-family: &quot;Liberation Sans&quot;,Arial,sans-serif; font-size: 13px; font-weight: normal; font-style: normal; text-decoration: none; color: rgb(0, 0, 0); opacity: 1;" p:name="xulControl" id="7dd2dc6578bf456e9cfce5f8a8bf66eb" width="140" height="478"><listitem label="Групи" type="" checked="false" selected="false"/><listitem label="Потребители" type="" checked="false" selected="false"/></listbox>
+                    <html:div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"></html:div>
+                </html:div>
+            </foreignObject>
+        </g></Content></Page></Pages></Document>

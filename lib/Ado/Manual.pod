@@ -17,7 +17,17 @@ written in the L<Perl programming language|http://www.perl.org/>.
 Ado is a typical L<Mojo> application yet it adds some default 
 configuration and a model layer - L<Mojolicious::Plugin::DSC>. 
 An SQLite database is bundled in the distribution at C<etc/ado.sqlite> 
-to get started quickly. 
+to get started quickly.
+
+Since version 0.31 L<Ado> goes together with the following applications:
+
+=over
+
+=item * L<Ado::Plugin::MarkdownRenderer> - Render static files in markdown format.
+You can create a personal blog or enterprise wiki using static files in markdown format.
+See the Functional documentation at L<http://localhost:3000/help> for an example.
+
+=back
 
 =head1 INSTALLATION
 

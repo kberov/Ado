@@ -1,0 +1,56 @@
+/*ado.css*/
+body{
+  font-family: 'Ubuntu', sans-serif;
+  margin: 0;
+}
+h1,h2,h3,h4 {
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
+h1 {
+  margin-left: 1em;
+}
+h2 {
+  margin-left: 2em;
+}
+h3 {
+  margin-left: 3em;
+}
+
+h4 {
+  margin-left: 4em;
+}
+
+
+h1,h2,h3,h4, ui a {
+  text-shadow: 2px 2px 2px #aaa;  
+}
+.main.container {
+  position: relative;
+  margin: auto;
+  min-width: 460px;
+  width: 960px;
+  max-width: 1024px;
+  box-shadow: 5px 5px 5px #aaa;
+  background: #eee;
+  border-radius: 0.25em;
+  padding: 1px;
+
+}
+
+.main.container p {
+  margin: 1em;
+}
+aside#toc ul {
+  padding: 0;
+  margin: 0;
+}
+
+aside#toc li {
+  list-style: none inside none;
+  padding: 0 0 0 1.2ex;
+}
+
+.ui aside#toc a {
+  text-decoration: none;
+}
