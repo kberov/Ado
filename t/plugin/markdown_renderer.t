@@ -34,10 +34,10 @@ find(
     $md_root
 );
 
-#no_title
 #help
 $t->get_ok('/help/bg/toc.md')->status_is(200)->text_is('h1' => 'Съдържание')
-  ->text_is('title' => 'Съдържание');
+  ->text_is('title' => 'Съдържание')->content_like(qr/<aside.+id="toc"/, '<aside> ok')
+  ->content_unlike(qr/<article.+id="/, 'no artice in toc page ok');
 
 #help created already
 $t->get_ok('/help/bg/toc.md')->status_is(200)->text_is('h1' => 'Съдържание')
@@ -45,8 +45,20 @@ $t->get_ok('/help/bg/toc.md')->status_is(200)->text_is('h1' => 'Съдържан
 
 #no_title
 $t->get_ok('/help/bg/no_title.md')->status_is(200)
-  ->text_is('title' => 'Няма Заглавие!')
-  ->text_is('h1' => 'Няма Заглавие!')->content_like(qr/<article>/, '<article> ok');
+  ->text_is('title'    => 'Няма Заглавие!')
+  ->text_is('h1.error' => 'Няма Заглавие!')
+  ->content_like(qr/<article/, '<article> ok');
+
+#all pages in toc
+my $dom = $t->tx->res->dom;
+$dom->find('#toc a')->each(
+    sub {
+        my $a    = shift;
+        my $text = $a->text();
+        $t->get_ok("$a->{href}")->status_is(200)->text_is('title' => $text)
+          ->text_is('article h1' => $text);
+    }
+);
 
 #not found
 $t->get_ok('/help/bg/alabala.md')->status_is(404)->text_is('h1' => 'Page not found... yet!');

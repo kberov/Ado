@@ -5,7 +5,37 @@ use Mojo::Base 'Ado::Control';
 sub show {
     my $c = shift;
     my $document = $c->md_to_html() || return;
-    $document = Mojo::DOM->new("<article>$document</article>");
+
+    #What will be the tag to wrap around produced HTML?
+    my $md_file = $c->stash('md_file');
+    my ($tag, $class, $toc) = ('aside', 'ui large vertical inverted labeled icon sidebar', '');
+
+    if ($md_file =~ /toc/) {
+        ($tag) = ('aside');
+    }
+    else {
+        $toc = qq|<$tag id="toc" class="$class">| . $c->md_to_html('bg/toc.md') . qq|</$tag>|;
+        ($tag, $class) = ('article', 'main container');
+    }
+    my ($md_id) = ($md_file =~ /([^\/]+)\.md$/);
+    $document = Mojo::DOM->new(qq|<$tag id="$md_id" class="$class">$document</$tag>|);
+
+    #Is the request made via Ajax? Respond directly - no template.
+    if ($c->req->headers->header('X-Requested-With') // '' eq 'XMLHttpRequest') {
+        return $c->render(text => $document->to_string);
+    }
+
+    #Prepare a title for the HTML
+    $c->_set_title($document);
+    $document = $toc . $document;
+
+    #Use template show.html.ep with layout doc.html.ep
+    return $c->render(document => $document);
+}
+
+#prepare a title for the html>head
+sub _set_title {
+    my ($c, $document) = @_;
     my $title = $document->find('h1,h2,h3')->[0];
 
     if (not $title) {
@@ -16,9 +46,7 @@ sub show {
     else {
         $c->title($title->text);
     }
-    $c->stash(document => $document->to_string);
-
-    return $c->render();
+    return;
 }
 
 1;
