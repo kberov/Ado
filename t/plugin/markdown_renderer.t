@@ -69,14 +69,11 @@ isa_ok($plugin->register($app) => $class);
 is_deeply($plugin->config('md_file_sufixes') => ['.md'], 'default md_file_sufixes');
 is($plugin->config('md_method') => 'markdown', 'default md_method');
 is_deeply(
-    $plugin->config('md_options') => {
-        'base_url'      => '/doc',
-        'use_wikilinks' => 1
-    },
+    $plugin->config('md_options') => {'use_wikilinks' => 1},
     'default md_options'
 );
 is($plugin->config('md_renderer') => 'Text::MultiMarkdown', 'default md_renderer');
-like($md_root, qr/\/public\/doc$/, "ok md_root:$md_root");
+like($md_root, qr|[\/]public[\/]doc$|, "ok md_root:$md_root");
 
 #cleanup any created html during the tests
 find(

@@ -14,12 +14,9 @@ sub register {
     $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
 
     #Make sure we have all we need from config files.
-    $config->{md_renderer} ||= 'Text::MultiMarkdown';
-    $config->{md_method}   ||= 'markdown';
-    $config->{md_options}  ||= {
-        use_wikilinks => 1,
-        base_url      => '/doc',
-    };
+    $config->{md_renderer}     ||= 'Text::MultiMarkdown';
+    $config->{md_method}       ||= 'markdown';
+    $config->{md_options}      ||= {use_wikilinks => 1,};
     $config->{md_helper}       ||= 'md_to_html';
     $config->{md_root}         ||= $app->home->rel_dir('public/doc');
     $config->{md_file_sufixes} ||= ['.md'];
@@ -71,7 +68,7 @@ sub md_to_html {
         return '';
     }
     my $markdown = Mojo::Util::slurp($md_filepath);
-    my $html     = $md_renderer->new(%{$config->{options}})->markdown($markdown);
+    my $html     = $md_renderer->new(%{$config->{md_options}})->markdown($markdown);
 
     return b($html)->spurt($html_filepath)->decode();
 }
