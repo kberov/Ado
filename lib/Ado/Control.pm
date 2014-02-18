@@ -4,7 +4,9 @@ use Mojo::Base 'Mojolicious::Controller';
 our $DEV_MODE = ($ENV{MOJO_MODE} || '' =~ /dev/);
 has description => 'Ado is a framework for web projects based on Mojolicious,'
   . ' written in the Perl programming language.';
-has keywords => 'SSOT,CRM,ERP,CMS,Perl,SQL';
+has keywords => 'SSOT, CRM, ERP, CMS, Perl, SQL';
+has generator =>
+  sub { ref($_[0]->app) . ' ' . $_[0]->app->VERSION . ' - ' . $_[0]->app->CODENAME; };
 
 sub config {
     my ($c, $key) = @_;
@@ -148,6 +150,10 @@ Returns a default description used in C<head> element of HTML pages.
 =head2 keywords
 
 Returns default keywords used in C<head> element of HTML pages.
+
+=head2 generator
+
+Returns the concatenated moniker, VERSION and L<CODENAME>.
 
 =head1 SUBROUTINES/METHODS
 

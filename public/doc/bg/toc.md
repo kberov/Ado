@@ -1,7 +1,7 @@
 
 # Съдържание
 
-* [Ado - Приложение за управление на предприятието](/help/bg/cover.md)
+* [За Ado](/help/bg/cover.md)
 * [Въведение](/help/bg/intro.md)
 * [Управление (Администрация)](/help/bg/admin.md)
   * [Домейни (Сайтове)](/help/bg/domains.md)
@@ -15,7 +15,7 @@
 * [Настройки](/help/bg/settings.md)
 * [Приложения](/help/bg/apps.md)
   * [Съобщения](/help/bg/messages.md)
-  * [CRM (Отношения с клиенти)](/help/bg/crm.md)
+  * [Отношения с клиенти (CRM)](/help/bg/crm.md)
   * [Склад](/help/bg/store.md)
   * [Счетоводство](/help/bg/accounting.md)
   * [Покупки](/help/bg/purchases.md)

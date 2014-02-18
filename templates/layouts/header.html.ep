@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" 
-      content="<%= ref(app).' '.app->VERSION.' ('. app->CODENAME.')' %>" />
+      content="<%= $self->generator %>" />
     <meta name="description" content="<%= $description %>" />
     <meta name="keywords" content="<%= $keywords %>" />
     <title><%= title %></title>
