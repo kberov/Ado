@@ -1,10 +1,20 @@
-
 % layout('doc');
 
 <main class="ui">
-  <aside class="ui black launch right attached button">
+  <div id="menu" class="ui borderless small green inverted menu">
+    <a class="Ⰱ green item" title="<%== $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
+    <div class="right menu">
+      <a class="icon item">
+        <i class="icon left arrow"></i>
+      </a>
+      <a class="icon item">
+        <i class="icon right arrow"></i>
+      </a>
+    </div>
+  </div>
+  <div class="ui small launch right attached button">
     <i class="icon list layout"></i>
-  </aside>
+  </div>
   <%==$document %>
 </main>
 <script type="text/javascript" src="/js/help_toc.js"></script>

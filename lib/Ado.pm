@@ -14,8 +14,8 @@ use Ado::Control;
 use Ado::Sessions;
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.31';
-our $CODENAME  = 'U+2C01 GLAGOLITIC CAPITAL LETTER BUKY (Ⰱ)';
+our $VERSION   = '0.32';
+our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
 has CODENAME => $CODENAME;
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 

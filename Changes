@@ -1,5 +1,11 @@
 Revision history for Ado
 
+0.32 2014-02-19
+    - Fixed failing test under Windows.
+    - Removed base_url option passed to Text::MultiMarkdown.
+    - Implemented "next" and "previous" page navigation in help app.
+    - Upgraded to Mojolicious 4.83.
+
 0.31 2014-02-16
     - Implementented Ado::Plugin::MarkdownRenderer
     - Included "Semantic UI" CSS and JavaScript framework.
