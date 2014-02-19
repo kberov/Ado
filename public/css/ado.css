@@ -56,7 +56,8 @@ aside#toc li {
 }
 
 .Ⰱ {
-  text-shadow:2px 2px 2px #aaa;;
+  text-shadow:2px 2px 2px #aaa;
+  font-weight: bolder;
 }
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
 

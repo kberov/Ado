@@ -1,20 +1,12 @@
 % layout('doc');
 
 <main class="ui">
-  <div id="menu" class="ui transparent inverted main menu">
-    <a class="Ⰱ item" title="<%== $self->generator %>"><b>Ⰱ</b></a>
+  <div id="menu" class="ui borderless small green inverted menu">
+    <a class="Ⰱ green item" title="<%== $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
     <div class="right menu">
       <a class="icon item">
         <i class="icon left arrow"></i>
       </a>
-      <div class="ui dropdown item">
-          Pages <i class="dropdown icon"></i>
-          <div class="menu">
-            <a class="item">1</a>
-            <a class="item">2</a>
-            <a class="item">3</a>
-          </div>
-      </div>
       <a class="icon item">
         <i class="icon right arrow"></i>
       </a>
