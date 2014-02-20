@@ -73,7 +73,7 @@ is_deeply(
     'default md_options'
 );
 is($plugin->config('md_renderer') => 'Text::MultiMarkdown', 'default md_renderer');
-like($md_root, qr|[\/]public[\/]doc$|, "ok md_root:$md_root");
+like($md_root, qr|[\\/]public[\\/]doc$|, "ok md_root:$md_root");
 
 #cleanup any created html during the tests
 find(
