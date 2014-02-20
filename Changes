@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.33 2014-02-20
+  - Really fixed failing test under Windows.
+  - Really upgraded to Mojolicious 4.83.
+
 0.32 2014-02-19
     - Fixed failing test under Windows.
     - Removed base_url option passed to Text::MultiMarkdown.
