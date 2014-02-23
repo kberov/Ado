@@ -16,7 +16,6 @@ sub config {
 
 sub debug;
 if ($DEV_MODE) {
-
     sub debug {
         return shift->app->log->debug(@_);
     }
