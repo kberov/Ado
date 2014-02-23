@@ -22,7 +22,6 @@ h4 {
   margin-left: 4em;
 }
 
-
 h1,h2,h3,h4, ui a {
   text-shadow: 2px 2px 2px #aaa;  
 }
@@ -37,13 +36,14 @@ h1,h2,h3,h4, ui a {
   box-shadow: 0px 0px 5px #aaa;
   background: #FAFAFA;
   border-radius: 0.25em;
-  padding: 1px;
+  padding: 1em;
   font-size: 1.3em;
 }
 
 .main.container p {
   margin: 1em;
 }
+
 aside#toc ul {
   padding: 0;
   margin: 0;
@@ -62,6 +62,7 @@ a {
   color: rgb(0, 159, 218);
   text-decoration: none;
 }
+
 a.footnote {
   vertical-align: super;
   font-size: 0.8em;
@@ -73,3 +74,6 @@ a.footnote {
 }
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
 
+.ui.hidden {
+  display: none;
+}

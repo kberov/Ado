@@ -33,10 +33,12 @@ $(document).ready(function () {
     .done(function( data ) {
       $('article.main').remove();
       $('main').append(data);
+      $('article.main div.ui.hidden').remove();
     }) .fail(function() {
         //TODO: I18N
-        $('.ui.modal .content p').text('Error loading page"'+$(_link).attr('title')+'!"');
-        $('.ui.modal').modal('show');
+        $('#error_loading_page .content p')
+          .text('Error loading page"'+$(_link).attr('title')+'!"');
+        $('#error_loading_page').modal('show');
     });
     if($( window ).width()<=640)
       $('#toc').sidebar('hide','slow');

@@ -1,8 +1,8 @@
 #Управление (Администрация)
 
-<div class="ui modal hidden">
-  Ако четете тази страница в github.com, връзките в нея няма да работят!
-  If you read this page in github.com the links in it will not work!
+<div class="ui hidden">
+  Ако четете тази страница извън /help/bg/*, връзките в нея няма да работят!
+  If you read this page out of /help/bg/* the links in it will not work!
 </div>
 
 "Управление" е основен модул, разпространяващ се с ядрото на Ado. От него зависят множество други модули, предназначени за управление на различни части от Вашата система за управление на предприятието.

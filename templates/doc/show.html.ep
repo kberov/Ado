@@ -22,7 +22,7 @@
 <!-- Modal box shown when a page cannot be loaded, e.g. Server is down.
   See help_toc.js.
  -->
-<div class="ui modal hidden">
+<div class="ui modal hidden" id="error_loading_page">
   <i class="close icon"></i>
   <div class="ui inverted red block header">
   % # Messages will be I18N-ed via JS or Perl on a per-case basis
