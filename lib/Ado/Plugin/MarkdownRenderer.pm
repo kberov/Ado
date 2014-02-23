@@ -21,6 +21,15 @@ sub register {
     $config->{md_root}         ||= $app->home->rel_dir('public/doc');
     $config->{md_file_sufixes} ||= ['.md'];
     $app->helper($config->{md_helper} => sub { md_to_html(shift, $config, @_) });
+    $app->helper(
+        markdown => sub {
+            my $c = shift;
+            return eval {
+                require Text::MultiMarkdown;
+                Text::MultiMarkdown::markdown(@_);
+            } || Carp::croak('Error:' . $@);
+        }
+    );
 
     #load routes if they are passed
     $app->load_routes($config->{routes})
@@ -198,8 +207,19 @@ Do not convert files on every request but reuse already produced html files.
 
 =head1 HELPERS
 
-L<Ado::Plugin::MarkdownRenderer> exports the following helper for use in  
+L<Ado::Plugin::MarkdownRenderer> exports the following helpers for use in  
 L<Ado::Control> methods and templates.
+
+=head2 markdown
+
+Accepts markdown text and options. Returns HTML.
+Accepts the same parameters as L<Text::MulltiMarkdown/markdown>
+
+  #in a controller
+  $c->render(text=>$c->markdown($text));
+
+  #in a template
+  %==markdown($text)
 
 =head2 md_to_html
 
