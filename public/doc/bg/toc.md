@@ -10,7 +10,7 @@
   * [Сайт (CMS)](/help/bg/cms.md)
       * [Страници](/help/bg/pages.md)
       * [Статии](/help/bg/articles.md)
-      * [Блог(Новини)](/help/bg/blog.md)
+      * [Блог (Новини)](/help/bg/blog.md)
       * [Приложения](/help/bg/site_apps.md)
 * [Настройки](/help/bg/settings.md)
 * [Приложения](/help/bg/apps.md)
