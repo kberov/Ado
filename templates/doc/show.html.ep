@@ -1,21 +1,41 @@
 % layout('doc');
 
 <main class="ui">
-  <div id="menu" class="ui borderless small green inverted menu">
-    <a class="Ⰱ green item" title="<%== $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
+  <div id="menu" class="ui borderless small blue inverted fixed menu">
+    <div class="ui small blue launch right attached button">
+      <i class="icon list layout"></i>
+    </div>
+    <a class="Ⰱ item" title="<%== $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
     <div class="right menu">
       <a class="icon item">
         <i class="icon left arrow"></i>
       </a>
-      <a class="icon item">
+      <a class="icon blue item">
         <i class="icon right arrow"></i>
       </a>
     </div>
   </div>
-  <div class="ui small launch right attached button">
-    <i class="icon list layout"></i>
-  </div>
+
   <%==$document %>
 </main>
+
+<!-- Modal box shown when a page cannot be loaded, e.g. Server is down.
+  See help_toc.js.
+ -->
+<div class="ui modal hidden" id="error_loading_page">
+  <i class="close icon"></i>
+  <div class="ui inverted red block header">
+  % # Messages will be I18N-ed via JS or Perl on a per-case basis
+    Error loading page!
+  </div>
+  <div class="content">
+    <div class="center">
+      <p></p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button">OK</div>
+  </div>
+</div>
 <script type="text/javascript" src="/js/help_toc.js"></script>
 

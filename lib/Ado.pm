@@ -1,4 +1,5 @@
 package Ado;
+
 use Mojo::Base 'Mojolicious';
 use File::Spec::Functions qw(splitdir catdir catfile);
 
@@ -9,14 +10,14 @@ BEGIN {
         $ENV{MOJO_HOME} ||= catdir(@home) if -s catfile(@home, 'bin', 'ado');
     }
 }
+our $AUTHORITY = 'cpan:BEROV';
+our $VERSION   = '0.34';
+our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
 
 use Ado::Control;
 use Ado::Sessions;
 
-our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.33';
-our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
-has CODENAME => $CODENAME;
+sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 # This method will run once at server start

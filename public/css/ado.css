@@ -22,25 +22,28 @@ h4 {
   margin-left: 4em;
 }
 
-
 h1,h2,h3,h4, ui a {
   text-shadow: 2px 2px 2px #aaa;  
 }
+
 .main.container {
   position: relative;
+  top: 3em;
   margin: auto;
   min-width: 460px;
-  width: 960px;
+  width: 98%;
   max-width: 1024px;
   box-shadow: 0px 0px 5px #aaa;
   background: #FAFAFA;
   border-radius: 0.25em;
-  padding: 1px;
+  padding: 1em;
+  font-size: 1.3em;
 }
 
 .main.container p {
   margin: 1em;
 }
+
 aside#toc ul {
   padding: 0;
   margin: 0;
@@ -50,14 +53,27 @@ aside#toc li {
   list-style: none inside none;
   padding: 0 0 0 1.2ex;
 }
-
-.ui aside#toc a {
+/*
+aside#toc li a {
+  font-size: 1.1em;
+}
+*/
+a {
+  color: rgb(0, 159, 218);
   text-decoration: none;
 }
 
+a.footnote {
+  vertical-align: super;
+  font-size: 0.8em;
+  font-weight: bolder;
+}
 .Ⰱ {
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
 }
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
 
+.ui.hidden {
+  display: none;
+}

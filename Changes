@@ -1,5 +1,13 @@
 Revision history for Ado
 
+0.34 2014-02-23
+  - Optimised /help User Unterface for hand-held devices.
+  - Added text in Bulgarian to cover.md, intro.md. admin.md, domains.md, 
+    groups.md, users.md, cms.md, pages.md, articles.md, blog.md - TODO: 
+    Translate them to English.
+  - Optimized Ado::Control::generator().
+  - Added markdown() helper to MarkdownRenderer plugin.
+
 0.33 2014-02-20
   - Really fixed failing test under Windows.
   - Really upgraded to Mojolicious 4.83.
