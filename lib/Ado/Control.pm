@@ -5,8 +5,7 @@ our $DEV_MODE = ($ENV{MOJO_MODE} || '' =~ /dev/);
 has description => 'Ado is a framework for web projects based on Mojolicious,'
   . ' written in the Perl programming language.';
 has keywords => 'SSOT, CRM, ERP, CMS, Perl, SQL';
-has generator =>
-  sub { ref($_[0]->app) . ' ' . $_[0]->app->VERSION . ' - ' . $_[0]->app->CODENAME; };
+sub generator { return 'Ado ' . $Ado::VERSION . ' - ' . $Ado::CODENAME }
 
 sub config {
     my ($c, $key) = @_;
