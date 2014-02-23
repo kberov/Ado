@@ -3,7 +3,8 @@ Revision history for Ado
 0.34 2014-02-23
   - Optimised /help User Unterface for hand-held devices.
   - Added text in Bulgarian to cover.md, intro.md. admin.md, domains.md, 
-    groups.md, users.md, cms.md, pages.md, articles.md - TODO: Translate it to English.
+    groups.md, users.md, cms.md, pages.md, articles.md, blog.md - TODO: 
+    Translate them to English.
   - Optimized Ado::Control::generator().
   - Added markdown() helper to MarkdownRenderer plugin.
 
