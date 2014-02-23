@@ -20,7 +20,7 @@ $t->get_ok('/perldoc')->status_is(200)
 #default page
 $t->get_ok('/')->status_is(200)
   ->content_like(qr/Produced by/i, 'Content contains "Produced by".')
-  ->content_like(qr/Controller: Default; Action: index/);
+  ->content_like(qr/Ado::Control::Default::index/);
 
 #default page
 $t->get_ok('/default')->status_is(200)->content_like(qr/Controller: default; Action: index/);
