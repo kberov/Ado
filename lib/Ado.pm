@@ -111,13 +111,18 @@ sub define_hooks {
 
 =head1 NAME
 
-Ado - busy or delaying activity; bustle; fuss. 
-
+Ado - a rapid active commotion (framework for web projects on Mojolicious) 
 
 =head1 SYNOPSIS
 
   require Mojolicious::Commands;
   Mojolicious::Commands->start_app('Ado');
+
+=head1 DESCRIPTION
+
+L<Ado> is a framework for web projects based on L<Mojolicious>,
+written in the L<Perl programming language|http://www.perl.org/>.
+This is the base application class. Ado C<ISA> L<Mojolicious>.
 
 =head1 ATTRIBUTES
 
@@ -129,7 +134,12 @@ Returns the current C<CODENAME>.
 
 =head2 sessions
 
-Access the Ado sessions instance.
+Access the L<Ado::Sessions> instance. Instantiates one of 
+L<Ado::Sessions::File>, L<Ado::Sessions::Database> 
+or L<Mojolicious::Sessions> depending on configuration and returns it.
+By default (no configuration in C<etc/ado.conf>) 
+a L<Mojolicious::Sessions> is returned.
+
 
 =head1 METHODS
 
@@ -138,7 +148,7 @@ the following new ones.
 
 =head2 startup
 
-The startup method is where everything begins. Return $apps void.
+The startup method is where everything begins. Returns void.
 
 =head2 load_config
 
@@ -147,9 +157,10 @@ Returns $app.
 
 =head2 load_plugins
 
+Does not accept any parameters.
 Loads plugins listed in C<$config-E<gt>{plugins}>.
-This is an C<ARRAYREF> in which each element is a C<HASHREF> with
-keys C<name> and C<config>.
+C<$config-E<gt>{plugins}> is an C<ARRAYREF> in which each element is 
+a C<HASHREF> with keys C<name> and C<config>.
 The name of the plugin is expected to be string that can be passed to
 L<Mojolicious/plugin>.
 The C<config> values is another C<HASHREF> containing the configuration for the plugin.
@@ -162,10 +173,11 @@ Returns $app.
 
 =head2 load_routes
 
+Does not accept any parameters.
 Loads predefined routes from C<$config-E<gt>routes>.
-This is an C<ARRAYREF> in which each element is a C<HASHREF> with
+C<$config-E<gt>routes> is an C<ARRAYREF> in which each element is a C<HASHREF> with
 keys corresponding to a method name and value the parameters that 
-will be passed tot he method. Currently we use the C<route> value to pass it
+will be passed to the method. Currently we use the C<route> value to pass it
 to L<Mojolicious::Routes/route>,C<params> value is the second parameter to instantiate the route. C<via> and C<to> values are passed 
 to the newly created route. 
 See L<Mojolicious::Routes::Route> and L<Mojolicious::Guides::Routing> for more.
@@ -174,18 +186,19 @@ Returns $app.
 
 =head2 define_hooks
 
-Defines some hooks to intervene in the default workflow of the requests.
+B<May be never implemented>. Plugins can define code which is run in L<Mojolicious/hooks>.
 Returns $app.
 
 =head1 SPONSORS
 
-The original author
+The original author.
+
+Become a sponsor and help make L<Ado> the ERP for the enterprise!
 
 =head1 SEE ALSO
 
 L<Mojolicious>, L<Ado::Manual>,
 L<http://www.thefreedictionary.com/ado>, 
-
 
 =head1 AUTHOR
 

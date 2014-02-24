@@ -39,9 +39,8 @@ sub get_instance {
         require Ado::Sessions::Database;
         return Ado::Sessions::Database->new(%$options);
     }
-    else {
-        Carp::croak('Please provide valid session type:(mojo,file,database)');
-    }
+
+    Carp::croak('Please provide valid session type:(mojo,file,database)');
     return;
 }
 
@@ -122,7 +121,7 @@ Ado::Sessions chooses the desired type of session storage and loads it.
     }         
   }
 
-  #in Ado.pm we use the above configuration
+  #In Ado.pm:
   has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 

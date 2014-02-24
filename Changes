@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.35 2014-02-25
+
+  - Improved documentation.
+
 0.34 2014-02-23
   - Optimised /help User Unterface for hand-held devices.
   - Added text in Bulgarian to cover.md, intro.md. admin.md, domains.md, 
