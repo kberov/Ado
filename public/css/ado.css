@@ -36,7 +36,7 @@ h1,h2,h3,h4, ui a {
   box-shadow: 0px 0px 5px #aaa;
   background: #FAFAFA;
   border-radius: 0.25em;
-  padding: 1em;
+  padding: 1px 1em 1em 1px;
   font-size: 1.3em;
 }
 

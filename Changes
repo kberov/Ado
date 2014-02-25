@@ -3,6 +3,7 @@ Revision history for Ado
 0.35 2014-02-25
 
   - Improved documentation.
+  - Added default/index template.
 
 0.34 2014-02-23
   - Optimised /help User Unterface for hand-held devices.

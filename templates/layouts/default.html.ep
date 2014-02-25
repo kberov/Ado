@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head><title><%= title %></title></head>
+  <head><%= include 'layouts/header'; %></head>
   <body><%= content %></body>
   <!-- Produced by
 % if(stash->{controller}){

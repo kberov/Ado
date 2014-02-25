@@ -1,0 +1,17 @@
+<main class="ui">
+  <div id="menu" class="ui borderless small blue inverted fixed menu">
+    <a class="Ⰱ item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
+  </div>
+
+<article class="main container">
+  <h1>Hello, World!</h1>
+  <p>
+    This is the default Ado page produced by 
+    <code><%=ref($self)%>::<%=$action%>()</code> and using template
+    <code>templates/default/index.html.ep</code>
+    The current url is <code>"<%=url_for('/')->base%>"</code>.
+  </p>
+
+</article>
+
+</main>
