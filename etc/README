@@ -1,7 +1,14 @@
 In this folder Ado keeps its configuration files.
 Here we have also the database files which are distributed 
 with Ado by default.
-These files are supposed to change locally but local 
+
+You may want to create environment specific versions of
+ado.conf and ado.sqlite named after the environment e.g.
+ado.development.conf and ado.development.sqlite or
+ado.production.conf and ado.production.sqlite.
+The environment specific files will be detected and used.
+
+These files may be changed locally for experimenting but local 
 changes usualy do not have to go upstream.
 
 To ignore such files but keep them versioned

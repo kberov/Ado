@@ -3,10 +3,11 @@
 body{
   font-family: 'Ubuntu', sans-serif;
   margin: 0;
+  color: #46400D;
 }
 h1,h2,h3,h4 {
-  margin-bottom: 1em;
-  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
 }
 h1 {
   margin-left: 1em;
@@ -84,3 +85,7 @@ a.footnote {
   border: 1px #aaa outset;
 }
 .small {font-size: small}
+code {
+  color: #993;
+  white-space: nowrap;
+}

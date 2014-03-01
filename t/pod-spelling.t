@@ -24,6 +24,7 @@ add_stopwords(
       http html org metacpan
       Mojolicious Mojo app apps Foo SQLite ActivePerl
       URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
+      WMD JS UI
       precompiled perldoc RESTful tstamp
       accessor accessors seq distro bashrc perltidy perltidyrc
       cpan cpanm perl perlbrew rawr

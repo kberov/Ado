@@ -19,13 +19,24 @@ configuration and a model layer - L<Mojolicious::Plugin::DSC>.
 An SQLite database is bundled in the distribution at C<etc/ado.sqlite> 
 to get started quickly.
 
-Since version 0.31 L<Ado> goes together with the following applications:
+Since version 0.31 L<Ado> goes together with the following:
 
 =over
 
 =item * L<Ado::Plugin::MarkdownRenderer> - Render static files in markdown format.
 You can create a personal blog or enterprise wiki using static files in markdown format.
 See the Functional documentation at L<http://localhost:3000/help> for an example.
+
+=item * L<PageDown|http://code.google.com/p/pagedown/> is the version of Attacklab's Showdown 
+and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
+that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,
+and a few useful plugins, e.g. for sanitizing the generated HTML according to a whitelist 
+of allowed tags.
+
+=item * L<Semantic UI|http://semantic-ui.com/> - A CSS  and JS user interface framework. 
+UI is the vocabulary of the web. Semantic empowers designers and developers by creating a 
+language for sharing UI.
+
 
 =back
 
