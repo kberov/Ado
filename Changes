@@ -1,23 +1,23 @@
 Revision history for Ado
 
 0.35 2014-03-01
-  - Честита Баба Марта!
-  - Improved documentation.
-  - Added default/index.html.ep template and 
-    default index page content.
-  - Upgraded to Mojolicious 4.85.
+    - Честита Баба Марта!
+    - Improved documentation.
+    - Added default/index.html.ep template and 
+      default index page content.
+    - Upgraded to Mojolicious 4.85.
 
 0.34 2014-02-23
-  - Optimised /help User Unterface for hand-held devices.
-  - Added text in Bulgarian to cover.md, intro.md. admin.md, domains.md, 
-    groups.md, users.md, cms.md, pages.md, articles.md, blog.md - TODO: 
-    Translate them to English.
-  - Optimized Ado::Control::generator().
-  - Added markdown() helper to MarkdownRenderer plugin.
+    - Optimised /help User Unterface for hand-held devices.
+    - Added text in Bulgarian to cover.md, intro.md. admin.md, domains.md, 
+      groups.md, users.md, cms.md, pages.md, articles.md, blog.md - TODO: 
+      Translate them to English.
+    - Optimized Ado::Control::generator().
+    - Added markdown() helper to MarkdownRenderer plugin.
 
 0.33 2014-02-20
-  - Really fixed failing test under Windows.
-  - Really upgraded to Mojolicious 4.83.
+    - Really fixed failing test under Windows.
+    - Really upgraded to Mojolicious 4.83.
 
 0.32 2014-02-19
     - Fixed failing test under Windows.
@@ -40,11 +40,9 @@ Revision history for Ado
     - Added accessors 'keywords' and 'description' to Ado::Control.
     - Upgraded to Mojolicious 4.81.
 
-
 0.30 2014-02-02
     - Fixed tests by making sure touched files have proper permissions.
     - Removed unneeded t/etc.
-
 
 0.29 2014-02-02
     - Upgraded to Mojolicious 4.75.
@@ -70,7 +68,6 @@ Revision history for Ado
     - Fixed small bug in create_readme() and optimized it.
     - Installing to the more popular "siteprefix" by default.
     - Fixed failing test because of missing Test::Output.
-
 
 0.25 2014-01-01 20:27:50 CET
     - Added more tests for Ado::Build (test coverage is > 90%).
@@ -209,4 +206,3 @@ Revision history for Ado
 0.10  2013-11-23 19:56:09 CET
     - We have a working application with several common
       predefined routes and controllers.
-
