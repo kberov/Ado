@@ -26,7 +26,8 @@ my $default_expiration = $t->app->sessions->default_expiration;
 my $expires            = $t->tx->res->cookie($cookie_name)->expires;
 
 #may differ with one second
-ok(Time::Piece->strptime($expires)->epoch <= gmtime(time+$default_expiration)->epoch, '$default_expiration is ok');
+ok(Time::Piece->strptime($expires)->epoch <= gmtime(time + $default_expiration)->epoch,
+    '$default_expiration is ok');
 
 #session expired
 my $old_session_id = $t->tx->res->cookie($cookie_name)->value;
