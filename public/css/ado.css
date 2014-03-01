@@ -30,6 +30,7 @@ h1,h2,h3,h4, ui a {
   position: relative;
   top: 3em;
   margin: auto;
+  margin-bottom: 1em;
   min-width: 460px;
   width: 98%;
   max-width: 1024px;
@@ -77,3 +78,9 @@ a.footnote {
 .ui.hidden {
   display: none;
 }
+/* box-shadow: none|h-shadow v-shadow blur spread color |inset|initial|inherit; */
+#ado-img {
+  box-shadow: 1px 1px 0.1em 0.1em #aaa;
+  border: 1px #aaa outset;
+}
+.small {font-size: small}
