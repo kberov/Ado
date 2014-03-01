@@ -3,9 +3,10 @@ Revision history for Ado
 0.35 2014-03-01
     - Честита Баба Марта!
     - Improved documentation.
-    - Added default/index.html.ep template and 
+    - Added default/index.html.ep template and
       default index page content.
     - Upgraded to Mojolicious 4.85.
+    - Fixed failing test in t/sessions/database.t 
 
 0.34 2014-02-23
     - Optimised /help User Unterface for hand-held devices.
