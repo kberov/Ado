@@ -20,9 +20,9 @@ See the code of the listed plugins below for examples of
 how and what can be done in a plugin.
 
 L<Ado> can be stripped down to a bare Mojolicious application 
-by not loading any plugins.
-And L<Ado> can be extended I<infinitely> just by adding helpers and
-routes, and injecting code into hooks from plugins.
+by not loading any Ado plugins.
+And L<Ado> can be extended I<infinitely> just by adding helpers, 
+conditions, routes, templates and injecting code into hooks from plugins.
 I<This is true for any Mojolicious application.>
 
 
