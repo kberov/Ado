@@ -133,7 +133,7 @@ Ado::Plugin::MarkDownRenderer - Render markdown to HTML
 
 =head1 DESCRIPTION
 
-L<Ado::Plugin::MarkdownRenderer> is a markdown renderer, rawr!
+L<Ado::Plugin::MarkdownRenderer> is a markdown renderer (маани, маани!)
 
 You only need to create a controller for your enterprise wiki and use
 the L</md_to_html> helper provided by this plugin. 
