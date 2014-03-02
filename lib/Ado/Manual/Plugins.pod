@@ -9,17 +9,36 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 =head1 DESCRIPTION
 
 There is I<almost> nothing special about writing an L<Ado::Plugin>.
+The only difference between Ado and Mojolicious plugins is that Ado 
+plugins can retreive their settings from their own files.
 
+The files must be named after the plugins for which they contain configuration.
+A plugin Ado::Plugin::Hello will search its configuration
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
+The file must return a HASHREF.
+See the code of the listed plugins below for examples of 
+how and what can be done in a plugin.
 
-=head1 SYNOPSIS
+L<Ado> can be stripped down to a bare Mojolicious application 
+by not loading any plugins.
+And L<Ado> can be extended I<infinitely> just by adding helpers and
+routes, and injecting code into hooks from plugins.
+I<This is true for any Mojolicious application.>
 
-TODO:...
 
 =head1 PLUGINS
 
 Ado comes with the following default plugins.
 
 =over 2
+
+=item L<Ado::Plugin::Auth>
+
+Authenticate users.
+
+=item L<Ado::Plugin::MarkDownRenderer>
+
+Render markdown to HTML.
 
 =item L<Ado::Plugin::Routes>
 

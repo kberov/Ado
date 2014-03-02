@@ -91,7 +91,7 @@ sub md_to_html {
 
 =head1 NAME
 
-Ado::Plugin::MarkDownRenderer - Render static files in markdown format
+Ado::Plugin::MarkDownRenderer - Render markdown to HTML
 
 
 =head1 SYNOPSIS
