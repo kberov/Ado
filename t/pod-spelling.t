@@ -27,7 +27,7 @@ add_stopwords(
       WMD JS UI
       precompiled perldoc RESTful tstamp
       accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew rawr
+      cpan cpanm perl perlbrew auth
       )
 );
 all_pod_files_spelling_ok();

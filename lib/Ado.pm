@@ -91,7 +91,7 @@ sub load_routes {
             $r->via(@$via);
         }
         $r->to(ref $to eq 'HASH' ? %$to : $to);
-        $app->log->debug('load_routes: name:' . $r->name . '; pattern:' . $r->to_string);
+        $app->log->debug('load_routes: name:' . $r->name . '; pattern: "' . $r->to_string . '"');
     }
 
     return $app;

@@ -9,8 +9,8 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 =head1 DESCRIPTION
 
 There is I<almost> nothing special about writing an L<Ado::Plugin>.
-The only difference between Ado and Mojolicious plugins is that Ado 
-plugins can retreive their settings from their own files.
+The only difference between Ado and Mojolicious plugins is that Ado
+plugins can retrieve their settings from their own files.
 
 The files must be named after the plugins for which they contain configuration.
 A plugin Ado::Plugin::Hello will search its configuration

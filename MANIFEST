@@ -7,6 +7,7 @@ etc/ado-sqlite-schema.sql
 etc/ado.conf
 etc/ado.sqlite
 etc/commands/README
+etc/plugins/auth.conf
 etc/plugins/markdown_renderer.conf
 etc/plugins/README
 etc/plugins/routes.conf
@@ -35,6 +36,7 @@ lib/Ado/Model/SqliteSequence.pm
 lib/Ado/Model/UserGroup.pm
 lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
+lib/Ado/Plugin/Auth.pm
 lib/Ado/Plugin/MarkdownRenderer.pm
 lib/Ado/Plugin/Routes.pm
 lib/Ado/Sessions.pm
@@ -78,6 +80,7 @@ public/doc/bg/users.md
 public/img/5FE59-ado.jpg
 public/index.html
 public/js/help_toc.js
+public/vendor/crypto-js/rollups/sha1.js
 public/vendor/pagedown/LICENSE.txt
 public/vendor/pagedown/Markdown.Converter.js
 public/vendor/pagedown/Markdown.Editor.js
@@ -115,6 +118,7 @@ t/boilerplate.t
 t/command/version.t
 t/manifest.t
 t/perl-critic.t
+t/plugin/auth.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t
 t/pod-coverage.t
@@ -127,11 +131,7 @@ t/sessions/file.t
 t/sessions/mojolicious.t
 templates/default/index.html.ep
 templates/doc/show.html.ep
-templates/exception.development.html.ep
-templates/exception.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/layouts/header.html.ep
-templates/not_found.development.html.ep
-templates/not_found.html.ep
 templates/добре/ок.html.ep
