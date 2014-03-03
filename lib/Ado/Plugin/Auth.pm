@@ -90,7 +90,7 @@ You can find default options in C<etc/plugins/auth.conf>.
 
 This option will enable the listed methods (services) which will be used to 
 authenticate a user. The the order is important. The services will be listed
-in the specified order in the partial template C<auth_bar.html.ep>
+in the specified order in the partial template C<authbar.html.ep>
 that can be included in any other template on your site.
 
 
