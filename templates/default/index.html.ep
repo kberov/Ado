@@ -12,7 +12,7 @@
   <p>
     If you read this text in your browser 
     it means the owner of this site (you?!?) successfully installed 
-    <a href="<%=url_for('/perldoc/Ado/Manual')%>">Ado</a>. <i>Congratulations!</i><br />
+    <a href="<%=url_for('/perldoc/Ado')%>">Ado</a>. <i>Congratulations!</i><br />
     This is the default Ado page produced by 
     <code><%=ref($self)%>::<%=$action%>()</code> and using template
     <code>templates/default/index.html.ep</code>.
@@ -32,13 +32,14 @@
     Alternatively you can keep it but modify only <code>etc/ado.development.conf</code>. 
     Both files will be read but the environment specific configuration will override the
     settings from the default file.
-    <blockquote class="small"> 
-      Later when you are ready to go officially in <i>production</i> mode,
+    <blockquote> 
+      Later, when you are ready to go officially in <i>production</i> mode,
       copy <code>etc/ado.development.conf</code> to <code>etc/ado.production.conf</code>,
-      modify the settings (paths, secrets etc) in it accordingly for your production 
-      environment and do not forget to set <code>$MOJO_HOME='production'</code>
+      modify the settings (paths, secrets etc) in it accordingly and do not forget to set <code>MOJO_MODE='production'</code> in your .bashrc
+      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code> and modify it.
     </blockquote>
     </li>
+    <li>Execute <code>ado inflate</code> to dump the embedded files and templates.</li>
     <li>Create a folder <code>site_templates</code> in <code><%=$home%></code>. 
     The folder <code>site_templates</code> will be searched for templates first, 
     so you can copy files from folder <code>templates</code> and modify them for your needs.
@@ -47,14 +48,15 @@
     and create a file named <code>index.html.ep</code> in it. 
     The new file will be used as template instead 
     of the file you are reading now. The full path should look like 
-    <code><%=$home%>/default/index.html.ep</code>
+    <code><%=$home%>/site_templates/default/index.html.ep</code>
     </li>
     <li>Copy <code>etc/ado.sqlite</code> to <code>etc/ado.development.sqlite</code>. 
     This will be your development database. 
-    <blockquote class="small"> 
+    <blockquote> 
       Later when you are ready to go officially in <i>production</i> mode,
       copy <code>etc/ado.development.sqlite</code> to <code>etc/ado.production.sqlite</code>
-      and do not forget to set <code>$MOJO_HOME='production'</code>
+      and do not forget to set <code>MOJO_MODE='production'</code> in your .bashrc
+      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code> and modify it.
     </blockquote>
     </li>
     <li>For end-user help look at <a href="/help">/help</a>!</li>
