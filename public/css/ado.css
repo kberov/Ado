@@ -3,7 +3,7 @@
 @font-face
 {
   font-family: FreeSerif;
-  src: url(fonts/FreeSerif-Glagolitic-UC.woff);
+  src: url(../fonts/FreeSerif-Glagolitic-UC.woff);
 }
 body{
   font-family: 'Ubuntu', sans-serif;
