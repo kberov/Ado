@@ -1,5 +1,10 @@
 @charset "UTF-8";
 /* ado.css */
+@font-face
+{
+  font-family: FreeSerif;
+  src: url(fonts/FreeSerif-Glagolitic-UC.woff);
+}
 body{
   font-family: 'Ubuntu', sans-serif;
   margin: 0;
@@ -71,6 +76,7 @@ a.footnote {
   font-weight: bolder;
 }
 .Ⰱ {
+  font-family: FreeSerif;
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
 }
