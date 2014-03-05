@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 has app => sub { Mojo::Server->new->build_app('Mojo::HelloWorld') };
 has name => sub {
 
-    #only in Ado::Plugin namespace
+    #only the last word
     (ref $_[0] || $_[0]) =~ /(\w+)$/ && return $1;
 };
 
