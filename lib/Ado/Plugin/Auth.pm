@@ -228,7 +228,7 @@ __DATA__
 <div class="right compact menu">
 % if (user->login_name eq 'guest') {
   <div class="ui simple dropdown item">
-  Login <i class="dropdown icon"></i>
+  Login using<i class="dropdown icon"></i>
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
       <a href="<%=url_for("login/$auth")->to_abs %>" class="item">
