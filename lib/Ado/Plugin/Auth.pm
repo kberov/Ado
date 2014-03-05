@@ -11,7 +11,8 @@ sub register {
     $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
 
     #Make sure we have all we need from config files.
-    $config->{services} ||= ['local', 'facebook'];
+    $config->{auth_methods} ||= ['ado', 'facebook'];
+    $app->config(auth_methods => $config->{auth_methods});
 
     # Add helpers
     $app->helper(
@@ -29,7 +30,7 @@ sub register {
 }
 
 
-# helper used in auth_local
+# helper used in auth_ado
 # authenticates the user and returns true/false
 sub digest_auth {
     my $c = shift;
@@ -46,7 +47,7 @@ sub auth {
 }
 
 # condition to locally authenticate a user
-sub auth_local {
+sub auth_ado {
     my ($route, $c, $captures, $patterns) = @_;
 
 
@@ -86,10 +87,10 @@ and other authentication service-providers.
 The following options can be set in C<etc/ado.conf>.
 You can find default options in C<etc/plugins/auth.conf>.
 
-=head2 services
+=head2 auth_methods
 
 This option will enable the listed methods (services) which will be used to 
-authenticate a user. The the order is important. The services will be listed
+authenticate a user. The order is important. The services will be listed
 in the specified order in the partial template C<authbar.html.ep>
 that can be included in any other template on your site.
 
@@ -98,7 +99,7 @@ that can be included in any other template on your site.
   plugins =>[
     #...
     {name => 'auth', config => {
-        services =>['local',facebook,...]
+        services =>['ado',facebook,...]
       }
     }
   ]
@@ -110,7 +111,7 @@ L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
 =head2 auth
 
   #programatically
-  $app->routes->route('/ado-users/:action', over => {auth => {local => 1}});
+  $app->routes->route('/ado-users/:action', over => {auth => {ado => 1}});
   $app->routes->route('/ado-users/:action', over =>'auth');
   $app->routes->route('/ado-users/:action', over =>['auth','authz','foo','bar']);
 
@@ -123,7 +124,7 @@ L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
       
       # only local users can edit and delete users,
       # and only if they are authorized to do so
-      over =>[auth => {local => 1},'authz'],
+      over =>[auth => {ado => 1},'authz'],
       to =>'ado-users#edit'
     }
   ],
@@ -132,11 +133,11 @@ Condition used to authenticate users for specific routes.
 Additional parameters can be passed to specify the preferred authentication method to be used.
 If no parameters are passed the method is guessed from  C<$c-E<gt>param('auth_method')>.
 
-=head2 auth_local
+=head2 auth_ado
 
 Same as:
 
-  auth => {local => 1},
+  auth => {ado => 1},
 
 =head2 auth_facebook
 
@@ -160,7 +161,7 @@ Returns the current user - C<guest> by default.
 
 =head2 digest_auth
 
-The helper used in L</auth_local> condition to authenticate the user.
+The helper used in L</auth_ado> condition to authenticate the user.
 
   if($c->digest_auth){
     #good, continue
@@ -222,15 +223,21 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 __DATA__
 
-@@ authbar.html.ep
+@@ partials/authbar.html.ep
 %# displayed as a menu item
-<div class="menu">
+<div class="right compact menu">
 % if (user->login_name eq 'guest') {
-Login: 
-%= link_to 'Local' => 'login' => (class => 'icon item')
-%= link_to 'Facebook' => 'login' => (class => 'icon item')
-  
+  <div class="ui simple dropdown item">
+  Login <i class="dropdown icon"></i>
+    <div class="menu">
+    % for my $auth(@{app->config('auth_methods')}){
+      <a href="<%=url_for("login/$auth")->to_abs %>" class="item">
+        <i class="Ⰱ <%=$auth %> icon"></i> <%=ucfirst $auth %>
+      </a>
+    % }    
+    </div>
+  </div>
 % } else {
-  Hello <%=user->login_name%>
+  <a href="logout"><i class="sign out icon"></i> <%=user->login_name %></a>
 % }
 </div>

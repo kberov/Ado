@@ -2,6 +2,7 @@
 <main class="ui">
   <div id="menu" class="ui borderless small purple inverted fixed menu">
     <a class="Ⰱ item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
+    %=include 'partials/authbar'
   </div>
 
 <article class="main container">

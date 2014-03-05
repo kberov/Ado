@@ -75,11 +75,17 @@ a.footnote {
   font-size: 0.8em;
   font-weight: bolder;
 }
+
 .Ⰱ {
   font-family: FreeSerif;
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
 }
+
+i.icon.ado:before {
+  content: "Ⰱ";
+}
+
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
 
 .ui.hidden {
