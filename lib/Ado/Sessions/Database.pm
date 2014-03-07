@@ -25,8 +25,8 @@ sub store {
     my ($self, $c) = @_;
 
     my ($id, $session) = $self->prepare_store($c);
+    return unless $id;
     my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
-
     my $adosession = Ado::Model::Sessions->find($id);
     if ($adosession->data) {
         $adosession->sessiondata($value)->update();
