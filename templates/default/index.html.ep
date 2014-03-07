@@ -1,11 +1,15 @@
-%my $home = app->home;
+% my $home = app->home;
 <main class="ui">
   <div id="menu" class="ui borderless small purple inverted fixed menu">
     <a class="Ⰱ item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
+    <a class="item" href="<%=url_for('/perldoc')%>">Manual</a>
+    <a class="item" href="<%=url_for('/help')%>">About</a>
+    <a class="item" href="https://github.com/kberov/Ado">GitHub</a>
+    <a class="item" href="https://metacpan.org/release/Ado">CPAN</a>
     %=include 'partials/authbar'
   </div>
-
-<article class="main container">
+<article class="ui main container">
+<div style="margin-top:3em;clear:both"></div>
   <h1>Hello, user!</h1>
   <img id="ado-img" class="ui rounded right floated image" 
     title="Ado – a rapid active commotion" 
@@ -66,7 +70,20 @@
     <li>Enough ado, have fun with <a href="/perldoc/Ado/Manual">Ado</a>!</li>
   </ol>
 </article>
+<div class="ui horizontal section divider" style="margin-top:2em">
+  <i class="circular ado icon"></i>
+</div>
+<article class="ui footer small">
+  <h3>COPYRIGHT AND LICENSE</h3>
+<p>Copyright 2013-2014 Красимир Беров (Krasimir Berov).</p>
+<p>
+This program is free software, you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may copy, distribute and modify the software provided that modifications are open source. However, software that includes the license may release under a different license.
+<br />
+See http://opensource.org/licenses/lgpl-3.0.html for more information.</p>
+</article> 
+
 </main>
+
 <script type="text/javascript">
   $('#ado-img').popup();
   $('.Ⰱ').popup({position : 'bottom right'});
