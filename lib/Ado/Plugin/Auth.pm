@@ -54,6 +54,7 @@ sub auth_ado {
     return 1;
 }
 
+
 #condition to authenticate a user via facebook
 sub auth_facebook {
     my ($route, $c, $captures, $patterns) = @_;
@@ -61,6 +62,7 @@ sub auth_facebook {
 
     return 1;
 }
+
 
 1;
 
@@ -225,7 +227,7 @@ __DATA__
 
 @@ partials/authbar.html.ep
 %# displayed as a menu item
-<div class="right compact menu">
+<div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
   <div class="ui simple dropdown item">
   Login using<i class="dropdown icon"></i>
@@ -237,7 +239,55 @@ __DATA__
     % }    
     </div>
   </div>
+  <div class="ui small modal" id="modal_login_form">
+    <i class="close icon"></i>
+    <div class="ui block header">
+    % # Messages will be I18N-ed via JS or Perl on a per-case basis
+      Login
+    </div>
+    %=include 'partials/login_form'
+  </div><!-- end modal dialog with login form in it -->
 % } else {
   <a href="logout"><i class="sign out icon"></i> <%=user->login_name %></a>
 % }
 </div>
+
+<script type="text/javascript">
+  $('#authbar .dropdown a.item').on('click',function () {
+    $('#login_form').attr('action',this.href);
+    $('#modal_login_form .header').text('Login using '+ $(this).text());
+    $('#modal_login_form').modal('attach events').modal('show');
+    return false;
+  });
+</script>
+
+@@ partials/login_form.html.ep
+  <form class="ui form segment" method="POST" id="login_form">
+    <div class="field">
+      <label for="login_name">Username</label>
+      <div class="ui left labeled icon input">
+        <input placeholder="Username" type="text" name="login_name" id="login_name">
+        <i class="user icon"></i>
+        <div class="ui corner label">
+          <i class="icon asterisk"></i>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="login_password">Password</label>
+      <div class="ui left labeled icon input">
+        <input type="password" name="login_password" id="login_password">
+        <i class="lock icon"></i>
+        <div class="ui corner label">
+          <i class="icon asterisk"></i>
+        </div>
+      </div>
+    </div>
+    <div class="ui error message">
+      <div class="header">We noticed some issues</div>
+    </div>
+    <div class="actions">
+      <button class="ui small red button" type="reset">Reset</button>
+      <button class="ui small green submit button" type="submit">Login</button>
+    </div>
+  </form>

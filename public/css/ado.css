@@ -31,10 +31,10 @@ h4 {
 h1,h2,h3,h4, ui a {
   text-shadow: 2px 2px 2px #aaa;  
 }
-
+.footer,
 .main.container {
   position: relative;
-  top: 3em;
+  margin-top: 3em;
   margin: auto;
   margin-bottom: 1em;
   min-width: 460px;
@@ -46,7 +46,7 @@ h1,h2,h3,h4, ui a {
   padding: 1px 1em 1em 1px;
   font-size: 1.3em;
 }
-
+.footer p,
 .main.container p {
   margin: 1em;
 }
