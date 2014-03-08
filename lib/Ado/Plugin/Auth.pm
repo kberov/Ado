@@ -63,6 +63,13 @@ sub auth_facebook {
     return 1;
 }
 
+sub login {
+  my ($c) = @_;
+  $c->render('login') if $c->req->method ne 'POST';
+
+
+  return;
+}
 
 1;
 
@@ -81,7 +88,7 @@ Ado::Plugin::Auth - Authenticate users
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Auth> is a plugin that helps authenticate users to an L<Ado> system.
-Users can be authenticated locally or using Facebook, Google, Twitter
+Users can be authenticated locally or using (TODO)Facebook, Google, Twitter
 and other authentication service-providers.
 
 =head1 OPTIONS
@@ -92,16 +99,16 @@ You can find default options in C<etc/plugins/auth.conf>.
 =head2 auth_methods
 
 This option will enable the listed methods (services) which will be used to 
-authenticate a user. The order is important. The services will be listed
-in the specified order in the partial template C<authbar.html.ep>
-that can be included in any other template on your site.
+authenticate a user. The services will be listed in the specified order
+in the partial template C<authbar.html.ep> that can be included
+in any other template on your site.
 
 
   #in ado.${\$app->mode}.conf
   plugins =>[
     #...
     {name => 'auth', config => {
-        services =>['ado',facebook,...]
+        services =>['ado', 'facebook',...]
       }
     }
   ]
@@ -131,9 +138,9 @@ L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
     }
   ],
 
-Condition used to authenticate users for specific routes.
-Additional parameters can be passed to specify the preferred authentication method to be used.
-If no parameters are passed the method is guessed from  C<$c-E<gt>param('auth_method')>.
+Condition for routes used to check if a user is authenticated.
+Additional parameters can be passed to specify the preferred authentication method to be used
+if condition redirects to C</login>.
 
 =head2 auth_ado
 
@@ -148,7 +155,6 @@ Same as:
   auth => {facebook => 1},
 
 
-
 =head1 HELPERS
 
 L<Ado::Plugin::Auth> exports the following helpers for use in  
@@ -156,22 +162,32 @@ L<Ado::Control> methods and templates.
 
 =head2 user
 
-Returns the current user - C<guest> by default.
+Returns the current user - C<guest> for not authenticated users.
 
   $c->user(Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'"));
   my $current_user = $c->user;
 
 =head2 digest_auth
 
-The helper used in L</auth_ado> condition to authenticate the user.
+The helper used in L</login> action to authenticate the user.
 
   if($c->digest_auth){
     #good, continue
   }
   else {
-    $c->render(code=>401,text =>'401 Unauthorized')
+    $c->render(status=>401,text =>'401 Unauthorized')
   }
 
+=head1 ROUTES
+
+L<Ado::Plugin::Auth> provides the following routes (actions):
+
+=head2 login
+
+  /login/:auth_method
+
+If accessed using a C<GET> request displays a login form.
+If accesed via C<POST> performs authentication using C<:auth_method>.
 
 
 =head1 METHODS
@@ -283,11 +299,17 @@ __DATA__
         </div>
       </div>
     </div>
+    %= csrf_field
     <div class="ui error message">
       <div class="header">We noticed some issues</div>
     </div>
     <div class="actions">
-      <button class="ui small red button" type="reset">Reset</button>
+      <button class="ui small red button" type="reset">Cancel</button>
       <button class="ui small green submit button" type="submit">Login</button>
     </div>
   </form>
+
+@@ login.html.ep
+% layout 'default';
+%= include 'partials/adobar';
+%= include 'partials/login_form'

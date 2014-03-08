@@ -1,13 +1,6 @@
 % my $home = app->home;
 <main class="ui">
-  <div id="menu" class="ui borderless small purple inverted fixed menu">
-    <a class="Ⰱ item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
-    <a class="item" href="<%=url_for('/perldoc')%>">Manual</a>
-    <a class="item" href="<%=url_for('/help')%>">About</a>
-    <a class="item" href="https://github.com/kberov/Ado">GitHub</a>
-    <a class="item" href="https://metacpan.org/release/Ado">CPAN</a>
-    %=include 'partials/authbar'
-  </div>
+%= include 'adobar'
 <article class="ui main container">
 <div style="margin-top:3em;clear:both"></div>
   <h1>Hello, user!</h1>
