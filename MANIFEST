@@ -51,6 +51,7 @@ MANIFEST			This list of files
 META.json
 META.yml
 public/css/ado.css
+public/css/ui-bg_diagonal-maze_light_10x10.png
 public/doc/bg/accounting.md
 public/doc/bg/admin.md
 public/doc/bg/apps.md
@@ -77,6 +78,7 @@ public/doc/bg/site_apps.md
 public/doc/bg/store.md
 public/doc/bg/toc.md
 public/doc/bg/users.md
+public/favicon.ico
 public/fonts/FreeSerif-Glagolitic-UC.woff
 public/fonts/README
 public/img/5FE59-ado.jpg
@@ -136,4 +138,5 @@ templates/doc/show.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/layouts/header.html.ep
+templates/partials/adobar.html.ep
 templates/добре/ок.html.ep
