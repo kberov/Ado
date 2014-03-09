@@ -114,8 +114,7 @@ code {
 section.login_form {
   padding-top: 2em;
   margin: auto;
-  min-width: 360px;
+  min-width: 300px;
   width: 50%;
   max-width: 600px;
-
 }

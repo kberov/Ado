@@ -64,11 +64,17 @@ sub auth_facebook {
 }
 
 sub login {
-  my ($c) = @_;
-  $c->render('login') if $c->req->method ne 'POST';
+    my ($c) = @_;
+    return $c->render('login') if $c->req->method ne 'POST';
+    my $auth_method = $c->param('auth_method');
+    $c->debug('$auth_method:'.$auth_method);
 
+    for my $login_method(@{$c->app->config('auth_methods')}){
+      if($auth_method eq $login_method){
 
-  return;
+      }
+    }
+    return;
 }
 
 1;
@@ -84,11 +90,20 @@ Ado::Plugin::Auth - Authenticate users
 
 =head1 SYNOPSIS
 
+  #in ado.${\$app->mode}.conf
+  plugins =>[
+    #...
+    {name => 'auth', config => {
+        services =>['ado', 'facebook',...]
+      }
+    }
+    #...
+  ]
 
 =head1 DESCRIPTION
 
-L<Ado::Plugin::Auth> is a plugin that helps authenticate users to an L<Ado> system.
-Users can be authenticated locally or using (TODO)Facebook, Google, Twitter
+L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
+Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
 and other authentication service-providers.
 
 =head1 OPTIONS
@@ -103,7 +118,6 @@ authenticate a user. The services will be listed in the specified order
 in the partial template C<authbar.html.ep> that can be included
 in any other template on your site.
 
-
   #in ado.${\$app->mode}.conf
   plugins =>[
     #...
@@ -111,6 +125,7 @@ in any other template on your site.
         services =>['ado', 'facebook',...]
       }
     }
+    #...
   ]
 
 =head1 CONDITIONS
@@ -140,7 +155,7 @@ L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
 
 Condition for routes used to check if a user is authenticated.
 Additional parameters can be passed to specify the preferred authentication method to be used
-if condition redirects to C</login>.
+if condition redirects to C</login/:auth_method>.
 
 =head2 auth_ado
 
@@ -187,7 +202,7 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
   /login/:auth_method
 
 If accessed using a C<GET> request displays a login form.
-If accesed via C<POST> performs authentication using C<:auth_method>.
+If accessed via C<POST> performs authentication using C<:auth_method>.
 
 
 =head1 METHODS
@@ -257,10 +272,6 @@ __DATA__
   </div>
   <div class="ui small modal" id="modal_login_form">
     <i class="close icon"></i>
-    <div class="ui block header">
-    % # Messages will be I18N-ed via JS or Perl on a per-case basis
-      Login
-    </div>
     %=include 'partials/login_form'
   </div><!-- end modal dialog with login form in it -->
 % } else {
@@ -268,17 +279,22 @@ __DATA__
 % }
 </div>
 
-<script type="text/javascript">
+%= javascript begin  
   $('#authbar .dropdown a.item').on('click',function () {
     $('#login_form').attr('action',this.href);
     $('#modal_login_form .header').text('Login using '+ $(this).text());
     $('#modal_login_form').modal('attach events').modal('show');
     return false;
   });
-</script>
+%= end
 
 @@ partials/login_form.html.ep
-  <form class="ui form segment" method="POST" id="login_form">
+  <form class="ui form segment" method="POST" action="" id="login_form">
+    <div class="ui header">
+    % # Messages will be I18N-ed via JS or Perl on a per-case basis
+      Login
+    </div>
+
     <div class="field">
       <label for="login_name">Username</label>
       <div class="ui left labeled icon input">
@@ -303,13 +319,13 @@ __DATA__
     <div class="ui error message">
       <div class="header">We noticed some issues</div>
     </div>
-    <div class="actions">
-      <button class="ui small red button" type="reset">Cancel</button>
+    <div class="ui actions">
       <button class="ui small green submit button" type="submit">Login</button>
     </div>
   </form>
 
 @@ login.html.ep
 % layout 'default';
-%= include 'partials/adobar';
+<section class="ui login_form">
 %= include 'partials/login_form'
+</section>
