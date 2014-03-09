@@ -1,5 +1,5 @@
 %# adobar.html.ep
-%=current_route
+
   <div id="adobar" class="ui borderless small purple inverted fixed menu">
     <a class="Ⰱ item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
     <a class="item" href="<%=url_for('/perldoc')%>">Manual</a>
@@ -8,4 +8,4 @@
     <a class="item" href="https://metacpan.org/release/Ado">CPAN</a>
     %= include 'partials/authbar' unless current_route =~ m'login';
   </div>
-  %$self->debug(dumper(stash));
+%$self->debug(dumper(stash));
