@@ -8,4 +8,4 @@
     <a class="item" href="https://metacpan.org/release/Ado">CPAN</a>
     %= include 'partials/authbar' unless current_route =~ m'login';
   </div>
-%$self->debug(dumper(stash));
+%#$self->debug(dumper(stash));

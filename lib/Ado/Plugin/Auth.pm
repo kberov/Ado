@@ -20,6 +20,7 @@ sub register {
             Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'");
         }
     );
+    $app->helper(login_ado => \&_login_ado);
 
     #Load routes if they are passed
     push @{$app->renderer->classes}, __PACKAGE__;
@@ -67,16 +68,36 @@ sub login {
     my ($c) = @_;
     return $c->render('login') if $c->req->method ne 'POST';
     my $auth_method = $c->param('auth_method');
-    $c->debug('$auth_method:'.$auth_method);
+    $c->debug('$auth_method:' . $auth_method);
 
-    for my $login_method(@{$c->app->config('auth_methods')}){
-      if($auth_method eq $login_method){
+    #derive a helper name for login the user
+    my $login_helper = 'login_' . $auth_method;
+    unless ($c->can($login_helper)) {
+        $c->app->log->error('Unknown $login_helper:' . $login_helper);
+        $c->flash(message => 'Please choose one of the supported login methods.');
 
-      }
+        $c->redirect_to($c->session('over_route') || '/');
+        return;
+    }
+    if ($c->$login_helper()) {
+
+        # Store a friendly message for the next page in flash
+        $c->flash(message => 'Thanks for logging in.');
+
+        # Redirect to protected page with a 302 response
+        return $c->redirect_to($c->session('over_route') || '/');
+    }
+    else {
+        $c->flash(message => 'Wrong credentials. Please try again.');
+        return $c->render('login');
     }
     return;
 }
 
+#used as helper 'login_ado'
+sub _login_ado {
+    return 0;
+}
 1;
 
 
@@ -317,7 +338,7 @@ __DATA__
     </div>
     %= csrf_field
     <div class="ui error message">
-      <div class="header">We noticed some issues</div>
+      <div class="header">Error!</div><p><%= flash 'message'%></p>
     </div>
     <div class="ui actions">
       <button class="ui small green submit button" type="submit">Login</button>

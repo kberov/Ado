@@ -49,13 +49,10 @@ h1,h2,h3,h4, ui a {
   background: #FAFAFA;
   border-radius: 0.25em;
   /* top right bottom left */
-  padding: 2em 1em 1em 1px;
+  padding: 2em 1em 1em 1em;
   font-size: 1.3em;
 }
-.footer p,
-.main.container p {
-  margin: 1em;
-}
+
 
 aside#toc ul {
   padding: 0;
