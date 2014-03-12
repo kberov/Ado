@@ -300,14 +300,7 @@ __DATA__
 % }
 </div>
 
-%= javascript begin  
-  $('#authbar .dropdown a.item').on('click',function () {
-    $('#login_form').attr('action',this.href);
-    $('#modal_login_form .header').text('Login using '+ $(this).text());
-    $('#modal_login_form').modal('attach events').modal('show');
-    return false;
-  });
-%= end
+
 
 @@ partials/login_form.html.ep
   <form class="ui form segment" method="POST" action="" id="login_form">
@@ -315,7 +308,18 @@ __DATA__
     % # Messages will be I18N-ed via JS or Perl on a per-case basis
       Login
     </div>
-
+    <div class="field auth_methods">
+      % for my $auth(@{app->config('auth_methods')}){
+      <span class="ui toggle radio checkbox">
+        <input name="auth_method" type="radio" id="<%=$auth %>_radio"
+          %= (stash->{auth_method}//'') eq $auth?'checked=""':''
+          value="<%=url_for('login/'.$auth)->to_abs %>" />
+        <label for="<%=$auth %>_radio">
+          <i class="<%=$auth %> icon"></i><%=ucfirst $auth %>
+        </label>
+      </span>&nbsp;&nbsp;
+      % }
+    </div>
     <div class="field">
       <label for="login_name">Username</label>
       <div class="ui left labeled icon input">
@@ -344,6 +348,30 @@ __DATA__
       <button class="ui small green submit button" type="submit">Login</button>
     </div>
   </form>
+%= javascript begin
+/**
+  Changes the action attribute of the login form to the desired 
+  authentication method.
+*/
+function switch_login_method() {
+  $('#login_form').attr('action', this.href);
+  //clicked on a link
+  if(this.href){
+    $('#login_form div.auth_methods').remove();
+    $('#login_form .header').text('Login using ' + $(this).text());
+    $('#modal_login_form').modal('attach events').modal('show');
+    return false;
+  }
+  // or on a checkbox
+  else {
+    $('#login_form').attr('action', this.value);
+    $('#login_form .header').text('Login using ' + $(this).parent().text());
+  }
+}
+$('#authbar .dropdown a.item, #login_form .checkbox [type="radio"]').click(switch_login_method);
+$('#login_form .header')
+  .text('Login using ' + $('#login_form .checkbox>:checked').parent().text());
+%= end
 
 @@ login.html.ep
 % layout 'default';
