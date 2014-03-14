@@ -1,9 +1,9 @@
 % my $home = app->home;
 <main class="ui">
 <article class="ui main container">
-% if(flash 'message'){
+% if(flash 'error'){
   <div class="ui error message">
-    <div class="header">Error!</div><p><%= flash 'message'%></p>
+    <div class="header">Error!</div><p><%= flash 'error'%></p>
   </div>
 % }
   <h1>Hello, user!</h1>

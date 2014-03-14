@@ -1,5 +1,6 @@
 package Ado::Plugin::Auth;
 use Mojo::Base 'Ado::Plugin';
+sub _login_ado;
 
 sub register {
     my ($self, $app, $config) = @_;
@@ -20,7 +21,7 @@ sub register {
             Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'");
         }
     );
-    $app->helper(login_ado => \&_login_ado);
+    $app->helper(login_ado => sub { _login_ado(@_) });
 
     #Load routes if they are passed
     push @{$app->renderer->classes}, __PACKAGE__;
@@ -67,35 +68,43 @@ sub auth_facebook {
 sub login {
     my ($c) = @_;
     return $c->render('login') if $c->req->method ne 'POST';
-    my $auth_method = $c->param('auth_method');
-    $c->debug('$auth_method:' . $auth_method);
+    my $auth_method = Mojo::Util::trim($c->param('auth_method'));
+    $c->debug('param auth_method', $c->param('auth_method'));
+    $c->debug('stash auth_method', $c->stash('auth_method'));
+
 
     #derive a helper name for login the user
     my $login_helper = 'login_' . $auth_method;
-    unless ($c->can($login_helper)) {
-        $c->app->log->error('Unknown $login_helper:' . $login_helper);
-        $c->flash(message => 'Please choose one of the supported login methods.');
+    my $authnticated = 0;
+    if (eval { $authnticated = $c->$login_helper(); 1 }) {
+        if ($authnticated) {
 
-        $c->redirect_to($c->session('over_route') || '/');
-        return;
-    }
-    if ($c->$login_helper()) {
+            # Store a friendly message for the next page in flash
+            $c->flash(message => 'Thanks for logging in.');
+            $c->debug($c->flash('message') . "\$authnticated:$authnticated");
 
-        # Store a friendly message for the next page in flash
-        $c->flash(message => 'Thanks for logging in.');
-
-        # Redirect to protected page with a 302 response
-        return $c->redirect_to($c->session('over_route') || '/');
+            # Redirect to protected page with a 302 response
+            return $c->redirect_to($c->session('over_route') || '/');
+        }
+        else {
+            $c->stash(error_login => 'Wrong credentials! Please try again.');
+            return $c->render('login');
+        }
     }
     else {
-        $c->flash(message => 'Wrong credentials. Please try again.');
-        return $c->render('login');
+        $c->app->log->error("Unknown \$login_helper:[$login_helper]");
+        $c->flash(error => 'Please choose one of the supported login methods.');
+        $c->redirect_to($c->session('over_route') || '/');
+        return;
     }
     return;
 }
 
 #used as helper 'login_ado'
 sub _login_ado {
+    my ($c) = @_;
+    $c->debug('param auth_method', $c->param('auth_method'));
+    $c->debug('stash auth_method', $c->stash('auth_method'));
     return 0;
 }
 1;
@@ -286,7 +295,7 @@ __DATA__
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
       <a href="<%=url_for("login/$auth")->to_abs %>" class="item">
-        <i class="Ⰱ <%=$auth %> icon"></i> <%=ucfirst $auth %>
+        <i class="<%=$auth %> icon"></i> <%=ucfirst $auth %>
       </a>
     % }    
     </div>
@@ -300,20 +309,23 @@ __DATA__
 % }
 </div>
 
-
-
 @@ partials/login_form.html.ep
   <form class="ui form segment" method="POST" action="" id="login_form">
     <div class="ui header">
     % # Messages will be I18N-ed via JS or Perl on a per-case basis
       Login
     </div>
+    % if(stash->{error_login}) {
+    <div class="ui error message" style="display:block">
+      <p><%= stash->{error_login} %></p>
+    </div>
+    % }
     <div class="field auth_methods">
       % for my $auth(@{app->config('auth_methods')}){
       <span class="ui toggle radio checkbox">
-        <input name="auth_method" type="radio" id="<%=$auth %>_radio"
-          %= (stash->{auth_method}//'') eq $auth?'checked=""':''
-          value="<%=url_for('login/'.$auth)->to_abs %>" />
+        <input name="_method" type="radio" id="<%=$auth %>_radio"
+          %== (stash->{auth_method}//'') eq $auth ? 'checked="checked"' : ''
+          value="<%=url_for('login/'.$auth) %>" />
         <label for="<%=$auth %>_radio">
           <i class="<%=$auth %> icon"></i><%=ucfirst $auth %>
         </label>
@@ -323,28 +335,21 @@ __DATA__
     <div class="field">
       <label for="login_name">Username</label>
       <div class="ui left labeled icon input">
-        <input placeholder="Username" type="text" name="login_name" id="login_name">
+        <input placeholder="Username" type="text" name="login_name" id="login_name" />
         <i class="user icon"></i>
-        <div class="ui corner label">
-          <i class="icon asterisk"></i>
-        </div>
+        <div class="ui corner label"><i class="icon asterisk"></i></div>
       </div>
     </div>
     <div class="field">
       <label for="login_password">Password</label>
       <div class="ui left labeled icon input">
-        <input type="password" name="login_password" id="login_password">
+        <input type="password" name="login_password" id="login_password" />
         <i class="lock icon"></i>
-        <div class="ui corner label">
-          <i class="icon asterisk"></i>
-        </div>
+        <div class="ui corner label"><i class="icon asterisk"></i></div>
       </div>
     </div>
     %= csrf_field
-    <div class="ui error message">
-      <div class="header">Error!</div><p><%= flash 'message'%></p>
-    </div>
-    <div class="ui actions">
+    <div class="ui center">
       <button class="ui small green submit button" type="submit">Login</button>
     </div>
   </form>
@@ -354,15 +359,15 @@ __DATA__
   authentication method.
 */
 function switch_login_method() {
-  $('#login_form').attr('action', this.href);
   //clicked on a link
   if(this.href){
     $('#login_form div.auth_methods').remove();
+    $('#login_form').attr('action', this.href);
     $('#login_form .header').text('Login using ' + $(this).text());
     $('#modal_login_form').modal('attach events').modal('show');
     return false;
   }
-  // or on a checkbox
+  //or on a checkbox
   else {
     $('#login_form').attr('action', this.value);
     $('#login_form .header').text('Login using ' + $(this).parent().text());
@@ -370,7 +375,9 @@ function switch_login_method() {
 }
 $('#authbar .dropdown a.item, #login_form .checkbox [type="radio"]').click(switch_login_method);
 $('#login_form .header')
-  .text('Login using ' + $('#login_form .checkbox>:checked').parent().text());
+  .text('Login using ' + 
+    $.trim($('#login_form .checkbox>:checked').parent().text())
+  );
 %= end
 
 @@ login.html.ep
