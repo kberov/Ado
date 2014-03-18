@@ -81,6 +81,9 @@ my $CHECKS = {
 
 sub CHECKS { return $CHECKS }
 
+sub by_login_name {
+    return shift->query("SELECT * FROM users WHERE login_name=?", shift);
+}
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
 
 #__PACKAGE__->BUILD;#build accessors during load
@@ -136,6 +139,17 @@ Each column from table C<users> has an accessor method in this class.
 =head2 stop_date
 
 =head1 ALIASES
+
+none
+
+=head1 METHODS
+
+=head2 by_login_name
+
+Selects a user by login_name column.
+
+    my $user = Ado::Model::Users->by_login_name('guest');
+    say $user->login_name if $user->id;
 
 =head1 GENERATOR
 

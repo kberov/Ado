@@ -1,6 +1,5 @@
 package Ado::Plugin::Auth;
 use Mojo::Base 'Ado::Plugin';
-sub _login_ado;
 
 sub register {
     my ($self, $app, $config) = @_;
@@ -18,7 +17,7 @@ sub register {
     # Add helpers
     $app->helper(
         'user' => sub {
-            Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'");
+            Ado::Model::Users->by_login_name('guest');
         }
     );
     $app->helper(login_ado => sub { _login_ado(@_) });
@@ -31,14 +30,6 @@ sub register {
     return $self;
 }
 
-
-# helper used in auth_ado
-# authenticates the user and returns true/false
-sub digest_auth {
-    my $c = shift;
-
-    return 0;
-}
 
 # general condition for authenticating users - dispatcher to specific authentication method
 sub auth {
@@ -67,11 +58,9 @@ sub auth_facebook {
 
 sub login {
     my ($c) = @_;
-    return $c->render('login') if $c->req->method ne 'POST';
-    my $auth_method = Mojo::Util::trim($c->param('auth_method'));
-    $c->debug('param auth_method', $c->param('auth_method'));
-    $c->debug('stash auth_method', $c->stash('auth_method'));
+    return $c->render(status => 401, template => 'login') if $c->req->method ne 'POST';
 
+    my $auth_method = Mojo::Util::trim($c->param('auth_method'));
 
     #derive a helper name for login the user
     my $login_helper = 'login_' . $auth_method;
@@ -87,12 +76,14 @@ sub login {
             return $c->redirect_to($c->session('over_route') || '/');
         }
         else {
-            $c->stash(error_login => 'Wrong credentials! Please try again.');
-            return $c->render('login');
+            unless ($c->res->code // '' eq '403') {
+                $c->stash(error_login => 'Wrong credentials! Please try again!');
+                return $c->render(status => 401, template => 'login');
+            }
         }
     }
     else {
-        $c->app->log->error("Unknown \$login_helper:[$login_helper]");
+        $c->app->log->error("Unknown \$login_helper:[$login_helper][$@]");
         $c->flash(error => 'Please choose one of the supported login methods.');
         $c->redirect_to($c->session('over_route') || '/');
         return;
@@ -103,8 +94,43 @@ sub login {
 #used as helper 'login_ado'
 sub _login_ado {
     my ($c) = @_;
-    $c->debug('param auth_method', $c->param('auth_method'));
-    $c->debug('stash auth_method', $c->stash('auth_method'));
+
+    #1. do basic validation first
+    my $val = $c->validation;
+    return 0 unless $val->has_data;
+    if ($val->csrf_protect->has_error('csrf_token')) {
+        delete $c->session->{csrf_token};
+        $c->render(error_login => 'Bad CSRF token!', status => 403, template => 'login');
+        return 0;
+    }
+    my $_checks = Ado::Model::Users->CHECKS;
+    $val->required('login_name')->like($_checks->{login_name}{allow});
+    $val->required('digest')->like(qr/^[0-9a-f]{40}$/);
+    if ($val->has_error) {
+        delete $c->session->{csrf_token};
+        return 0;
+    }
+
+    #2. do logical checks
+    my $login_name = $val->param('login_name');
+    my $user       = Ado::Model::Users->by_login_name($login_name);
+    unless ($user->{id}) {
+        delete $c->session->{csrf_token};
+        $c->stash(error_login_name => 'No such user!');
+        return 0;
+    }
+
+    #3. really authnticate user
+    if (Mojo::Util::sha1_hex($val->param('csrf_token') . $user->login_password) eq
+        $val->param('digest'))
+    {
+        $c->user($user);
+        $c->debug('$user ' . $user->login_name . 'logged in!');
+        return 1;
+    }
+
+    $c->debug('We should not be here ever! - wrong password');
+    delete $c->session->{csrf_token};
     return 0;
 }
 1;
@@ -212,16 +238,6 @@ Returns the current user - C<guest> for not authenticated users.
   $c->user(Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'"));
   my $current_user = $c->user;
 
-=head2 digest_auth
-
-The helper used in L</login> action to authenticate the user.
-
-  if($c->digest_auth){
-    #good, continue
-  }
-  else {
-    $c->render(status=>401,text =>'401 Unauthorized')
-  }
 
 =head1 ROUTES
 
@@ -335,24 +351,31 @@ __DATA__
     <div class="field">
       <label for="login_name">Username</label>
       <div class="ui left labeled icon input">
-        <input placeholder="Username" type="text" name="login_name" id="login_name" />
+        %= text_field 'login_name', placeholder => 'Username', id => 'login_name', required => ''
         <i class="user icon"></i>
         <div class="ui corner label"><i class="icon asterisk"></i></div>
+        % if(stash->{error_login_name}) {
+        <div class="ui error message" style="display:block">
+          <p><%= stash->{error_login_name} %></p>
+        </div>
+        % }
       </div>
     </div>
     <div class="field">
       <label for="login_password">Password</label>
       <div class="ui left labeled icon input">
-        <input type="password" name="login_password" id="login_password" />
+        <input type="password" name="login_password" id="login_password" required="" />
         <i class="lock icon"></i>
         <div class="ui corner label"><i class="icon asterisk"></i></div>
       </div>
     </div>
     %= csrf_field
+    %= hidden_field 'digest'
     <div class="ui center">
       <button class="ui small green submit button" type="submit">Login</button>
     </div>
   </form>
+%= javascript '/vendor/crypto-js/rollups/sha1.js'
 %= javascript '/js/auth.js'
 
 @@ login.html.ep
