@@ -82,7 +82,15 @@ my $CHECKS = {
 sub CHECKS { return $CHECKS }
 
 sub by_login_name {
-    return shift->query("SELECT * FROM users WHERE login_name=?", shift);
+    return shift->query("SELECT * FROM $TABLE_NAME WHERE login_name=?", shift);
+}
+
+sub name {
+    return $_[0]->{name} ||= do {
+        Mojo::Util::trim(
+            ($_[0]->{data}{first_name} || '') . ' ' . ($_[0]->{data}{last_name} || ''))
+          || $_[0]->{data}{login_name};
+    };
 }
 __PACKAGE__->QUOTE_IDENTIFIERS(0);
 
@@ -102,7 +110,28 @@ A class for TABLE users in schema main
 
 =head1 SYNOPSIS
 
+    #a helper from Ado::Plugin::Auth providing the current user
+    $app->helper(
+        'user' => sub {
+            Ado::Model::Users->by_login_name(shift->session->{login_name} // 'guest');
+        }
+    );
+
 =head1 DESCRIPTION
+
+This class maps to table C<users>. 
+
+=head1 ATTRIBUTES
+
+Ado::Model::Users inherits all attributes from Ado::Model provides the following.
+
+=head2 name
+
+Readonly. Returns concatenated L</first_name> and L</last_name> of the user 
+or the username (in case the first two are not available).
+
+    # Hello, Guest
+    <h1>Hello, <%=user->name%>!</h1>
 
 =head1 COLUMNS
 
@@ -143,6 +172,8 @@ Each column from table C<users> has an accessor method in this class.
 none
 
 =head1 METHODS
+
+Ado::Model::Users inherits all methods from Ado::Model and provides the following.
 
 =head2 by_login_name
 

@@ -17,7 +17,7 @@ sub register {
     # Add helpers
     $app->helper(
         'user' => sub {
-            Ado::Model::Users->by_login_name('guest');
+            Ado::Model::Users->by_login_name(shift->session->{login_name} // 'guest');
         }
     );
     $app->helper(login_ado => sub { _login_ado(@_) });
@@ -56,83 +56,101 @@ sub auth_facebook {
     return 1;
 }
 
+#undefines current user.
+sub logout {
+    my ($c) = @_;
+    $c->session(expires => 1);
+    $c->redirect_to($c->url_for('/')->base);
+    return;
+}
+
 sub login {
     my ($c) = @_;
-    return $c->render(status => 401, template => 'login') if $c->req->method ne 'POST';
 
-    my $auth_method = Mojo::Util::trim($c->param('auth_method'));
+    #prepare redirect url for after login
+    unless ($c->session('over_route')) {
+        my $base_url = $c->url_for('/')->base;
+        my $referrer = $c->req->headers->referrer // $base_url;
+        $referrer = $base_url unless $referrer =~ m|^$base_url|;
+        $c->session('over_route' => $referrer);
+    }
+    return $c->render(status => 200, template => 'login') if $c->req->method ne 'POST';
 
     #derive a helper name for login the user
+    my $auth_method  = Mojo::Util::trim($c->param('auth_method'));
     my $login_helper = 'login_' . $auth_method;
     my $authnticated = 0;
     if (eval { $authnticated = $c->$login_helper(); 1 }) {
         if ($authnticated) {
 
             # Store a friendly message for the next page in flash
-            $c->flash(message => 'Thanks for logging in.');
-            $c->debug($c->flash('message') . "\$authnticated:$authnticated");
+            $c->flash(login_message => 'Thanks for logging in! Wellcome!');
 
-            # Redirect to protected page with a 302 response
-            return $c->redirect_to($c->session('over_route') || '/');
+            # Redirect to referrer page with a 302 response
+            $c->redirect_to($c->session('over_route'));
+            return;
         }
         else {
             unless ($c->res->code // '' eq '403') {
                 $c->stash(error_login => 'Wrong credentials! Please try again!');
-                return $c->render(status => 401, template => 'login');
+                $c->render(status => 401, template => 'login');
+                return;
             }
         }
     }
     else {
         $c->app->log->error("Unknown \$login_helper:[$login_helper][$@]");
-        $c->flash(error => 'Please choose one of the supported login methods.');
-        $c->redirect_to($c->session('over_route') || '/');
+        $c->stash(error_login => 'Please choose one of the supported login methods.');
+        $c->render(status => 401, template => 'login');
         return;
     }
     return;
 }
 
-#used as helper 'login_ado'
+#used as helper 'login_ado' returns 1 on success, '' otherwise
 sub _login_ado {
     my ($c) = @_;
 
     #1. do basic validation first
     my $val = $c->validation;
-    return 0 unless $val->has_data;
+    return '' unless $val->has_data;
     if ($val->csrf_protect->has_error('csrf_token')) {
         delete $c->session->{csrf_token};
         $c->render(error_login => 'Bad CSRF token!', status => 403, template => 'login');
-        return 0;
+        return '';
     }
     my $_checks = Ado::Model::Users->CHECKS;
     $val->required('login_name')->like($_checks->{login_name}{allow});
     $val->required('digest')->like(qr/^[0-9a-f]{40}$/);
     if ($val->has_error) {
         delete $c->session->{csrf_token};
-        return 0;
+        return '';
     }
 
     #2. do logical checks
     my $login_name = $val->param('login_name');
     my $user       = Ado::Model::Users->by_login_name($login_name);
-    unless ($user->{id}) {
+    if ((not $user->id) or $user->disabled) {
         delete $c->session->{csrf_token};
         $c->stash(error_login_name => 'No such user!');
-        return 0;
+        return '';
     }
 
     #3. really authnticate user
-    if (Mojo::Util::sha1_hex($val->param('csrf_token') . $user->login_password) eq
-        $val->param('digest'))
-    {
+    my $checksum = Mojo::Util::sha1_hex($c->session->{csrf_token} . $user->login_password);
+    if ($checksum eq $val->param('digest')) {
+        $c->session(login_name => $user->login_name);
         $c->user($user);
-        $c->debug('$user ' . $user->login_name . 'logged in!');
+        $c->app->log->info('$user ' . $user->login_name . ' logged in!');
+        delete $c->session->{csrf_token};
         return 1;
     }
 
-    $c->debug('We should not be here ever! - wrong password');
+    $c->debug('We should not be here! - wrong password');
     delete $c->session->{csrf_token};
-    return 0;
+    return '';
 }
+
 1;
 
 
@@ -250,6 +268,11 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 If accessed using a C<GET> request displays a login form.
 If accessed via C<POST> performs authentication using C<:auth_method>.
 
+=head2 logout
+
+Expires the session and redirects to the base URL.
+
+  $c->logout();
 
 =head1 METHODS
 
@@ -321,9 +344,14 @@ __DATA__
     %=include 'partials/login_form'
   </div><!-- end modal dialog with login form in it -->
 % } else {
-  <a href="logout"><i class="sign out icon"></i> <%=user->login_name %></a>
+  <a class="ui item" href="<%= url_for('logout') %>" title="Logout <%= user->name %>">
+    <i class="sign out icon"></i>
+  </a>
 % }
 </div>
+<script type="text/javascript">
+  $('#authbar a[href$=logout]').popup({position : 'bottom left'});
+</script>
 
 @@ partials/login_form.html.ep
   <form class="ui form segment" method="POST" action="" id="login_form">
@@ -332,9 +360,7 @@ __DATA__
       Login
     </div>
     % if(stash->{error_login}) {
-    <div class="ui error message" style="display:block">
-      <p><%= stash->{error_login} %></p>
-    </div>
+    <div class="ui error message" style="display:block"><%= stash->{error_login} %></div>
     % }
     <div class="field auth_methods">
       % for my $auth(@{app->config('auth_methods')}){

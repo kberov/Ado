@@ -6,7 +6,17 @@
     <div class="header">Error!</div><p><%= flash 'error'%></p>
   </div>
 % }
-  <h1>Hello, user!</h1>
+% if(flash 'login_message'){
+  <div class="ui success huge center message"><i class="close icon"></i>
+    <%= flash 'login_message' %>
+  </div>
+  %=javascript begin
+  $('.success.huge.message .close').on('click', function() {
+    $(this).closest('.message').fadeOut();
+  });
+  %end
+% }
+  <h1>Hello, <%=user->name%>!</h1>
   <img id="ado-img" class="ui rounded right floated image" 
     title="Ado – a rapid active commotion" 
     src="/img/5FE59-ado.jpg" />

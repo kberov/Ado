@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.36 2014-03-02
+0.36 2014-03-18
     - Improved documentation.
     - Added sha1.js from CryptoJS v3.1.2.
     - Fixed typos and improved the home page.
@@ -9,7 +9,7 @@ Revision history for Ado
     - Upgraded to Mojolicious 4.87.
     - Upgraded to Semantic UI 0.14.0
     - Shamelessly stollen and modified a background pattern from jQuery UI.
-    - Implemented digest access authentication with Ado::Plugin::Auth.
+    - Implemented experimental digest access authentication with Ado::Plugin::Auth.
 
 0.35 2014-03-01
     - Честита Баба Марта!
