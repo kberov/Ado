@@ -15,11 +15,6 @@ sub register {
     $app->config(auth_methods => $config->{auth_methods});
 
     # Add helpers
-    $app->helper(
-        'user' => sub {
-            Ado::Model::Users->by_login_name(shift->session->{login_name} // 'guest');
-        }
-    );
     $app->helper(login_ado => sub { _login_ado(@_) });
 
     #Load routes if they are passed
@@ -64,8 +59,11 @@ sub logout {
     return;
 }
 
+#authenticate a user
 sub login {
     my ($c) = @_;
+
+#TODO: add json format
 
     #prepare redirect url for after login
     unless ($c->session('over_route')) {
@@ -249,12 +247,6 @@ Same as:
 L<Ado::Plugin::Auth> exports the following helpers for use in  
 L<Ado::Control> methods and templates.
 
-=head2 user
-
-Returns the current user - C<guest> for not authenticated users.
-
-  $c->user(Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'"));
-  my $current_user = $c->user;
 
 
 =head1 ROUTES

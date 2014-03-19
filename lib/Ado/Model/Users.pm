@@ -110,7 +110,7 @@ A class for TABLE users in schema main
 
 =head1 SYNOPSIS
 
-    #a helper from Ado::Plugin::Auth providing the current user
+    #a helper from Ado::Plugin::AdoHelpers providing the current user
     $app->helper(
         'user' => sub {
             Ado::Model::Users->by_login_name(shift->session->{login_name} // 'guest');

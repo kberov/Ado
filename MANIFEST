@@ -36,6 +36,7 @@ lib/Ado/Model/SqliteSequence.pm
 lib/Ado/Model/UserGroup.pm
 lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
+lib/Ado/Plugin/AdoHelpers.pm
 lib/Ado/Plugin/Auth.pm
 lib/Ado/Plugin/MarkdownRenderer.pm
 lib/Ado/Plugin/Routes.pm
