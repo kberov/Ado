@@ -50,7 +50,8 @@ sub load_plugins {
 
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
-        $app->log->debug('Loading Plugin:' . $app->dumper($plugin));
+        $app->log->debug(
+            'Loading Plugin:' . (ref $plugin ? $app->dumper($plugin) : "$plugin..."));
         if (ref $plugin eq 'HASH') {
             $app->plugin($plugin->{name} => $plugin->{config});
         }
