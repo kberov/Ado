@@ -138,6 +138,6 @@ templates/default/index.html.ep
 templates/doc/show.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
-templates/layouts/header.html.ep
 templates/partials/adobar.html.ep
+templates/partials/head.html.ep
 templates/добре/ок.html.ep
