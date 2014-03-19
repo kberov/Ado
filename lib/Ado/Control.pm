@@ -5,6 +5,7 @@ our $DEV_MODE = ($ENV{MOJO_MODE} || '' =~ /dev/);
 has description => 'Ado is a framework for web projects based on Mojolicious,'
   . ' written in the Perl programming language.';
 has keywords => 'SSOT, CRM, ERP, CMS, Perl, SQL';
+
 sub generator { return 'Ado ' . $Ado::VERSION . ' - ' . $Ado::CODENAME }
 
 sub config {
@@ -146,13 +147,13 @@ and implements the following new ones.
 
 Returns a default description used in C<head> element of HTML pages.
 
-=head2 keywords
-
-Returns default keywords used in C<head> element of HTML pages.
-
 =head2 generator
 
 Returns the concatenated moniker, VERSION and L<CODENAME>.
+
+=head2 keywords
+
+Returns default keywords used in C<head> element of HTML pages.
 
 =head1 SUBROUTINES/METHODS
 
@@ -263,13 +264,13 @@ L<Ado::Manual::RESTAPI>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013 Красимир Беров (Krasimir Berov).
+Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
