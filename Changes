@@ -7,7 +7,7 @@ Revision history for Ado
     - Added a subset of Free Serif font to use the GLAGOLITIC alphabet
       directly.
     - Upgraded to Mojolicious 4.90.
-    - Upgraded to Semantic UI 0.14.0
+    - Upgraded to Semantic UI 0.15.1
     - Shamelessly stollen and modified a background pattern from jQuery UI.
     - Implemented experimental digest access authentication with Ado::Plugin::Auth.
 
