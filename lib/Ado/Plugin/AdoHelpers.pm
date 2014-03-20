@@ -13,7 +13,7 @@ sub register {
     # Add helpers
     $app->helper(
         user => sub {
-            Ado::Model::Users->by_login_name(shift->session->{login_name} // 'guest');
+            Ado::Model::Users->by_login_name(shift->session->{login_name} //= 'guest');
         }
     );
     return $self;

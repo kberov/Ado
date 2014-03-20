@@ -9,6 +9,7 @@ Revision history for Ado
     - Upgraded to Mojolicious 4.90.
     - Upgraded to Semantic UI 0.15.1
     - Shamelessly stollen and modified a background pattern from jQuery UI.
+    - Added Ado::Plugin::AdoHelpers.
     - Implemented experimental digest access authentication with Ado::Plugin::Auth.
 
 0.35 2014-03-01
