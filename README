@@ -81,6 +81,13 @@ INSTALLATION
     perlbrew install-cpanm
     cpanm Ado
 
+ Carton
+  Installing Ado using Carton
+
+    echo 'requires "Ado";' > cpanfile
+    carton install
+    carton exec local/bin/ado daemon
+
 SUPPORT AND DOCUMENTATION
   After installing, you can find documentation with the perldoc command. To
   use "perldoc" for reading documentation you may need to add the full path
