@@ -5,53 +5,51 @@ sub register {
     my ($self, $app, $config) = @_;
     $self->app($app);    #!Needed in $self->config!
 
-    #Merge passed configuration (usually from etc/ado.conf) with configuration
-    #from  etc/plugins/markdown_renderer.conf
+    # Merge passed configuration (usually from etc/ado.conf) with configuration
+    # from  etc/plugins/markdown_renderer.conf
     $config = $self->{config} = {%{$self->config}, %{$config ? $config : {}}};
     $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
 
-    #Make sure we have all we need from config files.
+    # Make sure we have all we need from config files.
     $config->{auth_methods} ||= ['ado', 'facebook'];
     $app->config(auth_methods => $config->{auth_methods});
 
     # Add helpers
     $app->helper(login_ado => sub { _login_ado(@_) });
 
-    #Load routes if they are passed
+    # Add conditions
+    $app->routes->add_condition(
+        authenticated => sub {
+            my ($route, $c, $captures, $patterns) = @_;
+            $c->debug('in condition "authenticated"');
+            if ($c->user->login_name eq 'guest') {
+                $c->redirect_to($c->url_for('/login'));
+                return;
+            }
+            return 1;
+        }
+    );
+
+    # Load routes if they are passed
     push @{$app->renderer->classes}, __PACKAGE__;
+
     $app->load_routes($config->{routes})
       if (ref($config->{routes}) eq 'ARRAY' && scalar @{$config->{routes}});
-
     return $self;
 }
 
 
 # general condition for authenticating users - dispatcher to specific authentication method
-sub auth {
+sub authenticated {
     my ($route, $c, $captures, $patterns) = @_;
+    $c->debug('in condition "authenticated"');
     $c->debug($route, $c, $captures, $patterns);
 
     return 1;
 }
 
-# condition to locally authenticate a user
-sub auth_ado {
-    my ($route, $c, $captures, $patterns) = @_;
 
-
-    return 1;
-}
-
-
-#condition to authenticate a user via facebook
-sub auth_facebook {
-    my ($route, $c, $captures, $patterns) = @_;
-
-
-    return 1;
-}
-
-#undefines current user.
+#expires the session.
 sub logout {
     my ($c) = @_;
     $c->session(expires => 1);
@@ -71,6 +69,7 @@ sub login {
         my $referrer = $c->req->headers->referrer // $base_url;
         $referrer = $base_url unless $referrer =~ m|^$base_url|;
         $c->session('over_route' => $referrer);
+        $c->debug('over_route is ' . $referrer);
     }
     return $c->render(status => 200, template => 'login') if $c->req->method ne 'POST';
 
@@ -85,6 +84,7 @@ sub login {
             $c->flash(login_message => 'Thanks for logging in! Wellcome!');
 
             # Redirect to referrer page with a 302 response
+            $c->debug('redirecting to ' . $c->session('over_route'));
             $c->redirect_to($c->session('over_route'));
             return;
         }
@@ -125,16 +125,16 @@ sub _login_ado {
         return '';
     }
 
-    #2. do logical checks
+    #2. find the user and do logical checks
     my $login_name = $val->param('login_name');
     my $user       = Ado::Model::Users->by_login_name($login_name);
     if ((not $user->id) or $user->disabled) {
         delete $c->session->{csrf_token};
-        $c->stash(error_login_name => 'No such user!');
+        $c->stash(error_login_name => "No such user '$login_name'!");
         return '';
     }
 
-    #3. really authnticate user
+    #3. really authnticate the user
     my $checksum = Mojo::Util::sha1_hex($c->session->{csrf_token} . $user->login_password);
     if ($checksum eq $val->param('digest')) {
         $c->session(login_name => $user->login_name);
@@ -203,13 +203,15 @@ in any other template on your site.
 =head1 CONDITIONS
 
 L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
+To find more about conditions read L<Mojolicious::Guides::Routing/Conditions>.
 
-=head2 auth
+=head2 authenticated
 
-  #programatically
-  $app->routes->route('/ado-users/:action', over => {auth => {ado => 1}});
-  $app->routes->route('/ado-users/:action', over =>'auth');
-  $app->routes->route('/ado-users/:action', over =>['auth','authz','foo','bar']);
+  # add the condition programatically
+  $app->routes->route('/ado-users/:action', over => {authenticated=>1});
+  $app->routes->route('/ado-users/:action', 
+    over => [authenticated => 1, authz => {group => 'admin'}]
+  );
 
   #in ado.conf or ado.${\$app->mode}.conf
   routes => [
@@ -218,28 +220,17 @@ L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
       route => '/ado-users/:action:id',
       via   => [qw(PUT DELETE)],
       
-      # only local users can edit and delete users,
+      # only authenticated users can edit and delete users,
       # and only if they are authorized to do so
-      over =>[auth => {ado => 1},'authz'],
+      over =>over => [authenticated => 1, authz => {group => 'admin'}],
       to =>'ado-users#edit'
     }
   ],
 
 Condition for routes used to check if a user is authenticated.
-Additional parameters can be passed to specify the preferred authentication method to be used
+Additional parameters can be passed to specify the preferred authentication method to be
+preselected in the login form
 if condition redirects to C</login/:auth_method>.
-
-=head2 auth_ado
-
-Same as:
-
-  auth => {ado => 1},
-
-=head2 auth_facebook
-
-Same as:
-
-  auth => {facebook => 1},
 
 
 =head1 HELPERS
@@ -288,8 +279,8 @@ Others may be added later.
 
 =head1 SEE ALSO
 
-L<Ado::Plugin>, L<Ado::Manual::Plugins>,L<Mojolicious::Plugins>, 
-L<Mojolicious::Plugin>, 
+L<Ado::Plugin>, L<Ado::Manual::Plugins>, L<Mojolicious::Plugins>, 
+L<Mojolicious::Plugin>, L<Mojolicious::Guides::Routing/Conditions>
 
 =head1 SPONSORS
 

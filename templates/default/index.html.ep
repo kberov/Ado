@@ -70,10 +70,21 @@
       or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code> and modify it.
     </blockquote>
     </li>
-    <li>For end-user help look at <a href="/help">/help</a>!</li>
-    <li>For development help look at <a href="/perldoc">/perldoc</a>!</li>
+    <li>For end-user help look at <a href="<%=url_for('/help')%>">/help</a>!</li>
+    <li>For development help look at <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
     <li>Develop your site, application or both!</li>
-    <li>Enough ado, have fun with <a href="/perldoc/Ado/Manual">Ado</a>!</li>
+    <li>Enough ado, have fun with <b>Ado</b>!</li>
+    <li>Still here? Ado comes with some default end-user features which can be used right away.
+        <ol>
+          <li>
+            User <a href="<%=url_for('/help')%>">documentation</a> works thanks
+            to <a href="<%=url_for('/perldoc/Ado::Plugin::MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a>.
+          </li>
+          <li>
+            User <a href="<%=url_for('/test/authenticateduser')%>">authentication</a> works thanks to <a href="<%=url_for('/perldoc/Ado::Plugin::Auth')%>">Ado::Plugin::Auth</a>.
+          </li>
+        </ol>
+    </li>
   </ol>
 </article>
 <div class="ui horizontal section divider" style="margin-top:2em">
