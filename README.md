@@ -91,6 +91,14 @@ Installing Ado under your own perlbrew environment
     perlbrew install-cpanm
     cpanm Ado
 
+## Carton
+
+Installing Ado using Carton
+
+    echo 'requires "Ado";' > cpanfile
+    carton install
+    carton exec local/bin/ado daemon
+
 # SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
