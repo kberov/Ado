@@ -19,6 +19,9 @@ to get started quickly.
 
 Since version 0.31 [Ado](https://metacpan.org/pod/Ado) goes together with the following:
 
+- [Ado::Plugin::Auth](https://metacpan.org/pod/Ado::Plugin::Auth) is a plugin that authenticates users to an [Ado](https://metacpan.org/pod/Ado) system.
+Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
+and other authentication service-providers.
 - [Ado::Plugin::MarkdownRenderer](https://metacpan.org/pod/Ado::Plugin::MarkdownRenderer) - Render static files in markdown format.
 You can create a personal blog or enterprise wiki using static files in markdown format.
 See the Functional documentation at [http://localhost:3000/help](http://localhost:3000/help) for an example.

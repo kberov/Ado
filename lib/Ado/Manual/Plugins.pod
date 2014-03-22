@@ -13,8 +13,11 @@ The only difference between Ado and Mojolicious plugins is that Ado
 plugins can retrieve their settings from their own files.
 
 The files must be named after the plugins for which they contain configuration.
-A plugin Ado::Plugin::Hello will search its configuration
+A plugin Ado::Plugin::Hello will search its configuration in 
 C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
+depending on the current mode ($ENV{MOJO_MODE}) the file 
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')> will also be loaded
+and will overwrite all settings from C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
 The file must return a HASHREF.
 See the code of the listed plugins below for examples of 
 how and what can be done in a plugin.
@@ -46,7 +49,11 @@ Render markdown to HTML.
 
 =item L<Ado::Plugin::Routes>
 
-Keep routes separately.
+Keep routes in their own configuration file separately.
+
+=item L<Ado::Control::Test>
+
+A controller used for testing Ado.
 
 =back
 
