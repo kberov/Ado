@@ -25,9 +25,9 @@ add_stopwords(
       Mojolicious Mojo app apps Foo SQLite ActivePerl
       URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
       WMD JS UI
-      precompiled perldoc RESTful tstamp
+      precompiled perldoc RESTful tstamp linkedin
       accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew rawr
+      cpan cpanm perl perlbrew auth
       )
 );
 all_pod_files_spelling_ok();

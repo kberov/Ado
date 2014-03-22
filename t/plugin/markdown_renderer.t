@@ -86,12 +86,7 @@ find(
     $app->home->rel_dir('public/doc/bg')
 );
 
-#markdown
-#create a temporary action mark_down that uses the markdown helper
-Mojo::Util::monkey_patch('Ado::Control::Doc', 'mark_down',
-    sub { $_[0]->render(text => $_[0]->markdown('* some text')) });
-
-#test the helper
-$t->get_ok('/doc/mark_down')->status_is(200)->text_is('li' => 'some text');
+#test the helper markdown
+$t->get_ok('/test/mark_down')->status_is(200)->text_is('li' => 'some text');
 
 done_testing();

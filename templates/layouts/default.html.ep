@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head><%= include 'layouts/header'; %></head>
-  <body><%= content %></body>
+  <head><%= include 'partials/head'; %></head>
+  <body><%= include 'partials/adobar' %><%= content %></body>
   <!-- Produced by
 % if(stash->{controller}){
 %=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
 % }else{ 
-%=  'Template:'.stash->{'mojo.captures'}{template};
+%=  (stash->{'mojo.captures'}{template}?'Template:'.stash->{'mojo.captures'}{template}:'');
 % }
   -->
 </html>

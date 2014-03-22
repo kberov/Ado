@@ -1,9 +1,16 @@
 @charset "UTF-8";
 /* ado.css */
+@font-face
+{
+  font-family: FreeSerif;
+  src: url(../fonts/FreeSerif-Glagolitic-UC.woff);
+}
 body{
   font-family: 'Ubuntu', sans-serif;
   margin: 0;
   color: #46400D;
+  background-color: #fff;
+  background-image: url(ui-bg_diagonal-maze_light_10x10.png);
 }
 h1,h2,h3,h4 {
   margin-bottom: 0.5em;
@@ -27,23 +34,23 @@ h1,h2,h3,h4, ui a {
   text-shadow: 2px 2px 2px #aaa;  
 }
 
+#adobar {
+  /* box-shadow: none|h-shadow v-shadow blur spread color |inset|initial|inherit; */
+    box-shadow: 0px 1px 5px #222;
+}
+.footer,
 .main.container {
   position: relative;
-  top: 3em;
   margin: auto;
-  margin-bottom: 1em;
   min-width: 460px;
   width: 98%;
   max-width: 1024px;
   box-shadow: 0px 0px 5px #aaa;
   background: #FAFAFA;
   border-radius: 0.25em;
-  padding: 1px 1em 1em 1px;
+  /* top right bottom left */
+  padding: 2em 1em 1em 1em;
   font-size: 1.3em;
-}
-
-.main.container p {
-  margin: 1em;
 }
 
 aside#toc ul {
@@ -70,10 +77,21 @@ a.footnote {
   font-size: 0.8em;
   font-weight: bolder;
 }
+
 .Ⰱ {
+  font-family: FreeSerif;
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
 }
+i.icon.ado{
+  background-color: #fff;
+  text-shadow:2px 2px 2px #aaa;
+  font-weight: bolder; 
+}
+i.icon.ado:before {
+  content: "Ⰱ";
+}
+
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
 
 .ui.hidden {
@@ -88,4 +106,11 @@ a.footnote {
 code {
   color: #993;
   white-space: nowrap;
+}
+section.login_form {
+  padding-top: 2em;
+  margin: auto;
+  min-width: 300px;
+  width: 80%;
+  max-width: 600px;
 }

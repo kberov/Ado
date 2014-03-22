@@ -1,0 +1,13 @@
+This folder contains some additional fonts and subset of fonts.
+The subsets are made by typing the needed letters into an OpenDocument file,
+exporting it to PDF then extracting the embedded subset using
+http://onlinefontconverter.com/
+
+Currently we have:
+A subset from the Free Serif font containing only the uppercase letters from 
+the GLAGOLITIC Alphabet (the first Slavic alphabet)
+FreeSerif-Glagolitic-UC.woff
+https://www.gnu.org/software/freefont/license.html
+
+We use it for Ado codenames.
+See also: http://en.wikipedia.org/wiki/Saints_Cyril_and_Methodius#Invention_of_the_Glagolitic_and_Cyrillic_alphabets

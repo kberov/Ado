@@ -1,5 +1,18 @@
 Revision history for Ado
 
+0.36 2014-03-22
+    - Improved documentation.
+    - Added sha1.js from CryptoJS v3.1.2.
+    - Fixed typos and improved the home page.
+    - Added a subset of Free Serif font to use the GLAGOLITIC alphabet
+      directly.
+    - Upgraded to Mojolicious 4.90.
+    - Upgraded to Semantic UI 0.15.1
+    - Shamelessly stollen and modified a background pattern from jQuery UI.
+    - Added Ado::Plugin::AdoHelpers.
+    - Added Ado::Control::Test controller for testing plugins.
+    - Implemented experimental digest access authentication with Ado::Plugin::Auth.
+
 0.35 2014-03-01
     - Честита Баба Марта!
     - Improved documentation.

@@ -15,6 +15,10 @@ DESCRIPTION
 
   Since version 0.31 Ado goes together with the following:
 
+  *   Ado::Plugin::Auth is a plugin that authenticates users to an Ado
+      system. Users can be authenticated locally or using (TODO!) Facebook,
+      Google, Twitter and other authentication service-providers.
+
   *   Ado::Plugin::MarkdownRenderer - Render static files in markdown
       format. You can create a personal blog or enterprise wiki using static
       files in markdown format. See the Functional documentation at

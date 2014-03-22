@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.35';
+our $VERSION   = '0.36';
 our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
 
 use Ado::Control;
@@ -50,7 +50,8 @@ sub load_plugins {
 
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
-        $app->log->debug('Loading Plugin:' . $app->dumper($plugin));
+        $app->log->debug(
+            'Loading Plugin:' . (ref $plugin ? $app->dumper($plugin) : "$plugin..."));
         if (ref $plugin eq 'HASH') {
             $app->plugin($plugin->{name} => $plugin->{config});
         }
@@ -67,7 +68,7 @@ sub load_routes {
     $config_routes ||= $app->config('routes') || [];
     my $routes = $app->routes;
 
-    #hide Ado::Control methods and attributes
+    # Hide Ado::Control methods and attributes from router.
     $routes->hide(
         qw(
           debug config require_format list_for_json
@@ -91,7 +92,7 @@ sub load_routes {
             $r->via(@$via);
         }
         $r->to(ref $to eq 'HASH' ? %$to : $to);
-        $app->log->debug('load_routes: name:' . $r->name . '; pattern:' . $r->to_string);
+        $app->log->debug('load_routes: name:' . $r->name . '; pattern: "' . $r->to_string . '"');
     }
 
     return $app;

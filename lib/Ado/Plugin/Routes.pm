@@ -91,7 +91,7 @@ TODO.
 
 =head1 SEE ALSO
 
-L<Mojolicious::Guides::Routing>, L<Mojolicious::Routes>, L<Ado::Plugin>, L<Ado::Manual::Plugin>,L<Mojolicious::Plugins>, 
+L<Mojolicious::Guides::Routing>, L<Mojolicious::Routes>, L<Ado::Plugin>, L<Ado::Manual::Plugins>,L<Mojolicious::Plugins>, 
 L<Mojolicious::Plugin>, 
 
 
