@@ -53,7 +53,7 @@ sub authenticated {
 sub logout {
     my ($c) = @_;
     $c->session(expires => 1);
-    $c->redirect_to($c->url_for('/')->base);
+    $c->redirect_to($c->url_for('/'));
     return;
 }
 

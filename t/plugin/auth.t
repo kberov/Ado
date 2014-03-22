@@ -86,5 +86,9 @@ $t->get_ok('/test/authenticateduser')->status_is(200)
 #user is Test 1
 $t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Test 1!');
 
+#logout
+$t->get_ok('/logout')->status_is(302)->header_is('Location' => $t->ua->server->url);
+$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Guest!');
+
 
 done_testing();
