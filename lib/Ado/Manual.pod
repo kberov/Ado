@@ -111,7 +111,7 @@ Installing Ado using Carton
 
 After installing, you can find documentation with the
 perldoc command. To use C<perldoc> for reading documentation you may 
-need to add the full path to L<Ado> C<lib/Perl5> directory to C<PERL5LIB>
+need to add the full path to L<Ado> C<lib> directory to C<PERL5LIB>
 environment variable in case you passed the C<--install_base> to C<Build.PL>.
 
     perldoc Ado
