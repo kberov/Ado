@@ -45,38 +45,65 @@ $t->get_ok('/login/alabala', {Referer => $help_url})->status_is(200)
 $t->post_ok('/login/alabala', {Referer => $help_url})->status_is(401)
   ->text_like('.ui.error.message' => qr/of the supported login methods/);
 
-#try condition
-$t->get_ok('/test/authenticateduser')->status_is(302)->header_like('Location' => qr|/login$|);
+#try condition (redirects to /login url)
+my $login_url =
+  $t->get_ok('/test/authenticateduser')->status_is(302)->header_like('Location' => qr|/login$|)
+  ->tx->res->headers->header('Location');
 
-#login
-$t->get_ok('/login/ado');
+#login after following the Location header (redirect)
+$t->get_ok($login_url);
 
 #get the csrf fields
 my $form       = $t->tx->res->dom->at('#login_form');
 my $csrf_token = $form->at('[name="csrf_token"]')->{value};
-$t->post_ok(
-    '/login/ado' => {DNT => 1} => form => {
-        _method        => 'login/ado',
-        login_name     => 'test1',
-        login_password => '',
-        csrf_token     => $csrf_token,
-        digest =>
-          Mojo::Util::sha1_hex($csrf_token . Mojo::Util::sha1_hex('test1' . 'wrong_pass')),
-    }
-)->status_is(401);
+my $form_hash  = {
+    _method        => 'login/ado',
+    login_name     => 'test1',
+    login_password => '',
+    csrf_token     => $csrf_token,
+    digest => Mojo::Util::sha1_hex($csrf_token . Mojo::Util::sha1_hex('test1' . 'wrong_pass')),
+};
+$t->post_ok($login_url => {} => form => $form_hash)->status_is(401);
+
+#try with wrong (unchanged) csrf token
+$t->post_ok($login_url => {DNT => 1} => form => $form_hash)->status_is(403, 'Wrong csrf_token')
+  ;    #403 Forbidden
+
+#try with no user passed
+$t->get_ok($login_url);
+delete $form_hash->{login_name};
+$form_hash->{csrf_token} = $t->tx->res->dom->at('#login_form [name="csrf_token"]')->{value};
+$form_hash->{digest} =
+  Mojo::Util::sha1_hex($form_hash->{csrf_token} . Mojo::Util::sha1_hex('' . 'wrong_pass'));
+$t->post_ok($login_url => {} => form => $form_hash)->status_is(401, 'No login_name');
+
+#try with no data
+$t->post_ok($login_url)->status_is(401, 'No $val->has_data');
+
+#try with unexisting user
+$t->get_ok($login_url);
+$form_hash->{login_name} = 'alabala';
+$form_hash->{csrf_token} = $t->tx->res->dom->at('#login_form [name="csrf_token"]')->{value};
+$form_hash->{digest} =
+  Mojo::Util::sha1_hex($form_hash->{csrf_token} . Mojo::Util::sha1_hex('' . 'wrong_pass'));
+$t->post_ok($login_url => {} => form => $form_hash)->status_is(401, 'No such user $login_name')
+  ->text_is('#error_login',      'Wrong credentials! Please try again!')
+  ->text_is('#error_login_name', "No such user '$form_hash->{login_name}'!");
 
 #try again with the right password this time
 $form = $t->tx->res->dom->at('#login_form');
 my $new_csrf_token = $form->at('[name="csrf_token"]')->{value};
 ok($new_csrf_token ne $csrf_token, '$new_csrf_token is different');
 $t->post_ok(
-    '/login/ado' => {} => form => {
+    $login_url => {} => form => {
         _method        => 'login/ado',
         login_name     => 'test1',
         login_password => '',
         csrf_token     => $new_csrf_token,
         digest => Mojo::Util::sha1_hex($new_csrf_token . Mojo::Util::sha1_hex('test1' . 'test1')),
-    }
+      }
+
+      #redirect back to the $c->session('over_route')
 )->status_is(302)->header_is('Location' => $test_auth_url);
 
 # after authentication
@@ -84,7 +111,8 @@ $t->get_ok('/test/authenticateduser')->status_is(200)
   ->content_is('hello authenticated Test 1', 'hello test1 ok');
 
 #user is Test 1
-$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Test 1!');
+$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Test 1!')
+  ->element_exists('#adobar #authbar a.item .sign.out.icon', 'Sign Out link is present!');
 
 #logout
 $t->get_ok('/logout')->status_is(302)->header_is('Location' => $t->ua->server->url);

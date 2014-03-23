@@ -15,36 +15,28 @@ sub register {
     $app->config(auth_methods => $config->{auth_methods});
 
     # Add helpers
-    $app->helper(login_ado => sub { _login_ado(@_) });
+    $app->helper(login_ado => \&_login_ado);
 
     # Add conditions
-    $app->routes->add_condition(
-        authenticated => sub {
-            my ($route, $c, $captures, $patterns) = @_;
-            $c->debug('in condition "authenticated"');
-            if ($c->user->login_name eq 'guest') {
-                $c->redirect_to($c->url_for('/login'));
-                return;
-            }
-            return 1;
-        }
-    );
+    $app->routes->add_condition(authenticated => \&authenticated);
 
     # Load routes if they are passed
     push @{$app->renderer->classes}, __PACKAGE__;
 
-    $app->load_routes($config->{routes})
-      if (ref($config->{routes}) eq 'ARRAY' && scalar @{$config->{routes}});
+    $app->load_routes($config->{routes}) if (@{$config->{routes}});
     return $self;
 }
 
 
-# general condition for authenticating users - dispatcher to specific authentication method
+# general condition for authenticating users - redirects to /login
 sub authenticated {
     my ($route, $c, $captures, $patterns) = @_;
     $c->debug('in condition "authenticated"');
-    $c->debug($route, $c, $captures, $patterns);
-
+    if ($c->user->login_name eq 'guest') {
+        $c->session(over_route => $c->url_for($route->name));
+        $c->redirect_to($c->url_for('/login'));
+        return;
+    }
     return 1;
 }
 
@@ -343,7 +335,8 @@ __DATA__
       Login
     </div>
     % if(stash->{error_login}) {
-    <div class="ui error message" style="display:block"><%= stash->{error_login} %></div>
+    <div id="error_login" class="ui error message" style="display:block">
+      <%= stash->{error_login} %></div>
     % }
     <div class="field auth_methods">
       % for my $auth(@{app->config('auth_methods')}){
@@ -364,8 +357,8 @@ __DATA__
         <i class="user icon"></i>
         <div class="ui corner label"><i class="icon asterisk"></i></div>
         % if(stash->{error_login_name}) {
-        <div class="ui error message" style="display:block">
-          <p><%= stash->{error_login_name} %></p>
+        <div id="error_login_name" class="ui error message" style="display:block">
+          <%= stash->{error_login_name} %>
         </div>
         % }
       </div>

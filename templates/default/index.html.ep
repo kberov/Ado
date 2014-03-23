@@ -74,7 +74,7 @@
     <li>For development help look at <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
     <li>Develop your site, application or both!</li>
     <li>Enough ado, have fun with <b>Ado</b>!</li>
-    <li>Still here? Ado comes with some default end-user features which can be used right away.
+    <li>Still here? Ado comes with some default end-user features which can be tryed right away.
         <ol>
           <li>
             User <a href="<%=url_for('/help')%>">documentation</a> works thanks
@@ -82,6 +82,7 @@
           </li>
           <li>
             User <a href="<%=url_for('/test/authenticateduser')%>">authentication</a> works thanks to <a href="<%=url_for('/perldoc/Ado::Plugin::Auth')%>">Ado::Plugin::Auth</a>.
+            Try <i>User: 'test1'; Password: 'test1'</i>!
           </li>
         </ol>
     </li>
