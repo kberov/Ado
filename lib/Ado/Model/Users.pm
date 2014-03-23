@@ -22,38 +22,30 @@ my $ALIASES = {};
 
 sub ALIASES { return $ALIASES }
 my $CHECKS = {
-    'changed_by' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
+    'changed_by' => {'allow' => qr/(?^x:^\d{1,}$)/},
     'disabled'   => {
         'required' => 1,
         'defined'  => 1,
-        'allow'    => qr/(?^x:^-?\d{1,1}$)/,
+        'allow'    => qr/(?^x:^\d{1,1}$)/,
         'default'  => '1'
     },
     'tstamp' => {
         'required' => 1,
         'defined'  => 1,
-        'allow'    => qr/(?^x:^-?\d{1,}$)/
+        'allow'    => qr/(?^x:^\d{1,}$)/
     },
     'login_password' => {
         'required' => 1,
         'defined'  => 1,
         'allow'    => qr/(?^x:^.{1,80}$)/
     },
-    'stop_date' => {
-        'required' => 1,
-        'defined'  => 1,
-        'allow'    => qr/(?^x:^-?\d{1,}$)/
-    },
+    'stop_date'   => {'allow' => qr/(?^x:^-?\d{1,}$)/},
     'description' => {
         'allow'   => qr/(?^x:^.{1,255}$)/,
         'default' => 'NULL'
     },
-    'last_name' => {
-        'required' => 1,
-        'defined'  => 1,
-        'allow'    => qr/(?^x:^.{1,255}$)/
-    },
-    'email' => {
+    'last_name' => {'allow' => qr/(?^x:^.{1,255}$)/},
+    'email'     => {
         'required' => 1,
         'defined'  => 1,
         'allow'    => qr/(?^x:^.{1,255}$)/
@@ -70,13 +62,13 @@ my $CHECKS = {
         'allow'    => qr/(?^x:^-?\d{1,}$)/
     },
     'id'         => {'allow' => qr/(?^x:^-?\d{1,}$)/},
-    'login_name' => {'allow' => qr/(?^x:^.{1,100}$)/},
-    'created_by' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
-    'first_name' => {
+    'login_name' => {
         'required' => 1,
         'defined'  => 1,
-        'allow'    => qr/(?^x:^.{1,255}$)/
-    }
+        'allow'    => qr/(?^x:^.{1,100}$)/
+    },
+    'created_by' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
+    'first_name' => {'allow' => qr/(?^x:^.{1,255}$)/}
 };
 
 sub CHECKS { return $CHECKS }
