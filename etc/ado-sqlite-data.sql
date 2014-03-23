@@ -27,15 +27,15 @@ INSERT INTO `users` VALUES(2,2,'guest','8097beb8d5950479e49d803e683932150f469827
 'Guest user. Anybody not authenticated gets a guest session.',
 1,1,54022241011303270,0,1,0,0);
 
-INSERT INTO `users` VALUES(3,3,'test1','12b868d53b69a2c34ed74cce529fa8f695a3fb4e',
+INSERT INTO `users` VALUES(3,3,'test1','b5e9c9ab4f777c191bc847e1aca222d6836714b7',
 'Test','1','test1@localhost',
 'test1 user. Do not delete. used for tests only.',
-1,1,54022241011303270,0,1,0,0);
+1,1,54022241011303270,0,0,0,0);
 
-INSERT INTO `users` VALUES(4,4,'test2','7e1b8dcd980759cdd572d5058ba8eb94de6f399d',
+INSERT INTO `users` VALUES(4,4,'test2','272a11a0206b949355be4b0bda9a8918609f1ac6',
 'Test','2','test2@localhost',
 'test2 user. Do not delete. Used for tests only.',
-1,1,54022241011303270,0,1,0,0);
+1,1,54022241011303270,0,0,0,0);
 
 COMMIT;
 
