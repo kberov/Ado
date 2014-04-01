@@ -1,5 +1,7 @@
 package Ado::Command::adduser;
 use Mojo::Base 'Ado::Command';
+use Getopt::Long qw(GetOptionsFromArray);
+use Time::Piece qw();
 
 has description => "Adds a user to an Ado application.\n";
 has usage       => <<"USAGE";
@@ -16,10 +18,41 @@ See perldoc Ado::Command::adduser for full set of options.
 
 USAGE
 
+sub init {
+    my ($self, @args) = @_;
+    $self->SUPER::init();
+    unless (@args) { Carp::croak($self->usage); return; }
+    GetOptionsFromArray(
+        \@args,
+        'u|login_name=s'     => \$self->args->{login_name},
+        'p|login_password=s' => \$self->args->{login_password},
+        'g|ingroup=s'        => \$self->args->{ingroup},
+        'changed_by=i'       => sub { $self->args->{changed_by} = $_[1] || 1 },
+        'd|disabled:i'       => sub { $self->args->{disabled} = $_[1] || 0 },
+        'tstamp:i'           => time(),
+        'stop_date=s'        => sub {
+            $self->args->{stop_date} =
+              $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : 0;
+        },
+        'start_date=s' => sub {
+            $self->args->{start_date} =
+              $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : time();
+        },
+        'ingroup=s' => \$self->args->{ingroup},
+    );
+
+    #Carp::carp $self->app->dumper($self->args);
+    return 1;
+}
+
+
 #default action
 sub adduser {
-
+    my $user = Ado::Model::Users->adduser(shift->args);
+    return;
 }
+
+
 1;
 
 =pod
@@ -35,7 +68,7 @@ Ado::Command::adduser - adduser command
   use Ado::Command::adduser;
 
   my $a = Ado::Command::adduser->new;
-  $a->run();
+  $a->run(login_name=>'test');
 
 =head1 DESCRIPTION
 
