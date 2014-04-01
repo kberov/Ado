@@ -87,8 +87,8 @@ none
 
 =head1 METHODS
 
-Ado::Model::Users inherits all methods from Ado::Model and provides the following
-additionally written methods:
+Ado::Model::Groups inherits all methods from Ado::Model and provides the following
+additional:
 
 =head2 by_name
 
