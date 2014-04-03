@@ -48,7 +48,29 @@ sub init {
 
 #default action
 sub adduser {
-    my $user = Ado::Model::Users->adduser(shift->args);
+    my $self = shift;
+    my $args = $self->args;
+    state $GR = 'Ado::Model::Groups';    #shorten class name
+    my ($group, $user, $ingroup);
+    if (($group = $GR->by_name($args->{login_name}))->id) {
+        say "'$args->{login_name}' is already taken!";
+    }
+    return unless $args->{ingroup};
+    $user = Ado::Model::Users->adduser($args) unless $group->id;
+    if ($user) {
+        say "User '$args->{login_name}' was created with primary group '$args->{login_name}'.";
+    }
+    else {
+        $user = Ado::Model::Users->by_login_name($args->{login_name});
+    }
+    if ($args->{ingroup} and not $user->ingroup($args->{ingroup})) {
+        if ($ingroup = $user->add_to_group($args)) {
+            say "User '$args->{login_name}' was added to group '$args->{ingroup}'.";
+        }
+    }
+    else {
+        say "User '$args->{login_name}' is already in group '$args->{ingroup}'.";
+    }
     return;
 }
 
