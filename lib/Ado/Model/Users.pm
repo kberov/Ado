@@ -118,13 +118,15 @@ sub adduser {
             last_name      => $args->{last_name},
             login_name     => $args->{login_name},
             login_password => $args->{login_password},
+            email          => $args->{email},
             disabled       => $args->{disabled},
-            tstamp         => $args->{tstamp},
+            tstamp         => time,
+            reg_date       => time,
             created_by     => $args->{created_by},
             changed_by     => $args->{changed_by},
             stop_date      => $args->{stop_date},
             start_date     => $args->{start_date},
-            group_id       => $args->{group_id},
+            group_id       => $group->id,
         );
 
         #And link them additionally

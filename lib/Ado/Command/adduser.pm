@@ -2,14 +2,17 @@ package Ado::Command::adduser;
 use Mojo::Base 'Ado::Command';
 use Getopt::Long qw(GetOptionsFromArray);
 use Time::Piece qw();
-
+use Time::Seconds;
 has description => "Adds a user to an Ado application.\n";
 has usage       => <<"USAGE";
-usage: 
-#All defaults
-$0 adduser --login_name USERNAME
+usage:
+
+#Minimal required options
+$0 adduser --login_name USERNAME --email user\@example.com \
+    --first_name John --last_name Smith 
+
 #Add a user to an additional group
-$0 adduser --ingroup GROUPNAME
+$0 adduser --login_name USERNAME --ingroup GROUPNAME
 
 $0 adduser --login_name USERNAME --ingroup GROUPNAME --disabled \
 --login_password !@#\$\%^&
@@ -18,31 +21,51 @@ See perldoc Ado::Command::adduser for full set of options.
 
 USAGE
 
+#define some defaults
+has args => sub {
+    my $t = time;
+    {   changed_by => 1,
+        created_by => 1,
+        disabled   => 1,
+
+        #TODO: add funcionality for notifying users on account expiration
+        #TODO: document this
+        stop_date      => $t + ONE_YEAR,             #account expires after one year
+        start_date     => $t,
+        login_password => rand($t) . $$ . {} . $t,
+    };
+};
+
 sub init {
     my ($self, @args) = @_;
     $self->SUPER::init();
     unless (@args) { Carp::croak($self->usage); return; }
-    GetOptionsFromArray(
+    my $args = $self->args;
+    my $ret  = GetOptionsFromArray(
         \@args,
-        'u|login_name=s'     => \$self->args->{login_name},
-        'p|login_password=s' => \$self->args->{login_password},
-        'g|ingroup=s'        => \$self->args->{ingroup},
-        'changed_by=i'       => sub { $self->args->{changed_by} = $_[1] || 1 },
-        'd|disabled:i'       => sub { $self->args->{disabled} = $_[1] || 0 },
-        'tstamp:i'           => time(),
-        'stop_date=s'        => sub {
-            $self->args->{stop_date} =
-              $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : 0;
+        'u|login_name=s'     => \$args->{login_name},
+        'p|login_password=s' => \$args->{login_password},
+        'e|email'            => \$args->{email},
+        'g|ingroup=s'        => \$args->{ingroup},
+        'd|disabled:i'       => \$args->{disabled},
+        'f|first_name=s'     => \$args->{first_name},
+        'l|last_name=s'      => \$args->{last_name},
+        'start_date=s'       => sub {
+            $args->{start_date} =
+              $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : time;
         },
-        'start_date=s' => sub {
-            $self->args->{start_date} =
-              $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : time();
-        },
-        'ingroup=s' => \$self->args->{ingroup},
+        'ingroup=s' => \$args->{ingroup},
     );
-
-    #Carp::carp $self->app->dumper($self->args);
-    return 1;
+    $args->{login_password} = Mojo::Util::sha1_hex($args->{login_name} . $args->{login_password});
+    unless ($args->{ingroup}) {
+        say($self->usage)
+          if ( not $args->{first_name}
+            or not $args->{last_name}
+            or not $args->{login_name}
+            or not $args->{email});
+    }
+    $self->app->log->debug('$self->args: ' . $self->app->dumper($self->args));
+    return $ret;
 }
 
 
@@ -50,20 +73,27 @@ sub init {
 sub adduser {
     my $self = shift;
     my $args = $self->args;
-    state $GR = 'Ado::Model::Groups';    #shorten class name
     my ($group, $user, $ingroup);
-    if (($group = $GR->by_name($args->{login_name}))->id) {
+    if (($group = Ado::Model::Groups->by_name($args->{login_name}))->id) {
+        $self->app->log->debug('$group:', $self->app->dumper($group));
+
+        #if we have such group, we have the user or we do not want to give a user
+        #the privileges of a shared group
         say "'$args->{login_name}' is already taken!";
     }
-    return unless $args->{ingroup};
-    $user = Ado::Model::Users->adduser($args) unless $group->id;
+    else {
+        $user = Ado::Model::Users->adduser($args) unless $group->id;
+        return unless $user;
+    }
     if ($user) {
         say "User '$args->{login_name}' was created with primary group '$args->{login_name}'.";
     }
     else {
         $user = Ado::Model::Users->by_login_name($args->{login_name});
     }
-    if ($args->{ingroup} and not $user->ingroup($args->{ingroup})) {
+
+    return unless $args->{ingroup};
+    if (not $user->ingroup($args->{ingroup})) {
         if ($ingroup = $user->add_to_group($args)) {
             say "User '$args->{login_name}' was added to group '$args->{ingroup}'.";
         }
@@ -87,22 +117,28 @@ Ado::Command::adduser - adduser command
 
 =head1 SYNOPSIS
 
+  
   use Ado::Command::adduser;
-
-  my $a = Ado::Command::adduser->new;
-  $a->run(login_name=>'test');
+  Ado::Command::adduser->run('--login_name'=>'test1',...);
 
 =head1 DESCRIPTION
 
 L<Ado::Command::adduser> adds a user to an L<Ado> application.
 
-This is a core command, that means it is always enabled and its code a good
+This is a core L<Ado> command, that means it is always enabled and its code a good
 example for learning to build new commands, you're welcome to fork it.
 
 =head1 ATTRIBUTES
 
 L<Ado::Command::adduser> inherits all attributes from
 L<Ado::Command> and implements the following new ones.
+
+=head2 args
+
+  my $args = $self->args;
+
+Default arguments for creating a user.
+
 
 =head2 description
 
