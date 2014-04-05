@@ -90,6 +90,15 @@ $t->post_ok($login_url => {} => form => $form_hash)->status_is(401, 'No such use
   ->text_is('#error_login',      'Wrong credentials! Please try again!')
   ->text_is('#error_login_name', "No such user '$form_hash->{login_name}'!");
 
+#restart application
+
+$t = Test::Mojo->new('Ado');
+$login_url =
+  $t->get_ok('/test/authenticateduser')->status_is(302)->header_like('Location' => qr|/login$|)
+  ->tx->res->headers->header('Location');
+$test_auth_url = $t->ua->server->url->path('/test/authenticateduser');
+$t->get_ok('/login/ado');
+
 #try again with the right password this time
 $form = $t->tx->res->dom->at('#login_form');
 my $new_csrf_token = $form->at('[name="csrf_token"]')->{value};

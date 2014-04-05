@@ -193,8 +193,6 @@ sub ingroup {
 
 1;
 
-__END__
-
 =pod
 
 =encoding utf8
@@ -295,7 +293,7 @@ Returns (the eventually newly created) user object.
 =head2 add_to_group
 
 Adds a user with C<login_name> to a group.
-Creates the group if it does not already exists
+Creates the group if it does not already exists.
 Returns the group.
 
     $ingroup = Ado::Model::Users->add_to_group(login_name=>'petko',ingroup=>'admin');
@@ -316,6 +314,7 @@ Returns a list of all group names a user belongs to if no group name passed.
     say $user->name . ' is admin!' if $user->ingroup('admin');
     say $user->name .' is member of the following groups:' 
     . join(', ', $user->ingroup);
+
 =head1 GENERATOR
 
 L<DBIx::Simple::Class::Schema>
@@ -324,5 +323,7 @@ This class contains also custom code.
 
 =head1 SEE ALSO
 
-
+L<Ado::Command::adduser>,
 L<Ado::Model>, L<DBIx::Simple::Class>, L<DBIx::Simple::Class::Schema>
+
+=cut
