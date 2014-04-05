@@ -39,13 +39,13 @@ has args => sub {
 sub init {
     my ($self, @args) = @_;
     $self->SUPER::init();
-    unless (@args) { Carp::croak($self->usage); return; }
+    unless (@args) { Carp::croak($self->usage); }
     my $args = $self->args;
     my $ret  = GetOptionsFromArray(
         \@args,
         'u|login_name=s'     => \$args->{login_name},
         'p|login_password=s' => \$args->{login_password},
-        'e|email'            => \$args->{email},
+        'e|email=s'          => \$args->{email},
         'g|ingroup=s'        => \$args->{ingroup},
         'd|disabled:i'       => \$args->{disabled},
         'f|first_name=s'     => \$args->{first_name},
@@ -54,15 +54,14 @@ sub init {
             $args->{start_date} =
               $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : time;
         },
-        'ingroup=s' => \$args->{ingroup},
     );
     $args->{login_password} = Mojo::Util::sha1_hex($args->{login_name} . $args->{login_password});
     unless ($args->{ingroup}) {
         say($self->usage)
-          if ( not $args->{first_name}
-            or not $args->{last_name}
-            or not $args->{login_name}
-            or not $args->{email});
+          unless ($args->{first_name}
+            and $args->{last_name}
+            and $args->{login_name}
+            and $args->{email});
     }
     $self->app->log->debug('$self->args: ' . $self->app->dumper($self->args));
     return $ret;
@@ -101,7 +100,7 @@ sub adduser {
     else {
         say "User '$args->{login_name}' is already in group '$args->{ingroup}'.";
     }
-    return;
+    return 1;
 }
 
 
@@ -124,9 +123,9 @@ Ado::Command::adduser - adduser command
 =head1 DESCRIPTION
 
 L<Ado::Command::adduser> adds a user to an L<Ado> application.
-
+It is a facade for L<Ado::Model::Users>.
 This is a core L<Ado> command, that means it is always enabled and its code a good
-example for learning to build new commands, you're welcome to fork it.
+example for learning to build new L<Ado> commands, you're welcome to fork it.
 
 =head1 ATTRIBUTES
 
@@ -135,6 +134,7 @@ L<Ado::Command> and implements the following new ones.
 
 =head2 args
 
+  $self->args(login_name=>'peter','ingroup'=>'facebook');
   my $args = $self->args;
 
 Default arguments for creating a user.
@@ -154,23 +154,42 @@ Short description of this command, used for the command list.
 
 Usage information for this command, used for the help screen.
 
+=head1 OPTIONS
+
+On the commandline C<ado adduser> accepts the following options:
+
+    'u|login_name=s'     #username (mandatory)
+    'p|login_password=s' #the user password (optional, random is generated)
+    'e|email=s'          #user email (mandatory)
+    'g|ingroup=s'        #additional group, can be used for existing users too
+    'd|disabled:i'       #is user disabled? (1 by default)
+    'f|first_name=s'     #user's first name (mandatory)
+    'l|last_name=s'      #user's last name (mandatory)
+    'start_date=s'       #format: %Y-%m-%d (optional, today by default)
+
 =head1 METHODS
 
-L<Ado::Command::version> inherits all methods from
+L<Ado::Command::adduser> inherits all methods from
 L<Ado::Command> and implements the following new ones.
 
 =head2 init
 
-Default initialization.
+Calls the default parent L<Ado::Command/init> and parses the arguments
+passed on the command-line. Returns true on success. 
+Croaks with L</usage> message on failure.
 
 
 =head2 adduser
 
 The default and only action this command implements.
+Makes logical checks for existing user and group and calls 
+L<Ado::Model::Users/adduser> and L<Ado::Model::Users/add_to_group>
+depending on parsed arguments.
 See L<Ado::Command/run>.
 
 =head1 SEE ALSO
 
+L<Ado::Model::Users>,
 L<Ado::Command> L<Ado::Manual>, L<Mojolicious::Command>, 
 L<Mojolicious>, L<Mojolicious::Guides>.
 
