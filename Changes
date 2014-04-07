@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.38 2014-04-07
+    - Improved adduser functionality.
+
 0.37 2014-04-05
     - Added experimental Ado::Command::adduser.
     - Small improvements and higher test coverage in Ado::Plugin::Auth.
