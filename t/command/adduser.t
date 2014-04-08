@@ -24,7 +24,7 @@ subtest 'Ado::Command::adduser/can_ok' => sub {
     can_ok($class, 'help');
 };
 my $opt_existing = {};
-subtest 'Ado::Command::adduser/ouput_existing' => sub {
+subtest 'Ado::Command::adduser/output_existing' => sub {
 
 #user already exists
     $opt_existing = {'--login_name' => 'test1'};
@@ -40,7 +40,7 @@ subtest 'Ado::Command::adduser/ouput_existing' => sub {
     );
 };
 my $opt = {};
-subtest 'Ado::Command::adduser/ouput_insufficient_arguments' => sub {
+subtest 'Ado::Command::adduser/output_insufficient_arguments' => sub {
 
 #insufficient arguments 1
     $opt = {'--login_name' => 'test3'};
@@ -70,7 +70,7 @@ subtest 'Ado::Command::adduser/ouput_insufficient_arguments' => sub {
         'insufficient arguments 3'
     );
 };
-subtest 'Ado::Command::adduser/ouput_sufficient_arguments' => sub {
+subtest 'Ado::Command::adduser/output_sufficient_arguments' => sub {
 
 #sufficient arguments 1
     $opt->{'--l'} = 'Last';
