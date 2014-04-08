@@ -37,7 +37,7 @@ unlike($mymeta, qr/IO::Socket::SSL/, 'ok - no $AUTHOR_TEST  requires');
 isa_ok(
     my $build = Ado::Build->new(
         module_name        => 'Ado',
-        configure_requires => {'Module::Build' => '0.38'},
+        configure_requires => {'Module::Build' => '0.38'}
     ),
     'Module::Build'
 );
@@ -119,14 +119,19 @@ stdout_like(
 ok(!(grep { $_ =~ /\.bak$/ } @{$build->rscan_dir($build->base_dir)}), 'no .bak files ok');
 
 $build->install_base($tempdir);
+$build->create_build_script();
 
 stdout_like(
     sub { $build->dispatch('fakeinstall') },
     qr{Installing $tempdir},
     "fakeinstall in $tempdir ok"
 );
-stderr_like(sub { Ado::Build::_chmod(0600, catfile($tempdir, 'log', 'development.log')) },
-    qr{Could not change mode for});
+
+stderr_like(
+    sub { Ado::Build::_chmod(0600, catfile($tempdir, 'log', 'development.log')) },
+    qr{Could not change mode for},
+    'chmod development.log to 0600 ok'
+);
 
 stdout_like(
     sub { $build->dispatch('install') },
