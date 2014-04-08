@@ -1,8 +1,9 @@
 Revision history for Ado
 
 0.38 2014-04-07
-    - Improved adduser functionality.
     - Bugfix in ado build test.
+    - Improved "adduser" functionality.
+    - Added Email::Address for validating... well, email addresses.
 
 0.37 2014-04-05
     - Added experimental Ado::Command::adduser.

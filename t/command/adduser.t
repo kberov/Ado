@@ -94,6 +94,23 @@ $app->dbix->query('DELETE FROM user_group WHERE user_id=?', $uid);
 $app->dbix->query('DELETE FROM users WHERE id=?',           $uid);
 $app->dbix->query('DELETE FROM groups WHERE name=?',        $opt->{'--login_name'});
 
+subtest 'Ado::Command::adduser/ouput_invalid_arguments' => sub {
+    my $opt = {
+        '--login_name' => 'test3' . (1 x 96),
+        '--email'      => 'test3@localhost--',
+        '--f'          => 'First' x 50,
+        '--l'          => 'Last',
+        '-p' =>'asdasd',
+    };
+    sub add { $app->start('adduser', %$opt) }
+    output_like(\&add, qr//, qr/ERROR adding user\(rolling back\):/sm, 'invalid login_name');
+    $opt->{'--login_name'} = 'test3';
+    output_like(\&add, qr//, qr/ERROR adding user\(rolling back\):/, 'invalid email');
+    $opt->{'--email'} = 'test3@localhost';
+    stderr_like(\&add, qr/first_name/, 'invalid first_name');
+    $opt->{'--f'} = 'First';
+};
+
 #Going deeper
 
 subtest 'Ado::Command::adduser/direct_usage' => sub {
