@@ -4,6 +4,8 @@ Revision history for Ado
     - Bugfix in ado build test.
     - Improved "adduser" functionality.
     - Added Email::Address for validating... well, email addresses.
+    - Upgraded to Mojolicious 4.92.
+
 
 0.37 2014-04-05
     - Added experimental Ado::Command::adduser.

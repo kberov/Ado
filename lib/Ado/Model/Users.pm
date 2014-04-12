@@ -47,7 +47,7 @@ my $CHECKS = {
         'allow'   => qr/(?^x:^.{1,255}$)/,
         'default' => 'NULL'
     },
-    'last_name' => {'allow' => qr/(?^x:^.{1,255}$)/},
+    'last_name' => {'allow' => qr/(?^x:^.{1,100}$)/},
     'email'     => {
         'required' => 1,
         'defined'  => 1,
@@ -71,7 +71,7 @@ my $CHECKS = {
         'allow'    => qr/(?^x:^.{1,100}$)/
     },
     'created_by' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
-    'first_name' => {'allow' => qr/(?^x:^.{1,255}$)/}
+    'first_name' => {'allow' => qr/(?^x:^.{1,100}$)/}
 };
 
 sub CHECKS { return $CHECKS }
