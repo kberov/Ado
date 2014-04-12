@@ -5,6 +5,7 @@ Revision history for Ado
     - Improved "adduser" functionality.
     - Added Email::Address for validating... well, email addresses.
     - Upgraded to Mojolicious 4.92.
+    - Upgraded to Semantic UI 0.15.5
 
 
 0.37 2014-04-05
