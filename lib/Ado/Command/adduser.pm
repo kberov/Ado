@@ -81,7 +81,7 @@ sub adduser {
         say "'$args->{login_name}' is already taken!";
     }
     else {
-        $user = Ado::Model::Users->adduser($args) unless $group->id;
+        $user = Ado::Model::Users->add($args) unless $group->id;
         return unless $user;
     }
     if ($user) {
