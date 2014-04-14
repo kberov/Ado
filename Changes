@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.38 2014-04-07
+0.38 2014-04-14
     - Bugfix in ado build test.
     - Improved "adduser" functionality.
     - Added Email::Address for validating... well, email addresses.
