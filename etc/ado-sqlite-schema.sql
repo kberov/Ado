@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS users (
   group_id INTEGER REFERENCES groups(id),
   login_name varchar(100) UNIQUE,
 --  'Mojo::Util::sha1_hex($login_name.$login_password)'
-  login_password varchar(80) NOT NULL,
-  first_name varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
+  login_password varchar(40) NOT NULL,
+  first_name varchar(255) NOT NULL DEFAULT '',
+  last_name varchar(255) NOT NULL DEFAULT '',
   email varchar(255) NOT NULL DEFAULT '',
   description varchar(255) DEFAULT NULL,
 --  'id of who created this user.'

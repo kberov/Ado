@@ -2,16 +2,15 @@
 % my $description = $self->{stash}{description} || $self->description;
 % my $keywords = $self->{stash}{keywords} || $self->keywords;
     <meta charset="utf-8" />
-    <base href="<%= url_for('/')->base %>">
+    <base href="<%= url_for('/')->base %>" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" 
-      content="<%= $self->generator %>" />
+    <meta name="generator" content="<%= $self->generator %>" />
     <meta name="description" content="<%= $description %>" />
     <meta name="keywords" content="<%= $keywords %>" />
     <title><%= title %></title>
     <link href='vendor/Semantic-UI/css/semantic.min.css' rel='stylesheet' type='text/css' />
-    <link href='//fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css' />
+    <!-- <link href='//fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css' /> -->
     <link href="css/ado.css" rel="stylesheet" type="text/css" />
     <script src="mojo/jquery/jquery.js"></script>
     <script src="vendor/Semantic-UI/javascript/semantic.min.js"></script>

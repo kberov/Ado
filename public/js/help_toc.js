@@ -7,13 +7,16 @@ $(document).ready(function () {
   $('#toc ul:first>li:first').prepend('<i class="home icon"></i>');
   //Each li is an "item" in the base list
   $('#toc li').addClass('item');
-  $(toc_links_selector).addClass('ui link');
+  //add title attributes to links
+  $(toc_links_selector).each(function(){
+    $(this).attr('title',$(this).text())
+  });
   //Each li that contains a ul is a "folder"
-  $('#toc li ul').parent().prepend('<i class="folder outline purple icon"></i>');
+  $('#toc li ul').parent().prepend('<i class="folder icon"></i>');
   //all the rest are documents
   $('#toc li').each(function (i) {
     if($(this).children('i.icon').length) return;
-    $(this).prepend('<i class="file outline blue  icon"></i>');
+    $(this).prepend('<i class="file icon"></i>');
     //console.log( i + ": " + $( this ).text() );    
   });
 
@@ -25,11 +28,20 @@ $(document).ready(function () {
 
   //Set onclick behavior for all #toc and prev,next links  
   $(toc_links_selector+',.right.menu a').on('click',function(){
-    $.get(this.href)
+    var _link = this;
+    $.get(_link.href)
     .done(function( data ) {
       $('article.main').remove();
       $('main').append(data);
+      $('article.main div.ui.hidden').remove();
+    }) .fail(function() {
+        //TODO: I18N
+        $('#error_loading_page .content p')
+          .text('Error loading page"'+$(_link).attr('title')+'!"');
+        $('#error_loading_page').modal('show');
     });
+    if($( window ).width()<=640)
+      $('#toc').sidebar('hide','slow');
     set_right_menu_arrows($(this))
     return false;
   });
@@ -38,7 +50,7 @@ $(document).ready(function () {
   if(!$('article').length){
     //show the sidebar
     $('.attached.button').click();
-    //load the first page: cover
+    //load the first page: cover.md
     $(toc_links_selector+':first').click();
     set_right_menu_arrows($(toc_links_selector+':first'))
   }
@@ -88,4 +100,9 @@ function set_right_menu_arrows(link){
   console.log('next page is:'+ $(next).text())
   console.log('prev page is:'+ $(prev).text())
   */
+}//end function set_right_menu_arrows(link)
+
+function remove_nolinks_text (argument) {
+  // body...
 }
+

@@ -21,6 +21,15 @@ sub register {
     $config->{md_root}         ||= $app->home->rel_dir('public/doc');
     $config->{md_file_sufixes} ||= ['.md'];
     $app->helper($config->{md_helper} => sub { md_to_html(shift, $config, @_) });
+    $app->helper(
+        markdown => sub {
+            my $c = shift;
+            return eval {
+                require Text::MultiMarkdown;
+                Text::MultiMarkdown::markdown(@_);
+            } || Carp::croak('Error:' . $@);
+        }
+    );
 
     #load routes if they are passed
     $app->load_routes($config->{routes})
@@ -82,7 +91,7 @@ sub md_to_html {
 
 =head1 NAME
 
-Ado::Plugin::MarkDownRenderer - Render static files in markdown format
+Ado::Plugin::MarkDownRenderer - Render markdown to HTML
 
 
 =head1 SYNOPSIS
@@ -124,7 +133,7 @@ Ado::Plugin::MarkDownRenderer - Render static files in markdown format
 
 =head1 DESCRIPTION
 
-L<Ado::Plugin::MarkdownRenderer> is a markdown renderer, rawr!
+L<Ado::Plugin::MarkdownRenderer> is a markdown renderer (маани, маани!)
 
 You only need to create a controller for your enterprise wiki and use
 the L</md_to_html> helper provided by this plugin. 
@@ -198,8 +207,19 @@ Do not convert files on every request but reuse already produced html files.
 
 =head1 HELPERS
 
-L<Ado::Plugin::MarkdownRenderer> exports the following helper for use in  
+L<Ado::Plugin::MarkdownRenderer> exports the following helpers for use in  
 L<Ado::Control> methods and templates.
+
+=head2 markdown
+
+Accepts markdown text and options. Returns HTML.
+Accepts the same parameters as L<Text::MulltiMarkdown/markdown>
+
+  #in a controller
+  $c->render(text=>$c->markdown($text));
+
+  #in a template
+  %==markdown($text)
 
 =head2 md_to_html
 

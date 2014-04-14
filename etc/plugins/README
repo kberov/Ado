@@ -1,8 +1,6 @@
 Here we put Ado::Plugin::* specific configuratuon files.
 The files must be named after the plugins for which they contain configuration.
 A plugin Ado::Plugin::Hello will search its configuration
-first in the common etc/ado.conf at $app->config('plugin')->{hello};
-then in
 $app->home->rel_dir('etc/plugins/hello.conf').
 The file must return a HASHREF:
 (the app keyword containing the current application instance 
@@ -12,3 +10,7 @@ The file must return a HASHREF:
   somekey =>'somevalue'
   #...
 };
+
+The default settings can be changed in
+the common etc/ado.conf at $app->config('plugins')->{hello};
+See etc/ado.conf for examples.

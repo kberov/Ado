@@ -1,9 +1,17 @@
 package Ado::Command;
 use Mojo::Base 'Mojolicious::Command';
+use Mojo::Util qw(decamelize decode);
 
 has args => sub { {} };
 has name => sub { (ref $_[0]) =~ /(\w+)$/ && return $1 };
-sub init { Carp::croak('Please implement ' . ref(shift) . '::init(@args)') }
+
+#default initialization for each Ado command
+sub init {
+    my $self = shift;
+    $self->args->{do} ||= $self->name;
+    $self->config->{actions} ||= [$self->name];
+    return 1;
+}
 
 # Current Ado::Command home
 has home => sub {
@@ -18,20 +26,20 @@ sub _get_command_config {
     state $app = $self->app;
     my $name = $self->name;
 
-    #first try (global config)
-    my $config = $app->config('commands')->{$name};
+    #first try (global config) !!!autovivification
+    my $config = $app->config->{commands} && $app->config->{commands}->{$name};
     $config && return $config;
 
     #second try (command specific configuration file)
-    my $conf_file = $app->home->rel_dir("/etc/commands/$name.conf");
+    my $conf_file = $app->home->rel_dir('/etc/commands/' . decamelize($name) . '.conf');
     if ($config = eval { Mojolicious::Plugin::Config->new->load($conf_file, {}, $app) }) {
-        $app->config('commands')->{$name} = $config;
+        return $config;
     }
     else {
-        Carp::croak($@);
+        $app->log->warn(
+            "Could not load configuration from file $conf_file! " . decode('UTF-8', $@));
+        return {};
     }
-    return $config;
-
 }
 
 sub config {
@@ -56,9 +64,9 @@ sub run {
         $self->$action();
     }
     else {
-        Carp::confess
-          'Command action was not found! Please implement it! Supported actions should be: '
-          . join(', ', @{$self->config->{actions}});
+        Carp::croak
+          "Command action '$action' was not found! Please implement it! Supported actions should be: "
+          . join(', ', @{$self->config->{actions} || []});
     }
 
     return;
@@ -105,7 +113,7 @@ Returns current Ado::Command::foo home.
 
 =head2 init
 
-Must be implemented by the inheriting command.
+Should be implemented by the inheriting command.
 
 Should get options from the commandline and populate C<$self-E<gt>args>.
 Must return C<$self>.
@@ -120,7 +128,7 @@ Dies with an error message advising you to implement the subcommand
 if it is not found in  C<$self-E<gt>config-E<gt>{actions}>.
 Override it if you want specific behavior.
 
-    # as script/pwprefligt alabala --do action --param1 value
+    # as bin/ado alabala --do action --param1 value
     Ado::Command::alabala->run(@ARGV);
     #or from a controller
     Ado::Command::alabala->run(
@@ -152,7 +160,7 @@ Subcommands shared by all command classes inheriting this class.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013 Красимир Беров (Krasimir Berov).
+Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 

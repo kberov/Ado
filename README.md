@@ -17,11 +17,27 @@ configuration and a model layer - [Mojolicious::Plugin::DSC](https://metacpan.or
 An SQLite database is bundled in the distribution at `etc/ado.sqlite` 
 to get started quickly.
 
-Since version 0.31 [Ado](https://metacpan.org/pod/Ado) goes together with the following applications:
+Since version 0.37 [Ado](https://metacpan.org/pod/Ado) goes together with the following:
 
+- [Ado::Command::adduser](https://metacpan.org/pod/Ado::Command::adduser) allows adding users to an Ado application
+via a terminal. It also allows adding users to existing or not existing groups. 
+The new group is automatically created.
+- [Ado::Plugin::Auth](https://metacpan.org/pod/Ado::Plugin::Auth) is a plugin that authenticates users to an [Ado](https://metacpan.org/pod/Ado) system.
+Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
+and other authentication service-providers.
 - [Ado::Plugin::MarkdownRenderer](https://metacpan.org/pod/Ado::Plugin::MarkdownRenderer) - Render static files in markdown format.
 You can create a personal blog or enterprise wiki using static files in markdown format.
 See the Functional documentation at [http://localhost:3000/help](http://localhost:3000/help) for an example.
+- [PageDown](http://code.google.com/p/pagedown/) is the version of Attacklab's Showdown 
+and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
+that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,
+and a few useful plugins, e.g. for sanitizing the generated HTML according to a whitelist 
+of allowed tags.
+- [Semantic UI](http://semantic-ui.com/) - A CSS  and JS user interface framework. 
+UI is the vocabulary of the web. Semantic empowers designers and developers by creating a 
+language for sharing UI.
+
+
 
 # INSTALLATION
 
@@ -78,11 +94,19 @@ Installing Ado under your own perlbrew environment
     perlbrew install-cpanm
     cpanm Ado
 
+## Carton
+
+Installing Ado using Carton
+
+    echo 'requires "Ado";' > cpanfile
+    carton install
+    carton exec local/bin/ado daemon
+
 # SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
 perldoc command. To use `perldoc` for reading documentation you may 
-need to add the full path to [Ado](https://metacpan.org/pod/Ado) `lib/Perl5` directory to `PERL5LIB`
+need to add the full path to [Ado](https://metacpan.org/pod/Ado) `lib` directory to `PERL5LIB`
 environment variable in case you passed the `--install_base` to `Build.PL`.
 
     perldoc Ado

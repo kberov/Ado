@@ -1,5 +1,47 @@
 Revision history for Ado
 
+0.38 2014-04-07
+    - Improved adduser functionality.
+    - Bugfix in ado build test.
+
+0.37 2014-04-05
+    - Added experimental Ado::Command::adduser.
+    - Small improvements and higher test coverage in Ado::Plugin::Auth.
+    - Made Ado::Command more consistent with Ado::Plugin.
+
+0.36 2014-03-22
+    - Improved documentation.
+    - Added sha1.js from CryptoJS v3.1.2.
+    - Fixed typos and improved the home page.
+    - Added a subset of Free Serif font to use the GLAGOLITIC alphabet
+      directly.
+    - Upgraded to Mojolicious 4.90.
+    - Upgraded to Semantic UI 0.15.1
+    - Shamelessly stollen and modified a background pattern from jQuery UI.
+    - Added Ado::Plugin::AdoHelpers.
+    - Added Ado::Control::Test controller for testing plugins.
+    - Implemented experimental digest access authentication with Ado::Plugin::Auth.
+
+0.35 2014-03-01
+    - Честита Баба Марта!
+    - Improved documentation.
+    - Added default/index.html.ep template and
+      default index page content.
+    - Upgraded to Mojolicious 4.85.
+    - Fixed failing test in t/sessions/database.t 
+
+0.34 2014-02-23
+    - Optimised /help User Unterface for hand-held devices.
+    - Added text in Bulgarian to cover.md, intro.md. admin.md, domains.md, 
+      groups.md, users.md, cms.md, pages.md, articles.md, blog.md - TODO: 
+      Translate them to English.
+    - Optimized Ado::Control::generator().
+    - Added markdown() helper to MarkdownRenderer plugin.
+
+0.33 2014-02-20
+    - Really fixed failing test under Windows.
+    - Really upgraded to Mojolicious 4.83.
+
 0.32 2014-02-19
     - Fixed failing test under Windows.
     - Removed base_url option passed to Text::MultiMarkdown.
@@ -21,11 +63,9 @@ Revision history for Ado
     - Added accessors 'keywords' and 'description' to Ado::Control.
     - Upgraded to Mojolicious 4.81.
 
-
 0.30 2014-02-02
     - Fixed tests by making sure touched files have proper permissions.
     - Removed unneeded t/etc.
-
 
 0.29 2014-02-02
     - Upgraded to Mojolicious 4.75.
@@ -51,7 +91,6 @@ Revision history for Ado
     - Fixed small bug in create_readme() and optimized it.
     - Installing to the more popular "siteprefix" by default.
     - Fixed failing test because of missing Test::Output.
-
 
 0.25 2014-01-01 20:27:50 CET
     - Added more tests for Ado::Build (test coverage is > 90%).
@@ -190,4 +229,3 @@ Revision history for Ado
 0.10  2013-11-23 19:56:09 CET
     - We have a working application with several common
       predefined routes and controllers.
-

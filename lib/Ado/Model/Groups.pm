@@ -44,6 +44,11 @@ __PACKAGE__->QUOTE_IDENTIFIERS(0);
 
 #__PACKAGE__->BUILD;#build accessors during load
 
+#find and instantiate a group object by name
+sub by_name {
+    state $sql = $_[0]->SQL('SELECT') . ' WHERE name=?';
+    return shift->query($sql, shift);
+}
 1;
 
 __END__
@@ -77,6 +82,20 @@ Each column from table C<groups> has an accessor method in this class.
 =head2 disabled
 
 =head1 ALIASES
+
+none
+
+=head1 METHODS
+
+Ado::Model::Groups inherits all methods from Ado::Model and provides the following
+additional:
+
+=head2 by_name
+
+Selects a group by name column.
+
+    my $group = Ado::Model::Groups->by_name('guest');
+    say $group->name if $group->id;
 
 =head1 GENERATOR
 

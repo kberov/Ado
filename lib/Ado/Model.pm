@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use utf8;
 use parent qw(DBIx::Simple::Class);
+use Carp;
 
 our $VERSION = '0.01';
 sub is_base_class { return 1 }
@@ -18,6 +19,9 @@ sub dbix {
           . '->dbix(DBIx::Simple->connect($DSN,$u,$p,{...})');
 }
 
+
+#The methods below are not generated but written additionally
+
 sub select_range {
     my $class = shift;
     state $dbix = $class->dbix;
@@ -28,6 +32,7 @@ sub select_range {
 
     return $dbix->query($SQL)->objects($class);
 }
+
 
 1;
 
@@ -63,6 +68,9 @@ The subclasses are:
 =item L<Ado::Model::Users> - A class for TABLE users in schema main
 
 =back
+
+=head2 ATTRIBUTES
+
 
 =head2 METHODS
 

@@ -4,7 +4,7 @@ use Mojo::Base 'Ado::Control';
 ##no critic (ProhibitBuiltinHomonyms)
 sub index {
     my $c = shift;
-    $c->render(text => __PACKAGE__ . '::index', layout => 'default');
+    $c->render(layout => 'default');
     return;
 }
 

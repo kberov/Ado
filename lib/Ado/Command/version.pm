@@ -15,13 +15,6 @@ has latest => sub {
     return $latest;
 };
 
-#We do not get arguments from @ARGV now
-sub init {
-    my $self = shift;
-    $self->args->{do} = 'version';
-
-    return 1;
-}
 
 #the only action this command implements
 sub version {

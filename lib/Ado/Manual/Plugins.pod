@@ -9,11 +9,25 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 =head1 DESCRIPTION
 
 There is I<almost> nothing special about writing an L<Ado::Plugin>.
+The only difference between Ado and Mojolicious plugins is that Ado
+plugins can retrieve their settings from their own files.
 
+The files must be named after the plugins for which they contain configuration.
+A plugin Ado::Plugin::Hello will search its configuration in 
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
+depending on the current mode ($ENV{MOJO_MODE}) the file 
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')> will also be loaded
+and will overwrite all settings from C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
+The file must return a HASHREF.
+See the code of the listed plugins below for examples of 
+how and what can be done in a plugin.
 
-=head1 SYNOPSIS
+L<Ado> can be stripped down to a bare Mojolicious application 
+by not loading any Ado plugins.
+And L<Ado> can be extended I<infinitely> just by adding helpers, 
+conditions, routes, templates and injecting code into hooks from plugins.
+I<This is true for any Mojolicious application.>
 
-TODO:...
 
 =head1 PLUGINS
 
@@ -21,9 +35,25 @@ Ado comes with the following default plugins.
 
 =over 2
 
+=item L<Ado::Plugin::AdoHelpers>
+
+Default Ado helpers
+
+=item L<Ado::Plugin::Auth>
+
+Authenticate users.
+
+=item L<Ado::Plugin::MarkDownRenderer>
+
+Render markdown to HTML.
+
 =item L<Ado::Plugin::Routes>
 
-Keep routes separately.
+Keep routes in their own configuration file separately.
+
+=item L<Ado::Control::Test>
+
+A controller used for testing Ado.
 
 =back
 
@@ -42,7 +72,7 @@ L<Mojolicious::Plugins>, L<Mojolicious::Plugin>,
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013 Красимир Беров (Krasimir Berov).
+Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 

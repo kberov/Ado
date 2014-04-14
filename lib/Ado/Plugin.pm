@@ -1,11 +1,11 @@
 package Ado::Plugin;
-use Mojo::Util qw(decamelize);
+use Mojo::Util qw(decamelize decode);
 use Mojo::Base 'Mojolicious::Plugin';
 
 has app => sub { Mojo::Server->new->build_app('Mojo::HelloWorld') };
 has name => sub {
 
-    #only in Ado::Plugin namespace
+    #only the last word
     (ref $_[0] || $_[0]) =~ /(\w+)$/ && return $1;
 };
 
@@ -20,7 +20,8 @@ sub _get_plugin_config {
         return $config;
     }
     else {
-        Carp::carp("Could not load configuration from file $conf_file! " . $@);
+        $app->log->warn(
+            "Could not load configuration from file $conf_file! " . decode('UTF-8', $@));
         return {};
     }
 }
@@ -109,8 +110,7 @@ The original author
 
 =head1 SEE ALSO
 
-L<Ado::Manual::Plugin>, L<Ado::Plugin::Routes>, L<Mojolicious::Plugin>, 
-L<Mojolicious::Plugin>, 
+L<Ado::Manual::Plugins>, L<Ado::Plugin::Routes>, L<Mojolicious::Plugin>
 
 
 =head1 AUTHOR
