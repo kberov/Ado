@@ -4,8 +4,9 @@ Revision history for Ado
     - Bugfix in ado build test.
     - Improved "adduser" functionality.
     - Added Email::Address for validating... well, email addresses.
-    - Upgraded to Mojolicious 4.92.
+    - Upgraded to Mojolicious 4.93.
     - Upgraded to Semantic UI 0.15.5
+    - Drawn the public/img/Ado-Building-Blocks.svg diagram.
 
 
 0.37 2014-04-05
