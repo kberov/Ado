@@ -91,6 +91,7 @@ $t->post_ok($login_url => {} => form => $form_hash)->status_is(401, 'No such use
   ->text_is('#error_login_name', "No such user '$form_hash->{login_name}'!");
 
 #restart application
+delete $Ado::{dbix};    #avoid redefine warning
 $t = Test::Mojo->new('Ado');
 $login_url =
   $t->get_ok('/test/authenticateduser')->status_is(302)->header_like('Location' => qr|/login$|)
