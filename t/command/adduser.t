@@ -5,7 +5,6 @@ use warnings;
 use Test::More;
 use Mojo::UserAgent;
 use Ado;
-
 eval "use Test::Output;";
 plan skip_all => "Test::Output required for this test" if $@;
 
@@ -24,11 +23,13 @@ subtest 'Ado::Command::adduser/can_ok' => sub {
     can_ok($class, 'help');
 };
 my $opt_existing = {};
+
 subtest 'Ado::Command::adduser/output_existing' => sub {
 
 #user already exists
     $opt_existing = {'--login_name' => 'test1'};
     sub add_existing { $app->start('adduser', %$opt_existing) }
+
     stdout_like(\&add_existing, qr/'test1' is already taken!/, 'user already exists');
 
 #user is already in group
@@ -39,6 +40,7 @@ subtest 'Ado::Command::adduser/output_existing' => sub {
         'user is already in group'
     );
 };
+
 my $opt = {};
 subtest 'Ado::Command::adduser/output_insufficient_arguments' => sub {
 
@@ -70,7 +72,9 @@ subtest 'Ado::Command::adduser/output_insufficient_arguments' => sub {
         'insufficient arguments 3'
     );
 };
-subtest 'Ado::Command::adduser/output_sufficient_arguments' => sub {
+subtest 'Ado::Command::adduser/output_sufficient_arguments' => \&output_sufficient_arguments;
+
+sub output_sufficient_arguments {
 
 #sufficient arguments 1
     $opt->{'--l'} = 'Last';
@@ -94,25 +98,56 @@ $app->dbix->query('DELETE FROM user_group WHERE user_id=?', $uid);
 $app->dbix->query('DELETE FROM users WHERE id=?',           $uid);
 $app->dbix->query('DELETE FROM groups WHERE name=?',        $opt->{'--login_name'});
 
-#Going deeper
+#=pod
 
-subtest 'Ado::Command::adduser/direct_usage' => sub {
+#subtest 'Ado::Command::adduser/ouput_invalid_arguments' =>
+my $opt_ = {
+    '--login_name' => 'test3' . (1 x 96),
+    '--email'      => 'test3atlocalhost',
+    '-f'           => ('First' x 50),
+    '-l'           => 'Last' x 50,
+    '-p'           => 'asdasd',
+};
+subtest 'Ado::Command::adduser/stderr_invalid_arguments' => \&stderr_invalid_arguments;
+sub add_ { $app->start('adduser', %$opt_) }
+
+sub stderr_invalid_arguments {
+
+    stderr_like(\&add_, qr/ERROR adding user.+login_name/sm, 'invalid login_name');
+    $opt_->{'--login_name'} = 'test3';
+    stderr_like(\&add_, qr/ERROR adding user.+email/sm, 'invalid email');
+    $opt->{'--email'} = 'test3@localhost';
+    stderr_like(\&add_, qr/ERROR adding user.+first_name/sm, 'invalid first_name');
+    stderr_like(\&add_, qr/ERROR adding user.+last_name/sm,  'invalid last_name');
+
+}
+
+#Going deeper
+subtest 'Ado::Command::adduser/direct_usage' => \&direct_usage;
+
+sub direct_usage {
     isa_ok(my $command = $class->new(), $class);
     like((eval { $command->init() }, $@), qr/^usage/, 'init croaks "usage..."');
-    ok($command->init(%$opt, '--login_password' => '--------'));
+    ok($command->init(%$opt, '--login_password' => '--------'), "\$command->init");
     is($command->args->{login_password}, Mojo::Util::sha1_hex('test3--------'), 'login_password');
-    is($command->args->{first_name},     $opt->{'--f'},                         'first_name');
-    is($command->args->{last_name},      $opt->{'--l'},                         'last_name');
-    is($command->args->{login_name},     $opt->{'--login_name'},                'login_name');
-    is($command->args->{email},          $opt->{'--email'},                     'email');
-    is($command->args->{ingroup},        $opt->{'-g'},                          'ingroup');
-    ok($command->adduser(), 'adduser');
+
+    is($command->args->{first_name}, $opt->{'--f'},          'first_name');
+    is($command->args->{last_name},  $opt->{'--l'},          'last_name');
+    is($command->args->{login_name}, $opt->{'--login_name'}, 'login_name');
+    is($command->args->{email},      $opt->{'--email'},      'email');
+    is($command->args->{ingroup},    $opt->{'-g'},           'ingroup');
+    my $out = <<'OO';
+User 'test3' was created with primary group 'test3'.
+User 'test3' was added to group 'guest'.
+OO
+
+    stdout_is(sub { $command->adduser() }, $out, 'adduser');
     my $user = Ado::Model::Users->by_login_name($opt->{'--login_name'});
 
     $uid = $user->id;
     is($user->login_password, Mojo::Util::sha1_hex('test3--------'), '$user->login_password');
     is($user->email, $opt->{'--email'}, '$user->email');
-};    #end subtest
+}    #end direct_usage
 $app->dbix->query('DELETE FROM user_group WHERE user_id=?', $uid);
 $app->dbix->query('DELETE FROM users WHERE id=?',           $uid);
 $app->dbix->query('DELETE FROM groups WHERE name=?',        $opt->{'--login_name'});

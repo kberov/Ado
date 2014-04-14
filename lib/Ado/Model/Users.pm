@@ -5,6 +5,7 @@ use warnings;
 use utf8;
 use parent qw(Ado::Model);
 use Carp;
+use Email::Address;
 sub is_base_class { return 0 }
 my $TABLE_NAME = 'users';
 
@@ -32,7 +33,7 @@ my $CHECKS = {
     'tstamp' => {
         'required' => 1,
         'defined'  => 1,
-        'allow'    => qr/(?^x:^\d{1,}$)/
+        'allow'    => qr/(?^x:^\d{1,10}$)/
     },
     'login_password' => {
         'required' => 1,
@@ -46,11 +47,11 @@ my $CHECKS = {
         'allow'   => qr/(?^x:^.{1,255}$)/,
         'default' => 'NULL'
     },
-    'last_name' => {'allow' => qr/(?^x:^.{1,255}$)/},
+    'last_name' => {'allow' => qr/(?^x:^.{1,100}$)/},
     'email'     => {
         'required' => 1,
         'defined'  => 1,
-        'allow'    => qr/(?^x:^.{1,255}$)/
+        'allow'    => $Email::Address::addr_spec
     },
     'group_id' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
     'reg_date' => {
@@ -70,7 +71,7 @@ my $CHECKS = {
         'allow'    => qr/(?^x:^.{1,100}$)/
     },
     'created_by' => {'allow' => qr/(?^x:^-?\d{1,}$)/},
-    'first_name' => {'allow' => qr/(?^x:^.{1,255}$)/}
+    'first_name' => {'allow' => qr/(?^x:^.{1,100}$)/}
 };
 
 sub CHECKS { return $CHECKS }
@@ -94,7 +95,7 @@ sub name {
     };
 }
 
-sub adduser {
+sub add {
     my $class = shift;
     my $args  = $class->_get_obj_args(@_);
     state $dbix = $class->dbix;
@@ -213,7 +214,7 @@ A class for TABLE users in schema main
     <h1>Hello, <%=user->name%>!</h1>
 
     #Add a new user.
-    my $user = Ado::Model::Users->adduser(login_name=>'petko'...);
+    my $user = Ado::Model::Users->add(login_name=>'petko'...);
     #Add the user to a group
     $user->add_to_group('cool');
 
@@ -277,7 +278,7 @@ none
 Ado::Model::Users inherits all methods from Ado::Model and provides the following
 additional methods:
 
-=head2 adduser
+=head2 add
 
 Given enough parameters creates a new user object and inserts it 
 into the table C<users>.
@@ -285,7 +286,7 @@ Creates a primary group for the user with the same group C<name>.
 Throws an exception if any of the above fails.
 Returns (the eventually newly created) user object.
 
-    my $user = Ado::Model::Users->adduser(
+    my $user = Ado::Model::Users->add(
         login_name     => $login_name,
         login_password => Mojo::Util::sha1_hex($login_name.$login_password)
     );
@@ -323,7 +324,7 @@ This class contains also custom code.
 
 =head1 SEE ALSO
 
-L<Ado::Command::adduser>,
+L<Ado::Command::adduser>, L<Email::Address>,
 L<Ado::Model>, L<DBIx::Simple::Class>, L<DBIx::Simple::Class::Schema>
 
 =cut
