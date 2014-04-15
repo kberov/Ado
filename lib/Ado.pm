@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.38';
+our $VERSION   = '0.39';
 our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
 
 use Ado::Control;

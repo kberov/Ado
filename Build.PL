@@ -33,7 +33,7 @@ my $author = {
         'IO::Socket::SSL' => '1.957',
         'EV'              => '4.15',
         'IO::Socket::IP'  => '0.24',
-        'Email::Address'  => '1.901',
+
         #'DBD::mysql'      => '4.025',
     },
 };
@@ -54,8 +54,9 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '4.92',
+        'Mojolicious'              => '4.93',
         'Mojolicious::Plugin::DSC' => '0.999',
+        'Email::Address'           => '1.901',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
 
         #Default markdown renderer

@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.39 2014-04-15
+    - Fixed missing 'require' in Build.PL for Email::Address.
+    - Fixed 'require' in Build.PL for Mojolicious 4.93.
+
 0.38 2014-04-14
     - Bugfix in ado build test.
     - Improved "adduser" functionality.
