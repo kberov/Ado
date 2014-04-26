@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1024px"
-   height="768px"
+   width="800"
+   height="600"
    id="svg3774"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Ado-Building-Layers.svg"
-   inkscape:export-filename="/home/berov/opt/public_dev/Ado/public/img/Ado-Building-Layers.png"
+   sodipodi:docname="Ado-Building-Blocks.svg"
+   inkscape:export-filename="/home/berov/opt/public_dev/Ado/public/img/Ado-Building-Blocks.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -28,15 +28,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="461.58003"
-     inkscape:cy="371.00359"
+     inkscape:cx="445.31657"
+     inkscape:cy="378.74227"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:window-width="1341"
+     inkscape:window-width="1329"
      inkscape:window-height="744"
-     inkscape:window-x="25"
-     inkscape:window-y="0"
+     inkscape:window-x="37"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true">
@@ -60,17 +60,21 @@
   <g
      id="layer1"
      inkscape:label="Layer 1"
-     inkscape:groupmode="layer">
+     inkscape:groupmode="layer"
+     transform="translate(0,-168)">
     <rect
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffffff;stroke:#000000;stroke-width:1.63876426000000008;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3782"
-       width="980"
-       height="726"
-       x="24"
-       y="26"
-       ry="34" />
+       width="798.37067"
+       height="598.31671"
+       x="0.81465793"
+       y="168.84164"
+       ry="28.02034"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
     <g
-       id="g4587">
+       id="g4587"
+       transform="matrix(0.81466395,0,0,0.82412767,-18.737277,147.41433)">
       <rect
          ry="12.344703"
          y="665.60278"
@@ -92,15 +96,16 @@
            sodipodi:role="line">Linux, Mac OSX, Free BSD, Windows...</tspan></text>
     </g>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:0.87279105;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.7151494;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect4560"
-       width="497.1272"
-       height="75.127205"
-       x="489.43637"
-       y="583.43634"
-       ry="12.399636" />
+       width="404.99161"
+       height="61.914406"
+       x="379.98889"
+       y="628.24036"
+       ry="10.218884" />
     <g
-       id="g4582">
+       id="g4582"
+       transform="matrix(0.81466395,0,0,0.82412767,-18.737277,147.41433)">
       <rect
          style="fill:none;stroke:#000000;stroke-width:0.82433641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          id="rect4558"
@@ -123,18 +128,20 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="513.00781"
-       y="629.82806"
+       style="font-size:32.77528381px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="401.50366"
+       y="662.63531"
        id="text4566"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       transform="scale(0.99424176,1.0057916)"><tspan
          sodipodi:role="line"
          id="tspan4568"
-         x="513.00781"
-         y="629.82806"
-         style="font-size:32px">SQLite, MySQL, Postgre SQL</tspan></text>
+         x="401.50366"
+         y="662.63531"
+         style="font-size:26.2202282px">SQLite, MySQL, Postgre SQL</tspan></text>
     <g
-       id="g4592">
+       id="g4592"
+       transform="matrix(0.81466395,0,0,0.82412767,-18.737277,147.41433)">
       <rect
          style="fill:none;stroke:#000000;stroke-width:1.20562422;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          id="rect4570"
@@ -156,7 +163,8 @@
            sodipodi:role="line">Mojolicious</tspan></text>
     </g>
     <g
-       id="g4599">
+       id="g4599"
+       transform="matrix(0.81466395,0,0,0.82412767,-18.737277,147.41433)">
       <rect
          ry="12.344703"
          y="409.60278"
@@ -180,7 +188,7 @@
     </g>
     <g
        id="g4706"
-       transform="translate(6.4861221,0)">
+       transform="matrix(0.81466395,0,0,0.82412767,-13.453267,147.41433)">
       <rect
          style="fill:none;stroke:#000000;stroke-width:2.65525556;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          id="rect4597"
