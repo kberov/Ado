@@ -20,16 +20,23 @@ sub register {
     $config->{md_helper}       ||= 'md_to_html';
     $config->{md_root}         ||= $app->home->rel_dir('public/doc');
     $config->{md_file_sufixes} ||= ['.md'];
-    $app->helper($config->{md_helper} => sub { md_to_html(shift, $config, @_) });
-    $app->helper(
-        markdown => sub {
-            my $c = shift;
-            return eval {
-                require Text::MultiMarkdown;
-                Text::MultiMarkdown::markdown(@_);
-            } || Carp::croak('Error:' . $@);
-        }
-    );
+
+    if ($config->{md_renderer} eq 'Text::MultiMarkdown') {
+        require Text::MultiMarkdown;
+        Mojo::Util::monkey_patch(
+            $config->{md_renderer},
+            _PrintFootnotes => \&_PrintFootnotes,
+            _DoFootnotes    => \&_DoFootnotes
+        );
+        $app->helper($config->{md_helper} => sub { md_to_html(shift, $config, @_) });
+        $app->helper(
+            markdown => sub {
+                my $c = shift;
+                return Text::MultiMarkdown::markdown(@_);
+            }
+        );
+
+    }
 
     #load routes if they are passed
     $app->load_routes($config->{routes})
@@ -41,6 +48,8 @@ sub md_to_html {
     my ($c, $config, $file_path) = @_;
     $file_path ||= ($c->stash('md_file') || return '');
 
+    #remove anchors
+    $file_path =~ s{[^#]#.+}{};
     unless ($file_path) { $c->render_not_found && return '' }
     my $fullname = catfile($config->{md_root}, $file_path);
     $c->debug("md_file: $file_path;\$fullname: $fullname");
@@ -61,27 +70,106 @@ sub md_to_html {
     my $md_filepath = catfile($path, "$name$suffix");
     unless (-s $md_filepath) { $c->render_not_found && return '' }
 
-    my $md_renderer = $config->{md_renderer};
-    my $e           = Mojo::Loader->load($md_renderer);
-    if (ref $e) {
-        Carp::cluck("Exception: $e");
-        return '';
-    }
-    elsif ($e) {
-        my $e2 = Mojo::Loader->load($md_renderer);
-        Carp::cluck(
-            ref $e2
-            ? "Exception: $e2"
-            : "$md_renderer not found."
-        ) if $e2;
-        return '';
-    }
     my $markdown = Mojo::Util::slurp($md_filepath);
-    my $html     = $md_renderer->new(%{$config->{md_options}})->markdown($markdown);
-
+    my $self_url = $c->url_for()->to_string;
+    my %options  = (%{$config->{md_options}}, self_url => $self_url);
+    my $html     = $c->markdown($markdown, \%options);
+    $c->debug($c->dumper({'%options' => \%options, '$html_filepath' => $html_filepath}));
     return b($html)->spurt($html_filepath)->decode();
 }
 
+sub _DoFootnotes {
+    my ($self, $text) = @_;
+
+    return '' unless length $text;
+
+    # First, run routines that get skipped in footnotes
+    foreach my $label (sort keys %{$self->{_footnotes}}) {
+        my $footnote = $self->_RunBlockGamut($self->{_footnotes}{$label}, {wrap_in_p_tags => 1});
+        $footnote                   = $self->_UnescapeSpecialChars($footnote);
+        $footnote                   = $self->_DoMarkdownCitations($footnote);
+        $self->{_footnotes}{$label} = $footnote;
+    }
+    $self->{self_url} ||= '';
+    my $footnote_counter = 0;
+
+    $text =~ s{
+        \[\^(.*?)\]     # id = $1
+    }{
+        my $result = '';
+        my $id = $self->_Id2Footnote($1);
+
+        if (defined $self->{_footnotes}{$id} ) {
+            $footnote_counter++;
+            if ($self->{_footnotes}{$id} =~ /^glossary:/i) {
+                $result = qq{<a href="$self->{self_url}#fn:$id" id="fnref:$id" class="footnote glossary">$footnote_counter</a>};
+            }
+            else {
+                $result = qq{<a href="$self->{self_url}#fn:$id" id="fnref:$id" class="footnote">$footnote_counter</a>};
+            }
+            push (@{ $self->{_used_footnotes} }, $id);
+        }
+        $result;
+    }xsge;
+
+    return $text;
+}
+
+sub _PrintFootnotes {
+    my ($self) = @_;
+    my $footnote_counter = 0;
+    my $result;
+    $self->{self_url} ||= '';
+
+    foreach my $id (@{$self->{_used_footnotes}}) {
+        $footnote_counter++;
+        my $footnote = $self->{_footnotes}{$id};
+
+        my $footnote_closing_tag = '';
+        if ($footnote =~ s/(<\/(p(re)?|ol|ul)>)$//x) {
+            $footnote_closing_tag = $1;
+        }
+
+        if ($footnote =~ s/^glossary:\s*//i) {
+
+            # Add some formatting for glossary entries
+
+            $footnote =~ s{
+                ^(.*?)              # $1 = term
+                \s*
+                (?:\(([^\(\)]*)\)[^\n]*)?       # $2 = optional sort key
+                \n
+            }{
+                my $glossary = qq{<span class="glossary name">$1</span>};
+
+                if ($2) {
+                    $glossary.= qq{<span class="glossary sort" style="display:none">$2</span>};
+                };
+
+                $glossary . q{:<p>};
+            }egsx;
+
+            $result
+              .= qq{<li id="fn:$id">$footnote<a href="$self->{self_url}#fnref:$id" class="reversefootnote">&#160;&#8617;</a>$footnote_closing_tag</li>\n\n};
+        }
+        else {
+            $result
+              .= qq{<li id="fn:$id">$footnote<a href="$self->{self_url}#fnref:$id" class="reversefootnote">&#160;&#8617;</a>$footnote_closing_tag</li>\n\n};
+        }
+    }
+
+    if ($footnote_counter > 0) {
+        $result =
+            qq[\n\n<div class="footnotes">\n<hr$self->{empty_element_suffix}\n<ol>\n\n]
+          . $result
+          . "</ol>\n</div>";
+    }
+    else {
+        $result = "";
+    }
+
+    return $result;
+}
 1;
 
 
@@ -259,6 +347,7 @@ Become a sponsor and help make L<Ado> the ERP for the enterprise!
 
 L<Ado::Control::Doc>, 
 L<Text::MultiMarkdown>, L<http://fletcherpenney.net/multimarkdown/>,
+L<MultiMarkdown Guide|https://rawgit.com/fletcher/human-markdown-reference/master/index.html>
 L<Ado::Plugin>, L<Ado::Manual>.
 
 =head1 AUTHOR
