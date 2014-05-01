@@ -54,7 +54,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '4.93',
+        'Mojolicious'              => '4.97',
         'Mojolicious::Plugin::DSC' => '0.999',
         'Email::Address'           => '1.901',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
@@ -63,7 +63,7 @@ my $builder = Ado::Build->new(
         'Text::MultiMarkdown' => '1.000034',
 
     },
-    recommends           => {'DBD::SQLite' => '1.40',},
+    recommends           => {'DBD::SQLite' => '1.42',},
     recursive_test_files => 1,
     meta_merge           => {
         resources => {
@@ -77,7 +77,7 @@ my $builder = Ado::Build->new(
         }
     },
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', '*.bak'],
+    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/bg/*.html', 'public/doc/en/*.html'],
 );
 
 $builder->create_build_script();
