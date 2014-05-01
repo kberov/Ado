@@ -62,6 +62,9 @@ aside#toc li {
   list-style: none inside none;
   padding: 0 0 0 1.2ex;
 }
+article.main.container li {
+  margin-bottom:0.5em ;
+}
 /*
 aside#toc li a {
   font-size: 1.1em;

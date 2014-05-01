@@ -14,7 +14,9 @@ sub show {
         ($tag) = ('aside');
     }
     else {
-        $toc = qq|<$tag id="toc" class="$class">| . $c->md_to_html('bg/toc.md') . qq|</$tag>|;
+        my ($lang) = $md_file =~ m|([^/]{2})/[^/]+$|;
+        $c->debug("\$lang: $lang");
+        $toc = qq|<$tag id="toc" class="$class">| . $c->md_to_html("$lang/toc.md") . qq|</$tag>|;
         ($tag, $class) = ('article', 'main container');
     }
     my ($md_id) = ($md_file =~ /([^\/]+)\.md$/);
@@ -98,7 +100,7 @@ L<Mojolicious::Guides::Growing/Controller_class>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013 Красимир Беров (Krasimir Berov).
+Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 

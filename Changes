@@ -1,5 +1,14 @@
 Revision history for Ado
 
+0.40 2014-05-01
+    - Started translation of end-user documentation to English.
+      Translated in English cover.md ,rewrote intro.md.
+      Temporarily monkey-patched Text::MultiMardown to support
+      anchors when <base href="<%= url_for('/')->base %>" /> tag 
+      is used in templates.
+      Upgraded to Mojolicious 4.97.
+
+
 0.39 2014-04-15
     - Fixed missing 'require' in Build.PL for Email::Address.
     - Fixed 'require' in Build.PL for Mojolicious 4.93.
