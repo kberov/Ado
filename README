@@ -149,6 +149,15 @@ PLUGINS
 
   See Ado::Manual::Plugins and Ado::Plugin for more information.
 
+CONTINUOUS INTEGRATION
+  We d'like to know our software is always in good health so we count on
+  friendly developers and organisations to install and test it continuously.
+
+  CPAN Testers Reports for Ado
+  <http://www.cpantesters.org/distro/A/Ado.html>
+
+  Travis-CI <https://travis-ci.org/kberov/Ado>
+
 SEE ALSO
   Ado, Mojolicious::Guides, Mojolicious::Guides::Contributing,
   "prefix_vs_install_base" in Module::Build::Cookbook,

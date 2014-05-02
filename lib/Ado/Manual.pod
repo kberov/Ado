@@ -170,6 +170,19 @@ as plugins. One way to contribute to L<Ado> is by writing plugins.
 
 See L<Ado::Manual::Plugins> and L<Ado::Plugin> for more information.
 
+=head1 CONTINUOUS INTEGRATION
+
+We d'like to know our software is always in good health so we count on
+friendly developers and organisations to install and test it continuously.
+
+L<CPAN Testers Reports for Ado|http://www.cpantesters.org/distro/A/Ado.html>
+
+L<Travis-CI|https://travis-ci.org/kberov/Ado> 
+
+
+=for HTML <a href="https://travis-ci.org/kberov/Ado"><img src="https://travis-ci.org/kberov/Ado.svg?branch=master"></a><br /><br />
+
+
 =head1 SEE ALSO
 
 L<Ado>, L<Mojolicious::Guides>, 
@@ -181,7 +194,7 @@ L<http://www.thefreedictionary.com/ado>.
 
 Authors in order of joining the core team.
 
-Красимир Беров (Krasimir Berov)(berov@cpan.org)
+Красимир Беров (Krasimir Berov)(berov@cpan.org) 
 
 Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
 

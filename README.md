@@ -37,8 +37,6 @@ of allowed tags.
 UI is the vocabulary of the web. Semantic empowers designers and developers by creating a 
 language for sharing UI.
 
-
-
 # INSTALLATION
 
 We do not recommend using Ado with your system Perl!
@@ -54,7 +52,7 @@ and installed manually or installed directly from CPAN using `cpan` or
 `cpanm` commandline tools. 
 
 Ado is meant to be _installed into a folder of your choice_.
-It can go into the `siteprefix` folder of your ___non-system Perl distro___ 
+It can go into the `siteprefix` folder of your **_non-system Perl distro_** 
 or in its own folder. When installing Ado in its own folder add the 
 `/path/to/ado/bin` to your `$PATH` environment variable.
 
@@ -112,7 +110,7 @@ environment variable in case you passed the `--install_base` to `Build.PL`.
     perldoc Ado
     perldoc Ado::Manual #this page
 
-For better experience run the __`ado`__ application and read the documentation
+For better experience run the **`ado`** application and read the documentation
 from your browser.
 
     $HOME/opt/ado/bin/ado daemon
@@ -161,18 +159,30 @@ as plugins. One way to contribute to [Ado](https://metacpan.org/pod/Ado) is by w
 
 See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) for more information.
 
+# CONTINUOUS INTEGRATION
+
+We d'like to know our software is always in good health so we count on
+friendly developers and organisations to install and test it continuously.
+
+[CPAN Testers Reports for Ado](http://www.cpantesters.org/distro/A/Ado.html)
+
+[Travis-CI](https://travis-ci.org/kberov/Ado) 
+
+[![Build Status](https://travis-ci.org/kberov/Ado.svg?branch=master)](https://travis-ci.org/kberov/Ado)
+
+
 # SEE ALSO
 
 [Ado](https://metacpan.org/pod/Ado), [Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides), 
 [Mojolicious::Guides::Contributing](https://metacpan.org/pod/Mojolicious::Guides::Contributing),
-["prefix_vs_install_base" in Module::Build::Cookbook](https://metacpan.org/pod/Module::Build::Cookbook#prefix_vs_install_base), 
+["prefix\_vs\_install\_base" in Module::Build::Cookbook](https://metacpan.org/pod/Module::Build::Cookbook#prefix_vs_install_base), 
 [http://www.thefreedictionary.com/ado](http://www.thefreedictionary.com/ado).
 
 # AUTHORS
 
 Authors in order of joining the core team.
 
-Красимир Беров (Krasimir Berov)(berov@cpan.org)
+Красимир Беров (Krasimir Berov)(berov@cpan.org) 
 
 Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
 
