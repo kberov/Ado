@@ -1,0 +1,105 @@
+---
+abstract: 'a rapid active commotion (framework for web projects on Mojolicious)'
+author:
+  - 'ÐÑÐ°ÑÐ¸Ð¼Ð¸Ñ ÐÐµÑÐ¾Ð² <berov@cpan.org>'
+build_requires:
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.3800
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4203, CPAN::Meta::Converter version 2.133380'
+keywords:
+  - Ado
+  - Mojolicious
+  - web
+  - ERP
+  - REST
+  - CMS
+  - enterprise
+license: lgpl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Ado
+no_index:
+  namespace:
+    - Ado::Model
+    - Ado::Command
+    - Ado::Control
+    - Ado::Plugin
+    - Test::Ado
+provides:
+  Ado:
+    file: lib/Ado.pm
+    version: 0.39
+  Ado::Build:
+    file: lib/Ado/Build.pm
+  Ado::BuildPlugin:
+    file: lib/Ado/BuildPlugin.pm
+  Ado::Command:
+    file: lib/Ado/Command.pm
+  Ado::Command::adduser:
+    file: lib/Ado/Command/adduser.pm
+  Ado::Command::version:
+    file: lib/Ado/Command/version.pm
+  Ado::Control:
+    file: lib/Ado/Control.pm
+  Ado::Control::Ado:
+    file: lib/Ado/Control/Ado.pm
+  Ado::Control::Ado::Default:
+    file: lib/Ado/Control/Ado/Default.pm
+  Ado::Control::Ado::Users:
+    file: lib/Ado/Control/Ado/Users.pm
+  Ado::Control::Default:
+    file: lib/Ado/Control/Default.pm
+  Ado::Control::Doc:
+    file: lib/Ado/Control/Doc.pm
+  Ado::Control::Test:
+    file: lib/Ado/Control/Test.pm
+  Ado::Model:
+    file: lib/Ado/Model.pm
+    version: 0.01
+  Ado::Model::Domains:
+    file: lib/Ado/Model/Domains.pm
+  Ado::Model::Groups:
+    file: lib/Ado/Model/Groups.pm
+  Ado::Model::Sessions:
+    file: lib/Ado/Model/Sessions.pm
+  Ado::Model::SessionsOld:
+    file: lib/Ado/Model/SessionsOld.pm
+  Ado::Model::SqliteSequence:
+    file: lib/Ado/Model/SqliteSequence.pm
+  Ado::Model::UserGroup:
+    file: lib/Ado/Model/UserGroup.pm
+  Ado::Model::Users:
+    file: lib/Ado/Model/Users.pm
+  Ado::Plugin:
+    file: lib/Ado/Plugin.pm
+  Ado::Plugin::AdoHelpers:
+    file: lib/Ado/Plugin/AdoHelpers.pm
+  Ado::Plugin::Auth:
+    file: lib/Ado/Plugin/Auth.pm
+  Ado::Plugin::MarkdownRenderer:
+    file: lib/Ado/Plugin/MarkdownRenderer.pm
+  Ado::Plugin::Routes:
+    file: lib/Ado/Plugin/Routes.pm
+  Ado::Sessions:
+    file: lib/Ado/Sessions.pm
+  Ado::Sessions::Database:
+    file: lib/Ado/Sessions/Database.pm
+  Ado::Sessions::File:
+    file: lib/Ado/Sessions/File.pm
+  Test::AdoPlugin:
+    file: lib/Test/AdoPlugin.pm
+recommends:
+  DBD::SQLite: 1.40
+requires:
+  Email::Address: 1.901
+  Mojolicious: 4.93
+  Mojolicious::Plugin::DSC: 0.999
+  Text::MultiMarkdown: 1.000034
+  perl: v5.14.0
+resources:
+  bugtracker: http://github.com/kberov/Ado/issues
+  repository: http://github.com/kberov/Ado
+version: 0.39
