@@ -15,5 +15,9 @@ env:
   matrix:
     - TEST_AUTHOR=1
     - TEST_AUTHOR=0
+matrix:
+  allow_failures:
+    - TEST_AUTHOR=1
+  fast_finish: true
 notifications:
   email: false
