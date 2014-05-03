@@ -6,7 +6,8 @@ Revision history for Ado
       Temporarily monkey-patched Text::MultiMardown to support
       anchors when <base href="<%= url_for('/')->base %>" /> tag 
       is used in templates.
-      Upgraded to Mojolicious 4.97.
+    - Upgraded to Mojolicious 4.97.
+    - Upgraded to Semantic UI 0.16.1
 
 
 0.39 2014-04-15
