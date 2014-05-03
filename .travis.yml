@@ -9,12 +9,11 @@ branches:
   only:
     - master
 env:
-  - "HARNESS_OPTIONS=j9"
-  - "cpanm -n --installdeps ."
+  global:
+    - "HARNESS_OPTIONS=j9"
+    - "cpanm -n --installdeps ."
   matrix:
     - TEST_AUTHOR=1
     - TEST_AUTHOR=0
-    - fast_finish: true
 notifications:
   email: false
-
