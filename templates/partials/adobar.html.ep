@@ -2,10 +2,19 @@
 
   <nav id="adobar" class="ui borderless small purple inverted fixed menu">
     <a class="Ⰱ item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
-    <a class="item" href="<%=url_for('/perldoc')%>">Manual</a>
-    <a class="item" href="<%=url_for('/help')%>">About</a>
-    <a class="item" href="https://github.com/kberov/Ado">GitHub</a>
-    <a class="item" href="https://metacpan.org/release/Ado">CPAN</a>
+    <a class="popup icon book item" href="<%=url_for('/perldoc')%>"
+      data-content="Manual"><i class="book icon"></i></a>
+    <a class="popup icon help item" data-content="About"
+      href="<%=url_for('/help')%>"><i class="icon help"></i></a>
+    <a class="popup icon github item" data-content="View project on Github" 
+      href="https://github.com/kberov/Ado" target="_blank">
+      <i class="icon github"></i>
+    </a>
+    <a class="popup icon item" href="https://metacpan.org/release/Ado"
+    data-content="CPAN"><b>:&nbsp;:</b></a>
     %= include 'partials/authbar' unless current_route =~ m'login';
   </nav>
+  <script type="text/javascript">
+    $('#adobar a.popup').popup({position : 'bottom right'});
+  </script>
 %#$self->debug(dumper(stash));

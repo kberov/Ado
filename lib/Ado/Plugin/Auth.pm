@@ -304,12 +304,13 @@ __DATA__
 %# displayed as a menu item
 <div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
-  <div class="ui simple dropdown item">
-  Login using<i class="dropdown icon"></i>
+  <div class="ui simple dropdown item" title="Sign in with">
+    <i class="sign in icon"></i>
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
-      <a href="<%=url_for("login/$auth")->to_abs %>" class="item">
-        <i class="<%=$auth %> icon"></i> <%=ucfirst $auth %>
+      <a href="<%=url_for("login/$auth")->to_abs %>" 
+        title="<%=ucfirst $auth %>" class="item">
+        <i class="<%=$auth %> icon"></i>
       </a>
     % }    
     </div>
@@ -319,14 +320,11 @@ __DATA__
     %=include 'partials/login_form'
   </div><!-- end modal dialog with login form in it -->
 % } else {
-  <a class="ui item" href="<%= url_for('logout') %>" title="Logout <%= user->name %>">
+  <a class="ui item" href="<%= url_for('logout') %>" title="Sign out <%= user->name %>">
     <i class="sign out icon"></i>
   </a>
 % }
 </div>
-<script type="text/javascript">
-  $('#authbar a[href$=logout]').popup({position : 'bottom left'});
-</script>
 
 @@ partials/login_form.html.ep
   <form class="ui form segment" method="POST" action="" id="login_form">
