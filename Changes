@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.41 2014-05-04
+    - Translation of intro.md. to Bulgarian.
+    - Menu items in adobar.html.ep now are only icons.
+
+
 0.40 2014-05-04
     - Started translation of end-user documentation to English.
       Translated in English cover.md ,rewrote intro.md.
