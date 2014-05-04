@@ -23,14 +23,19 @@
   <p>
     If you read this text in your browser 
     it means the owner of this site (you?!?) successfully installed 
-    <a href="<%=url_for('/perldoc/Ado')%>">Ado</a>. <i>Congratulations!</i><br />
+    <a href="<%=url_for('/perldoc/Ado')%>">Ado</a>. <i>Congratulations!</i>
+    You may want to read the general
+    <a href="<%=url_for('/help/en/intro.md')%>">introduction</a>
+    before going further.
+  </p>
+  <p>
     This is the default Ado page produced by 
     <code><%=ref($self)%>::<%=$action%>()</code> and using template
     <code>templates/default/index.html.ep</code>.
     Your Ado system is installed in <code><%=$home%></code>.
     All paths below are relative to it.
     The current url is <code>"<%=url_for('/')->base%>"</code>.
-    On the right side you see a picture explaining one of 
+    On the right side above you see a picture explaining one of 
     the meanings of the word "ado". 
   </p>
   <h2>What's next?</h2>
@@ -47,7 +52,7 @@
       Later, when you are ready to go officially in <i>production</i> mode,
       copy <code>etc/ado.development.conf</code> to <code>etc/ado.production.conf</code>,
       modify the settings (paths, secrets etc) in it accordingly and do not forget to set <code>MOJO_MODE='production'</code> in your .bashrc
-      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code> and modify it.
+      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code>, modify it and use it to start Ado.
     </blockquote>
     </li>
     <li>Execute <code>ado inflate</code> to dump the embedded files and templates.</li>
@@ -67,7 +72,7 @@
       Later when you are ready to go officially in <i>production</i> mode,
       copy <code>etc/ado.development.sqlite</code> to <code>etc/ado.production.sqlite</code>
       and do not forget to set <code>MOJO_MODE='production'</code> in your .bashrc
-      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code> and modify it.
+      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code>, modify it and use it to start Ado.
     </blockquote>
     </li>
     <li>For end-user help look at <a href="<%=url_for('/help')%>">/help</a>!</li>
