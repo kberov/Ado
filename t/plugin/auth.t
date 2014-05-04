@@ -19,9 +19,9 @@ can_ok($class, 'config');
 my $app = $t->app;
 
 #list of authentication methods in main menu
-$t->get_ok('/')->status_is(200)->text_like('#authbar .item:nth-child(1)' => qr/Login using/)
-  ->text_is('.simple.dropdown a.item:nth-child(1)', 'Ado')
-  ->text_is('.simple.dropdown a.item:nth-child(2)', 'Facebook')
+$t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => '')
+  ->text_is('.simple.dropdown a.item:nth-child(1)', '')
+  ->text_is('.simple.dropdown a.item:nth-child(2)', '')
 
 #login form in a modal box hidden also there
   ->text_is('#authbar .modal form#login_form .ui.header:nth-child(1)' => 'Login')
