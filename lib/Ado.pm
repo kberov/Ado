@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.39';
+our $VERSION   = '0.40';
 our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
 
 use Ado::Control;
@@ -207,7 +207,7 @@ L<http://www.thefreedictionary.com/ado>,
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013 Красимир Беров (Krasimir Berov).
+Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 
