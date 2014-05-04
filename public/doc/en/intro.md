@@ -7,14 +7,14 @@
 ##Ado
 A framework for web projects based on Mojolicious, written in the Perl programming language.
 
-Ado[^ado_] was started in November 2013 as a rewrite of a previous project ([MYDLjE](https://github.com/kberov/MYDLjE)) based on Mojolicious (~1.9x). The previous project was too monolithic. It was not possible to start with minimum features, disable some of them and re-enable them only if needed.  Ado is much more modular and flexible than MYDLjE and its name is not an acronym :). 
+Ado[^ado_] was started in November 2013 as a rewrite of a previous project ([MYDLjE](https://github.com/kberov/MYDLjE)) based on Mojolicious (~1.9x). MYDLjE was too monolithic. It was not possible to start with minimum features, disable some of them and re-enable them only if needed.  Ado is much more modular and flexible than MYDLjE and its name is not an acronym :). 
 
 ##What is Ado?
 Ado's purpose is the same as of MYDLjE – to quickly put together a lightweight web application and/or site based on Mojolicious with scalability, performance and growth in mind.
 An Ado system starts as a minimal application that can turn into an ERP, a CMS, a CRM or all in one by just adding plugins along the way as the organization which is using it grows.
 
-Built-in features
-Ado is a typical Mojo application. It comes with a default configuration file and a model layer - Mojolicious::Plugin::DSC. An SQLite database is bundled in the distribution at etc/ado.sqlite to get started quickly. All plugins can be disabled and re-enabled.
+##Built-in features
+Ado is a typical Mojo application. It comes with a configuration file and a model layer - Mojolicious::Plugin::DSC. An SQLite database is bundled in the distribution at etc/ado.sqlite to get started quickly. All plugins can be disabled and re-enabled.
 
 Ado has the following:
 
