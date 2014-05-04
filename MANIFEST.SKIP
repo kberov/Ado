@@ -71,8 +71,12 @@
 
 #Avoid backups made by SQLite Manager
 \betc/ado_\d+\.sqlite
+
 #Avoid files created by some IDEs and editors
 \.komodoproject$
 \.swp$
 ^tags$
 \.tags
+
+#Avoid CI tools files
+\.travis.yml

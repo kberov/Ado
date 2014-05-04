@@ -1,0 +1,23 @@
+language: perl
+perl:
+  - "5.19"
+  - "5.18"
+  - "5.16"
+  - "5.14"
+# Whitelist branches for CI, ignore all other branches
+branches:
+  only:
+    - master
+env:
+  global:
+    - "HARNESS_OPTIONS=j9"
+    - "cpanm -n --installdeps ."
+  matrix:
+    - TEST_AUTHOR=1
+    - TEST_AUTHOR=0
+matrix:
+  allow_failures:
+    - TEST_AUTHOR=1
+  fast_finish: true
+notifications:
+  email: false
