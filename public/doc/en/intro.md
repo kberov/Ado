@@ -18,7 +18,7 @@ Ado is a typical Mojo application. It comes with a configuration file and a mode
 
 Ado has the following:
 
-1. Configuration file with most of the sensible settings in place, such as controller_class, name-spaces for routes (urls), name-spaces for plugins and commands, session settings, default routes...
+1. Configuration file with most of the sensible settings in place, such as controller_class, name-spaces for routes (urls), name-spaces for plugins and commands, sessions, default routes...
 2. Ado plugins work the same way as Mojolicious::Plugins and share the same common base trough Ado::Plugin. Ado plugins have one small additional feature. They can load their own configuration from `$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`. Business-specific applications for an Ado-based system are usually implemented as plugins or by combining a set of plugins. 
 By default the following plugins are enabled:
   1. All Mojolicious plugins which are otherwise enabled by default.
