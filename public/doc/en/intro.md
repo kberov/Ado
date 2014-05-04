@@ -5,7 +5,7 @@
 </div>
 
 ##Ado
-A framework for web projects based on Mojolicious, written in the Perl programming language.
+A framework for web projects based on [Mojolicious](http://mojolicio.us/), written in the Perl programming language.
 
 Ado[^ado_] was started in November 2013 as a rewrite of a previous project ([MYDLjE](https://github.com/kberov/MYDLjE)) based on Mojolicious (~1.9x). MYDLjE was too monolithic. It was not possible to start with minimum features, disable some of them and re-enable them only if needed.  Ado is much more modular and flexible than MYDLjE and its name is not an acronym :). 
 
@@ -19,7 +19,7 @@ Ado is a typical Mojo application. It comes with a configuration file and a mode
 Ado has the following:
 
 1. Configuration file with most of the sensible settings in place, such as controller_class, name-spaces for routes (urls), name-spaces for plugins and commands, session settings, default routes...
-2. Ado plugins work the same way as Mojolicious::Plugins and share the same common base trough Ado::Plugin. Ado plugins have one small additional feature. They can load their own configuration from `$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`. Business-specific applications for an Ado-based system are usually implemented as plugins or by combining a set of plugins. 
+2. Ado plugins work the same way as Mojolicious::Plugins and share the same common base trough Ado::Plugin. But they have one small additional feature. They can load their own configuration from `$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`. Business-specific applications for an Ado-based system are usually implemented as plugins or by combining a set of plugins. 
 By default the following plugins are enabled:
   1. All Mojolicious plugins which are otherwise enabled by default.
   2. Mojolicious::Plugin::Charset – UTF-8.
