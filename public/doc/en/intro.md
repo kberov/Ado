@@ -14,7 +14,7 @@ Ado's purpose is the same as of MYDLjE – to quickly put together a lightweight
 An Ado system starts as a minimal application that can turn into an ERP, a CMS, a CRM or all in one by just adding plugins along the way as the organization which is using it grows.
 
 ##Built-in features
-Ado is a typical Mojo application. It comes with a configuration file and a model layer - Mojolicious::Plugin::DSC. An SQLite database is bundled in the distribution at etc/ado.sqlite to get started quickly. All plugins can be disabled and re-enabled.
+Ado is a typical Mojo application. It comes with a configuration file and a model[^2] layer - Mojolicious::Plugin::DSC. An SQLite database is bundled in the distribution at etc/ado.sqlite to get started quickly. All plugins can be disabled and re-enabled.
 
 Ado has the following:
 
@@ -32,7 +32,7 @@ By default the following plugins are enabled:
 4. The following Ado specific commands are available:
   1. Ado::Command::adduser allows adding users to an Ado application via a terminal. It also allows adding users to existing or not existing groups. The new group is automatically created.
   2. Ado::Command::version shows version information for installed core and optional modules.
-  3. Last but not least, Ado code is well covered with tests. Special care is taken to avoid accumulating technical debt by having Test::Perl::Critic tests set to level “harsh”. This way the coding style is forced to be consistent across the framework and to avoid bad coding practices.
+1. Last but not least, Ado code is well covered with tests. Special care is taken to avoid accumulating technical debt by having Test::Perl::Critic tests set to level “harsh”. This way the coding style is forced to be consistent across the framework and to avoid bad coding practices.
 
 Here is how an Ado system looks like from architectural point of view:
 
@@ -48,8 +48,8 @@ are possible and specific custom deployments can be done.
 
 Ado is not actively tested under Windows, but there is an [Ado PPM package](http://code.activestate.com/ppm/Ado/) for Mac OSX, Linux and Windows maintained by Active State.
 
-##REST API
-Ado strives for strict separation of concerns (MVC). The best way to achieve this is to fully separate the client code from the server code. Ado is ideally suited for the purpose thanks to Mojolicious. Every resource is accessible via the REST API. We follow closely and elaborate on the recommendations in "RESTful Service Best Practices" at www.RestApiTutorial.com.
+##REST API[^rest]
+Ado strives for strict separation of concerns (MVC[^2]). The best way to achieve this is to fully separate the client code from the server code. Ado is ideally suited for the purpose thanks to Mojolicious. Every resource is accessible via the REST API. We follow closely and elaborate on the recommendations in "RESTful Service Best Practices" at www.RestApiTutorial.com.
 
 ##Roadmap
 Below are the main activities considered mandatory for implementation to reach version 1.00.
@@ -61,13 +61,18 @@ Below are the main activities considered mandatory for implementation to reach v
 1. Implement Ado::Plugin::Signup – user registration.
 2. Implement Ado::Plugin::Profile – managing users' own profiles.
 5. Implement Ado::Plugin::Admin – a web application for managing an Ado system -”Control Panel”.
-1. Implement Ado::Plugin::Domains – controllers for managing a multi-domain site in Control Panel.
-2. Implement the Pages management controllers.
-3. Implement the Content (sections in pages) management controllers.
-4. Implement the Users/Groups Management controllers.
+  1. Implement Ado::Plugin::Domains – controllers for managing a multi-domain site in Control Panel.
+  2. Implement the Pages management controllers for the site.
+  3. Implement the Content (sections in pages) management controllers.
+  4. Implement the Users/Groups Management controllers.
 
 
-Krasimir Berov, 2014-05-01
+Krasimir Berov, 2014-05-06
 
 [^ado_]: Ado - busy or delaying activity; bustle; fuss.
 See also http://www.thefreedictionary.com/ado
+
+[^2]: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
+
+[^rest]: http://en.wikipedia.org/wiki/REST
+
