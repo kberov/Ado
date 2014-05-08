@@ -297,7 +297,6 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
 
-
 __DATA__
 
 @@ partials/authbar.html.ep
@@ -309,7 +308,7 @@ __DATA__
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
       <a href="<%=url_for("login/$auth")->to_abs %>" 
-        title="<%=ucfirst $auth %>" class="item">
+        title="<%=ucfirst l($auth) %>" class="item">
         <i class="<%=$auth %> icon"></i>
       </a>
     % }    
@@ -320,11 +319,13 @@ __DATA__
     %=include 'partials/login_form'
   </div><!-- end modal dialog with login form in it -->
 % } else {
-  <a class="ui item" href="<%= url_for('logout') %>" title="Sign out <%= user->name %>">
+  <a class="ui item" href="<%= url_for('logout') %>" title="<%= l('Logout').' ('. user->name .')' %>">
     <i class="sign out icon"></i>
   </a>
 % }
 </div>
+
+
 
 @@ partials/login_form.html.ep
   <form class="ui form segment" method="POST" action="" id="login_form">
@@ -343,15 +344,15 @@ __DATA__
           %== (stash->{auth_method}//'') eq $auth ? 'checked="checked"' : ''
           value="<%=url_for('login/'.$auth) %>" />
         <label for="<%=$auth %>_radio">
-          <i class="<%=$auth %> icon"></i><%=ucfirst $auth %>
+          <i class="<%=$auth %> icon"></i><%=ucfirst l($auth) %>
         </label>
       </span>&nbsp;&nbsp;
       % }
     </div>
     <div class="field">
-      <label for="login_name">Username</label>
+      <label for="login_name"><%=ucfirst l('login_name')%></label>
       <div class="ui left labeled icon input">
-        %= text_field 'login_name', placeholder => 'Username', id => 'login_name', required => ''
+        %= text_field 'login_name', placeholder => l('login_name'), id => 'login_name', required => ''
         <i class="user icon"></i>
         <div class="ui corner label"><i class="icon asterisk"></i></div>
         % if(stash->{error_login_name}) {
@@ -362,7 +363,7 @@ __DATA__
       </div>
     </div>
     <div class="field">
-      <label for="login_password">Password</label>
+      <label for="login_password"><%=l('login_password')%></label>
       <div class="ui left labeled icon input">
         <input type="password" name="login_password" id="login_password" required="" />
         <i class="lock icon"></i>
@@ -372,7 +373,8 @@ __DATA__
     %= csrf_field
     %= hidden_field 'digest'
     <div class="ui center">
-      <button class="ui small green submit button" type="submit">Login</button>
+      <button class="ui small green submit button" 
+        type="submit"><%=l('Login')%></button>
     </div>
   </form>
 %= javascript '/vendor/crypto-js/rollups/sha1.js'
