@@ -6,7 +6,7 @@ use List::Util qw(first);
 use Time::Seconds;
 has routes => sub {
     [
-#Any front-end controllers
+#Any language prefixed front-end controllers
         {   route  => '/:language/:controller',
             via    => [qw(GET OPTIONS)],
             params => {language => [$_[0]->config('languages')]},
@@ -50,7 +50,7 @@ sub register {
     $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
 
     #Make sure we have all we need from config files.
-    $config->{default_language} ||= 'i_default';
+    $config->{default_language} ||= 'en';
 
     #Supported languages by this system
     $config->{languages} ||= ['en', 'bg'];
@@ -65,7 +65,10 @@ sub register {
 
     #Allow other namespaces too
     $config->{namespace} ||= 'Ado::I18n';
-    require $config->{namespace} unless $config->{namespace} ne 'Ado::I18n';
+
+    #eval "require $config->{namespace};";
+    my $e = Mojo::Loader->new->load($config->{namespace});
+    warn qq{Loading "$config->{namespace}" failed: $e} if $e;
 
     #Add helpers
     $app->helper(language => sub { &_language($config, @_) });
@@ -74,8 +77,10 @@ sub register {
 
     #default routes including language tag.
     $app->load_routes($self->routes);
-    $app->load_routes($config->{routes}) if (@{$config->{routes}});
+    $app->load_routes($config->{routes}) if (@{$config->{routes} // []});
 
+    # Add hook
+    $app->hook(before_routes => sub { _language($config, shift) });
     return $self;
 }
 
@@ -93,16 +98,13 @@ sub _language {
     }
 
     #?language=de
-    elsif ($$config{language_from_param}
-        && is_language_tag($language = $c->param($language_param)))
-    {
-        $c->{language} = first { $_ =~ /$language/ } @$$config{languages};
+    elsif ($$config{language_from_param}) {
+        $c->{language} = $c->param($language_param);
     }
 
     #bg.example.com
     if (!$c->{language} && $config->{language_from_host}) {
-        my $host = $c->req->headers->host;
-        $c->{language} = first { $host =~ /^($_)\./ } @$$config{languages};
+        ($c->{language}) = $c->req->headers->host =~ /^($_)\./;
     }
 
     #example.com/cz/foo/bar
@@ -110,34 +112,39 @@ sub _language {
         && $config->{language_from_url}
         && ($language = $c->req->url->path->parts->[0]))
     {
-        $c->{language} = first { $_ eq $language } @$$config{languages};
+        $c->{language} = $language;
     }
     if (  !$c->{language}
         && $config->{language_from_cookie}
-        && ($language = $c->cookie($language_param))
-        && ($language = first { $_ eq $language } @$$config{languages}))
+        && ($language = $c->cookie($language_param)))
     {
         $c->cookie($language_param => $language, {expires => time + ONE_MONTH});
         $c->{language} = $language;
     }
 
     #Accept-Language:"bg,fr;q=0.8,en-us;q=0.5,en;q=0.3"
-    elsif ($config->{language_from_headers}) {
+    elsif (!$c->{language} && $config->{language_from_headers}) {
         my @languages =
           I18N::LangTags::implicate_supers(
             I18N::LangTags::Detect->http_accept_langs($c->req->headers->accept_language));
         foreach my $language (@languages) {
-            $c->{language} = first { $_ =~ /$language/ } @$$config{languages};
+            $c->{language} = first { $_ =~ /$language/ } @{$config->{languages}};
             last if $c->{language};
         }
     }
 
     #default
     $c->{language} = $config->{default_language} unless $c->{language};
-    $c->{i18n} = $config->{namespace}->get_handle($c->{language}, @$$config{languages});
+    $c->{i18n} = $config->{namespace}->get_handle($c->{language}, @{$config->{languages}});
     return $c->{language};
 }
 
+sub _maketext {
+    my $c   = shift;
+    my $key = shift;
+    return $key unless my $handle = $c->{i18n};
+    return $handle->maketext($key, @_);
+}
 
 1;
 
