@@ -140,7 +140,9 @@ t/perl-critic.t
 t/plugin/auth-00.t
 t/plugin/auth-01.t
 t/plugin/auth-02.t
-t/plugin/i18n.t
+t/plugin/i18n-00.t
+t/plugin/i18n-01.t
+t/plugin/i18n-02.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t
 t/pod-coverage.t

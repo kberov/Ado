@@ -14,7 +14,7 @@ sub bgl10n {
     $_[0]->debug('set language inside action:' . $_[0]->language);
     return $_[0]->render(text => $_[0]->l('hello', $_[0]->user->name));
 }
-
+*index = \&l10n;
 1;
 
 =pod
@@ -46,6 +46,10 @@ Used to test the C<l> controller helper L<Ado::Plugin::I18n/l>.
 =head2 bgl10n
 
 Used to test the C<language> helper L<Ado::Plugin::I18n/language>.
+
+=head2 index
+
+Alias for C<l10n> action.
 
 =head1 AUTHOR
 

@@ -86,33 +86,32 @@ sub register {
     $app->log->warn(qq{Loading "$config->{namespace}" failed: $e}) if $e;
 
     #Add helpers
-    $app->helper(
-        language => sub {
-            Ado::Plugin::I18n::language($config, @_);
-        }
-    );
-    $app->helper(l => \&_maketext);
+    $app->helper(language => \&language);
+    $app->helper(l        => \&_maketext);
 
     #default routes including language placeholder.
     $app->load_routes($self->routes);
 
-    # Add hook
-    $app->hook(
-        around_action => sub {
+    # Add hook around_action
+    $app->hook(around_action => \&around_action);
 
-            #batman:  put "local $_;" inside your callback before doing anything else
-            local $_ = undef;
-            my ($next, $c, $action, $last_step) = @_;
-            Ado::Plugin::I18n::language($config, $c);
-            return $next->();
-        }
-    );
+    #make plugin configuration available for later in the app
+    $app->config(__PACKAGE__, $config);
     return $self;
+}
+
+#Mojolicious::around_action hook.
+sub around_action {
+    local $_ = undef;
+    my ($next, $c, $action, $last_step) = @_;
+    $c->language();
+    return $next->();
 }
 
 #sets *once* and/or returns the current language - a controller property
 sub language {
-    my ($config, $c, $language) = @_;
+    my ($c, $language) = @_;
+    state $config  = $c->app->config(__PACKAGE__);
     state $l_param = $$config{language_param};
     my $stash = $c->stash;
 
@@ -122,6 +121,8 @@ sub language {
     if ($language) {
         $stash->{i18n} =
           $$config{namespace}->get_handle($language, @{$$config{languages}});
+        $c->debug("language('$language') explicitly set by developer");
+
         return $stash->{$l_param} = $language;
     }
 
@@ -129,8 +130,7 @@ sub language {
     if ($stash->{$l_param}) {
         $stash->{i18n} =
           $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
-
-        $c->debug("already set \$stash->{$l_param}:" . $stash->{$l_param});
+        $c->debug("already set in \$stash->{$l_param}:" . $stash->{$l_param});
         return $stash->{$l_param};
     }
 
@@ -138,14 +138,18 @@ sub language {
     if ($$config{language_from_host}
         && (my ($l) = $c->req->headers->host =~ /^(\w{2})\./))
     {
-        $stash->{$l_param} = $l;
-        $c->debug("language_from_host:$stash->{$l_param}");
+        $stash->{i18n} =
+          $$config{namespace}->get_handle($l, @{$$config{languages}});
+        $c->debug("language_from_host:$l");
+        return $stash->{$l_param} = $l;
     }
 
     #?language=de
-    if (!$stash->{$l_param} && $$config{language_from_param}) {
-        $stash->{$l_param} = $c->param($l_param) // '';
-        $c->debug("language_from_param:\$stash->{$l_param}");
+    if ($$config{language_from_param}
+        && (my $l = ($c->param($l_param) // '')))
+    {
+        $stash->{$l_param} = $l;
+        $c->debug("language_from_param:$l_param:$stash->{$l_param}");
     }
 
 
@@ -159,31 +163,29 @@ sub language {
     }
 
     #Accept-Language:"bg,fr;q=0.8,en-us;q=0.5,en;q=0.3"
-    elsif (!$stash->{language} && $$config{language_from_headers}) {
+    elsif (!$stash->{$l_param} && $$config{language_from_headers}) {
         my @languages =
           I18N::LangTags::implicate_supers(
             I18N::LangTags::Detect->http_accept_langs($c->req->headers->accept_language));
-        foreach my $language (@languages) {
-            $stash->{$l_param} = first { $_ =~ /$language/ } @{$$config{languages}};
+        foreach my $l (@languages) {
+            $stash->{$l_param} = first { $_ =~ /$l/ } @{$$config{languages}};
             last if $stash->{$l_param};
         }
-        $c->debug("language_from_headers:$stash->{$l_param}");
+        $c->debug("language_from_headers:$stash->{$l_param}") if $stash->{$l_param};
     }
 
     #default
     $stash->{$l_param} = $$config{default_language} unless $stash->{$l_param};
 
 
-    $stash->{i18n}
-      ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
+    $stash->{i18n} =
+      $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
     return $stash->{$l_param};
 }
 
 sub _maketext {
-    my $c   = shift;
-    my $key = shift;
-    return $key unless my $handle = $c->stash->{i18n};
-    return $handle->maketext($key ? ($key, @_) : '"maketext" requires at least one parameter.');
+    my ($c, $key) = (shift, shift);
+    return ref($c->{stash}{i18n}) ? $c->{stash}{i18n}->maketext($key, @_) : $key;
 }
 
 1;
@@ -392,12 +394,14 @@ This is the underlying subroutine used in C<around_action> hook and c<language>
 helper.
 
     #Add helpers
-    $app->helper(
-        language => sub {
-            Ado::Plugin::I18n::language($config, @_);
-        }
-    );
+    $app->helper(language => \&language);
 
+=head2 around_action
+
+This method is passed as reference to be used as L<Mojolicious/around_action>.
+
+    # Add hook around_action
+    $app->hook(around_action => \&around_action);
 
 =head1 TODO
 
