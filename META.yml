@@ -57,8 +57,6 @@ provides:
     file: lib/Ado/Model/Sessions.pm
   Ado::Model::SessionsOld:
     file: lib/Ado/Model/SessionsOld.pm
-  Ado::Model::SqliteSequence:
-    file: lib/Ado/Model/SqliteSequence.pm
   Ado::Model::UserGroup:
     file: lib/Ado/Model/UserGroup.pm
   Ado::Model::Users:

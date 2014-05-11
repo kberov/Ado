@@ -17,7 +17,7 @@ configuration and a model layer - [Mojolicious::Plugin::DSC](https://metacpan.or
 An SQLite database is bundled in the distribution at `etc/ado.sqlite` 
 to get started quickly.
 
-Since version 0.37 [Ado](https://metacpan.org/pod/Ado) goes together with the following:
+[Ado](https://metacpan.org/pod/Ado) goes together with the following:
 
 - [Ado::Command::adduser](https://metacpan.org/pod/Ado::Command::adduser) allows adding users to an Ado application
 via a terminal. It also allows adding users to existing or not existing groups. 
@@ -28,6 +28,9 @@ and other authentication service-providers.
 - [Ado::Plugin::MarkdownRenderer](https://metacpan.org/pod/Ado::Plugin::MarkdownRenderer) - Render static files in markdown format.
 You can create a personal blog or enterprise wiki using static files in markdown format.
 See the Functional documentation at [http://localhost:3000/help](http://localhost:3000/help) for an example.
+- [Ado::Plugin::I18n](https://metacpan.org/pod/Ado::Plugin::I18n) localizes your application and site.
+It altomatically detects the current UserAgent language preferences
+and selects the best fit from the supported by the application languages.
 - [PageDown](http://code.google.com/p/pagedown/) is the version of Attacklab's Showdown 
 and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
 that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,

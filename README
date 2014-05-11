@@ -13,7 +13,7 @@ DESCRIPTION
   and a model layer - Mojolicious::Plugin::DSC. An SQLite database is
   bundled in the distribution at "etc/ado.sqlite" to get started quickly.
 
-  Since version 0.37 Ado goes together with the following:
+  Ado goes together with the following:
 
   *   Ado::Command::adduser allows adding users to an Ado application via a
       terminal. It also allows adding users to existing or not existing
@@ -27,6 +27,10 @@ DESCRIPTION
       format. You can create a personal blog or enterprise wiki using static
       files in markdown format. See the Functional documentation at
       <http://localhost:3000/help> for an example.
+
+  *   Ado::Plugin::I18n localizes your application and site. It
+      altomatically detects the current UserAgent language preferences and
+      selects the best fit from the supported by the application languages.
 
   *   PageDown <http://code.google.com/p/pagedown/> is the version of
       Attacklab's Showdown and WMD as used on Stack Overflow and the other

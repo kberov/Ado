@@ -37,7 +37,6 @@ lib/Ado/Model/Domains.pm
 lib/Ado/Model/Groups.pm
 lib/Ado/Model/Sessions.pm
 lib/Ado/Model/SessionsOld.pm
-lib/Ado/Model/SqliteSequence.pm
 lib/Ado/Model/UserGroup.pm
 lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
