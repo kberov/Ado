@@ -1,6 +1,5 @@
 package Ado::I18n::bg;
-use Mojo::Base -strict;
-use parent 'Ado::I18n';
+use Mojo::Base 'Ado::I18n';
 use I18N::LangTags::List;
 our %Lexicon = (    ##no critic(ProhibitPackageVars)
     hello          => 'Здрасти, [_1]!',

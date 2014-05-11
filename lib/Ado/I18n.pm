@@ -1,6 +1,5 @@
 package Ado::I18n;
 use Mojo::Base 'Locale::Maketext';
-use Carp qw(carp cluck croak confess);
 our %Lexicon = (_AUTO => 1);    ##no critic(ProhibitPackageVars)
 
 1;
