@@ -5,7 +5,7 @@
     <div class="ui small blue launch right attached button">
       <i class="icon list layout"></i>
     </div>
-    <a class="Ⰱ item" title="<%== $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
+    <a class="Ⰲ item" title="<%== $self->generator %>" href="<%=url_for('/')%>">Ⰱ</a>
     <div class="right menu">
       <a class="icon item">
         <i class="icon left arrow"></i>

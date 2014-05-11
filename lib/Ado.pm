@@ -12,7 +12,7 @@ BEGIN {
 }
 our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.41';
-our $CODENAME  = 'U+2C01 Главна буква БУКИ от Глаголицата (Ⰱ)';
+our $CODENAME  = 'U+2C02 Главна буква ВЕДИ от Глаголицата (Ⰲ)';
 
 use Ado::Control;
 use Ado::Sessions;

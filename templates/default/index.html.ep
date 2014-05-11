@@ -109,5 +109,5 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.</p>
 
 <script type="text/javascript">
   $('#ado-img').popup();
-  $('.Ⰱ').popup({position : 'bottom right'});
+  $('.Ⰲ').popup({position : 'bottom right'});
 </script>

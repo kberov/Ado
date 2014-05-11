@@ -6,6 +6,10 @@ Revision history for Ado
     - Implemented Ado::Plugin::I18n.
     - Upgraded to Mojolicious 4.98.
     - Removed unneeded Ado::Model::SqliteSequence
+    - $CODENAME changed to
+      "Веди" - U+2C02 GLAGOLITIC CAPITAL LETTER VEDE (Ⰲ)
+      because we have multilanguage support now.
+
 
 
 0.40 2014-05-04

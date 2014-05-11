@@ -81,7 +81,7 @@ a.footnote {
   font-weight: bolder;
 }
 
-.Ⰱ {
+.Ⰲ {
   font-family: FreeSerif;
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
@@ -89,10 +89,10 @@ a.footnote {
 i.icon.ado{
   background-color: #fff;
   text-shadow:2px 2px 2px #aaa;
-  font-weight: bolder; 
+  font-weight: bolder;
 }
 i.icon.ado:before {
-  content: "Ⰱ";
+  content: "Ⰲ";
 }
 
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
