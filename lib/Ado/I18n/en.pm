@@ -1,7 +1,9 @@
 package Ado::I18n::en;
-use Mojo::Base 'Ado::I18n';
+use Mojo::Base -strict;
+use parent 'Ado::I18n';
 use I18N::LangTags::List;
 our %Lexicon = (    ##no critic(ProhibitPackageVars)
+    hello             => 'Hello [_1],',
     Logout            => 'Sign out',
     login_name        => 'User',
     login_password    => 'Password',
@@ -28,3 +30,13 @@ our %Lexicon = (    ##no critic(ProhibitPackageVars)
 );
 
 1;
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Ado::I18n::en - lexicon for English
+
+=cut
