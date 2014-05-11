@@ -65,4 +65,15 @@ my $routes = [
 ];
 $$config{routes} = $routes;
 is_deeply($i18n->config, $config, 'default config ok');
+
+delete ${Ado::}{dbix};
+$ado    = Ado->new();
+for(keys %$config){
+    $config->{$_} =1 if $_=~/language_from/;
+}
+$$config{routes} =[];
+$i18n   = Ado::Plugin::I18n->new->register($ado,$config);
+is_deeply($i18n->config, $config, 'custom config ok');
+
+
 done_testing;
