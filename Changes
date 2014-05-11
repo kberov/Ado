@@ -1,16 +1,18 @@
 Revision history for Ado
 
-0.41 2014-05-10
+0.41 2014-05-11
     - Translated intro.md. to Bulgarian.
     - Menu items in adobar.html.ep now are only icons.
     - Implemented Ado::Plugin::I18n.
+      First lexicons are in English and Bulgarian.
     - Upgraded to Mojolicious 4.98.
     - Removed unneeded Ado::Model::SqliteSequence
     - $CODENAME changed to
       "Веди" - U+2C02 GLAGOLITIC CAPITAL LETTER VEDE (Ⰲ)
       because we have multilanguage support now.
-
-
+    - На 11 май Българската православна църква (БПЦ) 
+      почита Светите братя Кирил и Методий и отбелязва 
+      възстановяването на Българската патриаршия през 1953 г.
 
 0.40 2014-05-04
     - Started translation of end-user documentation to English.
