@@ -71,6 +71,7 @@
 
 #Avoid backups made by SQLite Manager
 \betc/ado_\d+\.sqlite
+\betc/ado_\d+\.sqlite-journal
 
 #Avoid files created by some IDEs and editors
 \.komodoproject$

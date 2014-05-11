@@ -46,7 +46,8 @@ lib_sections    = NAME | SYNOPSIS | METHODS | ATTRIBUTES | CONFIG | BUGS AND LIM
 script_sections = NAME | USAGE | OPTIONS | AUTHOR
 
 [Variables::ProhibitPackageVars]
-add_packages = Carp Email::Address
+add_packages = Carp Email::Address Ado::I18n
+
 [CodeLayout::ProhibitHardTabs]
 
 #Shorten allowed lenght of regexp for more readability.

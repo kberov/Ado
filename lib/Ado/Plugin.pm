@@ -20,7 +20,7 @@ sub _get_plugin_config {
         return $config;
     }
     else {
-        $app->log->warn(
+        $app->log->info(
             "Could not load configuration from file $conf_file! " . decode('UTF-8', $@));
         return {};
     }

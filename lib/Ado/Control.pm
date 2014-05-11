@@ -19,7 +19,8 @@ sub debug;
 if ($DEV_MODE) {
 
     sub debug {
-        return shift->app->log->debug(@_);
+        my ($package, $filename, $line, $subroutine) = caller(1);
+        return shift->app->log->debug(@_, "$package:$filename:$line in $subroutine");
     }
 }
 

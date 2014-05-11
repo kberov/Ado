@@ -91,7 +91,7 @@ sub prepare_store {
 
     #once
     state $cookie_name = $self->cookie_name;
-    $c->cookie($cookie_name, $id, $options);
+    $c->cookie($cookie_name => $id, $options);
 
     return ($id, $session);
 }

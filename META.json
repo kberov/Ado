@@ -21,7 +21,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.40"
+         "version" : "0.41"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -59,6 +59,15 @@
       "Ado::Control::Test" : {
          "file" : "lib/Ado/Control/Test.pm"
       },
+      "Ado::I18n" : {
+         "file" : "lib/Ado/I18n.pm"
+      },
+      "Ado::I18n::bg" : {
+         "file" : "lib/Ado/I18n/bg.pm"
+      },
+      "Ado::I18n::en" : {
+         "file" : "lib/Ado/I18n/en.pm"
+      },
       "Ado::Model" : {
          "file" : "lib/Ado/Model.pm",
          "version" : "0.01"
@@ -93,6 +102,9 @@
       "Ado::Plugin::Auth" : {
          "file" : "lib/Ado/Plugin/Auth.pm"
       },
+      "Ado::Plugin::I18n" : {
+         "file" : "lib/Ado/Plugin/I18n.pm"
+      },
       "Ado::Plugin::MarkdownRenderer" : {
          "file" : "lib/Ado/Plugin/MarkdownRenderer.pm"
       },
@@ -113,5 +125,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "0.40"
+   "version" : "0.41"
 }

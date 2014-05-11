@@ -25,6 +25,9 @@ lib/Ado/Control/Ado/Users.pm
 lib/Ado/Control/Default.pm
 lib/Ado/Control/Doc.pm
 lib/Ado/Control/Test.pm
+lib/Ado/I18n.pm
+lib/Ado/I18n/bg.pm
+lib/Ado/I18n/en.pm
 lib/Ado/Manual.pod
 lib/Ado/Manual/Contributing.pod
 lib/Ado/Manual/Plugins.pod
@@ -40,6 +43,7 @@ lib/Ado/Model/Users.pm
 lib/Ado/Plugin.pm
 lib/Ado/Plugin/AdoHelpers.pm
 lib/Ado/Plugin/Auth.pm
+lib/Ado/Plugin/I18n.pm
 lib/Ado/Plugin/MarkdownRenderer.pm
 lib/Ado/Plugin/Routes.pm
 lib/Ado/Sessions.pm
@@ -133,7 +137,12 @@ t/command/adduser.t
 t/command/version.t
 t/manifest.t
 t/perl-critic.t
-t/plugin/auth.t
+t/plugin/auth-00.t
+t/plugin/auth-01.t
+t/plugin/auth-02.t
+t/plugin/i18n-00.t
+t/plugin/i18n-01.t
+t/plugin/i18n-02.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t
 t/pod-coverage.t

@@ -1,8 +1,11 @@
 Revision history for Ado
 
-0.41 2014-05-06
+0.41 2014-05-10
     - Translated intro.md. to Bulgarian.
     - Menu items in adobar.html.ep now are only icons.
+    - Implemented Ado::Plugin::I18n.
+    - Upgraded to Mojolicious 4.98.
+    - Removed unneeded Ado::Model::SqliteSequence
 
 
 0.40 2014-05-04

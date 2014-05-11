@@ -1,23 +1,12 @@
-#t/plugin/markdown_renderer.t
+#t/plugin/auth-01.t
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 use File::Find;
 
-
 my $t = Test::Mojo->new('Ado');
 
 #Plugins are loaded already.
-my $class = 'Ado::Plugin::Auth';
-can_ok($class, 'authenticated');
-can_ok($class, 'login');
-can_ok($class, 'logout');
-can_ok($class, 'register');
-can_ok($class, 'config');
-
-
-my $app = $t->app;
-
 #list of authentication methods in main menu
 $t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => '')
   ->text_is('.simple.dropdown a.item:nth-child(1)', '')
@@ -90,43 +79,4 @@ $t->post_ok($login_url => {} => form => $form_hash)->status_is(401, 'No such use
   ->text_is('#error_login',      'Wrong credentials! Please try again!')
   ->text_is('#error_login_name', "No such user '$form_hash->{login_name}'!");
 
-#restart application
-delete $Ado::{dbix};    #avoid redefine warning
-$t = Test::Mojo->new('Ado');
-$login_url =
-  $t->get_ok('/test/authenticateduser')->status_is(302)->header_like('Location' => qr|/login$|)
-  ->tx->res->headers->header('Location');
-$test_auth_url = $t->ua->server->url->path('/test/authenticateduser');
-$t->get_ok('/login/ado');
-
-#try again with the right password this time
-$form = $t->tx->res->dom->at('#login_form');
-my $new_csrf_token = $form->at('[name="csrf_token"]')->{value};
-ok($new_csrf_token ne $csrf_token, '$new_csrf_token is different');
-$t->post_ok(
-    $login_url => {} => form => {
-        _method        => 'login/ado',
-        login_name     => 'test1',
-        login_password => '',
-        csrf_token     => $new_csrf_token,
-        digest => Mojo::Util::sha1_hex($new_csrf_token . Mojo::Util::sha1_hex('test1' . 'test1')),
-      }
-
-      #redirect back to the $c->session('over_route')
-)->status_is(302)->header_is('Location' => $test_auth_url);
-
-
-# after authentication
-$t->get_ok($test_auth_url)->status_is(200)
-  ->content_is('hello authenticated Test 1', 'hello test1 ok');
-
-#user is Test 1
-$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Test 1!')
-  ->element_exists('#adobar #authbar a.item .sign.out.icon', 'Sign Out link is present!');
-
-#logout
-$t->get_ok('/logout')->status_is(302)->header_is('Location' => $t->ua->server->url);
-$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Guest!');
-
-
-done_testing();
+done_testing;
