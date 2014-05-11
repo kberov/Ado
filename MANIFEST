@@ -137,7 +137,9 @@ t/command/adduser.t
 t/command/version.t
 t/manifest.t
 t/perl-critic.t
-t/plugin/auth.t
+t/plugin/auth-00.t
+t/plugin/auth-01.t
+t/plugin/auth-02.t
 t/plugin/i18n.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t

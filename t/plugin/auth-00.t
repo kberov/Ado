@@ -1,4 +1,4 @@
-#t/plugin/markdown_renderer.t
+#t/plugin/auth-00.t
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;

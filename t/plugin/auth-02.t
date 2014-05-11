@@ -1,4 +1,4 @@
-#t/plugin/auth.t
+#t/plugin/auth-02.t
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
