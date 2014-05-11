@@ -19,7 +19,7 @@ configuration and a model layer - L<Mojolicious::Plugin::DSC>.
 An SQLite database is bundled in the distribution at C<etc/ado.sqlite> 
 to get started quickly.
 
-Since version 0.37 L<Ado> goes together with the following:
+L<Ado> goes together with the following:
 
 =over
 
@@ -34,6 +34,11 @@ and other authentication service-providers.
 =item * L<Ado::Plugin::MarkdownRenderer> - Render static files in markdown format.
 You can create a personal blog or enterprise wiki using static files in markdown format.
 See the Functional documentation at L<http://localhost:3000/help> for an example.
+
+=item * L<Ado::Plugin::I18n> localizes your application and site.
+It altomatically detects the current UserAgent language preferences
+and selects the best fit from the supported by the application languages.
+
 
 =item * L<PageDown|http://code.google.com/p/pagedown/> is the version of Attacklab's Showdown 
 and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter

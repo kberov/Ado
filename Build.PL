@@ -54,9 +54,10 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '4.97',
+        'Mojolicious'              => '4.98',
         'Mojolicious::Plugin::DSC' => '0.999',
         'Email::Address'           => '1.901',
+        'Locale::Maketext'         => '1.23',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
 
         #Default markdown renderer
