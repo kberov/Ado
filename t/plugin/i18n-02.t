@@ -23,6 +23,8 @@ $t->get_ok('/test/bgl10n',
 $t->get_ok('/', {Cookie => Mojo::Cookie::Request->new(name => language => value => 'de')})
   ->status_is(200)
   ->text_is('#login_form label[for="login_name"]', 'User', '/:language - fallback content');
+
+delete ${Ado::}{dbix};
 $t = Test::Mojo->new('Ado');
 
 #$config->{language_from_headers}
