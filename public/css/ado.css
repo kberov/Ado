@@ -86,7 +86,11 @@ a.footnote {
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
 }
+a.Ⰲ.popup.visible {
+  font-family: FreeSerif;  
+}
 i.icon.ado{
+  font-family: FreeSerif;
   background-color: #fff;
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
