@@ -1,7 +1,7 @@
 Revision history for Ado
 
 0.42 2014-05-15
-
+    - Fixed typos and improved POD for Ado::Plugin::Auth.
 
 0.41 2014-05-11
     - Translated intro.md. to Bulgarian.

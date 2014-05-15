@@ -158,7 +158,8 @@ Ado::Plugin::Auth - Authenticate users
   plugins =>[
     #...
     {name => 'auth', config => {
-        services =>['ado', 'facebook',...]
+        auth_methods =>['ado', 'facebook',...],
+        routes => [...]
       }
     }
     #...
@@ -186,7 +187,7 @@ in any other template on your site.
   plugins =>[
     #...
     {name => 'auth', config => {
-        services =>['ado', 'facebook',...]
+        auth_methods =>['ado', 'facebook',...]
       }
     }
     #...
@@ -198,6 +199,11 @@ L<Ado::Plugin::Auth> provides the following conditions to be used by routes.
 To find more about conditions read L<Mojolicious::Guides::Routing/Conditions>.
 
 =head2 authenticated
+
+Condition for routes used to check if a user is authenticated.
+Additional parameters can be passed to specify the preferred 
+authentication method to be preselected in the login form
+if condition redirects to C</login/:auth_method>.
 
   # add the condition programatically
   $app->routes->route('/ado-users/:action', over => {authenticated=>1});
@@ -214,20 +220,16 @@ To find more about conditions read L<Mojolicious::Guides::Routing/Conditions>.
       
       # only authenticated users can edit and delete users,
       # and only if they are authorized to do so
-      over =>over => [authenticated => 1, authz => {group => 'admin'}],
+      over => [authenticated => 1, authz => {group => 'admin'}],
       to =>'ado-users#edit'
     }
   ],
 
-Condition for routes used to check if a user is authenticated.
-Additional parameters can be passed to specify the preferred authentication method to be
-preselected in the login form
-if condition redirects to C</login/:auth_method>.
 
 
 =head1 HELPERS
 
-L<Ado::Plugin::Auth> exports the following helpers for use in  
+L<Ado::Plugin::Auth> provides the following helpers for use in  
 L<Ado::Control> methods and templates.
 
 
@@ -236,14 +238,14 @@ L<Ado::Control> methods and templates.
 
 L<Ado::Plugin::Auth> provides the following routes (actions):
 
-=head2 login
+=head2 /login
 
   /login/:auth_method
 
 If accessed using a C<GET> request displays a login form.
 If accessed via C<POST> performs authentication using C<:auth_method>.
 
-=head2 logout
+=head2 /logout
 
 Expires the session and redirects to the base URL.
 
