@@ -20,9 +20,10 @@ sub register {
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
 
-    # Load routes if they are passed
+    #Add to classes used for finding templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
 
+    # Load routes if they are passed
     $app->load_routes($config->{routes}) if (@{$config->{routes}});
     return $self;
 }

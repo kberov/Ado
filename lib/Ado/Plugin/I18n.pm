@@ -128,8 +128,8 @@ sub language {
 
     #already set from route or called in an action
     if ($stash->{$l_param}) {
-        $stash->{i18n} ||=
-          $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
+        $stash->{i18n}
+          ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
         $c->debug("already set in \$stash->{$l_param}:" . $stash->{$l_param});
         return $stash->{$l_param};
     }
