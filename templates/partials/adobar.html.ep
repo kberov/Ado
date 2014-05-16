@@ -1,7 +1,7 @@
 %# adobar.html.ep
 
   <nav id="adobar" class="ui borderless small purple inverted fixed menu">
-    <a class="Ⰲ popup item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰲ</a>
+    <%= include 'partials/logo' %>
     <a class="popup icon book item" href="<%=url_for('/perldoc')%>"
       data-content="Manual"><i class="book icon"></i></a>
     <a class="popup icon help item" data-content="About"

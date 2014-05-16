@@ -158,4 +158,5 @@ templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/partials/adobar.html.ep
 templates/partials/head.html.ep
+templates/partials/logo.html.ep
 templates/добре/ок.html.ep
