@@ -161,11 +161,11 @@ Returns $app.
 Does not accept any parameters.
 Loads plugins listed in C<$config-E<gt>{plugins}>.
 C<$config-E<gt>{plugins}> is an C<ARRAYREF> in which each element is 
-a C<HASHREF> with keys C<name> and C<config>.
+a C<HASHREF> with keys C<name> and C<config> or string representing the plugin name.
 The name of the plugin is expected to be string that can be passed to
 L<Mojolicious/plugin>.
 The C<config> values is another C<HASHREF> containing the configuration for the plugin.
-Plugins can be Mojolicious or Ado specific plugins.
+Plugins can be L<Mojolicious> or L<Ado> specific plugins.
 Every L<Ado::Plugin>::Foo must inherit from L<Ado::Plugin> which C<ISA>
 L<Mojolicious::Plugin>.
 Of course Mojolicious plugins can be used - we count on this.
