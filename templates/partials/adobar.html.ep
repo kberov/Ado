@@ -16,5 +16,6 @@
   </nav>
   <script type="text/javascript">
     $('#adobar a.popup').popup({position : 'bottom right'});
+    $('.Ⰲ').popup({position : 'bottom right'});
   </script>
 %#$self->debug(dumper(stash));
