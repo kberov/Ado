@@ -1,7 +1,7 @@
 Revision history for Ado
 
 0.42 2014-05-16
-    - Fixed typos and improved POD for Ado::Plugin::Auth.
+    - Fixed typos and improved POD.
     - Added Ado::Plugin::I18n to the list of the end-user 
       features at the bottom of the home page.
     - Created and used templates/partials/logo.html.ep.
