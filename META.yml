@@ -11,6 +11,7 @@ generated_by: 'Module::Build version 0.4203, CPAN::Meta::Converter version 2.133
 keywords:
   - Ado
   - Mojolicious
+  - realtime
   - web
   - ERP
   - REST
@@ -31,7 +32,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: 0.41
+    version: 0.42
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -102,11 +103,11 @@ recommends:
 requires:
   Email::Address: 1.901
   Locale::Maketext: 1.23
-  Mojolicious: 4.98
+  Mojolicious: 4.99
   Mojolicious::Plugin::DSC: 0.999
   Text::MultiMarkdown: 1.000034
   perl: v5.14.0
 resources:
   bugtracker: http://github.com/kberov/Ado/issues
   repository: http://github.com/kberov/Ado
-version: 0.41
+version: 0.42
