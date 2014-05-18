@@ -1,14 +1,16 @@
 Revision history for Ado
 
-0.42 2014-05-16
+0.42 2014-05-18
     - Fixed typos and improved POD.
     - Added Ado::Plugin::I18n to the list of the end-user 
       features at the bottom of the home page.
     - Created and used templates/partials/logo.html.ep.
     - Created embedded template languages_menu.html.ep in Ado::Plugin::I18n
-      and used it on the home page. This is a good usage example.
+      and used it on the home page. This is a usage example.
     - Added jQuery Cookie Plugin v1.4.1.
     - Added some flag icons from http://www.famfamfam.com.
+    - Upgraded to Mojolicious 4.99.
+    - Upgraded to Semantic UI 0.17.0
 
 0.41 2014-05-11
     - Translated intro.md. to Bulgarian.

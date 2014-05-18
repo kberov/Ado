@@ -45,12 +45,12 @@ $t->get_ok($test_auth_url)->status_is(200)
   ->content_is('hello authenticated Test 1', 'hello test1 ok');
 
 #user is Test 1
-$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Test 1!')
+$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello Test 1,')
   ->element_exists('#adobar #authbar a.item .sign.out.icon', 'Sign Out link is present!');
 
 #logout
 $t->get_ok('/logout')->status_is(302)->header_is('Location' => $t->ua->server->url);
-$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello, Guest!');
+$t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello Guest,');
 
 
 done_testing();

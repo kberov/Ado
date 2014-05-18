@@ -23,7 +23,10 @@ sub language_menu {
     #small hack to use embedded template
     state $renderer = scalar push @{$c->app->renderer->classes}, __PACKAGE__;
     my $stash = $c->stash;
-    $$stash{language_from} = $c->param('from');
+
+    $c->debug('$$stash{language_from}:' . $$stash{language_from});
+    $$stash{language_from} ||= $c->param('from');
+    $c->debug('$$stash{language_from}:' . $$stash{language_from});
     return;
 }
 1;
@@ -57,6 +60,10 @@ Used to test the C<l> controller helper L<Ado::Plugin::I18n/l>.
 =head2 bgl10n
 
 Used to test the C<language> helper L<Ado::Plugin::I18n/language>.
+
+=head2 language_menu
+
+Used to test the produced HTML by C<partials/language_menu.html.ep>.
 
 =head2 index
 
