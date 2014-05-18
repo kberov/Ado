@@ -12,7 +12,9 @@
     </a>
     <a class="popup icon item" href="https://metacpan.org/release/Ado"
     data-content="CPAN"><b>:&nbsp;:</b></a>
-    %= include 'partials/authbar' unless current_route =~ m'login';
+
+    %= include 'partials/authbar' unless current_route =~ m'login'
+    %= include 'partials/language_menu'
   </nav>
   <script type="text/javascript">
     $('#adobar a.popup').popup({position : 'bottom right'});

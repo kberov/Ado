@@ -2,7 +2,6 @@ package Ado::Plugin::I18n;
 use Mojo::Base 'Ado::Plugin';
 use I18N::LangTags qw(implicate_supers);
 use I18N::LangTags::Detect;
-use List::Util qw(first);
 use Time::Seconds;
 
 #example.com/cz/foo/bar
@@ -95,8 +94,12 @@ sub register {
     # Add hook around_action
     $app->hook(around_action => \&around_action);
 
+    #Add to classes used for finding templates in DATA sections
+    push @{$app->renderer->classes}, __PACKAGE__;
+
+
     #make plugin configuration available for later in the app
-    $app->config(__PACKAGE__, $config);
+    $app->config(__PACKAGE__, \%$config);
     return $self;
 }
 
@@ -130,6 +133,7 @@ sub language {
     if ($stash->{$l_param}) {
         $stash->{i18n}
           ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
+        $stash->{language_from} = 'route';
         $c->debug("already set in \$stash->{$l_param}:" . $stash->{$l_param});
         return $stash->{$l_param};
     }
@@ -140,6 +144,7 @@ sub language {
     {
         $stash->{i18n} =
           $$config{namespace}->get_handle($l, @{$$config{languages}});
+        $stash->{language_from} = 'host';
         $c->debug("language_from_host:$l");
         return $stash->{$l_param} = $l;
     }
@@ -149,6 +154,7 @@ sub language {
         && (my $l = ($c->param($l_param) // '')))
     {
         $stash->{$l_param} = $l;
+        $stash->{language_from} = 'param';
         $c->debug("language_from_param:$l_param:$stash->{$l_param}");
     }
 
@@ -159,6 +165,7 @@ sub language {
     {
         $c->cookie($$config{language_param} => $language, {expires => time + ONE_MONTH});
         $stash->{$l_param} = $language;
+        $stash->{language_from} = 'cookie';
         $c->debug("language_from_cookie:$stash->{$l_param}");
     }
 
@@ -168,9 +175,10 @@ sub language {
           I18N::LangTags::implicate_supers(
             I18N::LangTags::Detect->http_accept_langs($c->req->headers->accept_language));
         foreach my $l (@languages) {
-            $stash->{$l_param} = first { $_ =~ /$l/ } @{$$config{languages}};
+            $stash->{$l_param} = List::Util::first { $_ =~ /$l/ } @{$$config{languages}};
             last if $stash->{$l_param};
         }
+        $stash->{language_from} = 'route';    #default!!!
         $c->debug("language_from_headers:$stash->{$l_param}") if $stash->{$l_param};
     }
 
@@ -348,17 +356,40 @@ You rarely will want to change this.
 L<Ado::Plugin::I18n> exports the following helpers for use in  
 L<Ado::Control> methods and templates.
 
-=head2 language
-
-Allows you to reset the current language. You do not need to use this helper
-it is called automatically in L<Mojolicious/around_action> hook.
-
 =head2 l
 
-Same as L<Locale::Maketext/maketext>.
+Wrapper for L<Locale::Maketext/maketext>.
 
   $c->render(text => $c->l('hello', $c->user->name));
   <%= l('hello', user->name) %>
+
+=head2 language
+
+Allows you to reset the current language. You should not need to use this helper!
+It is called automatically in L<Mojolicious/around_action> hook.
+
+=head1 TEMPLATES
+
+L<Ado::Plugin::I18n> contains one embeded template.
+
+=head2 partials/language_menu.html.ep
+
+Generates html for a language menu. 
+If you want to modify the template you can inflate all templates and do that.
+A usage example can be found at L<http://localhost:3000> after starting ado.
+
+    berov@u165:~/opt/public_dev/Ado$ bin/ado inflate
+        ...
+      [exist] /home/berov/opt/public_dev/Ado/templates/partials
+      [write] /home/berov/opt/public_dev/Ado/templates/partials/language_menu.html.ep
+    
+    #then choose the preferred way to switch languages...
+    %= include 'partials/language_menu'; # use default language_from => 'route'
+    %= include 'partials/language_menu', language_from => 'route';
+    %= include 'partials/language_menu', language_from => 'host';
+    %= include 'partials/language_menu', language_from => 'param';
+    %= include 'partials/language_menu', language_from => 'cookie';
+
 
 =head1 METHODS
 
@@ -379,6 +410,8 @@ Returns C<$self>.
 
 Returns a list of routes with C<:language> placeholder
 defined in the plugin configuration. Called in L</register>.
+To create your own routes just create C<etc/plugin/i18n.conf> and add them to it.
+They will replace the default routes.
 
   #default routes including language placeholder.
   $app->load_routes($self->routes);
@@ -436,3 +469,75 @@ the license may release under a different license.
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
+
+__DATA__
+
+@@ partials/language_menu.html.ep
+%# This template is inflated from Ado::Plugin::I18n. 
+%# It Displays menu items with flags. 
+%# You can experiment and make it as one dropdown menu item.
+%# $self->debug($self->dumper(config('Ado::Plugin::I18n')));
+% my $stash = $self->stash;
+% my @languages = @{config('Ado::Plugin::I18n')->{languages}};
+% $$stash{language_from} ||='route';
+% $$stash{language} ||=config('Ado::Plugin::I18n')->{default_language};
+
+
+<!-- language_menu start -->
+<div class="right compact menu" id="language_menu">
+% if($$stash{language_from} eq 'route') {
+  % my $route = $$stash{id} ? 'languagecontrolleractionid' : 'languagecontrolleraction';
+  % foreach my $l(@languages) {
+    % my $active = $l eq $$stash{language} ? 'active ' : '';
+    % my $url = url_for($route, language => $l);
+    <%= link_to $url,(class => "${active}button popup item", title => l($l) ), begin%>
+        <%= t(img =>src => "/css/flags/$l.png", alt=>$l) %>
+    <% end %>
+  % }
+% }
+% elsif($$stash{language_from} eq 'host'){
+  % foreach my $l(@languages){
+    % my $active = $l eq $$stash{language} ? 'active ' : '';
+    % my $url = $self->req->url->to_abs->clone;
+    % my ($port, $host) = ($url->port,$url->host);
+    % $host =~ s|^\w{2}\.||;
+  <a class="<%= $active %>button popup item" 
+    href="//<%= $l.'.'.$host .($port?':'.$port:'') %>"
+    data-content="<%= l($l) %>">
+      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
+  </a>
+  % }
+% }
+% elsif($$stash{language_from} eq 'param'){
+  % my $language_param = config('Ado::Plugin::I18n')->{language_param};
+  % foreach my $l(@languages){
+    % my $active = $l eq $$stash{language} ? 'active ' : '';
+  <a class="<%= $active %>button popup item" 
+    href="<%= url_with->query([$language_param => $l]); %>"
+    data-content="<%= l($l) %>">
+      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
+  </a>
+  % }
+% }
+% elsif($$stash{language_from} eq 'cookie'){
+  % my $language_param = config('Ado::Plugin::I18n')->{language_param};
+  % foreach my $l(@languages){
+    % my $active = $l eq $$stash{language} ? 'active ' : '';
+  <a class="<%="$l $active" %>button popup item" 
+    href="<%= url_for; %>"
+    data-content="<%= l($l) %>" data-language="<%= $l %>">
+      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
+  </a>
+  % }
+  % my $languages_css_selectors = join(', ', map("#language_menu a.$_", @languages));
+  <script src="/js/jquery.cookie.js"></script>
+  <script>
+    $('<%=$languages_css_selectors%>').click(function(){
+        $.removeCookie('<%=$language_param%>', { path: '/' });
+        $.cookie('<%=$language_param%>',$(this).data('language'),{expires: 30, path: '/' });
+    });
+  </script>
+% }
+</div>
+<!-- language_menu end -->
+

@@ -15,6 +15,17 @@ sub bgl10n {
     return $_[0]->render(text => $_[0]->l('hello', $_[0]->user->name));
 }
 *index = \&l10n;
+
+#action to test language_menu
+sub language_menu {
+    my ($c) = @_;
+
+    #small hack to use embedded template
+    state $renderer = scalar push @{$c->app->renderer->classes}, __PACKAGE__;
+    my $stash = $c->stash;
+    $$stash{language_from} = $c->param('from');
+    return;
+}
 1;
 
 =pod
@@ -70,4 +81,24 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
 
+
+__DATA__
+
+@@ test/language_menu.html.ep
+<!DOCTYPE html>
+<html>
+  <head><%= include 'partials/head'; %></head>
+  <body>
+<nav id="adobar" class="ui borderless small purple inverted fixed menu">
+%= include 'partials/language_menu' 
+</nav>
+<main class="ui">
+  <article class="ui main container">
+
+  %= tag 'h1' => l('hello', user->name);
+  </article>
+
+</main>
+</body>
+</html>
 
