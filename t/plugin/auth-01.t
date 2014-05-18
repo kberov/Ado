@@ -16,7 +16,7 @@ $t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => '')
   ->text_is('#authbar .modal form#login_form .ui.header:nth-child(1)' => 'Login')
 
 #user is Guest
-  ->text_is('article.ui.main.container h1' => 'Hello, Guest!');
+  ->text_is('article.ui.main.container h1' => 'Hello Guest,');
 
 #same form is at /login/:auth_method
 my $test_auth_url = $t->ua->server->url->path('/test/authenticateduser');

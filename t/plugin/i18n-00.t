@@ -66,7 +66,7 @@ my $routes = [
 $$config{routes} = $routes;
 is_deeply($i18n->config, $config, 'default config ok');
 
-delete ${Ado::}{dbix};
+delete ${Ado::}{dbix};    #shut up redefine
 $ado = Ado->new();
 for (keys %$config) {
     $config->{$_} = 1 if $_ =~ /language_from/;

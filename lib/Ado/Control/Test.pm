@@ -15,6 +15,20 @@ sub bgl10n {
     return $_[0]->render(text => $_[0]->l('hello', $_[0]->user->name));
 }
 *index = \&l10n;
+
+#action to test language_menu
+sub language_menu {
+    my ($c) = @_;
+
+    #small hack to use embedded template
+    state $renderer = scalar push @{$c->app->renderer->classes}, __PACKAGE__;
+    my $stash = $c->stash;
+
+    $c->debug('$$stash{language_from}:' . $$stash{language_from});
+    $$stash{language_from} ||= $c->param('from');
+    $c->debug('$$stash{language_from}:' . $$stash{language_from});
+    return;
+}
 1;
 
 =pod
@@ -47,6 +61,10 @@ Used to test the C<l> controller helper L<Ado::Plugin::I18n/l>.
 
 Used to test the C<language> helper L<Ado::Plugin::I18n/language>.
 
+=head2 language_menu
+
+Used to test the produced HTML by C<partials/language_menu.html.ep>.
+
 =head2 index
 
 Alias for C<l10n> action.
@@ -70,4 +88,24 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
 
+
+__DATA__
+
+@@ test/language_menu.html.ep
+<!DOCTYPE html>
+<html>
+  <head><%= include 'partials/head'; %></head>
+  <body>
+<nav id="adobar" class="ui borderless small purple inverted fixed menu">
+%= include 'partials/language_menu' 
+</nav>
+<main class="ui">
+  <article class="ui main container">
+
+  %= tag 'h1' => l('hello', user->name);
+  </article>
+
+</main>
+</body>
+</html>
 

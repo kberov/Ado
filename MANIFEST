@@ -57,6 +57,13 @@ MANIFEST			This list of files
 META.json
 META.yml
 public/css/ado.css
+public/css/flags/bg.png
+public/css/flags/de.png
+public/css/flags/en.png
+public/css/flags/es.png
+public/css/flags/fr.png
+public/css/flags/readme.txt
+public/css/flags/ru.png
 public/css/ui-bg_diagonal-maze_light_10x10.png
 public/doc/bg/accounting.md
 public/doc/bg/admin.md
@@ -97,6 +104,7 @@ public/img/Ado-Building-Blocks.svg
 public/index.html
 public/js/auth.js
 public/js/help_toc.js
+public/js/jquery.cookie.js
 public/vendor/crypto-js/rollups/sha1.js
 public/vendor/pagedown/LICENSE.txt
 public/vendor/pagedown/Markdown.Converter.js
@@ -142,6 +150,7 @@ t/plugin/auth-02.t
 t/plugin/i18n-00.t
 t/plugin/i18n-01.t
 t/plugin/i18n-02.t
+t/plugin/i18n-03.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t
 t/pod-coverage.t

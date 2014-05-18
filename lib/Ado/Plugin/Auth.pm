@@ -252,6 +252,24 @@ Expires the session and redirects to the base URL.
 
   $c->logout();
 
+=head1 TEMPLATES
+
+L<Ado::Plugin::Auth> embeds the following templates. You can run C<ado inflate> and modify them.
+Usage examples can be found at L<http://localhost:3000> after starting ado.
+
+=head2 partials/authbar.html.ep
+
+Renders a menu dropdown for choosing methods for signing in.
+
+=head2 partials/login_form.html.ep
+
+Renders a Login form.
+
+
+=head2 login.html.ep
+
+Renders a page containing the login form.
+
 =head1 METHODS
 
 L<Ado::Plugin::Auth> inherits all methods from
@@ -306,7 +324,7 @@ __DATA__
 %# displayed as a menu item
 <div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
-  <div class="ui simple dropdown item" title="Sign in with">
+  <div class="ui simple dropdown item" title="<%=l('Sign in with') %>">
     <i class="sign in icon"></i>
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
