@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.43 2014-05-18
+
+
 0.42 2014-05-18
     - Fixed typos and improved POD.
     - Added Ado::Plugin::I18n to the list of the end-user 
