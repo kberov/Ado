@@ -1,7 +1,6 @@
-% my $language = language
 <!DOCTYPE html>
-<html 
-  xmlns="http://www.w3.org/1999/xhtml" 
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
   xml:lang="<%= $language %>"
   version="XHTML+RDFa 1.1"
   lang="<%= $language %>">
