@@ -5,7 +5,7 @@
     <a class="popup icon book item" href="<%=url_for('/perldoc')%>"
       data-content="Manual"><i class="book icon"></i></a>
     <a class="popup icon help item" data-content="About"
-      href="<%=url_for('/help')%>"><i class="icon help"></i></a>
+      href="<%=url_for("/help/$language/cover.md")%>"><i class="icon help"></i></a>
     <a class="popup icon github item" data-content="View project on Github" 
       href="https://github.com/kberov/Ado" target="_blank">
       <i class="icon github"></i>

@@ -9,7 +9,7 @@
     че собственикът на този сайт (вие?!?) е инсталирал успешно
     <a href="<%=url_for('/perldoc/Ado')%>">Ado</a>. <i>Поздравления!</i>
     Може да искате да прочетете общото
-    <a href="<%=url_for('/help/en/intro.md')%>">въведение</a>
+    <a href="<%=url_for("/help/$language/intro.md")%>">въведение</a>
     преди да продължите.
   </p>
   <p>
@@ -23,8 +23,7 @@
   </p>
   <h2>Какво следва?</h2>
   <ol>
-    <li>Копирайте <code>etc/ado.conf</code> в 
-    <code>etc/ado.development.conf</code>. 
+    <li>Копирайте <code>etc/ado.conf</code> в <code>etc/ado.development.conf</code>. 
     Това ще бъде конфигурационният ви файл по време на разработка. 
     Можете да преименувате някак подразбиращият се <code>etc/ado.conf</code>
     и да го пазите за възстановяване на настройките до първоначалното им състояние.
@@ -32,7 +31,7 @@
     <code>etc/ado.development.conf</code>. 
     И двата файла ще се четат при стартиране, но настройките от специфичния за средата
     ще бъдат предпочитани пред пред тези от подразбиращия се файл.
-    <blockquote> 
+    <blockquote>
       По-късно, когато сте готови официално да влезете в <i>производствен</i> режим,
       копирайте <code>etc/ado.development.conf</code> като <code>etc/ado.production.conf</code>,
       променете настройките (пътища, тайни и т.н.) в него и не забравяйте
@@ -41,42 +40,50 @@
       и да ползвате него за стартиране на Ado.
     </blockquote>
     </li>
-    <li>Execute <code>ado inflate</code> to dump the embedded files and templates.</li>
-    <li>Create a folder <code>site_templates</code> in <code><%=$home%></code>. 
-    The folder <code>site_templates</code> will be searched for templates first, 
-    so you can copy files from folder <code>templates</code> and modify them for your needs.
+    <li>В терминал изпълнете <code>ado inflate</code>, за да можете да променяте внедрените 
+    образци (шаблони) и други файлове.</li>
+    <li>Създайте директория <code>site_templates</code> в <code><%=$home%></code>. 
+    Понеже първо  в директорията <code>site_templates</code> ще бъдат търсени образците, можете да копирате всички файлове от <code>templates</code> и да
+    ги промените както намерите за добре. Така ще създадете външен вид по ваш вкус без да се страхувате, че образците ще бъдат презаписани с подразбиращите се, когато обновите Ado.
     </li>
-    <li>In <code>site_templates</code> create a folder <code>default</code> 
-    and create a file named <code>index.html.ep</code> in it. 
-    The new file will be used as template instead 
-    of the file you are reading now. The full path should look like 
+    <li>В <code>site_templates</code> създайте директория с име <code>default</code> 
+    и в нея създайте файл с име <code>index.html.ep</code>. 
+    от тук насетне новият файл ще бъде ползван като образец за генериране на входната страница вместо файла, който четете сега.
+    Пълният път до вашия файл трябва да бъде
     <code><%=$home%>/site_templates/default/index.html.ep</code>
     </li>
-    <li>Copy <code>etc/ado.sqlite</code> to <code>etc/ado.development.sqlite</code>. 
-    This will be your development database. 
+    <li>Копирайте <code>etc/ado.sqlite</code> като <code>etc/ado.development.sqlite</code>. 
+    Това ще бъде базата ви данни по време на разработка. 
     <blockquote> 
-      Later when you are ready to go officially in <i>production</i> mode,
-      copy <code>etc/ado.development.sqlite</code> to <code>etc/ado.production.sqlite</code>
-      and do not forget to set <code>MOJO_MODE='production'</code> in your .bashrc
-      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code>, modify it and use it to start Ado.
+      По-късно, когато сте готови официално да влезете в <i>производствен</i> режим,
+      копирайте <code>etc/ado.development.sqlite</code> като 
+      <code>etc/ado.production.sqlite</code>
+      и не забравяйте да зададете <code>MOJO_MODE='production'</code> в ~/.bashrc.
+      Или пък копирайте <code>bin/ado</code> като <code>bin/ado.production.pl</code>, променете го и ползвайте него за да стартирате Ado.
     </blockquote>
     </li>
-    <li>For end-user help look at <a href="<%=url_for('/help')%>">/help</a>!</li>
-    <li>For development help look at <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
-    <li>Develop your site, application or both!</li>
-    <li>Enough ado, have fun with <b>Ado</b>!</li>
-    <li>Still here? Ado comes with some default end-user features which can be tried right away.
+    <li>Помощ за крайния потребител ще намерите на адрес 
+      <a href="<%=url_for('/help')%>">/help</a>!</li>
+    <li>Помощ за разработчици ще намерите на адрес 
+      <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
+    <li>Разработете сайта или приложението си, или и двете!</li>
+    <li>Стига толкова приготовления, забавлявайте се с <b>Ado</b>!</li>
+    <li>Още ли сте тук? Ado върви с някои възможности за крайните потребители,
+    които можете да пробвате веднага.
         <ol>
           <li>
-            User <a href="<%=url_for('/help')%>">documentation</a> works thanks
-            to <a href="<%=url_for('/perldoc/Ado/Plugin/MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a>.
+            <a href="<%=url_for('/help')%>">Документацията за крайния потребител</a>
+            работи благодарение на
+            <a href="<%=url_for('/perldoc/Ado/Plugin/MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a>.
           </li>
           <li>
-            User <a href="<%=url_for('/test/authenticateduser')%>">authentication</a> works thanks to <a href="<%=url_for('/perldoc/Ado/Plugin/Auth')%>">Ado::Plugin::Auth</a>.
-            Try <i>User: 'test1'; Password: 'test1'</i>!
+            <a href="<%=url_for('/test/authenticateduser')%>"
+            >Автентикацията (Влизане)</a> работи благодарение на
+            <a href="<%=url_for('/perldoc/Ado/Plugin/Auth')%>">Ado::Plugin::Auth</a>.
+            Пробвайте с <i>Потребител: 'test1'; Парола: 'test1'</i>!
           </li>
           <li>
-            Multilanguage support is implemented as
+            Поддръжката на много езици е разработена като
             <a href="<%=url_for('/perldoc/Ado/Plugin/I18n')%>">Ado::Plugin::I18n</a>.
           </li>
         </ol>
@@ -87,9 +94,11 @@
   <i class="circular ado icon"></i>
 </div>
 <article class="ui footer small">
-  <h3>COPYRIGHT AND LICENSE</h3>
-<p>Copyright 2013-2014 Красимир Беров (Krasimir Berov).</p>
+  <h3>АВТОРСКИ ПРАВА И ЛИЦЕНЗ</h3>
+<p>&copy; 2013-2014 Красимир Беров (Krasimir Berov).</p>
 <p>
-This program is free software, you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may copy, distribute and modify the software provided that modifications are open source. However, software that includes the license may release under a different license.
+Тази програма е свободен софтуер. Можете да я разпространявата или да я променяте
+при условията на GNU Lesser General Public License v3 (LGPL-3.0). 
+Можете да копирате, разпространявате и променяте софтуера ако промените ви също са с отворен код. Все пак софтуер, който съдържа този лиценз може да бъде издаван с друг лиценз.
 <br />
-See http://opensource.org/licenses/lgpl-3.0.html for more information.</p>
+За повече информация вижте http://opensource.org/licenses/lgpl-3.0.html.</p>
