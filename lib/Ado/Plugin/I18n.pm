@@ -129,7 +129,7 @@ sub language {
         return $stash->{$l_param} = $language;
     }
 
-    #already set from route or called in an action
+    #already set from route or called in an action as: $c->language()
     if ($stash->{$l_param}) {
         $stash->{i18n}
           ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
@@ -363,8 +363,12 @@ Wrapper for L<Locale::Maketext/maketext>.
 
 =head2 language
 
-Allows you to reset the current language. You should not need to use this helper!
+Allows you to (re)set the current language. You should not need to use this helper!
 It is called automatically in L<Mojolicious/around_action> hook.
+Note however that if you render a template directly (without controller) you need to
+call it in the template. See C<templates/добре/ок.html.ep> for an example.
+
+    % language('bg');
 
 =head1 TEMPLATES
 

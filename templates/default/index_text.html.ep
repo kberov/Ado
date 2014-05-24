@@ -1,0 +1,90 @@
+  <img id="ado-img" class="ui rounded right floated image" 
+    title="Ado – a rapid active commotion" 
+    src="/img/5FE59-ado.jpg" />
+  <p>
+    If you read this text in your browser 
+    it means the owner of this site (you?!?) successfully installed 
+    <a href="<%=url_for('/perldoc/Ado')%>">Ado</a>. <i>Congratulations!</i>
+    You may want to read the general
+    <a href="<%=url_for('/help/en/intro.md')%>">introduction</a>
+    before going further.
+  </p>
+  <p>
+    This is the default Ado page produced by 
+    <code><%=ref($self)%>::<%=$action%>()</code> and using template
+    <code>templates/default/index.html.ep</code>.
+    Your Ado system is installed in <code><%=$home%></code>.
+    All paths below are relative to it.
+    The current url is <code>"<%=url_for('/')->base%>"</code>.
+    On the right side above you see a picture explaining one of 
+    the meanings of the word "ado". 
+  </p>
+  <h2>What's next?</h2>
+  <ol>
+    <li>Copy <code>etc/ado.conf</code> to 
+    <code>etc/ado.development.conf</code>. 
+    This will be your configuration file during development. 
+    You can rename the default <code>etc/ado.conf</code> to something known to you only 
+    and keep it for restoring the configuration to its initial state.
+    Alternatively you can keep it but modify only <code>etc/ado.development.conf</code>. 
+    Both files will be read but the environment specific configuration will override the
+    settings from the default file.
+    <blockquote> 
+      Later, when you are ready to go officially in <i>production</i> mode,
+      copy <code>etc/ado.development.conf</code> to <code>etc/ado.production.conf</code>,
+      modify the settings (paths, secrets etc) in it accordingly and do not forget to set <code>MOJO_MODE='production'</code> in your  ~/.bashrc
+      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code>, modify it and use it to start Ado.
+    </blockquote>
+    </li>
+    <li>Execute <code>ado inflate</code> to dump the embedded files and templates.</li>
+    <li>Create a folder <code>site_templates</code> in <code><%=$home%></code>. 
+    The folder <code>site_templates</code> will be searched for templates first, 
+    so you can copy files from folder <code>templates</code> and modify them for your needs.
+    </li>
+    <li>In <code>site_templates</code> create a folder <code>default</code> 
+    and create a file named <code>index.html.ep</code> in it. 
+    The new file will be used as template instead 
+    of the file you are reading now. The full path should look like 
+    <code><%=$home%>/site_templates/default/index.html.ep</code>
+    </li>
+    <li>Copy <code>etc/ado.sqlite</code> to <code>etc/ado.development.sqlite</code>. 
+    This will be your development database. 
+    <blockquote> 
+      Later when you are ready to go officially in <i>production</i> mode,
+      copy <code>etc/ado.development.sqlite</code> to <code>etc/ado.production.sqlite</code>
+      and do not forget to set <code>MOJO_MODE='production'</code> in your .bashrc
+      or copy <code>bin/ado</code> to <code>bin/ado.production.pl</code>, modify it and use it to start Ado.
+    </blockquote>
+    </li>
+    <li>For end-user help look at <a href="<%=url_for('/help')%>">/help</a>!</li>
+    <li>For development help look at <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
+    <li>Develop your site, application or both!</li>
+    <li>Enough ado, have fun with <b>Ado</b>!</li>
+    <li>Still here? Ado comes with some default end-user features which can be tried right away.
+        <ol>
+          <li>
+            User <a href="<%=url_for('/help')%>">documentation</a> works thanks
+            to <a href="<%=url_for('/perldoc/Ado/Plugin/MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a>.
+          </li>
+          <li>
+            User <a href="<%=url_for('/test/authenticateduser')%>">authentication</a> works thanks to <a href="<%=url_for('/perldoc/Ado/Plugin/Auth')%>">Ado::Plugin::Auth</a>.
+            Try <i>User: 'test1'; Password: 'test1'</i>!
+          </li>
+          <li>
+            Multilanguage support is implemented as
+            <a href="<%=url_for('/perldoc/Ado/Plugin/I18n')%>">Ado::Plugin::I18n</a>.
+          </li>
+        </ol>
+    </li>
+  </ol>
+</article>
+<div class="ui horizontal section divider" style="margin-top:2em">
+  <i class="circular ado icon"></i>
+</div>
+<article class="ui footer small">
+  <h3>COPYRIGHT AND LICENSE</h3>
+<p>&copy; 2013-2014 Красимир Беров (Krasimir Berov).</p>
+<p>
+This program is free software, you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may copy, distribute and modify the software provided that modifications are open source. However, software that includes the license may release under a different license.
+<br />
+See http://opensource.org/licenses/lgpl-3.0.html for more information.</p>

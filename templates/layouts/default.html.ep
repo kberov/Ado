@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="<%= $language %>"
+  version="XHTML+RDFa 1.1"
+  lang="<%= $language %>">
   <head><%= include 'partials/head'; %></head>
   <body><%= include 'partials/adobar' %><%= content %></body>
   <!-- Produced by

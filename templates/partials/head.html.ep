@@ -9,8 +9,12 @@
     <meta name="description" content="<%= $description %>" />
     <meta name="keywords" content="<%= $keywords %>" />
     <title><%= title %></title>
-    <link href='vendor/Semantic-UI/css/semantic.min.css' rel='stylesheet' type='text/css' />
-    <!-- <link href='//fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic' rel='stylesheet' type='text/css' /> -->
+    <link rel="shortcut icon" 
+        href="<%= url_for('/favicon.ico')->to_abs %>"
+        type="image/vnd.microsoft.icon" />
+    <link href='vendor/Semantic-UI/css/semantic.min.css' rel='stylesheet' 
+        type='text/css' />
+    <!-- <link href='//fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css' /> -->
     <link href="css/ado.css" rel="stylesheet" type="text/css" />
     <script src="mojo/jquery/jquery.js"></script>
     <script src="vendor/Semantic-UI/javascript/semantic.min.js"></script>

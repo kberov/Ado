@@ -1,13 +1,18 @@
 % use Mojo::Util qw(decode url_unescape);
+% language('bg');
 % layout 'default';
 % title 'Добре';
 % my $съобщение = 'Много добре, ти си №1!';
-<h2><%= $съобщение %></h2>
-This page was generated from the template 
-<b>"<%= decode 'UTF-8', url_unescape(url_for) %>"</b>
-and the layout <b>"<%== layout %>"</b>,
-<a href="<%== url_for %>">click here</a> to reload the page or
-<a href="/index.html">here</a> to move forward to a static page.
+<main class="ui">
+  <article class="ui main container">
+    <h2><%= $съобщение %></h2>
+    This page was generated from the template 
+    <b>"<%= decode 'UTF-8', url_unescape(url_for) %>"</b>
+    and the layout <b>"<%== layout %>"</b>,
+    <a href="<%== url_for %>">click here</a> to reload the page or
+    <a href="/index.html">here</a> to move forward to a static page.
+  </article> 
+</main>
 
 % #the next is used only to test sessions
 % session(current_time=>time);

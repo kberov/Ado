@@ -162,6 +162,8 @@ t/sessions/database.t
 t/sessions/file.t
 t/sessions/mojolicious.t
 templates/default/index.html.ep
+templates/default/index_text.html+bg.ep
+templates/default/index_text.html.ep
 templates/doc/show.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
