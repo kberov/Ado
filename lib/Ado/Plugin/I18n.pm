@@ -129,7 +129,7 @@ sub language {
         return $stash->{$l_param} = $language;
     }
 
-    #already set from route or called in an action
+    #already set from route or called in an action as: $c->language()
     if ($stash->{$l_param}) {
         $stash->{i18n}
           ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
