@@ -126,11 +126,11 @@ SUPPORT AND DOCUMENTATION
   contributions.
 
 CONTRIBUTING
-  Of course anybody can contribute by reporting issues via github. To be
-  able to contribute with code some rules need to be kept. This is mandatory
-  for any community project. Generally the rules outlined in
-  Mojolicious::Guides::Contributing apply for Ado too. For specific to Ado
-  rules see Ado::Manual::Contributing.
+  Of course anybody can contribute by reporting issues via github or fixing
+  typos in the documentation. To be able to contribute with code, some rules
+  need to be kept. This is mandatory for any community project. Generally
+  the rules outlined in Mojolicious::Guides::Contributing apply for Ado too.
+  For specific to Ado rules see Ado::Manual::Contributing.
 
   We expect that you know how to write perl Modules and are familiar with
   Mojolicious.
