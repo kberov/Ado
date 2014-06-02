@@ -130,8 +130,9 @@ Feel invited to make pull requests for your contributions.
 
 # CONTRIBUTING
 
-Of course anybody can contribute by reporting issues via github.
-To be able to contribute with code some rules need to be kept.
+Of course anybody can contribute by reporting issues via github 
+or fixing typos in the documentation.
+To be able to contribute with code, some rules need to be kept.
 This is mandatory for any community project.
 Generally the rules outlined in [Mojolicious::Guides::Contributing](https://metacpan.org/pod/Mojolicious::Guides::Contributing)
 apply for [Ado](https://metacpan.org/pod/Ado) too.
