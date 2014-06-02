@@ -4,6 +4,7 @@ Revision history for Ado
     - Fixed failing tests with Mojolicious 5.00
       (caused by "Changed return value of path_for method in Mojolicious::Routes::Match.").
     - Upgraded to Mojolicious 5.02.
+    - Improved documentation a bit.
 
 0.44 2014-05-29
     - Fixed typos in documentation.
