@@ -5,8 +5,8 @@ use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Mojo::Util qw(decode encode);
 
 has description => "Generates Apache2 Virtual Host configuration file.\n";
-has usage => sub { shift->extract_usage };
-has args => sub { {} };
+has usage       => sub { shift->extract_usage };
+has args        => sub { {} };
 
 sub run {
     my ($self, @args) = @_;
@@ -14,22 +14,22 @@ sub run {
     my $ServerName;
     say $self->app->dumper(\@args);
     my $args = $self->args;
-  GetOptionsFromArray \@args,
-    'n|ServerName=s' => \$args->{ServerName},
-    'p|port=i' => \($args->{port} = 80),
-    'A|ServerAlias=s'  => \$args->{ServerAlias},
-    'a|ServerAdmin=s'  => \$args->{ServerAdmin},
-    'D|DocumentRoot=s'  => \($args->{DocumentRoot} = $home),
-    'v|verbose'   => \$args->{verbose};
+    GetOptionsFromArray \@args,
+      'n|ServerName=s'   => \$args->{ServerName},
+      'p|port=i'         => \($args->{port} = 80),
+      'A|ServerAlias=s'  => \$args->{ServerAlias},
+      'a|ServerAdmin=s'  => \$args->{ServerAdmin},
+      'D|DocumentRoot=s' => \($args->{DocumentRoot} = $home),
+      'v|verbose'        => \$args->{verbose};
 
-  @args = map { decode 'UTF-8', $_ } @args;
-  die $self->usage unless $args->{ServerName};
-  $args->{ServerAlias} //= 
-    $$args{ServerName}=~/^www\./? $$args{ServerName}:'www.'.$$args{ServerName};
-  $args->{ServerAdmin} //= 'webmaster@'.$args->{ServerName};
+    @args = map { decode 'UTF-8', $_ } @args;
+    die $self->usage unless $args->{ServerName};
+    $args->{ServerAlias} //=
+      $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
+    $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
 
-  say Mojo::Template->new->render_file(
-    $self->rel_file('templates/partials/apache2vhost.ep'),$args);
+    say Mojo::Template->new->render_file($self->rel_file('templates/partials/apache2vhost.ep'),
+        $args);
 }
 
 1;
