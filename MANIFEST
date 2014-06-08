@@ -17,6 +17,8 @@ lib/Ado/Build.pm
 lib/Ado/BuildPlugin.pm
 lib/Ado/Command.pm
 lib/Ado/Command/adduser.pm
+lib/Ado/Command/generate.pm
+lib/Ado/Command/generate/apache2vhost.pm
 lib/Ado/Command/version.pm
 lib/Ado/Control.pm
 lib/Ado/Control/Ado.pm
@@ -168,6 +170,7 @@ templates/doc/show.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/partials/adobar.html.ep
+templates/partials/apache2vhost.ep
 templates/partials/head.html.ep
 templates/partials/logo.html.ep
 templates/добре/ок.html.ep
