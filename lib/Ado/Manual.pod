@@ -40,7 +40,8 @@ It altomatically detects the current UserAgent language preferences
 and selects the best fit from the supported by the application languages.
 
 =item * L<Ado::Command::generate::apache2vhost> 
-generates Apache2 Virtual Host configuration file for your L<Ado> application.
+generates a minimal Apache2 Virtual Host configuration file for your L<Ado>
+application.
 
 
 =item * L<PageDown|http://code.google.com/p/pagedown/> is the version of Attacklab's Showdown 

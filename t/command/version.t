@@ -1,6 +1,4 @@
-use 5.014000;
-use strict;
-use warnings;
+use Mojo::Base '-strict';
 use Test::More;
 use Mojo::UserAgent;
 eval "use Test::Output;";

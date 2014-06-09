@@ -4,15 +4,13 @@ use Mojo::Base 'Ado::Command';
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Mojo::Util qw(decode encode);
 
-has description => "Generates Apache2 Virtual Host configuration file.\n";
+has description => "Generates minimal Apache2 Virtual Host configuration file.\n";
 has usage       => sub { shift->extract_usage };
 has args        => sub { {} };
 
 sub run {
     my ($self, @args) = @_;
     my $home = $self->app->home;
-    my $ServerName;
-    say $self->app->dumper(\@args);
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'n|ServerName=s'   => \$args->{ServerName},
@@ -20,16 +18,28 @@ sub run {
       'A|ServerAlias=s'  => \$args->{ServerAlias},
       'a|ServerAdmin=s'  => \$args->{ServerAdmin},
       'D|DocumentRoot=s' => \($args->{DocumentRoot} = $home),
-      'v|verbose'        => \$args->{verbose};
+      'c|config_file=s'  => \$args->{config_file},
+      'v|verbose'        => \$args->{verbose},
+      's|with_suexec'    => \$args->{with_suexec};
 
-    @args = map { decode 'UTF-8', $_ } @args;
-    die $self->usage unless $args->{ServerName};
+    Carp::croak $self->usage unless $args->{ServerName};
     $args->{ServerAlias} //=
       $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
     $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
+    $args->{user} = (getpwuid($<))[0];
+    $args->{group} = $( =~ /^(\S+?)/ && getgrgid($1);
+    say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
-    say Mojo::Template->new->render_file($self->rel_file('templates/partials/apache2vhost.ep'),
-        $args);
+    my $template_file = $self->rel_file('templates/partials/apache2vhost.ep');
+    my $config = Mojo::Template->new->render_file($template_file, $args);
+    if ($args->{config_file}) {
+        say 'Writing ' . $args->{config_file} if $args->{verbose};
+        Mojo::Util::spurt($config, $args->{config_file});
+    }
+    else {
+        say $config;
+    }
+    return;
 }
 
 1;
@@ -41,12 +51,19 @@ sub run {
 
 =head1 NAME
 
-Ado::Command::generate::apache2vhost - Generates Apache2 Virtual Host configuration file
+Ado::Command::generate::apache2vhost - Generates minimal Apache2 Virtual Host configuration file
 
 =head1 SYNOPSIS
   
-  #on the command-line 
-  ado generate apache2vhost --ServerName example.com
+  #on the command-line
+  $ bin/ado generate apache2vhost --ServerName example.com \
+   > etc/001-example.com.conf
+  #Review your newly generated 001-example.com.conf!!!
+  $ bin/ado generate apache2htaccess
+  #as root
+  # ln -siv /home/berov/opt/public_dev/Ado/etc/001-example.com.conf \
+  /etc/apache2/sites-enabled/001-example.com.conf
+  # service apache2 reload
 
   #programatically
   use Ado::Command::generate::apache2vhost;
@@ -56,16 +73,21 @@ Ado::Command::generate::apache2vhost - Generates Apache2 Virtual Host configurat
 =head1 DESCRIPTION
 
 L<Ado::Command::generate::apache2vhost> 
-generates Apache2 Virtual Host configuration file for your L<Ado> application.
+generates a minimal Apache2 Virtual Host configuration file for your L<Ado> application.
+You can not use this command with a shared hosting account.
 
 This is a core command, that means it is always enabled and its code a good
 example for learning to build new commands, you're welcome to fork it.
 
 =head1 OPTIONS
 
+Below are the options this command accepts described in L<Getopt::Long>
+notation.
+
 =head2 n|ServerName=s
 
-Fully Qualified Domain Name for the virtual host. Required!
+Fully Qualified Domain Name for the virtual host. B<Required!>
+See also documentation for Apache2 directive ServerName.
 
 =head2 p|port=i
 
@@ -74,13 +96,44 @@ Port on which this host will be served. Defaults to 80.
 =head2 A|ServerAlias=s
 
 Alias for ServerName. Defaults to C<'www.'$ServerName>.
+See also documentation for Apache2 directive ServerAlias.
 
 =head2 a|ServerAdmin=s
+
+Email of the administrator for this host - you.
+Defaults to webmaster@$ServerName.
+See also documentation for Apache2 directive ServerAdmin.
+
+
+=head2 D|DocumentRoot=s
+
+DocumentRoot for the virtual host. Defaults to C<$ENV{MOJO_HOME}>.
+See also documentation for Apache2 directive DocumentRoot.
+
+=head2 c|config_file=s
+
+Full path to the file in which the configuaration will be written.
+If not provided the configuaration is printed to the screen.
+
+=head2 s|with_suexec
+
+Adds C<SuexecUserGroup> directive which is effective only 
+if C<mod_suexec> is loaded. The user and the group are guessed from the 
+user running the command.
+
+
 
 =head1 ATTRIBUTES
 
 L<Ado::Command::generate::apache2vhostn> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
+
+=head2 args
+
+Used for storing arguments from the commandline and then passing them to the
+template 
+
+  my $args = $self->args;
 
 =head2 description
 
@@ -111,6 +164,7 @@ Run this command.
 
 =head1 SEE ALSO
 
+L<https://github.com/kraih/mojo/wiki/Apache-deployment>,
 L<Mojolicious::Command::generate>, L<Getopt::Long>,
 L<Ado::Command> L<Ado::Manual>,
 L<Mojolicious>, L<Mojolicious::Guides>.
