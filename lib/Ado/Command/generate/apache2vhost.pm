@@ -1,8 +1,6 @@
 package Ado::Command::generate::apache2vhost;
 use Mojo::Base 'Ado::Command';
-
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
-use Mojo::Util qw(decode encode);
 
 has description => "Generates minimal Apache2 Virtual Host configuration file.\n";
 has usage       => sub { shift->extract_usage };
@@ -59,7 +57,8 @@ Ado::Command::generate::apache2vhost - Generates minimal Apache2 Virtual Host co
   $ bin/ado generate apache2vhost --ServerName example.com \
    > etc/001-example.com.conf
   #Review your newly generated 001-example.com.conf!!!
-  $ bin/ado generate apache2htaccess
+  $ bin/ado generate apache2htaccess --deployment fcgi \
+   > $MOJO_HOME/.htaccess
   #as root
   # ln -siv /home/berov/opt/public_dev/Ado/etc/001-example.com.conf \
   /etc/apache2/sites-enabled/001-example.com.conf
