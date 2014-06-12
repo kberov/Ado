@@ -53,21 +53,30 @@ Ado::Command::generate::apache2vhost - Generates minimal Apache2 Virtual Host co
 
 =head1 SYNOPSIS
   
-  #on the command-line
+On the command-line:
+
   $ bin/ado generate apache2vhost --ServerName example.com \
-   > etc/001-example.com.conf
-  #Review your newly generated 001-example.com.conf!!!
-  $ bin/ado generate apache2htaccess --deployment fcgi \
-   > $MOJO_HOME/.htaccess
-  #as root
-  # ln -siv /home/berov/opt/public_dev/Ado/etc/001-example.com.conf \
-  /etc/apache2/sites-enabled/001-example.com.conf
+   > etc/001-example.com.vhost.conf
+
+Review your newly generated C<001-example.com.vhost.conf>!!!
+Create link to your generated configuration.
+
+  # ln -siv /home/you/dev/Ado/etc/001-example.com.vhost.conf \
+  /etc/apache2/sites-enabled/001-example.com.vhost.conf
+  
   # service apache2 reload
 
-  #programatically
+Generate your C<.htaccess> file. Since you own the machine,
+you can put its content into the C<001-example.com.vhost.conf> file.
+
+  $ bin/ado generate apache2htaccess --module fcgi \
+   > $MOJO_HOME/.htaccess
+
+Programatically:
+
   use Ado::Command::generate::apache2vhost;
-  my $v = Ado::Command::generate::apache2vhost->new;
-  $v->run('--ServerName' => 'example.com', '-p' => 8080);
+  my $vhost = Ado::Command::generate::apache2vhost->new;
+  $vhost->run('--ServerName' => 'example.com', '-p' => 8080);
 
 =head1 DESCRIPTION
 
@@ -94,7 +103,7 @@ Port on which this host will be served. Defaults to 80.
 
 =head2 A|ServerAlias=s
 
-Alias for ServerName. Defaults to C<'www.'$ServerName>.
+Alias for ServerName. Defaults to C<'www.'.$ServerName>.
 See also documentation for Apache2 directive ServerAlias.
 
 =head2 a|ServerAdmin=s
@@ -136,15 +145,15 @@ template
 
 =head2 description
 
-  my $description = $v->description;
-  $v              = $v->description('Foo!');
+  my $description = $vhost->description;
+  $v              = $vhost->description('Foo!');
 
 Short description of this command, used for the command list.
 
 =head2 usage
 
-  my $usage = $v->usage;
-  $v        = $v->usage('Foo!');
+  my $usage = $vhost->usage;
+  $v        = $vhost->usage('Foo!');
 
 Usage information for this command, used for the help screen.
 
@@ -156,7 +165,7 @@ L<Mojolicious::Command::generate> and implements the following new ones.
 
 =head2 run
 
-  $get->run(@ARGV);
+  $vhost->run(@ARGV);
 
 Run this command.
 
@@ -164,8 +173,10 @@ Run this command.
 =head1 SEE ALSO
 
 L<https://github.com/kraih/mojo/wiki/Apache-deployment>,
+L<Apache - Upgrading to 2.4 from 2.2|http://httpd.apache.org/docs/2.4/upgrading.html>,
+L<Mojolicious::Command::generate::apache2htaccess>,
 L<Mojolicious::Command::generate>, L<Getopt::Long>,
 L<Ado::Command> L<Ado::Manual>,
-L<Mojolicious>, L<Mojolicious::Guides>.
+L<Mojolicious>, L<Mojolicious::Guides::Cookbook/DEPLOYMENT>
 
 =cut
