@@ -1,0 +1,33 @@
+%#apache2htaccess.ep
+% my $args = shift;
+
+# Apache 2 .htaccess configuration for Ado
+# Move the content of this file to the virtual host 
+# configuration file for better performance if you have the right to do so.
+# Set some Variables for MOJO
+# Development(development|production):
+# Uncomment the following line when going live.
+#SetEnv MOJO_MODE  production
+
+% if( grep {$_ eq 'cgi'} @{$args->{module}} ){
+<IfModule mod_cgi.c>
+#set explicitly filenames as cgi scripts
+  <Files ~ "^(ado)$">
+    SetHandler  cgi-script
+  </Files>
+</IfModule>
+% }
+
+% if(grep {$_ eq 'fcgi'} @{$args->{module}}){
+<IfModule mod_fcgi.c>
+  <Files ~ "^(ado.fcgi)$">
+    SetHandler  fastcgi-script
+  </Files>
+</IfModule>
+% }
+
+DirectoryIndex index.html
+
+#Some more security. Redefine the mime type for the most common types of scripts
+AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
+
