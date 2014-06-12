@@ -26,21 +26,29 @@
   # Use .htaccess files for overriding and never show them.
   AccessFileName .htaccess
   <Files ~ "^\.ht">
-  		#2.2 configuration:
-      #Order allow,deny
-      #Deny from all
-      #2.4 configuration:
-      Require all denied
+	  #2.2 configuration:
+	  <IfModule !mod_authz_core.c>
+	    Order deny,allow
+	    Deny from all
+	  </IfModule>
+	  #2.4 configuration:
+	  <IfModule mod_authz_core.c>
+	    Require all denied
+	  </IfModule> 
   </Files>
   <Directory "<%=$$args{DocumentRoot}%>">
     Options +Indexes +FollowSymLinks +MultiViews +ExecCGI
     AllowOverride All    
     #AllowOverride None
-    #2.2 configuration:
-    #Order allow,deny
-    #allow from all
-    #2.4 configuration:
-		Require all granted
 		#see http://httpd.apache.org/docs/2.4/upgrading.html
+	  #2.2 configuration:
+	  <IfModule !mod_authz_core.c>
+	    Order deny,allow
+	    Allow from all
+	  </IfModule>
+	  #2.4 configuration:
+	  <IfModule mod_authz_core.c>
+	    Require all granted
+	  </IfModule>
   </Directory>
 </VirtualHost>
