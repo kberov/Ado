@@ -18,14 +18,16 @@ sub run {
       'D|DocumentRoot=s' => \($args->{DocumentRoot} = $home),
       'c|config_file=s'  => \$args->{config_file},
       'v|verbose'        => \$args->{verbose},
+      'u|user=s'         => \$args->{user},
+      'g|group=s'        => \$args->{group},
       's|with_suexec'    => \$args->{with_suexec};
 
     Carp::croak $self->usage unless $args->{ServerName};
     $args->{ServerAlias} //=
       $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
     $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
-    $args->{user} = (getpwuid($<))[0];
-    $args->{group} = $( =~ /^(\S+?)/ && getgrgid($1);
+    $args->{user}        //= (getpwuid($<))[0];
+    $args->{group}       //= $( =~ /^(\S+?)/ && getgrgid($1);
     say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2vhost.ep');
@@ -129,6 +131,13 @@ Adds C<SuexecUserGroup> directive which is effective only
 if C<mod_suexec> is loaded. The user and the group are guessed from the 
 user running the command.
 
+=head3 u|user=s
+
+User to be used with suexec.
+
+=head3 g|group=s
+      
+Group to be used with suexec.
 
 
 =head1 ATTRIBUTES

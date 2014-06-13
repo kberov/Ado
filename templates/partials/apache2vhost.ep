@@ -5,6 +5,7 @@
 <VirtualHost <%=$$args{ServerName}.':'.$$args{port}%>>
 % if($$args{with_suexec}){
 	<IfModule mod_suexec.c>
+		# Make sure to set the proper user and group
 		SuexecUserGroup <%= $$args{user} %> <%= $$args{group} %> 
 	</IfModule>
 % }
@@ -37,7 +38,7 @@
 	  </IfModule> 
   </Files>
   <Directory "<%=$$args{DocumentRoot}%>">
-    Options +Indexes +FollowSymLinks +MultiViews +ExecCGI
+    Options +Indexes +FollowSymLinks +ExecCGI
     AllowOverride All    
     #AllowOverride None
 		#see http://httpd.apache.org/docs/2.4/upgrading.html
