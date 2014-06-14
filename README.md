@@ -32,7 +32,8 @@ See the Functional documentation at [http://localhost:3000/help](http://localhos
 It altomatically detects the current UserAgent language preferences
 and selects the best fit from the supported by the application languages.
 - [Ado::Command::generate::apache2vhost](https://metacpan.org/pod/Ado::Command::generate::apache2vhost) 
-generates Apache2 Virtual Host configuration file for your [Ado](https://metacpan.org/pod/Ado) application.
+generates a minimal Apache2 Virtual Host configuration file for your [Ado](https://metacpan.org/pod/Ado)
+application.
 - [PageDown](http://code.google.com/p/pagedown/) is the version of Attacklab's Showdown 
 and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
 that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,
