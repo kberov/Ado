@@ -1,13 +1,51 @@
 %#apache2htaccess.ep
 % my $args = shift;
 
-# Apache 2 .htaccess configuration for Ado
+# Apache 2 .htaccess configuration for Ado.
+# Parts of this file are taken from Drupal .htaccess.
+# Other parts are from MYDLjE and third parts from Contao.
+
 # Move the content of this file to the virtual host 
 # configuration file for better performance if you have the right to do so.
 # Set some Variables for MOJO
 # Development(development|production):
 # Uncomment the following line when going live.
 #SetEnv MOJO_MODE  production
+
+# Protect files and directories from prying eyes.
+<FilesMatch "(templates|etc|lib|log|t|_build|cover_db|\.(pm|ep|conf|log|t|bak|yml|json|sqlite|sql)|MANIFEST.*|Build.*)$">
+    #2.2 configuration:
+    <IfModule !mod_authz_core.c>
+      Order deny,allow
+      Deny from all
+    </IfModule>
+    #2.4 configuration:
+    <IfModule mod_authz_core.c>
+      Require all denied
+    </IfModule> 
+  </FilesMatch>
+# Don't show directory listings for URLs which map to a directory.
+#Options -Indexes
+
+# Follow symbolic links in this directory.
+Options +FollowSymLinks
+
+
+# Requires mod_expires to be enabled.
+<IfModule mod_expires.c>
+  # Enable expirations.
+  ExpiresActive On
+
+  # Cache all files for 2 weeks after access (A).
+  ExpiresDefault A1209600
+
+  <FilesMatch ado$>
+    # Do not allow Ado responses to be cached unless they explicitly send cache
+    # headers themselves.
+    ExpiresActive Off
+  </FilesMatch>
+</IfModule>
+
 
 % if( grep {$_ eq 'cgi'} @{$args->{module}} ){
 <IfModule mod_cgi.c>
@@ -25,9 +63,60 @@
   </Files>
 </IfModule>
 % }
+# Make Ado handle any 404 errors.
+ErrorDocument 404 /bin/ado
 
-DirectoryIndex index.html
+DirectoryIndex /bin/ado
 
 #Some more security. Redefine the mime type for the most common types of scripts
 AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
+
+# Various rewrite rules.
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Set "protossl" to "s" if we were accessed via https://.  This is used later
+  # if you enable "www." stripping or enforcement, in order to ensure that
+  # you don't bounce between http and https.
+  RewriteRule ^ - [E=protossl]
+  RewriteCond %{HTTPS} on
+  RewriteRule ^ - [E=protossl:s]
+
+  # Make sure Authorization HTTP header is available to Ado
+  # even when running as CGI or FastCGI.
+  RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # Block access to "hidden" directories whose names begin with a period. 
+  RewriteRule "(^|/)\." - [F]
+
+  # To redirect all users to access the site WITH the 'www.' prefix,
+  # (http://example.com/... will be redirected to http://www.example.com/...)
+  # uncomment the following:
+  # RewriteCond %{HTTP_HOST} .
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^ http%{ENV:protossl}://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  #
+  # To redirect all users to access the site WITHOUT the 'www.' prefix,
+  # (http://www.example.com/... will be redirected to http://example.com/...)
+  # uncomment the following:
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^ http%{ENV:protossl}://%1%{REQUEST_URI} [L,R=301]
+  
+  # If your site is running in a VirtualDocumentRoot at http://example.com/,
+  # use the following line:
+  RewriteBase /
+  # Otherwise set RewriteBase to the subdirectory of your site 
+  # RewriteBase /ado
+
+  # Pass all requests not referring directly to files in the filesystem to ado.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^((css|doc|fonts|img|js|vendor|favicon|index).*)$  /public/$1 [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ /bin/ado [L]
+  RewriteRule ^/$ /bin/ado [L]
+
+</IfModule>
 

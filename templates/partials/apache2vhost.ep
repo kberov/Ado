@@ -18,7 +18,7 @@
   # error, crit, alert, emerg.
   # It is also possible to configure the loglevel for particular
   # modules, e.g.
-  #LogLevel info ssl:warn
+  #LogLevel info ssl:warn rewrite:trace3
   LogLevel debug
 
   ErrorLog  <%=$$args{DocumentRoot}%>/log/apache2_error.log
@@ -26,7 +26,7 @@
   
   # Use .htaccess files for overriding and never show them.
   AccessFileName .htaccess
-  <Files ~ "^\.ht">
+  <FilesMatch "^\.ht">
 	  #2.2 configuration:
 	  <IfModule !mod_authz_core.c>
 	    Order deny,allow
@@ -36,7 +36,7 @@
 	  <IfModule mod_authz_core.c>
 	    Require all denied
 	  </IfModule> 
-  </Files>
+  </FilesMatch>
   <Directory "<%=$$args{DocumentRoot}%>">
     Options +Indexes +FollowSymLinks +ExecCGI
     AllowOverride All    
