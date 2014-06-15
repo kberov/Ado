@@ -13,7 +13,7 @@
 # SetEnv MOJO_MODE production
 
 # Protect files and directories from prying eyes.
-<FilesMatch "(templates|etc|lib|log|t|_build|cover_db|\.(pm|ep|conf|log|t|bak|yml|json|sqlite|sql)|READM.*|MANIFES.*|Build.PL|Build)$">
+<FilesMatch "(templates/|etc/|lib/|log/|t/|_build/|cover_db/|\.(pm|ep|conf|log|t|bak|yml|json|sqlite|sql)|READM.*|MANIFES.*|Build.PL|Build)$">
     #2.2 configuration:
     <IfModule !mod_authz_core.c>
       Order deny,allow
@@ -69,7 +69,7 @@ FileETag None
   <Files ~ "^(ado)$">
     SetHandler  fcgid-script
   </Files>
-  FcgidWrapper "<%=$ENV{MOJO_HOME}%>/bin/ado fastcgi"
+  FcgidWrapper "<%= $args->{DocumentRoot} %>/bin/ado fastcgi"
 </IfModule>
 % }
 # Make Ado handle any 404 errors.

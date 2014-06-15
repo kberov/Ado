@@ -31,7 +31,8 @@ sub register {
     # See templates/partials/apache2htaccess.ep
     $app->hook(
         before_dispatch => sub {
-            $_[0]->req->url->base->path($conf->{base_url_path});
+            state $cgi = $_[0]->req->env->{GATEWAY_INTERFACE} // '' =~ m/^CGI/;
+            $_[0]->req->url->base->path($conf->{base_url_path}) if $cgi;
         }
     ) if $conf->{base_url_path};
 

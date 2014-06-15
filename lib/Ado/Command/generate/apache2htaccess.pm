@@ -12,10 +12,13 @@ sub run {
     my $args = $self->args;
     $args->{module} = [];
     GetOptionsFromArray \@args,
-      'v|verbose'   => \$args->{verbose},
-      'm|module=s@' => \$args->{module};
+      'v|verbose'       => \$args->{verbose},
+      'c|config_file=s' => \$args->{config_file},
+      'm|module=s@'     => \$args->{module};
     @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
     Carp::croak $self->usage unless $args->{module};
+    $args->{DocumentRoot} = $self->app->home;
+
     say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2htaccess.ep');
@@ -67,7 +70,16 @@ example for learning to build new commands, you're welcome to fork it.
 
 Below are the options this command accepts described in L<Getopt::Long> notation.
 
-=head2 n|module=s@
+=head2 c|config_file=s
+
+Full path to the file in which the configuaration will be written.
+If not provided the configuaration is printed to the screen.
+
+=head3 v|verbose
+
+Verbose output.
+
+=head2 m|module=s@
 
 Apache modules to use for running C<ado>. Currently supported modules are
 C<mod_cgi> and C<mod_fcgid>. You can mention them both to add the corresponding

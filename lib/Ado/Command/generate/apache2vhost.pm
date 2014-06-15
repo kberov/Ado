@@ -138,6 +138,9 @@ User to be used with suexec.
       
 Group to be used with suexec.
 
+=head3 v|verbose
+
+Verbose output.
 
 =head1 ATTRIBUTES
 
