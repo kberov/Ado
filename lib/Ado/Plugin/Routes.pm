@@ -31,14 +31,7 @@ sub register {
     # See templates/partials/apache2htaccess.ep
     $app->hook(
         before_dispatch => sub {
-
-            # It is very dangerous to use object internals directly!!!
-            state $cgi = $_[0]->req->env->{GATEWAY_INTERFACE} || '';
-            if ($cgi eq 'CGI/1.1') {
-                my $path = $_[0]->req->{url}{base}->path;
-                $path =~ s|bin/ado/?||;
-                $_[0]->req->{url}{base}->path($path);
-            }
+            $_[0]->req->url->base->path($conf->{base_url_path});
         }
     ) if $conf->{base_url_path};
 
