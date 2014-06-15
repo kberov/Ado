@@ -77,7 +77,7 @@ sections and Apache will use mod_fcgi if loaded.
 
 =head1 ATTRIBUTES
 
-L<Ado::Command::generate::apache2htaccessn> inherits all attributes from
+L<Ado::Command::generate::apache2htaccess> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
 
 =head2 args
@@ -104,8 +104,8 @@ Usage information for this command, used for the help screen.
 =head1 METHODS
 
 
-L<Mojolicious::Command::generate::apache2htaccess> inherits all methods from 
-L<Mojolicious::Command::generate> and implements the following new ones.
+L<Ado::Command::generate::apache2htaccess> inherits all methods from 
+L<Ado::Command::generate> and implements the following new ones.
 
 =head2 run
 
@@ -116,7 +116,7 @@ Run this command.
 
 =head1 SEE ALSO
 
-L<https://github.com/kraih/mojo/wiki/Apache-deployment>,
+L<Apache deployment|https://github.com/kraih/mojo/wiki/Apache-deployment>,
 L<Apache - Upgrading to 2.4 from 2.2|http://httpd.apache.org/docs/2.4/upgrading.html>,
 L<Mojolicious::Command::generate::apache2vhost>,
 L<Mojolicious::Command::generate>, L<Getopt::Long>,

@@ -169,8 +169,8 @@ Usage information for this command, used for the help screen.
 =head1 METHODS
 
 
-L<Mojolicious::Command::generate::apache2vhost> inherits all methods from 
-L<Mojolicious::Command::generate> and implements the following new ones.
+L<Ado::Command::generate::apache2vhost> inherits all methods from 
+L<Ado::Command::generate> and implements the following new ones.
 
 =head2 run
 
@@ -181,9 +181,9 @@ Run this command.
 
 =head1 SEE ALSO
 
-L<https://github.com/kraih/mojo/wiki/Apache-deployment>,
+L<Apache deployment|https://github.com/kraih/mojo/wiki/Apache-deployment>,
 L<Apache - Upgrading to 2.4 from 2.2|http://httpd.apache.org/docs/2.4/upgrading.html>,
-L<Mojolicious::Command::generate::apache2htaccess>,
+L<Ado::Command::generate::apache2htaccess>,
 L<Mojolicious::Command::generate>, L<Getopt::Long>,
 L<Ado::Command> L<Ado::Manual>,
 L<Mojolicious>, L<Mojolicious::Guides::Cookbook/DEPLOYMENT>
