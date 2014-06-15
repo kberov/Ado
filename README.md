@@ -22,6 +22,12 @@ to get started quickly.
 - [Ado::Command::adduser](https://metacpan.org/pod/Ado::Command::adduser) allows adding users to an Ado application
 via a terminal. It also allows adding users to existing or not existing groups. 
 The new group is automatically created.
+- [Ado::Command::generate::apache2vhost](https://metacpan.org/pod/Ado::Command::generate::apache2vhost) 
+generates a minimal Apache2 Virtual Host configuration file for your [Ado](https://metacpan.org/pod/Ado)
+application.
+- [Ado::Command::generate::apache2htaccess](https://metacpan.org/pod/Ado::Command::generate::apache2htaccess) 
+generates an Apache2 `.htaccess` configuration file for your [Ado](https://metacpan.org/pod/Ado) application.
+You can use this command on a shared hosting account.
 - [Ado::Plugin::Auth](https://metacpan.org/pod/Ado::Plugin::Auth) is a plugin that authenticates users to an [Ado](https://metacpan.org/pod/Ado) system.
 Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
 and other authentication service-providers.

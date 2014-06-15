@@ -25,3 +25,6 @@ etc/ado.sqlite
 log/development.log
 log/production.log
 
+log/apache*
+.htaccess
+*vhost.conf

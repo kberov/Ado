@@ -1,0 +1,131 @@
+%#apache2htaccess.ep
+% my $args = shift;
+
+# Apache 2 .htaccess configuration for Ado.
+# Directives, comments and ideas in this file are taken from Drupal .htaccess,
+# from MYDLjE, from Contao, from TWiki, so it is hard to tell really...
+
+# Move the content of this file to the virtual host 
+# configuration file for better performance if you have the right to do so.
+# Set some Variables for MOJO
+# MOJO_MODE(development|staging|production):
+# Uncomment the following line when going live.
+# SetEnv MOJO_MODE production
+
+# Protect files and directories from prying eyes.
+<FilesMatch "(templates/|etc/|lib/|log/|t/|_build/|cover_db/|\.(pm|ep|conf|log|t|bak|yml|json|sqlite|sql)|READM.*|MANIFES.*|Build.PL|Build)$">
+    #2.2 configuration:
+    <IfModule !mod_authz_core.c>
+      Order deny,allow
+      Deny from all
+    </IfModule>
+    #2.4 configuration:
+    <IfModule mod_authz_core.c>
+      Require all denied
+    </IfModule> 
+  </FilesMatch>
+# Don't show directory listings for URLs which map to a directory.
+Options -Indexes
+
+# Follow symbolic links in this directory.
+Options +FollowSymLinks
+
+
+# Requires mod_expires to be enabled.
+<IfModule mod_expires.c>
+  # Enable expirations.
+  ExpiresActive On
+
+  ExpiresDefault "access plus 1 month"
+
+  <FilesMatch ado$>
+    # Do not allow Ado responses to be cached unless they explicitly send cache
+    # headers themselves.
+    ExpiresActive Off
+  </FilesMatch>
+</IfModule>
+
+# Additional headers for static files caching.
+#<IfModule mod_headers.c>
+#  <FilesMatch "\.(txt|js|css|htc|png|gif|jpe?g|ico|xml|csv|txt|swf|flv|mp4|webm|ogv|mp3|ogg|oga|eot|woff|svg|svgz|ttf|pdf|gz)$">
+#    Header set Cache-Control s-maxage=2592000 "expr=%{REQUEST_STATUS} == 200"
+#  </FilesMatch>
+#</IfModule>
+# Since we're sending far-future expires, we don't need ETags for
+# static content.
+# developer.yahoo.com/performance/rules.html#etags
+FileETag None
+
+% if( grep {$_ eq 'cgi'} @{$args->{module}} ){
+<IfModule mod_cgi.c>
+  # Set explicitly Ado executables as cgi scripts
+  <Files ~ "^(ado)$">
+    SetHandler  cgi-script
+  </Files>
+</IfModule>
+% }
+% if(grep {$_ eq 'fcgid'} @{$args->{module}}){
+<IfModule mod_fcgid.c>
+  <Files ~ "^(ado)$">
+    SetHandler  fcgid-script
+  </Files>
+  FcgidWrapper "<%= $args->{DocumentRoot} %>/bin/ado fastcgi"
+</IfModule>
+% }
+# Make Ado handle any 404 errors.
+ErrorDocument 404 /bin/ado
+DirectoryIndex /bin/ado
+
+#Some more security. Redefine the mime type for the most common types of scripts
+AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
+
+# Various rewrite rules.
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Set "protossl" to "s" if we were accessed via https://.  This is used later
+  # if you enable "www." stripping or enforcement, in order to ensure that
+  # you don't bounce between http and https.
+  # RewriteRule ^ - [E=protossl]
+  # RewriteCond %{HTTPS} on
+  # RewriteRule ^ - [E=protossl:s]
+
+  # Make sure Authorization HTTP header is available to Ado
+  # even when running as CGI or FastCGI.
+  # RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # Block access to "hidden" directories whose names begin with a period. 
+  # RewriteRule "(^|/)\." - [F]
+
+  # To redirect all users to access the site WITH the 'www.' prefix,
+  # (http://example.com/... will be redirected to http://www.example.com/...)
+  # uncomment the following:
+  # RewriteCond %{HTTP_HOST} .
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^ http%{ENV:protossl}://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  #
+  # To redirect all users to access the site WITHOUT the 'www.' prefix,
+  # (http://www.example.com/... will be redirected to http://example.com/...)
+  # uncomment the following:
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^ http%{ENV:protossl}://%1%{REQUEST_URI} [L,R=301]
+  
+  # If your site is running in a VirtualDocumentRoot at http://example.com/,
+  # use the following line:
+  # RewriteBase /
+  # Otherwise set RewriteBase to the subdirectory where your site is, e.g. /ado.
+  # RewriteBase /ado
+
+  # Redirect all requests for Ado static files to public/ directory.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^((css|doc|fonts|img|js|vendor|favicon|index)\b.*)$  /public/$1 [L,R=301]
+
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule (.*) /bin/ado/$1 [L]
+  
+</IfModule>
+
+

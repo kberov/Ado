@@ -35,7 +35,7 @@ sub authenticated {
     $c->debug('in condition "authenticated"');
     if ($c->user->login_name eq 'guest') {
         $c->session(over_route => $c->url_for($route->name));
-        $c->redirect_to($c->url_for('/login'));
+        $c->redirect_to('/login');
         return;
     }
     return 1;
@@ -46,7 +46,7 @@ sub authenticated {
 sub logout {
     my ($c) = @_;
     $c->session(expires => 1);
-    $c->redirect_to($c->url_for('/'));
+    $c->redirect_to('/');
     return;
 }
 

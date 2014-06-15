@@ -1,7 +1,5 @@
 #ado-build.t
-use 5.014000;
-use strict;
-use warnings;
+use Mojo::Base -strict;
 use Test::More;
 use File::stat;
 use File::Spec::Functions qw(catdir catfile catpath);

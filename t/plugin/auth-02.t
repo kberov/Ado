@@ -19,7 +19,6 @@ $t->post_ok(
 my $login_url =
   $t->get_ok('/test/authenticateduser')->status_is(302)->header_like('Location' => qr|/login$|)
   ->tx->res->headers->header('Location');
-my $test_auth_url = $t->ua->server->url->path('/test/authenticateduser');
 $t->get_ok('/login/ado');
 
 #try again with the right password this time
@@ -37,11 +36,11 @@ $t->post_ok(
       }
 
       #redirect back to the $c->session('over_route')
-)->status_is(302)->header_is('Location' => $test_auth_url);
+)->status_is(302)->header_is('Location' => '/test/authenticateduser');
 
 
 # after authentication
-$t->get_ok($test_auth_url)->status_is(200)
+$t->get_ok('/test/authenticateduser')->status_is(200)
   ->content_is('hello authenticated Test 1', 'hello test1 ok');
 
 #user is Test 1
@@ -49,7 +48,7 @@ $t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hell
   ->element_exists('#adobar #authbar a.item .sign.out.icon', 'Sign Out link is present!');
 
 #logout
-$t->get_ok('/logout')->status_is(302)->header_is('Location' => $t->ua->server->url);
+$t->get_ok('/logout')->status_is(302)->header_is('Location' => '/');
 $t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello Guest,');
 
 

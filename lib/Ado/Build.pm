@@ -210,7 +210,7 @@ sub ACTION_perltidy {
         my $dir_files = $self->rscan_dir($dir);
         for my $file (@$dir_files) {
             push @files, $file
-              if -f $file && $file =~ m{(\.pl|/ado|\.pm|\.conf|\.t)$}x;
+              if -f $file && $file =~ m{(\.pl|/ado|\.pm|ado.*?\.conf|\.t)$}x;
         }
     }
 

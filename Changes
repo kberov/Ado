@@ -1,5 +1,12 @@
 Revision history for Ado
 
+0.46 2014-06-16
+    - Added new command Ado::Command::generate::apache2vhost.
+    - Added new command Ado::Command::generate::apache2htaccess.
+    - Upgraded to Mojolicious 5.07.
+    - Fixed tests and code using "redirect_to" according to the new behavior.
+    - Upgraded to Semantic UI 0.18.0.
+
 0.45 2014-06-02
     - Fixed failing tests with Mojolicious 5.00
       (caused by "Changed return value of path_for method in Mojolicious::Routes::Match.").

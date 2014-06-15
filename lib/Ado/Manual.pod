@@ -27,6 +27,14 @@ L<Ado> goes together with the following:
 via a terminal. It also allows adding users to existing or not existing groups. 
 The new group is automatically created.
 
+=item * L<Ado::Command::generate::apache2vhost> 
+generates a minimal Apache2 Virtual Host configuration file for your L<Ado>
+application.
+
+=item * L<Ado::Command::generate::apache2htaccess> 
+generates an Apache2 C<.htaccess> configuration file for your L<Ado> application.
+You can use this command on a shared hosting account.
+
 =item * L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
 Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
 and other authentication service-providers.
@@ -38,7 +46,6 @@ See the Functional documentation at L<http://localhost:3000/help> for an example
 =item * L<Ado::Plugin::I18n> localizes your application and site.
 It altomatically detects the current UserAgent language preferences
 and selects the best fit from the supported by the application languages.
-
 
 =item * L<PageDown|http://code.google.com/p/pagedown/> is the version of Attacklab's Showdown 
 and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
