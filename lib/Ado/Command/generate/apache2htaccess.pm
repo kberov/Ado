@@ -58,24 +58,23 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
 
 L<Ado::Command::generate::apache2htaccess> 
 generates an Apache2 C<.htaccess> configuration file for your L<Ado> application.
-You can use this command with a shared hosting account.
+You can use this command on a shared hosting account.
 
 This is a core command, that means it is always enabled and its code a good
 example for learning to build new commands, you're welcome to fork it.
 
 =head1 OPTIONS
 
-Below are the options this command accepts described in L<Getopt::Long>
-notation.
+Below are the options this command accepts described in L<Getopt::Long> notation.
 
 =head2 n|module=s@
 
 Apache modules to use for running C<ado>. Currently supported modules are
 C<mod_cgi> and C<mod_fcgid>. You can mention them both to add the corresponding
-sections and Apache will use C<mod_fcgid> if loaded.
+sections and Apache will use C<mod_fcgid> if loaded or C<mod_cgi>
+(almost always enabled).
 The generated configuration for mod_fcgid is known to work with
-L<Mojo::Server::FastCGI>. So make sure you install it.
-
+L<Mojo::Server::FastCGI>. So make sure you have it installed.
 
 =head1 ATTRIBUTES
 
@@ -114,7 +113,6 @@ L<Ado::Command::generate> and implements the following new ones.
   $htaccess->run(@ARGV);
 
 Run this command.
-
 
 =head1 SEE ALSO
 

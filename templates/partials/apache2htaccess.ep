@@ -62,23 +62,19 @@ FileETag None
   <Files ~ "^(ado)$">
     SetHandler  cgi-script
   </Files>
-  # Make Ado handle any 404 errors.
-  ErrorDocument 404 /bin/ado
-  DirectoryIndex /bin/ado
 </IfModule>
 % }
-
 % if(grep {$_ eq 'fcgid'} @{$args->{module}}){
 <IfModule mod_fcgid.c>
   <Files ~ "^(ado)$">
     SetHandler  fcgid-script
   </Files>
   FcgidWrapper "<%=$ENV{MOJO_HOME}%>/bin/ado fastcgi"
-  # Make Ado handle any 404 errors.
-  ErrorDocument 404 /bin/ado
-  DirectoryIndex /bin/ado
 </IfModule>
 % }
+# Make Ado handle any 404 errors.
+ErrorDocument 404 /bin/ado
+DirectoryIndex /bin/ado
 
 #Some more security. Redefine the mime type for the most common types of scripts
 AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi

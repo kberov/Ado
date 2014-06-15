@@ -129,6 +129,7 @@ TODO.
 
 =head1 SEE ALSO
 
+L<Ado::Command::generate::apache2htaccess>, L<Ado::Command::generate::apache2vhost>,
 L<Mojolicious::Guides::Routing>, L<Mojolicious::Routes>, L<Ado::Plugin>, L<Ado::Manual::Plugins>,L<Mojolicious::Plugins>, 
 L<Mojolicious::Plugin>, 
 

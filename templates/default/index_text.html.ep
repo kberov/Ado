@@ -60,7 +60,7 @@
     <li>For development help look at <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
     <li>Develop your site, application or both!</li>
     <li>Enough ado, have fun with <b>Ado</b>!</li>
-    <li>Still here? Ado comes with some default end-user features which can be tried right away.
+    <li>Still here? Ado comes with some features which can be tried right away.
         <ol>
           <li>
             User <a href="<%=url_for('/help')%>">documentation</a> works thanks
@@ -73,6 +73,10 @@
           <li>
             Multilanguage support is implemented as
             <a href="<%=url_for('/perldoc/Ado/Plugin/I18n')%>">Ado::Plugin::I18n</a>.
+          </li>
+          <li>You can generate configuration files for Apache 2 using the commands
+            <code>ado generate apache2vhost</code> and
+            <code>ado generate apache2htaccess</code>.
           </li>
         </ol>
     </li>

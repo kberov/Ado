@@ -84,7 +84,6 @@ Programatically:
 
 L<Ado::Command::generate::apache2vhost> 
 generates a minimal Apache2 Virtual Host configuration file for your L<Ado> application.
-You can not use this command with a shared hosting account.
 
 This is a core command, that means it is always enabled and its code a good
 example for learning to build new commands, you're welcome to fork it.
