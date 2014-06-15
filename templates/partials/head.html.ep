@@ -1,8 +1,9 @@
 % #standart generic header for all pages
-% my $description = $self->{stash}{description} || $self->description;
-% my $keywords = $self->{stash}{keywords} || $self->keywords;
+% state $description = $self->{stash}{description} || $self->description;
+% state $keywords = $self->{stash}{keywords} || $self->keywords;
+% state $base_url = url_for('/')->base;
     <meta charset="utf-8" />
-    <base href="<%= url_for('/')->base %>" />
+    <base href="<%= $base_url %>" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content="<%= $self->generator %>" />
@@ -10,12 +11,12 @@
     <meta name="keywords" content="<%= $keywords %>" />
     <title><%= title %></title>
     <link rel="shortcut icon" 
-        href="<%= url_for('/favicon.ico')->to_abs %>"
+        href="/favicon.ico"
         type="image/vnd.microsoft.icon" />
-    <link href='vendor/Semantic-UI/css/semantic.min.css' rel='stylesheet' 
+    <link href='/vendor/Semantic-UI/css/semantic.min.css' rel='stylesheet' 
         type='text/css' />
     <!-- <link href='//fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css' /> -->
-    <link href="css/ado.css" rel="stylesheet" type="text/css" />
-    <script src="mojo/jquery/jquery.js"></script>
-    <script src="vendor/Semantic-UI/javascript/semantic.min.js"></script>
+    <link href="/css/ado.css" rel="stylesheet" type="text/css" />
+    <script src="/mojo/jquery/jquery.js"></script>
+    <script src="/vendor/Semantic-UI/javascript/semantic.min.js"></script>
 

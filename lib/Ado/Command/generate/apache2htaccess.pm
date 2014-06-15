@@ -1,5 +1,5 @@
 package Ado::Command::generate::apache2htaccess;
-use Mojo::Base 'Ado::Command';
+use Mojo::Base 'Ado::Command::generate';
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 
 has description => "Generates Apache2 .htaccess file.\n";
@@ -47,12 +47,12 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
   Usage:
   #on the command-line 
   
-  $ bin/ado generate apache2htaccess --module cgi,fcgi > $MOJO_HOME/.htaccess
+  $ bin/ado generate apache2htaccess --module cgi,fcgid > $MOJO_HOME/.htaccess
   
   #programatically
   use Ado::Command::generate::apache2htaccess;
   my $v = Ado::Command::generate::apache2htaccess->new;
-  $v->run('--module' => 'cgi,fcgi');
+  $v->run('--module' => 'cgi,fcgid');
 
 =head1 DESCRIPTION
 
@@ -71,8 +71,10 @@ notation.
 =head2 n|module=s@
 
 Apache modules to use for running C<ado>. Currently supported modules are
-C<mod_cgi> and C<mod_fcgi>. You can mention them both to add the corresponding
-sections and Apache will use mod_fcgi if loaded.
+C<mod_cgi> and C<mod_fcgid>. You can mention them both to add the corresponding
+sections and Apache will use C<mod_fcgid> if loaded.
+The generated configuration for mod_fcgid is known to work with
+L<Mojo::Server::FastCGI>. So make sure you install it.
 
 
 =head1 ATTRIBUTES
@@ -116,10 +118,11 @@ Run this command.
 
 =head1 SEE ALSO
 
+L<Ado::Plugin::Routes>,
 L<Apache deployment|https://github.com/kraih/mojo/wiki/Apache-deployment>,
 L<Apache - Upgrading to 2.4 from 2.2|http://httpd.apache.org/docs/2.4/upgrading.html>,
-L<Mojolicious::Command::generate::apache2vhost>,
-L<Mojolicious::Command::generate>, L<Getopt::Long>,
+L<Ado::Command::generate::apache2vhost>,
+L<Ado::Command::generate>, L<Getopt::Long>,
 L<Ado::Command> L<Ado::Manual>,
 L<Mojolicious>, L<Mojolicious::Guides::Cookbook/DEPLOYMENT>.
 
