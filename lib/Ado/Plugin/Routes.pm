@@ -102,7 +102,7 @@ This plugin implements the following hooks.
 
 =head2 before_dispatch
 
-This hook is generated if you add to  the option C<base_url_path>
+This hook is generated if you add the option L<base_url_path> to plugin cofiguration.
 In case the application is deployed as CGI or FCGI application,
 the url part containing C<ado> is removed from the base url path so the 
 urls are the same as if deployed standalone or with 
