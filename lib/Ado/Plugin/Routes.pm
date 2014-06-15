@@ -26,7 +26,7 @@ sub register {
 #    );
     $app->load_routes($conf->{routes});
 
-    # Rewrite urls in case we are deployed under Apache and using mod_cgi or mod_fcgi.
+    # Rewrite urls in case we are deployed under Apache and using mod_cgi or mod_fcgid.
     # This way we have the same urls as if deployed standalone or with hypnotoad.
     # See templates/partials/apache2htaccess.ep
     $app->hook(
