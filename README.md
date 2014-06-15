@@ -22,6 +22,12 @@ to get started quickly.
 - [Ado::Command::adduser](https://metacpan.org/pod/Ado::Command::adduser) allows adding users to an Ado application
 via a terminal. It also allows adding users to existing or not existing groups. 
 The new group is automatically created.
+- [Ado::Command::generate::apache2vhost](https://metacpan.org/pod/Ado::Command::generate::apache2vhost) 
+generates a minimal Apache2 Virtual Host configuration file for your [Ado](https://metacpan.org/pod/Ado)
+application.
+- [Ado::Command::generate::apache2htaccess](https://metacpan.org/pod/Ado::Command::generate::apache2htaccess) 
+generates an Apache2 `.htaccess` configuration file for your [Ado](https://metacpan.org/pod/Ado) application.
+You can use this command on a shared hosting account.
 - [Ado::Plugin::Auth](https://metacpan.org/pod/Ado::Plugin::Auth) is a plugin that authenticates users to an [Ado](https://metacpan.org/pod/Ado) system.
 Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
 and other authentication service-providers.
@@ -31,9 +37,6 @@ See the Functional documentation at [http://localhost:3000/help](http://localhos
 - [Ado::Plugin::I18n](https://metacpan.org/pod/Ado::Plugin::I18n) localizes your application and site.
 It altomatically detects the current UserAgent language preferences
 and selects the best fit from the supported by the application languages.
-- [Ado::Command::generate::apache2vhost](https://metacpan.org/pod/Ado::Command::generate::apache2vhost) 
-generates a minimal Apache2 Virtual Host configuration file for your [Ado](https://metacpan.org/pod/Ado)
-application.
 - [PageDown](http://code.google.com/p/pagedown/) is the version of Attacklab's Showdown 
 and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
 that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,
