@@ -77,7 +77,7 @@
 log/apache2_error\.log
 log/apache2_access\.log
 etc/.+vhost.conf
-.htaccess
+^\.htaccess$
 
 #Avoid files created by some IDEs and editors
 \.komodoproject$

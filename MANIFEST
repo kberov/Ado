@@ -18,6 +18,7 @@ lib/Ado/BuildPlugin.pm
 lib/Ado/Command.pm
 lib/Ado/Command/adduser.pm
 lib/Ado/Command/generate.pm
+lib/Ado/Command/generate/apache2htaccess.pm
 lib/Ado/Command/generate/apache2vhost.pm
 lib/Ado/Command/version.pm
 lib/Ado/Control.pm
@@ -143,6 +144,7 @@ t/ado-build.t
 t/basic.t
 t/boilerplate.t
 t/command/adduser.t
+t/command/apache2htaccess.t
 t/command/apache2vhost.t
 t/command/version.t
 t/manifest.t
@@ -171,6 +173,7 @@ templates/doc/show.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/partials/adobar.html.ep
+templates/partials/apache2htaccess.ep
 templates/partials/apache2vhost.ep
 templates/partials/head.html.ep
 templates/partials/logo.html.ep
