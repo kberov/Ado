@@ -1,6 +1,12 @@
 Revision history for Ado
 
-0.47 2014-06-16
+0.47 2014-06-18
+    - No more features will be added to Ado for now.
+      Ado core will be polished, made more stable and some 
+      of the current features and assets will eventually go to plugins. 
+    - Fixed failing tests on Windows.
+    - Improved and fixed apache2htaccess.ep.
+    - Upgraded to Mojolicious 5.08.
 
 
 0.46 2014-06-16
