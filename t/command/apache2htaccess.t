@@ -18,7 +18,7 @@ like($config_file_content, qr/<IfModule mod_cgi.+?"\^\(ado\)\$"/ms,   'mod_cgi b
 like($config_file_content, qr/<IfModule mod_fcgid.+?"\^\(ado\)\$"/ms, 'mod_fcgid block produced');
 like(
     $config_file_content,
-    qr|FcgidWrapper\s+"$app_home/bin/ado|,
+    qr|FcgidWrapper\s+"$^X \Q$app_home\E/bin/ado|,
     'path to FcgidWrapper is produced'
 );
 
