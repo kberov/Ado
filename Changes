@@ -3,12 +3,18 @@ Revision history for Ado
 0.47 2014-06-18
     - $CODENAME changed to
       "Глаголи" - U+2C03 GLAGOLITIC CAPITAL LETTER GLAGOLI (Ⰳ)
-    - No more features will be added to Ado for now.
+    - No more major features (plugins, commands) will be added to Ado for now.
       Ado core will be polished, made more stable and some 
-      of the current features and assets will eventually go to plugins. 
+      of the current features and assets will eventually go to plugins.
+      It is time for plugins.
     - Fixed failing tests on Windows.
-    - Improved and fixed apache2htaccess.ep.
-    - Upgraded to Mojolicious 5.08.
+    - Improved and fixed apache2htaccess.ep. 
+      Using $^X in FcgidWrapper so bin/ado is executed with our own Perl.
+    - Upgraded to Mojolicious 5.09.
+    - Requiring Module::Build 0.4204 now because $self->install_base
+      returns string (the path) and not an ARRAY reference when
+      using --install_base=/custom/path.
+    - Added notes about local::lib to Ado::Manual/INSTALL.
 
 
 0.46 2014-06-16
