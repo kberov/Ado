@@ -40,7 +40,7 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.3800"
+            "Module::Build" : "0.4204"
          }
       },
       "runtime" : {
@@ -50,7 +50,7 @@
          "requires" : {
             "Email::Address" : "1.901",
             "Locale::Maketext" : "1.23",
-            "Mojolicious" : "5.07",
+            "Mojolicious" : "5.08",
             "Mojolicious::Plugin::DSC" : "0.999",
             "Text::MultiMarkdown" : "1.000034",
             "perl" : "v5.14.0"
@@ -60,7 +60,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.46"
+         "version" : "0.47"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -178,5 +178,5 @@
          "url" : "http://github.com/kberov/Ado"
       }
    },
-   "version" : "0.46"
+   "version" : "0.47"
 }

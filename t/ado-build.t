@@ -7,7 +7,10 @@ use File::Temp qw(tempdir);
 use lib(-d 'blib' ? 'blib/lib' : 'lib');
 use Ado::Build;
 use Mojo::Util qw(slurp);
-
+$SIG{__WARN__} = sub {
+    return if $_[0] =~ m|Wide\scharacter\sin\sprint|x;
+    warn @_;
+};
 if (not $ENV{TEST_AUTHOR}) {
     my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
     plan(skip_all => $msg);
@@ -126,7 +129,7 @@ stdout_like(
 );
 
 stderr_like(
-    sub { Ado::Build::_chmod(0600, catfile($tempdir, 'log', 'development.log')) },
+    sub { Ado::Build::_chmod('0600', catfile($tempdir, 'log', 'development.log')) },
     qr{Could not change mode for},
     'chmod development.log to 0600 ok'
 );
