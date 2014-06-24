@@ -16,7 +16,7 @@ sub run {
       'c|config_file=s' => \$args->{config_file},
       'm|module=s@'     => \$args->{module};
     @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
-    Carp::croak $self->usage unless $args->{module};
+    Carp::croak $self->usage unless $args->{module}[0];
     $args->{DocumentRoot} = $self->app->home;
 
     say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
@@ -50,7 +50,7 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
   Usage:
   #on the command-line 
   
-  $ bin/ado generate apache2htaccess --module cgi,fcgid > $MOJO_HOME/.htaccess
+  $ bin/ado generate apache2htaccess --module cgi,fcgid > .htaccess
   
   #programatically
   use Ado::Command::generate::apache2htaccess;
