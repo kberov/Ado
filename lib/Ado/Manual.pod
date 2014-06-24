@@ -123,6 +123,19 @@ Installing Ado using Carton
   carton install
   carton exec local/bin/ado daemon
 
+=head2 local::lib
+
+Be warned that L<local::lib>, installed on some shared hosting providers' machines
+sets the environment variables 
+C<$PERL5LIB, $PERL_LOCAL_LIB_ROOT, $PERL_MB_OPT, $PERL_MM_OPT>.
+If you are aware and expect Ado to be installed in C<$PERL_LOCAL_LIB_ROOT>
+(usually C<~/perl5>) then fine.
+If you are using your own Perl and not the provided on the machine, you have to
+reset those variables while installing Ado. Otherwise you may be unpleasantly
+surprised. For ActivePerl it may be best to install Ado dependencies using L<PPM>. 
+Ado is available as L<PPM> package too.
+
+
 =head1 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
