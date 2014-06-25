@@ -16,9 +16,12 @@ ok(my $config_file_content = slurp($config_file), 'generated $config_file');
 my $app_home = $c->app->home;
 like($config_file_content, qr/<IfModule mod_cgi.+?"\^\(ado\)\$"/ms,   'mod_cgi block produced');
 like($config_file_content, qr/<IfModule mod_fcgid.+?"\^\(ado\)\$"/ms, 'mod_fcgid block produced');
+
+# Note! not sure if the produced .htacces will work fine with Apache on Windows
+# so make sure to test locally first.
 like(
     $config_file_content,
-    qr|FcgidWrapper\s+"$^X \Q$app_home\E/bin/ado|,
+    qr|FcgidWrapper\s+"\Q$^X $app_home\E/bin/ado|,
     'path to FcgidWrapper is produced'
 );
 
