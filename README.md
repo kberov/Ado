@@ -48,78 +48,24 @@ language for sharing UI.
 
 # INSTALLATION
 
-We do not recommend using Ado with your system Perl!
-
-Get a precompiled Perl distro like "Citrus Perl" 
-([http://www.citrusperl.com/download.html](http://www.citrusperl.com/download.html)) or
-"ActivePerl Community Edition"
-([http://www.activestate.com/activeperl/downloads](http://www.activestate.com/activeperl/downloads)) for your OS, 
-or build your own using [App::perlbrew](https://metacpan.org/pod/App::perlbrew).
-
-Ado can be downloaded from [CPAN](http://search.cpan.org/dist/Ado/)
-and installed manually or installed directly from CPAN using `cpan` or
-`cpanm` commandline tools. 
+We strongly recommend using Ado with your own Perl (not the system-wide)!
 
 Ado is meant to be _installed into a folder of your choice_.
 It can go into the `siteprefix` folder of your **_non-system Perl distro_** 
-or in its own folder. When installing Ado in its own folder add the 
-`/path/to/ado/bin` to your `$PATH` environment variable.
-
-## MANUAL
+or in its own folder. When installing Ado in its own folder,
+you may want to add the `/path/to/ado/bin` to your `$PATH` environment variable.
 
 To install manually Ado after downloading, run the following commands:
 
     tar -zxf Ado-X.XX.tar.gz
     cd Ado-X.XX/
     perl Build.PL --install_base $HOME/opt/ado
-    #or simply
-    perl Build.PL
     ./Build installdeps
     ./Build
     ./Build test
     ./Build install
 
-## CPAN
-
-    cpanm Ado
-    #or
-    cpan[1]> install Ado
-    Running install for module 'Ado'
-    Running make for B/BE/BEROV/Ado-0.26.tar.gz
-    ...  
-    ...
-      BEROV/Ado-0.26.tar.gz
-    ./Build install install  -- OK
-
-## PERLBREW
-
-Installing Ado under your own perlbrew environment
-
-    perlbrew init
-    perlbrew install -n perl-5.18.1 --as ado -j 3
-    perlbrew switch ado
-    perlbrew install-cpanm
-    cpanm Ado
-
-## Carton
-
-Installing Ado using Carton
-
-    echo 'requires "Ado";' > cpanfile
-    carton install
-    carton exec local/bin/ado daemon
-
-## local::lib
-
-Be warned that [local::lib](https://metacpan.org/pod/local::lib), installed on some shared hosting providers' machines
-sets the environment variables 
-`$PERL5LIB, $PERL_LOCAL_LIB_ROOT, $PERL_MB_OPT, $PERL_MM_OPT`.
-If you are aware and expect Ado to be installed in `$PERL_LOCAL_LIB_ROOT`
-(usually `~/perl5`) then fine.
-If you are using your own Perl and not the provided on the machine, you have to
-reset those variables while installing Ado. Otherwise you may be unpleasantly
-surprised. For ActivePerl it may be best to install Ado dependencies using [PPM](https://metacpan.org/pod/PPM). 
-Ado is available as [PPM](https://metacpan.org/pod/PPM) package too.
+To see more installation methods and details, go to [Ado::Manual::Installation](https://metacpan.org/pod/Ado::Manual::Installation).
 
 # SUPPORT AND DOCUMENTATION
 
