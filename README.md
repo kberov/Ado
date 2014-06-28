@@ -12,39 +12,15 @@ Ado::Manual - Getting started with Ado
 [Ado](https://metacpan.org/pod/Ado) is a framework for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
 written in the [Perl programming language](http://www.perl.org/).
 
-Ado is a typical [Mojo](https://metacpan.org/pod/Mojo) application yet it adds some default 
+Ado is a typical [Mojo](https://metacpan.org/pod/Mojo) application. It has default 
 configuration and a model layer - [Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). 
 An SQLite database is bundled in the distribution at `etc/ado.sqlite` 
 to get started quickly.
 
-[Ado](https://metacpan.org/pod/Ado) goes together with the following:
-
-- [Ado::Command::adduser](https://metacpan.org/pod/Ado::Command::adduser) allows adding users to an Ado application
-via a terminal. It also allows adding users to existing or not existing groups. 
-The new group is automatically created.
-- [Ado::Command::generate::apache2vhost](https://metacpan.org/pod/Ado::Command::generate::apache2vhost) 
-generates a minimal Apache2 Virtual Host configuration file for your [Ado](https://metacpan.org/pod/Ado)
-application.
-- [Ado::Command::generate::apache2htaccess](https://metacpan.org/pod/Ado::Command::generate::apache2htaccess) 
-generates an Apache2 `.htaccess` configuration file for your [Ado](https://metacpan.org/pod/Ado) application.
-You can use this command on a shared hosting account.
-- [Ado::Plugin::Auth](https://metacpan.org/pod/Ado::Plugin::Auth) is a plugin that authenticates users to an [Ado](https://metacpan.org/pod/Ado) system.
-Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
-and other authentication service-providers.
-- [Ado::Plugin::MarkdownRenderer](https://metacpan.org/pod/Ado::Plugin::MarkdownRenderer) - Render static files in markdown format.
-You can create a personal blog or enterprise wiki using static files in markdown format.
-See the Functional documentation at [http://localhost:3000/help](http://localhost:3000/help) for an example.
-- [Ado::Plugin::I18n](https://metacpan.org/pod/Ado::Plugin::I18n) localizes your application and site.
-It altomatically detects the current UserAgent language preferences
-and selects the best fit from the supported by the application languages.
-- [PageDown](http://code.google.com/p/pagedown/) is the version of Attacklab's Showdown 
-and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
-that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,
-and a few useful plugins, e.g. for sanitizing the generated HTML according to a whitelist 
-of allowed tags.
-- [Semantic UI](http://semantic-ui.com/) - A CSS  and JS user interface framework. 
-UI is the vocabulary of the web. Semantic empowers designers and developers by creating a 
-language for sharing UI.
+Ado has additional [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command), 
+which are good to have when starting new projects, based on Mojolicious.
+[Semantic UI](http://semantic-ui.com/) is included in the distribution
+and the default Ado page is a good example for usage.
 
 # INSTALLATION
 
