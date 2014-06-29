@@ -13,12 +13,19 @@ like($c->usage, qr/generate\sapache2htaccess.*?mod_fcgid/ms, 'usage looks alike'
 my $config_file = catfile(tempdir, '.htaccess');
 ok(!$c->run('-m' => 'cgi,fcgid', '-c' => $config_file), 'run() ok');
 ok(my $config_file_content = slurp($config_file), 'generated $config_file');
-my $app_home = $c->app->home;
 like($config_file_content, qr/<IfModule mod_cgi.+?"\^\(ado\)\$"/ms,   'mod_cgi block produced');
 like($config_file_content, qr/<IfModule mod_fcgid.+?"\^\(ado\)\$"/ms, 'mod_fcgid block produced');
+
+# Note! not sure if the produced .htacces will work fine with Apache on Windows
+# so make sure to test locally first.
+my ($perl, $app_home) = ($c->args->{perl}, $c->args->{DocumentRoot});
+if ($^O eq 'MSWin32') {
+    ok($app_home !~ m/\\/, 'DocumentRoot - only forward slashes');
+    ok($perl !~ m/\\/,     'perl path - only forward slashes');
+}
 like(
     $config_file_content,
-    qr|FcgidWrapper\s+"$^X \Q$app_home\E/bin/ado|,
+    qr|FcgidWrapper\s+"\Q$perl $app_home\E/bin/ado|,
     'path to FcgidWrapper is produced'
 );
 

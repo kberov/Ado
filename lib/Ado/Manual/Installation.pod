@@ -1,0 +1,101 @@
+=encoding utf8
+
+=head1 NAME
+
+Ado::Manual::Installation - Various ways to install Ado 
+
+=head1 DESCRIPTION
+
+We strongly recommend using Ado with your own Perl (not the system-wide)!
+This will give you freedom to install modules from CPAN etc.
+
+Get a precompiled Perl distro like "Citrus Perl" 
+(L<http://www.citrusperl.com/download.html>) or
+"ActivePerl Community Edition"
+(L<http://www.activestate.com/activeperl/downloads>) for your OS, 
+or build your own using L<App::perlbrew>.
+
+Ado can be downloaded from L<CPAN|http://search.cpan.org/dist/Ado/>
+and installed manually or installed directly from CPAN using C<cpan> or
+C<cpanm> commandline tools. 
+
+
+=head1 INSTALLATION METHODS
+
+Ado is meant to be I<installed into a folder of your choice>.
+It can go into the C<siteprefix> folder of your B<I<non-system Perl distro>> 
+or in its own folder. When installing Ado in its own folder, you may want to
+add the C</path/to/ado/bin> to your C<$PATH> environment variable.
+
+=head2 MANUAL
+
+To install manually Ado after downloading, run the following commands:
+
+  tar -zxf Ado-X.XX.tar.gz
+  cd Ado-X.XX/
+  perl Build.PL --install_base $HOME/opt/ado
+  #or simply
+  perl Build.PL
+  ./Build installdeps
+  ./Build
+  ./Build test
+  ./Build install
+
+=head2 CPAN
+
+  cpanm Ado
+  #or
+  cpan[1]> install Ado
+  Running install for module 'Ado'
+  Running make for B/BE/BEROV/Ado-0.26.tar.gz
+  ...  
+  ...
+    BEROV/Ado-0.26.tar.gz
+  ./Build install install  -- OK
+
+=head2 PERLBREW
+
+Installing Ado under your own perlbrew environment
+
+  perlbrew init
+  perlbrew install -n perl-5.18.1 --as ado -j 3
+  perlbrew switch ado
+  perlbrew install-cpanm
+  cpanm Ado
+
+=head2 Carton
+
+Installing Ado using Carton
+
+  echo 'requires "Ado";' > cpanfile
+  carton install
+  carton exec local/bin/ado daemon
+
+=head2 local::lib
+
+Be warned that L<local::lib>, installed on some shared hosting providers' machines,
+sets the environment variables 
+C<$PERL5LIB, $PERL_LOCAL_LIB_ROOT, $PERL_MB_OPT, $PERL_MM_OPT>.
+If you are aware and expect Ado to be installed in C<$PERL_LOCAL_LIB_ROOT>
+(usually C<~/perl5>) then fine.
+If you are using your own Perl and not the provided on the machine, you have to
+reset those variables while installing Ado. Otherwise you may be unpleasantly
+surprised. For ActivePerl it may be best to install Ado dependencies using L<PPM>. 
+Ado is available as L<PPM> package too.
+
+  export PERL_MB_OPT='--install_base /home/you/example.com'
+  #your own perl is already in $PATH and dependencies are installed
+  perl Build.PL
+  ./Build install
+
+=head1 SEE ALSO
+
+L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>, 
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the 
+GNU Lesser General Public License v3 (LGPL-3.0).

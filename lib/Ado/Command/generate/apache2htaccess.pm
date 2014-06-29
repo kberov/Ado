@@ -18,13 +18,16 @@ sub run {
     @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
     Carp::croak $self->usage unless $args->{module}[0];
     $args->{DocumentRoot} = $self->app->home;
+    $args->{DocumentRoot} =~ s|\\|/|g;
+    $args->{perl} = $^X;
+    $args->{perl} =~ s|\\|/|g;
 
-    say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
+    say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2htaccess.ep');
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
-        say 'Writing ' . $args->{config_file} if $args->{verbose};
+        say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};
         Mojo::Util::spurt($config, $args->{config_file});
     }
     else {
@@ -61,7 +64,7 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
 
 L<Ado::Command::generate::apache2htaccess> 
 generates an Apache2 C<.htaccess> configuration file for your L<Ado> application.
-You can use this command on a shared hosting account.
+You can use this command for a shared hosting account.
 
 This is a core command, that means it is always enabled and its code a good
 example for learning to build new commands, you're welcome to fork it.
@@ -134,6 +137,7 @@ L<Apache - Upgrading to 2.4 from 2.2|http://httpd.apache.org/docs/2.4/upgrading.
 L<Ado::Command::generate::apache2vhost>,
 L<Ado::Command::generate>, L<Getopt::Long>,
 L<Ado::Command> L<Ado::Manual>,
-L<Mojolicious>, L<Mojolicious::Guides::Cookbook/DEPLOYMENT>.
+L<Mojolicious>, L<Mojolicious::Guides::Cookbook/DEPLOYMENT>,
+L<Mojo::Server::FastCGI>.
 
 =cut

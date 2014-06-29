@@ -14,127 +14,36 @@ Ado::Manual - Getting started with Ado
 L<Ado> is a framework for web projects based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 
-Ado is a typical L<Mojo> application yet it adds some default 
+Ado is a typical L<Mojo> application. It has default 
 configuration and a model layer - L<Mojolicious::Plugin::DSC>. 
 An SQLite database is bundled in the distribution at C<etc/ado.sqlite> 
 to get started quickly.
 
-L<Ado> goes together with the following:
-
-=over
-
-=item * L<Ado::Command::adduser> allows adding users to an Ado application
-via a terminal. It also allows adding users to existing or not existing groups. 
-The new group is automatically created.
-
-=item * L<Ado::Command::generate::apache2vhost> 
-generates a minimal Apache2 Virtual Host configuration file for your L<Ado>
-application.
-
-=item * L<Ado::Command::generate::apache2htaccess> 
-generates an Apache2 C<.htaccess> configuration file for your L<Ado> application.
-You can use this command on a shared hosting account.
-
-=item * L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
-Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
-and other authentication service-providers.
-
-=item * L<Ado::Plugin::MarkdownRenderer> - Render static files in markdown format.
-You can create a personal blog or enterprise wiki using static files in markdown format.
-See the Functional documentation at L<http://localhost:3000/help> for an example.
-
-=item * L<Ado::Plugin::I18n> localizes your application and site.
-It altomatically detects the current UserAgent language preferences
-and selects the best fit from the supported by the application languages.
-
-=item * L<PageDown|http://code.google.com/p/pagedown/> is the version of Attacklab's Showdown 
-and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter
-that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML,
-and a few useful plugins, e.g. for sanitizing the generated HTML according to a whitelist 
-of allowed tags.
-
-=item * L<Semantic UI|http://semantic-ui.com/> - A CSS  and JS user interface framework. 
-UI is the vocabulary of the web. Semantic empowers designers and developers by creating a 
-language for sharing UI.
-
-
-=back
+Ado has additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>, 
+which are good to have when starting new projects, based on Mojolicious.
+L<Semantic UI|http://semantic-ui.com/> is included in the distribution
+and the default Ado page is a good example for usage.
 
 =head1 INSTALLATION
 
-We do not recommend using Ado with your system Perl!
-
-Get a precompiled Perl distro like "Citrus Perl" 
-(L<http://www.citrusperl.com/download.html>) or
-"ActivePerl Community Edition"
-(L<http://www.activestate.com/activeperl/downloads>) for your OS, 
-or build your own using L<App::perlbrew>.
-
-Ado can be downloaded from L<CPAN|http://search.cpan.org/dist/Ado/>
-and installed manually or installed directly from CPAN using C<cpan> or
-C<cpanm> commandline tools. 
+We strongly recommend using Ado with your own Perl (not the system-wide)!
 
 Ado is meant to be I<installed into a folder of your choice>.
 It can go into the C<siteprefix> folder of your B<I<non-system Perl distro>> 
-or in its own folder. When installing Ado in its own folder add the 
-C</path/to/ado/bin> to your C<$PATH> environment variable.
-
-=head2 MANUAL
+or in its own folder. When installing Ado in its own folder,
+you may want to add the C</path/to/ado/bin> to your C<$PATH> environment variable.
 
 To install manually Ado after downloading, run the following commands:
 
   tar -zxf Ado-X.XX.tar.gz
   cd Ado-X.XX/
   perl Build.PL --install_base $HOME/opt/ado
-  #or simply
-  perl Build.PL
   ./Build installdeps
   ./Build
   ./Build test
   ./Build install
 
-=head2 CPAN
-
-  cpanm Ado
-  #or
-  cpan[1]> install Ado
-  Running install for module 'Ado'
-  Running make for B/BE/BEROV/Ado-0.26.tar.gz
-  ...  
-  ...
-    BEROV/Ado-0.26.tar.gz
-  ./Build install install  -- OK
-
-=head2 PERLBREW
-
-Installing Ado under your own perlbrew environment
-
-  perlbrew init
-  perlbrew install -n perl-5.18.1 --as ado -j 3
-  perlbrew switch ado
-  perlbrew install-cpanm
-  cpanm Ado
-
-=head2 Carton
-
-Installing Ado using Carton
-
-  echo 'requires "Ado";' > cpanfile
-  carton install
-  carton exec local/bin/ado daemon
-
-=head2 local::lib
-
-Be warned that L<local::lib>, installed on some shared hosting providers' machines
-sets the environment variables 
-C<$PERL5LIB, $PERL_LOCAL_LIB_ROOT, $PERL_MB_OPT, $PERL_MM_OPT>.
-If you are aware and expect Ado to be installed in C<$PERL_LOCAL_LIB_ROOT>
-(usually C<~/perl5>) then fine.
-If you are using your own Perl and not the provided on the machine, you have to
-reset those variables while installing Ado. Otherwise you may be unpleasantly
-surprised. For ActivePerl it may be best to install Ado dependencies using L<PPM>. 
-Ado is available as L<PPM> package too.
-
+To see more installation methods and details, go to L<Ado::Manual::Installation>.
 
 =head1 SUPPORT AND DOCUMENTATION
 
