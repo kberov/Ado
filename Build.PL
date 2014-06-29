@@ -54,7 +54,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.08',
+        'Mojolicious'              => '5.10',
         'Mojolicious::Plugin::DSC' => '0.999',
         'Email::Address'           => '1.901',
         'Locale::Maketext'         => '1.23',
@@ -78,8 +78,7 @@ my $builder = Ado::Build->new(
         }
     },
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/bg/*.html', 'public/doc/en/*.html'],
+    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 'public/doc/**/*.html'],
 );
 
 $builder->create_build_script();
-
