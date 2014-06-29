@@ -18,13 +18,16 @@ sub run {
     @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
     Carp::croak $self->usage unless $args->{module}[0];
     $args->{DocumentRoot} = $self->app->home;
+    $args->{DocumentRoot} =~ s|\\|/|g;
+    $args->{perl} = $^X;
+    $args->{perl} =~ s|\\|/|g;
 
-    say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
+    say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2htaccess.ep');
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
-        say 'Writing ' . $args->{config_file} if $args->{verbose};
+        say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};
         Mojo::Util::spurt($config, $args->{config_file});
     }
     else {

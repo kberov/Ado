@@ -1,9 +1,13 @@
 Revision history for Ado
 
-0.48 2014-06-26
-    - Fixed again failing tests on Windows.
+0.48 2014-06-29
+    - Fixed again failing tests on Windows. 
+      Replaced backslashes with forward slashes.
     - Moved most of the INSTALL section from READMEs 
       to Ado::Manual::Installation.
+    - Made READMEs smaller.
+    - Upgraded to Mojolicious 5.10.
+
 
 
 0.47 2014-06-18

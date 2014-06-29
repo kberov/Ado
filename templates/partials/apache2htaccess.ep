@@ -75,8 +75,8 @@ FileETag None
   <Files ~ "^(ado)$">
     SetHandler  fcgid-script
   </Files>
-  # Use your own perl.
-  FcgidWrapper "<%= $^X . ' ' . $args->{DocumentRoot} %>/bin/ado fastcgi"
+  # Use your own perl. You may need to fix paths if they contain spaces.
+  FcgidWrapper "<%= $args->{perl} . ' ' . $args->{DocumentRoot} %>/bin/ado fastcgi"
 </IfModule>
 % }
 # Make Ado handle any 404 errors.
