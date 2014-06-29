@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.48';
+our $VERSION   = '0.49';
 our $CODENAME  = 'U+2C03 GLAGOLITIC CAPITAL LETTER GLAGOLI (Ⰳ)';
 
 use Ado::Control;
@@ -30,7 +30,7 @@ sub startup {
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $ENV{MOJO_CONFIG} ||= catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');
+    $ENV{MOJO_CONFIG} ||= catfile($app->home, 'etc', 'ado.conf');
     $app->plugin('Config');
     return $app;
 }
