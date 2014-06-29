@@ -1,6 +1,7 @@
 package Ado::Plugin;
-use Mojo::Util qw(decamelize decode);
 use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::Util qw(decamelize decode);
+File::Spec::Functions->import(qw(catfile catdir));
 
 has app => sub { Mojo::Server->new->build_app('Mojo::HelloWorld') };
 has name => sub {
@@ -9,20 +10,32 @@ has name => sub {
     (ref $_[0] || $_[0]) =~ /(\w+)$/ && return $1;
 };
 
+has plugins_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
+
 sub _get_plugin_config {
     my ($self) = @_;
-    state $app = $self->app;
-    my $name = $self->name;
+    state $app         = $self->app;
+    state $mode        = $app->mode;
+    state $home        = $app->home;
+    state $plugins_dir = $self->plugins_dir;
+    my $name   = decamelize($self->name);
+    my $config = {};
 
-    #Only try (plugin specific configuration file).
-    my $conf_file = $app->home->rel_dir('etc/plugins/' . decamelize($name) . '.conf');
-    if (my $config = eval { Mojolicious::Plugin::Config->new->load($conf_file, {}, $app) }) {
-        return $config;
+    # Only try plugin specific configuration file.
+    # Read also mode specific configuration file.
+
+    if (-f (my $f = catfile($plugins_dir, "$name.conf"))) {
+        $app->log->debug(qq{found configuration file "$f".});
+        $config = eval { Mojolicious::Plugin::Config->new->load($f, {}, $app) };
+    }
+    my $conf_file = catfile($plugins_dir, "$name.$mode.conf");
+
+    if (my $config_mode = eval { Mojolicious::Plugin::Config->new->load($conf_file, {}, $app) }) {
+        $app->log->debug(qq{found configuration file "$conf_file".});
+        return {%$config, %$config_mode};    #merge
     }
     else {
-        $app->log->info(
-            "Could not load configuration from file $conf_file! " . decode('UTF-8', $@));
-        return {};
+        return $config;
     }
 }
 
@@ -86,6 +99,13 @@ Application for plugin, defaults to a L<Mojo::HelloWorld> object.
 The name - only the plugin name without the namespace.
 
   $self->name #MyPlugin
+
+=head2 plugins_dir
+
+Path to plugins directory.
+
+  #$self->app->home->rel_dir('etc/plugins')
+  $self->plugins_dir
 
 =head1 METHODS
 

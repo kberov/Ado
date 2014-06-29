@@ -142,6 +142,10 @@ README.md
 t/.perlcriticrc
 t/00-load.t
 t/ado-build.t
+t/ado/etc/ado.conf
+t/ado/etc/plugins/example.conf
+t/ado/lib/Ado/Plugin/Example.pm
+t/ado/README
 t/basic.t
 t/boilerplate.t
 t/command/adduser.t
@@ -153,6 +157,8 @@ t/perl-critic.t
 t/plugin/auth-00.t
 t/plugin/auth-01.t
 t/plugin/auth-02.t
+t/plugin/example-00.t
+t/plugin/example-01.t
 t/plugin/i18n-00.t
 t/plugin/i18n-01.t
 t/plugin/i18n-02.t

@@ -1,5 +1,5 @@
-use strict;
-use warnings;
+#t/perl-critic.t
+use Mojo::Base -strict;
 use Test::More;
 use English qw(-no_match_vars);
 use File::Basename;
