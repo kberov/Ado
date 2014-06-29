@@ -8,7 +8,8 @@ has args        => sub { {} };
 
 sub run {
     my ($self, @args) = @_;
-    my $home = $self->app->home;
+    state $app  = $self->app;
+    state $home = $app->home;
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'n|ServerName=s'   => \$args->{ServerName},
@@ -26,8 +27,8 @@ sub run {
     $args->{ServerAlias} //=
       $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
     $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
-    $args->{user}        //= (getpwuid($<))[0];
-    $args->{group}       //= $( =~ /^(\S+?)/ && getgrgid($1);
+    $args->{user} //= ($app->env('USER') || getlogin || 'nobody');
+    $args->{group} //= $( =~ /^(\S+?)/ && getgrgid($1);
     say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2vhost.ep');
