@@ -64,7 +64,17 @@ my $builder = Ado::Build->new(
         'Text::MultiMarkdown' => '1.000034',
 
     },
-    recommends           => {'DBD::SQLite' => '1.42',},
+    recommends => {
+        'DBD::SQLite' => '1.42',
+
+        # Either
+        'Plack'             => '1.0030',
+        'FCGI'              => '0.74',
+        'FCGI::ProcManager' => '0.24',
+
+        # or
+        'Mojo::Server::FastCGI' => '0.41',
+    },
     recursive_test_files => 1,
     meta_merge           => {
         resources => {

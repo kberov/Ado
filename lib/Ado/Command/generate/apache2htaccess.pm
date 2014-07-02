@@ -6,6 +6,18 @@ has description => "Generates Apache2 .htaccess file.\n";
 has usage       => sub { shift->extract_usage };
 has args        => sub { {} };
 
+sub _which {
+    my @pathext = ('');
+    push @pathext, map {lc} split /;/, $ENV{PATHEXT} if $ENV{PATHEXT};
+    foreach my $path (File::Spec->path($ENV{PATH})) {
+        foreach my $ext (@pathext) {
+            my $exe = File::Spec->catfile($path, ($ext ? "$_[1].$ext" : $_[1]));
+            return $exe if -e $exe;
+        }
+    }
+    return '';
+}
+
 sub run {
     my ($self, @args) = @_;
     my $home = $self->app->home;
@@ -21,6 +33,7 @@ sub run {
     $args->{DocumentRoot} =~ s|\\|/|g;
     $args->{perl} = $^X;
     $args->{perl} =~ s|\\|/|g;
+    $args->{plackup} = $self->_which('plackup');
 
     say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
@@ -49,12 +62,12 @@ sub run {
 Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
 
 =head1 SYNOPSIS
-  
+
   Usage:
-  #on the command-line 
-  
+  #on the command-line
+
   $ bin/ado generate apache2htaccess --module cgi,fcgid > .htaccess
-  
+
   #programatically
   use Ado::Command::generate::apache2htaccess;
   my $v = Ado::Command::generate::apache2htaccess->new;
@@ -62,7 +75,7 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
 
 =head1 DESCRIPTION
 
-L<Ado::Command::generate::apache2htaccess> 
+L<Ado::Command::generate::apache2htaccess>
 generates an Apache2 C<.htaccess> configuration file for your L<Ado> application.
 You can use this command for a shared hosting account.
 
@@ -88,8 +101,9 @@ Apache modules to use for running C<ado>. Currently supported modules are
 C<mod_cgi> and C<mod_fcgid>. You can mention them both to add the corresponding
 sections and Apache will use C<mod_fcgid> if loaded or C<mod_cgi>
 (almost always enabled).
-The generated configuration for mod_fcgid is known to work with
-L<Mojo::Server::FastCGI>. So make sure you have it installed.
+The generated configuration for mod_fcgid will use L<Plack> (c<plackup>) or
+L<Mojo::Server::FastCGI>. So make sure you have at least one of them installed.
+L<Plack> is recommended.
 
 =head1 ATTRIBUTES
 
@@ -99,7 +113,7 @@ L<Ado::Command::generate> and implements the following new ones.
 =head2 args
 
 Used for storing arguments from the commandline and then passing them to the
-template 
+template
 
   my $args = $self->args;
 
@@ -120,7 +134,7 @@ Usage information for this command, used for the help screen.
 =head1 METHODS
 
 
-L<Ado::Command::generate::apache2htaccess> inherits all methods from 
+L<Ado::Command::generate::apache2htaccess> inherits all methods from
 L<Ado::Command::generate> and implements the following new ones.
 
 =head2 run
