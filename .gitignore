@@ -18,6 +18,10 @@ Ado-*
 Ado-*.tar.gz
 etc/ado_*.sqlite
 etc/ado.sqlite
+# Ignore mode specific configurations
+etc/ado.dev*.conf
+etc/plugins/**/*.*.conf
+
 *.swp
 /*.komodoproject
 /tags

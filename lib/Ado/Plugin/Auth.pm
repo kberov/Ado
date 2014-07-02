@@ -6,7 +6,7 @@ sub register {
     $self->app($app);    #!Needed in $self->config!
 
     # Merge passed configuration (usually from etc/ado.conf) with configuration
-    # from  etc/plugins/markdown_renderer.conf
+    # from  etc/plugins/auth.conf
     $config = $self->{config} = {%{$self->config}, %{$config ? $config : {}}};
     $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
 

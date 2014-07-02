@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.48';
+our $VERSION   = '0.49';
 our $CODENAME  = 'U+2C03 GLAGOLITIC CAPITAL LETTER GLAGOLI (Ⰳ)';
 
 use Ado::Control;
@@ -30,7 +30,7 @@ sub startup {
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $ENV{MOJO_CONFIG} ||= catfile($ENV{MOJO_HOME}, 'etc', 'ado.conf');
+    $ENV{MOJO_CONFIG} ||= catfile($app->home, 'etc', 'ado.conf');
     $app->plugin('Config');
     return $app;
 }
@@ -112,7 +112,7 @@ sub define_hooks {
 
 =head1 NAME
 
-Ado - a rapid active commotion (framework for web-projects on Mojolicious) 
+Ado - a rapid active commotion (framework for web-projects on Mojolicious)
 
 =head1 SYNOPSIS
 
@@ -136,16 +136,16 @@ Returns the current C<CODENAME>.
 
 =head2 sessions
 
-Access the L<Ado::Sessions> instance. Instantiates one of 
-L<Ado::Sessions::File>, L<Ado::Sessions::Database> 
+Access the L<Ado::Sessions> instance. Instantiates one of
+L<Ado::Sessions::File>, L<Ado::Sessions::Database>
 or L<Mojolicious::Sessions> depending on configuration and returns it.
-By default (no configuration in C<etc/ado.conf>) 
+By default (no configuration in C<etc/ado.conf>)
 a L<Mojolicious::Sessions> is returned.
 
 
 =head1 METHODS
 
-Ado inherits all methods from Mojolicious and implements 
+Ado inherits all methods from Mojolicious and implements
 the following new ones.
 
 =head2 startup
@@ -161,7 +161,7 @@ Returns $app.
 
 Does not accept any parameters.
 Loads plugins listed in C<$config-E<gt>{plugins}>.
-C<$config-E<gt>{plugins}> is an C<ARRAYREF> in which each element is 
+C<$config-E<gt>{plugins}> is an C<ARRAYREF> in which each element is
 a C<HASHREF> with keys C<name> and C<config> or string representing the plugin name.
 The name of the plugin is expected to be string that can be passed to
 L<Mojolicious/plugin>.
@@ -178,10 +178,11 @@ Returns $app.
 Does not accept any parameters.
 Loads predefined routes from C<$config-E<gt>routes>.
 C<$config-E<gt>routes> is an C<ARRAYREF> in which each element is a C<HASHREF> with
-keys corresponding to a method name and value the parameters that 
+keys corresponding to a method name and value the parameters that
 will be passed to the method. Currently we use the C<route> value to pass it
-to L<Mojolicious::Routes/route>,C<params> value is the second parameter to instantiate the route. C<via> and C<to> values are passed 
-to the newly created route. 
+to L<Mojolicious::Routes/route>,C<params> value is the second parameter to
+instantiate the route. C<via> and C<to> values are passed 
+to the newly created route.
 See L<Mojolicious::Routes::Route> and L<Mojolicious::Guides::Routing> for more.
 
 Returns $app.
@@ -200,7 +201,7 @@ Become a sponsor and help make L<Ado> the ERP for the enterprise!
 =head1 SEE ALSO
 
 L<Mojolicious>, L<Ado::Manual>,
-L<http://www.thefreedictionary.com/ado>, 
+L<http://www.thefreedictionary.com/ado>,
 
 =head1 AUTHOR
 
@@ -211,13 +212,12 @@ L<http://www.thefreedictionary.com/ado>,
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
-

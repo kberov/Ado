@@ -5,10 +5,12 @@ use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 has description => "Generates minimal Apache2 Virtual Host configuration file.\n";
 has usage       => sub { shift->extract_usage };
 has args        => sub { {} };
+has env         => sub { \%ENV };
 
 sub run {
     my ($self, @args) = @_;
-    my $home = $self->app->home;
+    state $app  = $self->app;
+    state $home = $app->home;
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'n|ServerName=s'   => \$args->{ServerName},
@@ -26,9 +28,9 @@ sub run {
     $args->{ServerAlias} //=
       $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
     $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
-    $args->{user}        //= (getpwuid($<))[0];
-    $args->{group}       //= $( =~ /^(\S+?)/ && getgrgid($1);
-    say 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
+    $args->{user} //= ($self->env('USER') || getlogin || 'nobody');
+    $args->{group} //= $( =~ /^(\S+?)/ && getgrgid($1);
+    say 'Using arguments:' . $app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2vhost.ep');
     my $config = Mojo::Template->new->render_file($template_file, $args);
@@ -160,6 +162,11 @@ template
   $v              = $vhost->description('Foo!');
 
 Short description of this command, used for the command list.
+
+=head2 env
+
+Reference to C<%ENV>.
+
 
 =head2 usage
 

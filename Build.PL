@@ -54,7 +54,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.08',
+        'Mojolicious'              => '5.10',
         'Mojolicious::Plugin::DSC' => '0.999',
         'Email::Address'           => '1.901',
         'Locale::Maketext'         => '1.23',
@@ -64,7 +64,17 @@ my $builder = Ado::Build->new(
         'Text::MultiMarkdown' => '1.000034',
 
     },
-    recommends           => {'DBD::SQLite' => '1.42',},
+    recommends => {
+        'DBD::SQLite' => '1.42',
+
+        # Either
+        'Plack'             => '1.0030',
+        'FCGI'              => '0.74',
+        'FCGI::ProcManager' => '0.24',
+
+        # or
+        'Mojo::Server::FastCGI' => '0.41',
+    },
     recursive_test_files => 1,
     meta_merge           => {
         resources => {
@@ -78,8 +88,7 @@ my $builder = Ado::Build->new(
         }
     },
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/bg/*.html', 'public/doc/en/*.html'],
+    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 'public/doc/**/*.html'],
 );
 
 $builder->create_build_script();
-
