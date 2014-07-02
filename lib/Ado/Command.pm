@@ -84,17 +84,19 @@ Ado::Command - Ado namespace for Mojo commands!
 
 =head1 DESCRIPTION
 
-Ado::Command is the base class for eventual functionality that we 
+Ado::Command is the base class for eventual functionality that we
 can run directly from the commandline or from controllers.
 In this class we can put common functionality shared among all the commands.
 
 =head1 ATTRIBUTES
 
+L<Ado::Command> inherits all attributes from L<Mojolicious::Command> and implements the following new ones.
+
 =head2 args
 
-Returns a hash-reference containing all arguments passed to the command 
-on the commandline or to the method L</run>.
-The keys are the long variants of the possible commandline arguments 
+Returns a hash-reference containing all arguments passed to the command
+on the command-line or to the method L</run>.
+The keys are the long variants of the possible commandline arguments
 altough you may have used short variants.
 
     #if you passed -s or --something
@@ -110,6 +112,7 @@ Returns current Ado::Command::foo home.
 
 =head1 METHODS
 
+L<Ado::Command> inherits all methods from L<Mojolicious::Command> and implements the following new ones.
 
 =head2 init
 
@@ -163,13 +166,12 @@ Subcommands shared by all command classes inheriting this class.
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
-
