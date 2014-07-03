@@ -24,11 +24,19 @@ if ($^O eq 'MSWin32') {
     ok($perl !~ m/\\/,     'perl path - only forward slashes');
 }
 my $plackup = $c->_which('plackup');
-unless ($plackup) {
+if (!$plackup && eval {require Mojo::Server::FastCGI}) {
     like(
         $config_file_content,
         qr|FcgidWrapper\s+"\Q$perl $app_home\E/bin/ado|,
-        'path to FcgidWrapper is produced'
+        'path to FcgidWrapper is produced (Mojo::Server::FastCGI)'
+    );
+}
+
+if($plackup){
+  like(
+        $config_file_content,
+        qr|FcgidWrapper\s+"\Q$plackup $app_home\E/bin/ado -s FCGI -l |,
+        'path to FcgidWrapper is produced (Plack)'
     );
 }
 
