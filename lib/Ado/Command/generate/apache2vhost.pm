@@ -41,7 +41,7 @@ sub run {
     else {
         say $config;
     }
-    return;
+    return $self;
 }
 
 1;
@@ -185,7 +185,7 @@ L<Ado::Command::generate> and implements the following new ones.
 
   $vhost->run(@ARGV);
 
-Run this command.
+Run this command. Returns C<$self>.
 
 
 =head1 SEE ALSO

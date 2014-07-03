@@ -46,7 +46,7 @@ sub run {
     else {
         say $config;
     }
-    return;
+    return $self;
 
 }
 
@@ -139,9 +139,10 @@ L<Ado::Command::generate> and implements the following new ones.
 
 =head2 run
 
-  $htaccess->run(@ARGV);
-
-Run this command.
+  my $htaccess = Ado::Command::generate::apache2htaccess->run(@ARGV);
+  my $htaccess = $app->commands->run("generate", "apache2htaccess", 
+    '-m' => 'cgi,fcgid', '-c' => $config_file);
+Run this command. Returns C<$self>.
 
 =head1 SEE ALSO
 

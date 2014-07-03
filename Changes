@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.50 2014-07-03
+    -Fixed tests for commands "generate apache2*" to properly initialise
+    $MOJO_HOME.
+    
+
 0.49 2014-07-03
     - Fixed again failing tests on Windows ("The getpwuid function is unimplemented").
     - Added support for mode specific plugin configuration files.
