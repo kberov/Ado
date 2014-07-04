@@ -6,33 +6,35 @@ File::Spec::Functions->import(qw(catfile catdir));
 has app => sub { Mojo::Server->new->build_app('Mojo::HelloWorld') };
 has name => sub {
 
-    #only the last word
+    # Only the last word of the plugin's package name
     (ref $_[0] || $_[0]) =~ /(\w+)$/ && return $1;
 };
 
-has plugins_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
+has config_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
+has ext => 'conf';
 
 sub _get_plugin_config {
     my ($self) = @_;
-    state $app         = $self->app;
-    state $mode        = $app->mode;
-    state $home        = $app->home;
-    state $plugins_dir = $self->plugins_dir;
-    my $name   = decamelize($self->name);
-    my $config = {};
+    state $app  = $self->app;
+    state $mode = $app->mode;
+    state $home = $app->home;
+    my $config_dir = $self->config_dir;
+    my $ext        = $self->ext;
+    my $name       = decamelize($self->name);
+    my $config     = {};
 
-    # Only try plugin specific configuration file.
-    # Read also mode specific configuration file.
-
-    if (-f (my $f = catfile($plugins_dir, "$name.conf"))) {
-        $app->log->debug(qq{found configuration file "$f".});
+    # Try plugin specific configuration file.
+    if (-f (my $f = catfile($config_dir, "$name.$ext"))) {
         $config = eval { Mojolicious::Plugin::Config->new->load($f, {}, $app) };
     }
-    my $conf_file = catfile($plugins_dir, "$name.$mode.conf");
 
-    if (my $config_mode = eval { Mojolicious::Plugin::Config->new->load($conf_file, {}, $app) }) {
-        $app->log->debug(qq{found configuration file "$conf_file".});
-        return {%$config, %$config_mode};    #merge
+    # Mode specific plugin config file
+    my $mfile = catfile($config_dir, "$name.$mode.$ext");
+
+    if (   (-f $mfile)
+        && (my $cmode = eval { Mojolicious::Plugin::Config->new->load($mfile, {}, $app) }))
+    {
+        return {%$config, %$cmode};    #merge
     }
     else {
         return $config;
@@ -42,7 +44,7 @@ sub _get_plugin_config {
 #plugin configuration getter
 sub config {
     my ($self, $key) = @_;
-    $self->{config} ||= $self->_get_plugin_config();
+    $self->{config} //= $self->_get_plugin_config();
     return $key
       ? $self->{config}->{$key}
       : $self->{config};
@@ -68,10 +70,10 @@ Ado::Plugin - base class for Ado specific plugins.
   sub register {
     my ($self, $app, $conf) = @_;
     $self->app($app);#!Needed in $self->config!
-    #Merge passed configuration with configuration 
+    #Merge passed configuration with plugin configuration from files 
     #from  etc/ado.conf and etc/plugins/my_plugin.conf
     $conf = {%{$self->config},%{$conf?$conf:{}}};
-    # Your magic here! :)
+    # Your magic here! 
   }
 
 
@@ -91,21 +93,26 @@ Ado::Plugin provides the following attributes for use by subclasses.
 
 Application for plugin, defaults to a L<Mojo::HelloWorld> object.
 
-  # Introspect
-  say "Template path: $_" for @{$self->app->renderer->paths};
+=head2 config_dir
+
+Path to plugin directory.
+
+  $self->config_dir($app->home->rel_dir('etc/plugins'));
+
+Defaults to C<$ENV{MOJO_HOME}/etc/plugins>.
 
 =head2 name
 
-The name - only the plugin name without the namespace.
+The name - only the last word of the plugin's package name.
 
-  $self->name #MyPlugin
+  $self->name # MyPlugin
 
-=head2 plugins_dir
+=head2 ext
 
-Path to plugins directory.
+Extension used for the plugin specific configuration file. defaults to 'conf';
 
-  #$self->app->home->rel_dir('etc/plugins')
-  $self->plugins_dir
+  my $ext  = $self->ext;
+
 
 =head1 METHODS
 
