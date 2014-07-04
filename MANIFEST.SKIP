@@ -84,4 +84,4 @@ etc/.+vhost.conf
 
 # Avoid mode specific configuration files
 \betc/ado\..+\.conf$
-\betc/plugins/.+\..+\.conf$
+^etc/plugins/.+\..+\.conf$
