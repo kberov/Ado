@@ -35,7 +35,7 @@ my $plackup = $c->_which('plackup');
 if (!$plackup && eval { require Mojo::Server::FastCGI }) {
     like(
         $config_file_content,
-        qr|FcgidWrapper\s+"\Q$perl $app_home\E/bin/ado|,
+        qr|FcgidWrapper\s+".+/perl.+$app_home/bin/ado|,
         'path to FcgidWrapper is produced (Mojo::Server::FastCGI)'
     );
 }
@@ -43,7 +43,7 @@ if (!$plackup && eval { require Mojo::Server::FastCGI }) {
 if ($plackup) {
     like(
         $config_file_content,
-        qr|FcgidWrapper\s+"\Q$plackup $app_home\E/bin/ado -s FCGI -l |,
+        qr|FcgidWrapper\s+"$plackup\s$app_home/bin/ado\s-s\sFCGI\s-l\s|x,
         'path to FcgidWrapper is produced (Plack)'
     );
 }

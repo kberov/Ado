@@ -5,7 +5,6 @@ use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 has description => "Generates minimal Apache2 Virtual Host configuration file.\n";
 has usage       => sub { shift->extract_usage };
 has args        => sub { {} };
-has env         => sub { \%ENV };
 
 sub run {
     my ($self, @args) = @_;
@@ -25,17 +24,20 @@ sub run {
       's|with_suexec'    => \$args->{with_suexec};
 
     Carp::croak $self->usage unless $args->{ServerName};
+
     $args->{ServerAlias} //=
       $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
     $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
-    $args->{user} //= ($self->env('USER') || getlogin || 'nobody');
+    $args->{user} //= ($ENV{USER} || getlogin || 'nobody');
     $args->{group} //= $( =~ /^(\S+?)/ && getgrgid($1);
-    say 'Using arguments:' . $app->dumper($args) if $args->{verbose};
+    $args->{DocumentRoot} =~ s|\\|/|g;
+
+    say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
 
     my $template_file = $self->rel_file('templates/partials/apache2vhost.ep');
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
-        say 'Writing ' . $args->{config_file} if $args->{verbose};
+        say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};
         Mojo::Util::spurt($config, $args->{config_file});
     }
     else {
