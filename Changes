@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.52 2014-07-05
+    
+
 0.51 2014-07-05
     - Fixing  failing tests under Windows.
 
