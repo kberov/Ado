@@ -21,6 +21,8 @@
 # use utf-8 encoding for anything served text/plain or text/html
 AddDefaultCharset utf-8
 
+# Support Offline Web applications
+AddType text/cache-manifest .manifest
 
 # Protect files and directories from prying eyes.
 <FilesMatch "(templates/|etc/|lib/|log/|t/|_build/|cover_db/|\.(pm|ep|conf|log|t|bak|yml|sqlite|sql)|READM.*|MANIFES.*|Build.PL|Build)$">
@@ -91,7 +93,7 @@ FileETag None
   % }
   % if($plackup){
     # plackup must be run with the same perl as ado
-    % my $sock = File::Spec->catfile(File::Spec->tmpdir(), 'ado'.Digest::MD5::md5_hex($root).'.sock');
+    % my $sock = File::Spec->catfile(File::Spec->tmpdir(), 'ado'.time().$$.'.sock');
     % $sock =~ s|\\|/|g;
     # Using Plack with FCGI and FCGI::ProcManager
     FcgidWrapper "<%= "$plackup $root/bin/ado -s FCGI -l $sock" %>"

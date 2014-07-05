@@ -23,7 +23,7 @@ has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 # This method will run once at server start
 sub startup {
     my $app = shift;
-    $app->load_config()->load_plugins()->load_routes()->define_hooks();
+    $app->load_config()->load_plugins()->load_routes()->define_mime_types()->define_hooks();
     return;
 }
 
@@ -94,7 +94,17 @@ sub load_routes {
         $r->to(ref $to eq 'HASH' ? %$to : $to);
         $app->log->debug('load_routes: name:' . $r->name . '; pattern: "' . $r->to_string . '"');
     }
+    return $app;
+}
 
+sub define_mime_types {
+    my $app = shift;
+    my $mimes = $app->config('types') || {};    #HASHREF
+    foreach my $mime (keys %$mimes) {
+
+        # Add new MIME type or redefine any existing
+        $app->types->type($mime => $mimes->{$mime});
+    }
     return $app;
 }
 
@@ -151,6 +161,7 @@ the following new ones.
 =head2 startup
 
 The startup method is where everything begins. Returns void.
+The following methods are listed in the order they are innvoked in L</startup>.
 
 =head2 load_config
 
@@ -186,6 +197,12 @@ to the newly created route.
 See L<Mojolicious::Routes::Route> and L<Mojolicious::Guides::Routing> for more.
 
 Returns $app.
+
+=head2 define_mime_types
+
+Defines any MIME types listed in C<ado.conf> in C<types =E<gt> {...}>.
+Returns $app.
+
 
 =head2 define_hooks
 

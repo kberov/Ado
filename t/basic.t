@@ -2,7 +2,10 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 sub encode { Mojo::Util::encode $^O=~ /win/i ? 'cp866' : 'UTF-8', $_[0] }
-my $t = Test::Mojo->new('Ado');
+my $t   = Test::Mojo->new('Ado');
+my $app = $t->app;
+
+is($app->types->type('xht'), 'application/xhtml+xml', 'define_mime_types (ok)');
 
 #cyrillic
 $t->get_ok('/добре/ок')->status_is(200)
