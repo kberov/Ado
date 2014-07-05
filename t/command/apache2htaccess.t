@@ -24,7 +24,7 @@ like($c->description, qr/Apache2\s+.htaccess/, 'description looks alike');
 like($c->usage, qr/generate\sapache2htaccess.*?mod_fcgid/ms, 'usage looks alike');
 
 ok(my $config_file_content = slurp($config_file), 'generated $config_file');
-like($config_file_content, qr/<IfModule\s+mod_cgi.+?"\^\(ado\)\$"/msx,   'mod_cgi block produced');
+like($config_file_content, qr/<IfModule\s+mod_cgi.+?"\^\(ado\)\$"/msx, 'mod_cgi block produced');
 like($config_file_content, qr/<IfModule\s+mod_fcgid\.c/msx, 'mod_fcgid block produced');
 
 # Note! not sure if the produced .htacces will work fine with Apache on Windows
@@ -32,7 +32,7 @@ like($config_file_content, qr/<IfModule\s+mod_fcgid\.c/msx, 'mod_fcgid block pro
 my ($perl, $app_home) = ($c->args->{perl}, $c->args->{DocumentRoot});
 
 my $plackup = $c->_which('plackup')
-  if (eval { require Plack }
+  if ( eval { require Plack }
     && eval { require FCGI }
     && eval { require FCGI::ProcManager });
 my $has_msfcgi = eval { require Mojo::Server::FastCGI };
