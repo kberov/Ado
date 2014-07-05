@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.51 2014-07-05
+    - Fixing  failing tests under Windows.
+
 0.50 2014-07-04
     - Fixed tests for commands "generate apache2*" to properly initialise
         $MOJO_HOME.
