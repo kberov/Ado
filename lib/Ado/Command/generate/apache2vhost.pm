@@ -5,6 +5,7 @@ use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 has description => "Generates minimal Apache2 Virtual Host configuration file.\n";
 has usage       => sub { shift->extract_usage };
 has args        => sub { {} };
+my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 sub run {
     my ($self, @args) = @_;
@@ -28,9 +29,9 @@ sub run {
     $args->{ServerAlias} //=
       $$args{ServerName} =~ /^www\./ ? $$args{ServerName} : 'www.' . $$args{ServerName};
     $args->{ServerAdmin} //= 'webmaster@' . $args->{ServerName};
-    $args->{user} //= ($ENV{USER} || getlogin || 'nobody');
-    $args->{group} //= $( =~ /^(\S+?)/ && getgrgid($1);
-    $args->{DocumentRoot} =~ s|\\|/|g;
+    $args->{user}        //= ($ENV{USER} || getlogin || 'nobody');
+    $args->{group}       //= $args->{user};
+    $args->{DocumentRoot} =~ s|\\|/|g if $IS_DOS;
 
     say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
 
@@ -61,7 +62,7 @@ Ado::Command::generate::apache2vhost - Generates minimal Apache2 Virtual Host co
   
 On the command-line:
 
-  $ bin/ado generate apache2vhost --ServerName example.com \
+  $ bin/ado generate apache2vhost --ServerName example.com -s \
    > etc/001-example.com.vhost.conf
 
 Review your newly generated C<001-example.com.vhost.conf>!!!

@@ -33,7 +33,7 @@ sub run {
       'c|config_file=s' => \$args->{config_file},
       'm|module=s@'     => \$args->{module};
     @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
-    Carp::croak $self->usage unless $args->{module}[0];
+    Carp::croak $self->usage unless scalar @{$args->{module}};
     $args->{DocumentRoot} = $self->app->home;
     $args->{perl}         = $^X;
 
@@ -41,7 +41,10 @@ sub run {
         $args->{DocumentRoot} =~ s|\\|/|g;
         $args->{perl} =~ s|\\|/|g;
     }
-    $args->{plackup} = $self->_which('plackup');
+    $args->{plackup} = $self->_which('plackup')
+      if ( eval { require Plack }
+        && eval { require FCGI }
+        && eval { require FCGI::ProcManager });
 
     say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 

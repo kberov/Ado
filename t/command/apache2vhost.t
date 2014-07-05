@@ -5,6 +5,10 @@ use File::Temp qw(tempdir);
 use File::Spec::Functions qw(catfile);
 use Mojo::Util qw(slurp);
 use Test::Mojo;
+my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
+
+plan skip_all => 'Not reliable test under this platform.' if $IS_DOS;
+
 
 my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;

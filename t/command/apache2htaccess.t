@@ -5,6 +5,9 @@ use File::Temp qw(tempdir);
 use File::Spec::Functions qw(catdir catfile catpath);
 use Mojo::Util qw(slurp);
 use Test::Mojo;
+my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
+
+plan skip_all => 'Not reliable test under this platform.' if $IS_DOS;
 
 my $t       = Test::Mojo->new('Ado');
 my $app     = $t->app;
@@ -27,12 +30,13 @@ like($config_file_content, qr/<IfModule mod_fcgid.+?"\^\(ado\)\$"/ms, 'mod_fcgid
 # Note! not sure if the produced .htacces will work fine with Apache on Windows
 # so make sure to test locally first.
 my ($perl, $app_home) = ($c->args->{perl}, $c->args->{DocumentRoot});
-if ($^O eq 'MSWin32') {
-    ok($app_home !~ m/\\/, 'DocumentRoot - only backslashes');
-    ok($perl !~ m/\\/,     'perl path - only backslashes');
-}
-my $plackup = $c->_which('plackup');
-if (!$plackup && eval { require Mojo::Server::FastCGI }) {
+
+my $plackup = $c->_which('plackup')
+  and (eval { require Plack }
+    && eval { require FCGI }
+    && eval { require FCGI::ProcManager });
+my $has_msfcgi = eval { require Mojo::Server::FastCGI };
+if ($has_msfcgi) {
     like(
         $config_file_content,
         qr|FcgidWrapper\s+".+/perl.+$app_home/bin/ado|,
@@ -43,8 +47,15 @@ if (!$plackup && eval { require Mojo::Server::FastCGI }) {
 if ($plackup) {
     like(
         $config_file_content,
-        qr|FcgidWrapper\s+"$plackup\s$app_home/bin/ado\s-s\sFCGI\s-l\s|x,
+        qr|FcgidWrapper\s+"$plackup\s+$app_home/bin/ado\s+-s\s+FCGI\s+-l\s+|x,
         'path to FcgidWrapper is produced (Plack)'
+    );
+}
+if (!$plackup && !$has_msfcgi) {
+    like(
+        $config_file_content,
+        qr|no\sPlack\sneither\sMojo::Server::FastCGI|x,
+        'no FcgidWrapper is produced because of missing modules'
     );
 }
 
