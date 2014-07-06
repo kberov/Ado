@@ -60,7 +60,7 @@ Options +FollowSymLinks
   <FilesMatch "\.(manifest)$">
     #Expire manifest files immediately.
     ExpiresDefault "access"
-  </Files>
+  </FilesMatch>
 </IfModule>
 
 # Additional headers for static files caching.
@@ -165,7 +165,7 @@ AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
   # Redirect all requests for Ado static files to public/ directory.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^((css|doc|fonts|img|js|vendor|favicon|index)\b.*)$  /public/$1 [L,R=301]
+  RewriteRule ^((css|doc|fonts|img|js|vendor|favicon|index)\b.*)$  /public/$1 [L]
 
 
   RewriteCond %{REQUEST_FILENAME} !-f
