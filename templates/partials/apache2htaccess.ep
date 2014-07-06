@@ -57,6 +57,10 @@ Options +FollowSymLinks
     # headers themselves.
     ExpiresActive Off
   </FilesMatch>
+  <FilesMatch "\.(manifest)$">
+    #Expire manifest files immediately.
+    ExpiresDefault "access"
+  </Files>
 </IfModule>
 
 # Additional headers for static files caching.
@@ -72,7 +76,13 @@ FileETag None
 
 % if( grep {$_ eq 'cgi'} @{$args->{module}} ){
 <IfModule mod_cgi.c>
-  # Set explicitly Ado executables as cgi scripts
+  # Set explicitly Ado executables as cgi scripts.
+  # Running Mojolicious apps (such as Ado) as CGI is discouraged.
+  # However it can perfectly suit your needs if you only aim static pages generation.
+  # See Ado::Control::Doc as an example on which you can elaborate.
+
+  # This is the fallback mode in case no Plack with FCGI and FCGI::ProcManager 
+  # neither Mojo::Server::FastCGI are installed.
   <Files ~ "^(ado)$">
     SetHandler  cgi-script
   </Files>
@@ -82,7 +92,7 @@ FileETag None
 % if(grep {$_ eq 'fcgid'} @{$args->{module}}){
 <IfModule mod_fcgid.c>
   # See http://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html
-  % if(!$args->{plackup} && !$has_msfcgi) {
+  % if(!$plackup && !$has_msfcgi) {
     # Sorry! no Plack with FCGI and FCGI::ProcManager neither Mojo::Server::FastCGI are installed.
     # Install at least one of them and rerun 'ado apache2htaccess'.
   % }

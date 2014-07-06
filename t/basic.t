@@ -6,6 +6,8 @@ my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
 
 is($app->types->type('xht'), 'application/xhtml+xml', 'define_mime_types (ok)');
+#cache-manifest
+is($app->types->type('cache-manifest'), 'text/cache-manifest', 'cache-manifest (ok)');
 
 #cyrillic
 $t->get_ok('/добре/ок')->status_is(200)

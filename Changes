@@ -1,7 +1,7 @@
 Revision history for Ado
 
-0.52 2014-07-05
-    - Added new MIME type .manifest to .apache2htaccess.ep.
+0.52 2014-07-06
+    - Added new MIME type .manifest to apache2htaccess.ep.
     - Added method define_mime_types to Ado.
 
 0.51 2014-07-05
