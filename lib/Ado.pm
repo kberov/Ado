@@ -38,15 +38,9 @@ sub load_config {
 sub load_plugins {
     my $app = shift;
 
-    # Documentation browser under "/perldoc"
-    $app->plugin('PODRenderer', {no_perldoc => 1});
-
-    #HACK!
-    #TODO: Inherit PODRenderer and implement an Ado Default perldoc plugin.
-    my $defaults = {module => 'Ado/Manual', format => 'html'};
-    ##no critic (ProtectPrivateSubs,ProhibitUnusedPrivateSubroutines,ProtectPrivateVars)
-    $app->routes->any('/perldoc/:module' => $defaults => [module => qr/[^.]+/] =>
-          \&Mojolicious::Plugin::PODRenderer::_perldoc);
+    # Default "/perldoc" page is Ado/Manual
+    $app->plugin('PODRenderer');
+    $app->routes->lookup('perldocmodule')->to->{module} = 'Ado/Manual';
 
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
