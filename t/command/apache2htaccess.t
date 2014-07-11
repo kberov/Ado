@@ -34,7 +34,9 @@ my ($perl, $app_home) = ($c->args->{perl}, $c->args->{DocumentRoot});
 my $plackup = $c->_which('plackup')
   if ( eval { require Plack }
     && eval { require FCGI }
-    && eval { require FCGI::ProcManager });
+    && eval { require FCGI::ProcManager }
+    && eval { require Apache::LogFormat::Compiler });
+
 my $has_msfcgi = eval { require Mojo::Server::FastCGI };
 if ($has_msfcgi) {
     like(

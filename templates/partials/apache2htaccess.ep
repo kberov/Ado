@@ -59,7 +59,7 @@ Options +FollowSymLinks
   </FilesMatch>
   <FilesMatch "\.(appcache)$">
     #Expire manifest files immediately.
-    ExpiresDefault "access"
+    ExpiresDefault "access plus 0 seconds"
   </FilesMatch>
 </IfModule>
 
