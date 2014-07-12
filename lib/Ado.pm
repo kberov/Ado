@@ -38,10 +38,6 @@ sub load_config {
 sub load_plugins {
     my $app = shift;
 
-    # Default "/perldoc" page is Ado/Manual
-    $app->plugin('PODRenderer');
-    $app->routes->lookup('perldocmodule')->to->{module} = 'Ado/Manual';
-
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
         $app->log->debug(
@@ -53,6 +49,7 @@ sub load_plugins {
             $app->plugin($plugin);
         }
     }
+
     return $app;
 }
 
@@ -88,6 +85,11 @@ sub load_routes {
         $r->to(ref $to eq 'HASH' ? %$to : $to);
         $app->log->debug('load_routes: name:' . $r->name . '; pattern: "' . $r->to_string . '"');
     }
+
+    # Default "/perldoc" page is Ado/Manual
+    my $perldoc = $routes->lookup('perldocmodule');
+    if ($perldoc) { $perldoc->to->{module} = 'Ado/Manual'; }
+
     return $app;
 }
 
