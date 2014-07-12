@@ -217,7 +217,7 @@ This plugin just works. Nothing special needs to be done.
 =head1 DESCRIPTION
 
 L<Ado::Plugin::I18n> localizes your application and site.
-It altomatically detects the current UserAgent language preferences
+It automatically detects the current UserAgent language preferences
 and selects the best fit from the supported by the application languages.
 The current language is deteted and set in L<Mojolicious/around_action> hook.
 Various methods for setting the language are supported.

@@ -79,7 +79,7 @@ you can put its content into the C<001-example.com.vhost.conf> file.
   $ bin/ado generate apache2htaccess --module fcgi \
    > $MOJO_HOME/.htaccess
 
-Programatically:
+Programmatically:
 
   use Ado::Command::generate::apache2vhost;
   my $vhost = Ado::Command::generate::apache2vhost->new;
