@@ -23,5 +23,9 @@ $m->match($c => {method => 'POST', path => '/ado-users'});
 is $m->path_for->{path}, '/ado-users', 'right POST path: /ado-users';
 is_deeply($m->stack->[0], {controller => 'ado-users', action => 'list'}, 'ado-users#add ok');
 
+is $app->routes->lookup('perldocmodule')->to->{module}, 'Ado/Manual',
+  '"/perldoc" :module is "Ado/Manual".';
+
+
 done_testing();
 

@@ -23,7 +23,7 @@ has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 # This method will run once at server start
 sub startup {
     my $app = shift;
-    $app->load_config()->load_plugins()->load_routes()->define_hooks();
+    $app->load_config()->load_plugins()->load_routes()->define_mime_types()->define_hooks();
     return;
 }
 
@@ -38,16 +38,6 @@ sub load_config {
 sub load_plugins {
     my $app = shift;
 
-    # Documentation browser under "/perldoc"
-    $app->plugin('PODRenderer', {no_perldoc => 1});
-
-    #HACK!
-    #TODO: Inherit PODRenderer and implement an Ado Default perldoc plugin.
-    my $defaults = {module => 'Ado/Manual', format => 'html'};
-    ##no critic (ProtectPrivateSubs,ProhibitUnusedPrivateSubroutines,ProtectPrivateVars)
-    $app->routes->any('/perldoc/:module' => $defaults => [module => qr/[^.]+/] =>
-          \&Mojolicious::Plugin::PODRenderer::_perldoc);
-
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
         $app->log->debug(
@@ -59,6 +49,7 @@ sub load_plugins {
             $app->plugin($plugin);
         }
     }
+
     return $app;
 }
 
@@ -95,6 +86,21 @@ sub load_routes {
         $app->log->debug('load_routes: name:' . $r->name . '; pattern: "' . $r->to_string . '"');
     }
 
+    # Default "/perldoc" page is Ado/Manual
+    my $perldoc = $routes->lookup('perldocmodule');
+    if ($perldoc) { $perldoc->to->{module} = 'Ado/Manual'; }
+
+    return $app;
+}
+
+sub define_mime_types {
+    my $app = shift;
+    my $mimes = $app->config('types') || {};    #HASHREF
+    foreach my $mime (keys %$mimes) {
+
+        # Add new MIME type or redefine any existing
+        $app->types->type($mime => $mimes->{$mime});
+    }
     return $app;
 }
 
@@ -151,6 +157,7 @@ the following new ones.
 =head2 startup
 
 The startup method is where everything begins. Returns void.
+The following methods are listed in the order they are innvoked in L</startup>.
 
 =head2 load_config
 
@@ -186,6 +193,12 @@ to the newly created route.
 See L<Mojolicious::Routes::Route> and L<Mojolicious::Guides::Routing> for more.
 
 Returns $app.
+
+=head2 define_mime_types
+
+Defines any MIME types listed in C<ado.conf> in C<types =E<gt> {...}>.
+Returns $app.
+
 
 =head2 define_hooks
 

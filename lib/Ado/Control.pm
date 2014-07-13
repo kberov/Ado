@@ -29,7 +29,7 @@ if ($DEV_MODE) {
 sub require_formats {
     my ($c, $formats) = @_;
     my $format = $c->stash->{format} || '';
-    $c->debug('format:' . $format);
+    $c->debug('format:' . $format) if $DEV_MODE;
     unless ((List::Util::first { $format eq $_ } @$formats)) {
         my $location = $c->url_for(format => $formats->[0])->to_abs;
         $c->res->headers->add('Content-Location' => $location);
@@ -38,7 +38,7 @@ sub require_formats {
         $c->debug($c->url_for . " requires " . join(',', @$formats) . ". Rendering: $message")
           if $DEV_MODE;
         $c->render(
-            inline => $message,
+            text   => $message,
             status => 415
         );
         return;

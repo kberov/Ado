@@ -44,7 +44,8 @@ sub run {
     $args->{plackup} = $self->_which('plackup')
       if ( eval { require Plack }
         && eval { require FCGI }
-        && eval { require FCGI::ProcManager });
+        && eval { require FCGI::ProcManager }
+        && eval { require Apache::LogFormat::Compiler });
 
     say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
 
@@ -111,9 +112,11 @@ Apache modules to use for running C<ado>. Currently supported modules are
 C<mod_cgi> and C<mod_fcgid>. You can mention them both to add the corresponding
 sections and Apache will use C<mod_fcgid> if loaded or C<mod_cgi>
 (almost always enabled).
-The generated configuration for mod_fcgid will use L<Plack> (c<plackup>) or
+The generated configuration for mod_fcgid will use L<Plack> (C<plackup>) or
 L<Mojo::Server::FastCGI>. So make sure you have at least one of them installed.
-L<Plack> is recommended.
+L<Plack> is recommended. 
+To use L<Plack> with C<mod_fcgid> you will need to install 
+L<FCGI>, L<FCGI::ProcManager> and L<Apache::LogFormat::Compiler>.
 
 =head1 ATTRIBUTES
 

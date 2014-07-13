@@ -5,15 +5,16 @@ use Time::Piece qw();
 use Time::Seconds;
 has description => "Adds a user to an Ado application.\n";
 has usage       => <<"USAGE";
-usage:
+USAGE:
 
-#Minimal required options
+# Minimal required options to add a user
 $0 adduser --login_name USERNAME --email user\@example.com \
     --first_name John --last_name Smith 
 
-#Add a user to an additional group
+# Add a user to an additional group
 $0 adduser --login_name USERNAME --ingroup GROUPNAME
 
+# Change password / disable a user
 $0 adduser --login_name USERNAME --ingroup GROUPNAME --disabled \
 --login_password !@#\$\%^&
 

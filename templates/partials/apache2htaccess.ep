@@ -21,6 +21,8 @@
 # use utf-8 encoding for anything served text/plain or text/html
 AddDefaultCharset utf-8
 
+# Support Offline Web applications
+AddType text/cache-manifest .appcache
 
 # Protect files and directories from prying eyes.
 <FilesMatch "(templates/|etc/|lib/|log/|t/|_build/|cover_db/|\.(pm|ep|conf|log|t|bak|yml|sqlite|sql)|READM.*|MANIFES.*|Build.PL|Build)$">
@@ -55,6 +57,10 @@ Options +FollowSymLinks
     # headers themselves.
     ExpiresActive Off
   </FilesMatch>
+  <FilesMatch "\.(appcache)$">
+    #Expire manifest files immediately.
+    ExpiresDefault "access plus 0 seconds"
+  </FilesMatch>
 </IfModule>
 
 # Additional headers for static files caching.
@@ -70,7 +76,13 @@ FileETag None
 
 % if( grep {$_ eq 'cgi'} @{$args->{module}} ){
 <IfModule mod_cgi.c>
-  # Set explicitly Ado executables as cgi scripts
+  # Set explicitly Ado executables as cgi scripts.
+  # Running Mojolicious apps (such as Ado) as CGI is discouraged.
+  # However it can perfectly suit your needs if you only aim static pages generation.
+  # See Ado::Control::Doc as an example on which you can elaborate.
+
+  # This is the fallback mode in case no Plack with FCGI and FCGI::ProcManager 
+  # neither Mojo::Server::FastCGI are installed.
   <Files ~ "^(ado)$">
     SetHandler  cgi-script
   </Files>
@@ -80,7 +92,7 @@ FileETag None
 % if(grep {$_ eq 'fcgid'} @{$args->{module}}){
 <IfModule mod_fcgid.c>
   # See http://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html
-  % if(!$args->{plackup} && !$has_msfcgi) {
+  % if(!$plackup && !$has_msfcgi) {
     # Sorry! no Plack with FCGI and FCGI::ProcManager neither Mojo::Server::FastCGI are installed.
     # Install at least one of them and rerun 'ado apache2htaccess'.
   % }
@@ -91,7 +103,7 @@ FileETag None
   % }
   % if($plackup){
     # plackup must be run with the same perl as ado
-    % my $sock = File::Spec->catfile(File::Spec->tmpdir(), 'ado'.Digest::MD5::md5_hex($root).'.sock');
+    % my $sock = File::Spec->catfile(File::Spec->tmpdir(), 'ado'.time().$$.'.sock');
     % $sock =~ s|\\|/|g;
     # Using Plack with FCGI and FCGI::ProcManager
     FcgidWrapper "<%= "$plackup $root/bin/ado -s FCGI -l $sock" %>"
@@ -153,7 +165,7 @@ AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
   # Redirect all requests for Ado static files to public/ directory.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^((css|doc|fonts|img|js|vendor|favicon|index)\b.*)$  /public/$1 [L,R=301]
+  RewriteRule ^((css|doc|fonts|img|js|vendor|favicon|index)\b.*)$  /public/$1 [L]
 
 
   RewriteCond %{REQUEST_FILENAME} !-f

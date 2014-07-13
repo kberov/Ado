@@ -127,7 +127,7 @@ subtest 'Ado::Command::adduser/direct_usage' => \&direct_usage;
 
 sub direct_usage {
     isa_ok(my $command = $class->new(), $class);
-    like((eval { $command->init() }, $@), qr/^usage/, 'init croaks "usage..."');
+    like((eval { $command->init() }, $@), qr/^USAGE/, 'init croaks "USAGE..."');
     ok($command->init(%$opt, '--login_password' => '--------'), "\$command->init");
     is($command->args->{login_password}, Mojo::Util::sha1_hex('test3--------'), 'login_password');
 

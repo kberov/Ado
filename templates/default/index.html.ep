@@ -1,3 +1,4 @@
+% title('Ado');
 <main class="ui">
 <article class="ui main container">
 % if(flash 'error'){

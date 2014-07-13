@@ -105,7 +105,6 @@ sub register {
 
 #Mojolicious::around_action hook.
 sub around_action {
-    local $_ = undef;
     my ($next, $c, $action, $last_step) = @_;
     $c->language();
     return $next->();
@@ -190,8 +189,8 @@ sub language {
 }
 
 sub _maketext {
-    my ($c, $key) = (shift, shift);
-    return ref($c->{stash}{i18n}) ? $c->{stash}{i18n}->maketext($key, @_) : $key;
+    my $stash = $_[0]->stash;
+    return ref($stash->{i18n}) ? $stash->{i18n}->maketext($_[1], @_[2 .. $#_]) : $_[1];
 }
 
 1;
@@ -217,7 +216,7 @@ This plugin just works. Nothing special needs to be done.
 =head1 DESCRIPTION
 
 L<Ado::Plugin::I18n> localizes your application and site.
-It altomatically detects the current UserAgent language preferences
+It automatically detects the current UserAgent language preferences
 and selects the best fit from the supported by the application languages.
 The current language is deteted and set in L<Mojolicious/around_action> hook.
 Various methods for setting the language are supported.
