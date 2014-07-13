@@ -105,7 +105,6 @@ sub register {
 
 #Mojolicious::around_action hook.
 sub around_action {
-    local $_ = undef;
     my ($next, $c, $action, $last_step) = @_;
     $c->language();
     return $next->();
@@ -190,8 +189,8 @@ sub language {
 }
 
 sub _maketext {
-    my ($c, $key) = (shift, shift);
-    return ref($c->{stash}{i18n}) ? $c->{stash}{i18n}->maketext($key, @_) : $key;
+    my $stash = $_[0]->stash;
+    return ref($stash->{i18n}) ? $stash->{i18n}->maketext($_[1], @_[2 .. $#_]) : $_[1];
 }
 
 1;
