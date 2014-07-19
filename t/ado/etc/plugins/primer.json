@@ -1,0 +1,6 @@
+<%
+  #primer.json
+%>
+{
+  "foo": "bar"
+}

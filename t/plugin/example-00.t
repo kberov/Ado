@@ -8,7 +8,6 @@ use Test::More;
 
 BEGIN {
     $ENV{MOJO_HOME} = abs_path(catdir(dirname(__FILE__), updir, 'ado'));
-    $ENV{MOJO_HOME} =~ s|\\|/|g if $^O eq 'MSWin32';
 }
 use lib("$ENV{MOJO_HOME}/lib");
 use Test::Mojo;
@@ -28,4 +27,18 @@ is_deeply(
     },
     'All plugin configs are merged right!'
 );
+
+my $primer = $app->plugin('primer', {lelemale => 1});
+is_deeply(
+    $primer->config,
+    {   foo      => "bar",
+        dev      => 1,
+        lelemale => 1
+    },
+    'All plugin JSON configs are merged right!'
+);
+
+my $foo = $app->plugin('foo');
+is_deeply($foo->config, {foo => "bar"}, 'Changing JSON configs extension works!');
+
 done_testing;

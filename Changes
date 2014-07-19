@@ -2,8 +2,7 @@ Revision history for Ado
 
 0.53 2014-07-15
 
-    - Support parsing of multiple configuration file formats depending
-      on Ado::Plugin::* 'ext' attribute.
+    - Support for JSONConfig and arbitrary configuration format per plugin.
     - - Upgraded to Mojolicious 5.15.
 
 0.52 2014-07-13
