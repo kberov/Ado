@@ -2,7 +2,10 @@ Revision history for Ado
 
 0.53 2014-07-20
 
-    - Support for JSONConfig and arbitrary configuration format per plugin.
+    - Improved Ado::Plugin. Added support for Mojolicious::Plugin::JSONConfig
+      and arbitrary configuration format per plugin.
+    - Removed monkey-patched Text::MultiMarkdown code from
+      Ado::Plugin::MarkdownRenderer. My patch was accepted. Thanks BOBTFISH.
     - Upgraded to Text::MultiMarkdown 1.000035.
     - Upgraded to Mojolicious 5.15.
 
