@@ -13,32 +13,48 @@ has name => sub {
 has config_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
 has ext => 'conf';
 
+has config_classes => sub {
+    {   conf => 'Mojolicious::Plugin::Config',
+        json => 'Mojolicious::Plugin::JSONConfig',
+        pl   => 'Mojolicious::Plugin::Config'
+    };
+};
+
 sub _get_plugin_config {
     my ($self) = @_;
-    state $app  = $self->app;
-    state $mode = $app->mode;
-    state $home = $app->home;
-    my $config_dir = $self->config_dir;
-    my $ext        = $self->ext;
-    my $name       = decamelize($self->name);
-    my $config     = {};
+    state $app    = $self->app;
+    state $mode   = $app->mode;
+    state $home   = $app->home;
+    state $loader = Mojo::Loader->new;
+
+    my $config_dir   = $self->config_dir;
+    my $ext          = $self->ext;
+    my $name         = decamelize($self->name);
+    my $config       = {};
+    my $config_class = $self->config_classes->{$ext};
+    if (my $e = $loader->load($config_class)) {
+        Carp::croak ref $e ? "Exception: $e" : $config_class . ' - Not found!';
+    }
 
     # Try plugin specific configuration file.
     if (-f (my $f = catfile($config_dir, "$name.$ext"))) {
-        $config = eval { Mojolicious::Plugin::Config->new->load($f, {}, $app) };
+        $config = eval { $config_class->new->load($f, {}, $app) };
+        Carp::croak($@) unless $config;
     }
 
     # Mode specific plugin config file
     my $mfile = catfile($config_dir, "$name.$mode.$ext");
 
     if (   (-f $mfile)
-        && (my $cmode = eval { Mojolicious::Plugin::Config->new->load($mfile, {}, $app) }))
+        && (my $cmode = eval { $config_class->new->load($mfile, {}, $app) }))
     {
+        Carp::croak($@) unless $cmode;
         return {%$config, %$cmode};    #merge
     }
     else {
         return $config;
     }
+    return $config;
 }
 
 #plugin configuration getter
@@ -101,17 +117,29 @@ Path to plugin directory.
 
 Defaults to C<$ENV{MOJO_HOME}/etc/plugins>.
 
-=head2 name
+=head2 config_classes
 
-The name - only the last word of the plugin's package name.
+Returns a hash reference contining C<file-extension =E<gt> class> pairs.
+Used to decide which configuration plugin to use depending on the file extension.
+The default mapping is:
 
-  $self->name # MyPlugin
+    {   conf => 'Mojolicious::Plugin::Config',
+        json => 'Mojolicious::Plugin::JSONConfig',
+        pl   => 'Mojolicious::Plugin::Config'
+    };
 
 =head2 ext
 
 Extension used for the plugin specific configuration file. defaults to 'conf';
 
   my $ext  = $self->ext;
+
+=head2 name
+
+The name - only the last word of the plugin's package name.
+
+  $self->name # MyPlugin
+
 
 
 =head1 METHODS

@@ -1,5 +1,14 @@
 Revision history for Ado
 
+0.53 2014-07-20
+
+    - Improved Ado::Plugin. Added support for Mojolicious::Plugin::JSONConfig
+      and arbitrary configuration format per plugin.
+    - Removed monkey-patched Text::MultiMarkdown code from
+      Ado::Plugin::MarkdownRenderer. My patch was accepted. Thanks BOBTFISH.
+    - Upgraded to Text::MultiMarkdown 1.000035.
+    - Upgraded to Mojolicious 5.15.
+
 0.52 2014-07-13
     - Added new MIME type .manifest to apache2htaccess.ep.
       Removed rule for external 302 redirects for static files.

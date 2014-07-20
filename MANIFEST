@@ -145,7 +145,12 @@ t/ado-build.t
 t/ado/etc/ado.conf
 t/ado/etc/plugins/example.conf
 t/ado/etc/plugins/example.development.conf
+t/ado/etc/plugins/foo.dummy
+t/ado/etc/plugins/primer.development.json
+t/ado/etc/plugins/primer.json
 t/ado/lib/Ado/Plugin/Example.pm
+t/ado/lib/Ado/Plugin/Foo.pm
+t/ado/lib/Ado/Plugin/Primer.pm
 t/ado/README
 t/basic.t
 t/boilerplate.t

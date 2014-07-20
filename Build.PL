@@ -54,14 +54,14 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.13',
+        'Mojolicious'              => '5.15',
         'Mojolicious::Plugin::DSC' => '0.999',
         'Email::Address'           => '1.901',
         'Locale::Maketext'         => '1.23',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
 
         #Default markdown renderer
-        'Text::MultiMarkdown' => '1.000034',
+        'Text::MultiMarkdown' => '1.000035',
 
     },
     recommends => {
