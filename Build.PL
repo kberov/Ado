@@ -61,7 +61,7 @@ my $builder = Ado::Build->new(
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
 
         #Default markdown renderer
-        'Text::MultiMarkdown' => '1.000034',
+        'Text::MultiMarkdown' => '1.000035',
 
     },
     recommends => {

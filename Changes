@@ -1,9 +1,10 @@
 Revision history for Ado
 
-0.53 2014-07-15
+0.53 2014-07-20
 
     - Support for JSONConfig and arbitrary configuration format per plugin.
-    - - Upgraded to Mojolicious 5.15.
+    - Upgraded to Text::MultiMarkdown 1.000035.
+    - Upgraded to Mojolicious 5.15.
 
 0.52 2014-07-13
     - Added new MIME type .manifest to apache2htaccess.ep.
