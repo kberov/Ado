@@ -3,8 +3,7 @@ use Mojo::Base 'Ado::Command::generate';
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 
 has description => "Generates Apache2 .htaccess file.\n";
-has usage       => sub { shift->extract_usage };
-has args        => sub { {} };
+has usage => sub { shift->extract_usage };
 
 # The next two are more or less stollen from File::Which.
 my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
@@ -122,13 +121,6 @@ L<FCGI>, L<FCGI::ProcManager> and L<Apache::LogFormat::Compiler>.
 
 L<Ado::Command::generate::apache2htaccess> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
-
-=head2 args
-
-Used for storing arguments from the commandline and then passing them to the
-template
-
-  my $args = $self->args;
 
 =head2 description
 

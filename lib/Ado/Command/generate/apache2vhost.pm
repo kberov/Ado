@@ -3,8 +3,8 @@ use Mojo::Base 'Ado::Command';
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 
 has description => "Generates minimal Apache2 Virtual Host configuration file.\n";
-has usage       => sub { shift->extract_usage };
-has args        => sub { {} };
+has usage => sub { shift->extract_usage };
+
 my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 sub run {
