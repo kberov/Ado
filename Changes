@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.54 2014-07-22
+
+
 0.53 2014-07-20
 
     - Improved Ado::Plugin. Added support for Mojolicious::Plugin::JSONConfig
