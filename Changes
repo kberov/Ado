@@ -1,10 +1,11 @@
 Revision history for Ado
 
-0.54 2014-07-22
+0.54 2014-07-23
+    - Implemented Ado::Command::generate::adoplugin. 
+      This should boost Ado expansion.
 
 
 0.53 2014-07-20
-
     - Improved Ado::Plugin. Added support for Mojolicious::Plugin::JSONConfig
       and arbitrary configuration format per plugin.
     - Removed monkey-patched Text::MultiMarkdown code from

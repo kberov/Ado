@@ -1,4 +1,5 @@
 package Ado::Command::generate;
+use Ado;
 use Mojo::Base 'Mojolicious::Command::generate';
 
 has namespaces => sub { ['Ado::Command::generate', 'Mojolicious::Command::generate'] };
