@@ -21,17 +21,17 @@ sub run {
     my $path = class_to_path $class;
     my $dir = join '-', split '::', $class;
     $self->render_to_rel_file('class', "$dir/lib/$path", $class, $$args{name});
-
+    my $decamelized = decamelize($$args{name});
     # Test
-    $self->render_to_rel_file('test', "$dir/t/plugin/${\&decamelize($$args{name})}-00.t",
+    $self->render_to_rel_file('test', "$dir/t/plugin/$decamelized-00.t",
         $class, $$args{name});
 
     # Build.PL
     $self->render_to_rel_file('build_file', "$dir/Build.PL", $class, $path, $dir);
 
     # Configuration
-    $self->render_to_rel_file('build_file', "$dir/etc/plugins/${\&decamelize($$args{name})}.conf",
-        $class, $path, $dir);
+    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf",
+        $decamelized);
 
     return $self;
 }
@@ -195,6 +195,17 @@ my $builder = Ado::BuildPlugin->new(
 $builder->create_build_script();
 
 @@config_file
-
+% my $decamelized = shift;
+{
+  # Set some configuration options for your plugin.
+  foo=>'bar',
+  # Add some routes.
+  routes => [
+    {
+      route =>'/<%= $decamelized %>',via => ['GET'],
+    }
+  ],
+  #look in Ado and Mojolicious sources for examples
+}
 
 

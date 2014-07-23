@@ -13,10 +13,7 @@ my $app = $t->app;
 my $command = 'Ado::Command::generate::adoplugin';
 use_ok($command);
 my $dir     = getcwd;
-my $tempdir = tempdir(
-
-    #CLEANUP => 1
-);
+my $tempdir = tempdir(CLEANUP => 1);
 chdir $tempdir;
 
 ok(my $c = $app->start("generate", "adoplugin", '-n' => 'MyBlog',), 'run() ok');
