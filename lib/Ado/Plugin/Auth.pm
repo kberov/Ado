@@ -2,17 +2,11 @@ package Ado::Plugin::Auth;
 use Mojo::Base 'Ado::Plugin';
 
 sub register {
-    my ($self, $app, $config) = @_;
-    $self->app($app);    #!Needed in $self->config!
-
-    # Merge passed configuration (usually from etc/ado.conf) with configuration
-    # from  etc/plugins/auth.conf
-    $config = $self->{config} = {%{$self->config}, %{$config ? $config : {}}};
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
+    my ($self, $app, $conf) = shift->initialise(@_);
 
     # Make sure we have all we need from config files.
-    $config->{auth_methods} ||= ['ado', 'facebook'];
-    $app->config(auth_methods => $config->{auth_methods});
+    $conf->{auth_methods} ||= ['ado', 'facebook'];
+    $app->config(auth_methods => $conf->{auth_methods});
 
     # Add helpers
     $app->helper(login_ado => \&_login_ado);
@@ -22,9 +16,6 @@ sub register {
 
     #Add to classes used for finding templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
-
-    # Load routes if they are passed
-    $app->load_routes($config->{routes}) if (@{$config->{routes}});
     return $self;
 }
 

@@ -22,16 +22,15 @@ sub run {
     my $dir = join '-', split '::', $class;
     $self->render_to_rel_file('class', "$dir/lib/$path", $class, $$args{name});
     my $decamelized = decamelize($$args{name});
+
     # Test
-    $self->render_to_rel_file('test', "$dir/t/plugin/$decamelized-00.t",
-        $class, $$args{name});
+    $self->render_to_rel_file('test', "$dir/t/plugin/$decamelized-00.t", $class, $$args{name});
 
     # Build.PL
     $self->render_to_rel_file('build_file', "$dir/Build.PL", $class, $path, $dir);
 
     # Configuration
-    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf",
-        $decamelized);
+    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf", $decamelized);
 
     return $self;
 }

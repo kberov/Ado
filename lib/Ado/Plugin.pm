@@ -66,6 +66,29 @@ sub config {
       : $self->{config};
 }
 
+# one place for initialising plugins in register()
+sub initialise {
+    my ($self, $app, $conf) = @_;
+    return ($self, $app, $conf) if $self->{_initialised};
+    $self->app($app);    #!Needed in $self->config!
+    state $mode = $app->mode;
+
+    #Merge passed configuration with configuration
+    #from  etc/ado.conf and etc/plugins/routes.conf
+    $conf = {%{$self->config}, %{$conf ? $conf : {}}};
+    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($conf))
+      if ($mode eq 'development');
+
+    # Add namespaces if defined.
+    push @{$app->routes->namespaces}, @{$conf->{namespaces}}
+      if @{$conf->{namespaces} || []};
+
+    # Load routes if defined.
+    $app->load_routes($conf->{routes}) if (@{$conf->{routes} || []});
+    $self->{_initialised} = 1;
+    return ($self, $app, $conf);
+}
+
 1;
 
 =pod
@@ -84,12 +107,9 @@ Ado::Plugin - base class for Ado specific plugins.
   use Mojo::Base 'Ado::Plugin';
 
   sub register {
-    my ($self, $app, $conf) = @_;
-    $self->app($app);#!Needed in $self->config!
-    #Merge passed configuration with plugin configuration from files 
-    #from  etc/ado.conf and etc/plugins/my_plugin.conf
-    $conf = {%{$self->config},%{$conf?$conf:{}}};
-    # Your magic here! 
+    my ($self, $app, $conf) = shift->initialise(@_);
+    # Your magic here!.. 
+    return $self;
   }
 
 
@@ -140,10 +160,7 @@ The name - only the last word of the plugin's package name.
 
   $self->name # MyPlugin
 
-
-
 =head1 METHODS
-
 
 Ado::Plugin provides the following methods for use by subclasses.
 
@@ -152,16 +169,24 @@ Ado::Plugin provides the following methods for use by subclasses.
 The configuration which is for the plugin only.
 
   $self->config 
-  #everything in '$ENV{MOJO_HOME}/etc/plugins/'.decamelize('MyPlugin').'.conf'
-  #or under  $app->config('MyPlugin') 
-  #or $app->config('my_plugin') - in this order
-  
+  #everything in '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.conf'
+  and/or   '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.$mode.conf'
   my $value = $self->config('key');
 
+=head2 initialise
 
-=head1 SPONSORS
+Used to initialise you plugin and reduce boilerplate code. 
 
-The original author
+  * Merges configurations.
+  * Adds new $app->routes->namespaces if defined in config.
+  * Loads routes if defined in config
+  * Returns ($self, $app, $conf).
+
+This method 
+should be the first invoked in your L<Mojolicious::Plugin/register> method. 
+If you need to do some very custom stuff, you are free to implement the
+initialisation yourself.
+
 
 =head1 SEE ALSO
 
