@@ -59,8 +59,12 @@ sub _get_plugin_config {
 
 #plugin configuration getter
 sub config {
-    my ($self, $key) = @_;
+    my ($self, $key, $value) = @_;
     $self->{config} //= $self->_get_plugin_config();
+    if (defined $value) {
+        $self->{config}->{$key} = $value;
+        return $self->{config};
+    }
     return $key
       ? $self->{config}->{$key}
       : $self->{config};
@@ -69,13 +73,14 @@ sub config {
 # one place for initialising plugins in register()
 sub initialise {
     my ($self, $app, $conf) = @_;
-    return ($self, $app, $conf) if $self->{_initialised};
+    return if $self->{_initialised};
     $self->app($app);    #!Needed in $self->config!
     state $mode = $app->mode;
 
     #Merge passed configuration with configuration
     #from  etc/ado.conf and etc/plugins/$name.conf
-    $conf = $self->{config} = {%{$self->config}, %{$conf ? $conf : {}}};
+    for my $k (keys %$conf) { $self->config($k => $conf->{$k}); }
+    $conf = $self->config;
     $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($conf))
       if ($mode eq 'development');
 
@@ -102,15 +107,21 @@ Ado::Plugin - base class for Ado specific plugins.
 
 =head1 SYNOPSIS
 
-  # CamelCase plugin name
+Create your plugin like this:
+
+  # CamelCase plugin name is recommended.
   package Ado::Plugin::MyPlugin;
   use Mojo::Base 'Ado::Plugin';
 
   sub register {
     my ($self, $app, $conf) = shift->initialise(@_);
+    
     # Your magic here!.. 
+    
     return $self;
   }
+
+but better use L<Ado::Command::generate::adoplugin> to do everything for you.
 
 
 =head1 DESCRIPTION
@@ -148,6 +159,8 @@ The default mapping is:
         pl   => 'Mojolicious::Plugin::Config'
     };
 
+Using this attribute you can use your own configuration plugin as far as it supports the L<Mojolicious::Plugin::Config> API.
+
 =head2 ext
 
 Extension used for the plugin specific configuration file. defaults to 'conf';
@@ -166,12 +179,22 @@ Ado::Plugin provides the following methods for use by subclasses.
 
 =head2 config
 
-The configuration which is for the plugin only.
+The configuration which is for the currently registering plugin only.
+In L<Ado> every plugin can have its own configuration file.
+When calling this method for the first time it will parse and merge
+configuration files for the plugin. Options from mode specific 
+configuration file will overwrite options form the generic file.
+You usually do not need to invoke this method directly since it is 
+invoked in L</initialise>.
 
-  $self->config 
-  #everything in '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.conf'
-  and/or   '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.$mode.conf'
+  # everything in '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.conf'
+  # and/or   '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.$mode.conf'
+  my $config = $self->config; 
+  
+  #get a config value
   my $value = $self->config('key');
+  #set
+  my $config = $self->config(foo => 'bar');
 
 =head2 initialise
 
@@ -180,8 +203,13 @@ Used to initialise you plugin and reduce boilerplate code.
   * Merges configurations.
   * Adds new $app->routes->namespaces if defined in config.
   * Loads routes if defined in config
-  * Returns ($self, $app, $conf).
+  * Returns ($self, $app, $config).
 
+  sub register {
+    my ($self, $app, $conf) = @_;
+    $self->initialise($app, $conf);
+    # ...
+  
 This method 
 should be the first invoked in your L<Mojolicious::Plugin/register> method. 
 If you need to do some very custom stuff, you are free to implement the
@@ -190,8 +218,10 @@ initialisation yourself.
 
 =head1 SEE ALSO
 
-L<Ado::Manual::Plugins>, L<Ado::Plugin::Routes>, L<Mojolicious::Plugin>
-
+L<Ado::Manual::Plugins>, L<Mojolicious::Plugin>,
+L<Ado::Plugin::AdoHelpers>, L<Ado::Plugin::Auth>, L<Ado::Plugin::I18n>,
+L<Ado::Plugin::MarkdownRenderer>, L<Ado::Plugin::Routes>, 
+L<Ado::Command::generate::adoplugin>.
 
 =head1 AUTHOR
 
@@ -211,5 +241,3 @@ the license may release under a different license.
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
-
-
