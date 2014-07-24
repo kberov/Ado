@@ -16,7 +16,7 @@ top       = 50
 #Perl::Critic::Policy::Subroutines::RequireArgUnpacking - Always unpack @_ first.
 [Subroutines::RequireArgUnpacking]
 short_subroutine_statements = 5
-allow_delegation_to = get_obj_args get_args _get_obj_args
+allow_delegation_to = get_obj_args get_args _get_obj_args initialise
 
 
 [TestingAndDebugging::RequireUseStrict]

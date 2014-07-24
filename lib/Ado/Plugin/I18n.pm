@@ -56,13 +56,7 @@ sub routes {
 
 
 sub register {
-    my ($self, $app, $config) = @_;
-    $self->app($app);    #!Needed in $self->config!
-
-    #Merge passed configuration (usually from etc/ado.conf) with configuration
-    #from  etc/plugins/markdown_renderer.conf
-    $config = $self->{config} = {%{$self->config}, %{$config ? $config : {}}};
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
+    my ($self, $app, $config) = shift->initialise(@_);
 
     #Make sure we have all we need from config files.
     $config->{default_language} ||= 'en';
@@ -82,7 +76,7 @@ sub register {
     $config->{namespace} ||= 'Ado::I18n';
 
     my $e = Mojo::Loader->new->load($config->{namespace});
-    $app->log->warn(qq{Loading "$config->{namespace}" failed: $e}) if $e;
+    $app->log->error(qq{Loading "$config->{namespace}" failed: $e}) if $e;
 
     #Add helpers
     $app->helper(language => \&language);
@@ -96,7 +90,6 @@ sub register {
 
     #Add to classes used for finding templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
-
 
     #make plugin configuration available for later in the app
     $app->config(__PACKAGE__, \%$config);
@@ -440,6 +433,7 @@ This method is passed as reference to be used as L<Mojolicious/around_action>.
 =head1 TODO
 
 Create a table with message entries which will be loaded by this plugin.
+
 Create user interface to add/edit entries.
 
 =head1 SEE ALSO

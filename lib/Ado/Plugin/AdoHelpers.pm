@@ -2,13 +2,7 @@ package Ado::Plugin::AdoHelpers;
 use Mojo::Base 'Ado::Plugin';
 
 sub register {
-    my ($self, $app, $config) = @_;
-    $self->app($app);    #!Needed in $self->config!
-
-    #Merge passed configuration (usually from etc/ado.conf) with configuration
-    #from  etc/plugins/markdown_renderer.conf
-    $config = $self->{config} = {%{$self->config}, %{$config ? $config : {}}};
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
+    my ($self, $app, $conf) = shift->initialise(@_);
 
     # Add helpers
     $app->helper(

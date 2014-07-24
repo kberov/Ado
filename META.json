@@ -45,6 +45,7 @@
       },
       "runtime" : {
          "recommends" : {
+            "Apache::LogFormat::Compiler" : "0",
             "DBD::SQLite" : "1.42",
             "FCGI" : "0.74",
             "FCGI::ProcManager" : "0.24",
@@ -64,7 +65,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.53"
+         "version" : "0.54"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -80,6 +81,9 @@
       },
       "Ado::Command::generate" : {
          "file" : "lib/Ado/Command/generate.pm"
+      },
+      "Ado::Command::generate::adoplugin" : {
+         "file" : "lib/Ado/Command/generate/adoplugin.pm"
       },
       "Ado::Command::generate::apache2htaccess" : {
          "file" : "lib/Ado/Command/generate/apache2htaccess.pm"
@@ -182,5 +186,5 @@
          "url" : "http://github.com/kberov/Ado"
       }
    },
-   "version" : "0.53"
+   "version" : "0.54"
 }

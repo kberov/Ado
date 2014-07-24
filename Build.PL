@@ -68,9 +68,10 @@ my $builder = Ado::Build->new(
         'DBD::SQLite' => '1.42',
 
         # Either
-        'Plack'             => '1.0030',
-        'FCGI'              => '0.74',
-        'FCGI::ProcManager' => '0.24',
+        'Plack'                       => '1.0030',
+        'FCGI'                        => '0.74',
+        'FCGI::ProcManager'           => '0.24',
+        'Apache::LogFormat::Compiler' => '0',
 
         # or
         'Mojo::Server::FastCGI' => '0.41',
@@ -92,3 +93,4 @@ my $builder = Ado::Build->new(
 );
 
 $builder->create_build_script();
+

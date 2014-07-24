@@ -1,8 +1,10 @@
 package Ado::Command::generate;
+use Ado;
 use Mojo::Base 'Mojolicious::Command::generate';
 
 has namespaces => sub { ['Ado::Command::generate', 'Mojolicious::Command::generate'] };
 
+has args => sub { {} };
 
 1;
 
@@ -30,6 +32,13 @@ available by default.
 
 L<Ado::Command::generate> inherits all attributes from
 L<Mojolicious::Command::generate> and implements the following new ones.
+
+=head2 args
+
+Used for storing arguments from the commandline and then passing them to the
+template 
+
+  my $args = $self->args;
 
 
 =head2 namespaces

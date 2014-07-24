@@ -5,13 +5,7 @@ File::Spec::Functions->import(qw(catfile catdir));
 Mojo::ByteStream->import('b');
 
 sub register {
-    my ($self, $app, $config) = @_;
-    $self->app($app);    #!Needed in $self->config!
-
-    #Merge passed configuration (usually from etc/ado.conf) with configuration
-    #from  etc/plugins/markdown_renderer.conf
-    $config = $self->{config} = {%{$self->config}, %{$config ? $config : {}}};
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($config));
+    my ($self, $app, $config) = shift->initialise(@_);
 
     #Make sure we have all we need from config files.
     $config->{md_renderer}     ||= 'Text::MultiMarkdown';
@@ -32,10 +26,6 @@ sub register {
         );
 
     }
-
-    #load routes if they are passed
-    $app->load_routes($config->{routes})
-      if (ref($config->{routes}) eq 'ARRAY' && scalar @{$config->{routes}});
     return $self;
 }
 
