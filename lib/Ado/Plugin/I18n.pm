@@ -433,6 +433,7 @@ This method is passed as reference to be used as L<Mojolicious/around_action>.
 =head1 TODO
 
 Create a table with message entries which will be loaded by this plugin.
+
 Create user interface to add/edit entries.
 
 =head1 SEE ALSO
