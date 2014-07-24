@@ -6,6 +6,7 @@ Revision history for Ado
     - Implemented Ado::Plugin::initialise() too reduce boilerplate code
       and improved Ado::Plugin::config().
     - Refactored all Ado plugins accordingly.
+    - Upgraded to Mojolicious 5.17.
 
 
 0.53 2014-07-20
