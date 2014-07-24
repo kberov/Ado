@@ -1,7 +1,7 @@
 Revision history for Ado
 
 0.54 2014-07-24
-    - Implemented Ado::Command::generate::adoplugin. 
+    - Implemented experimental Ado::Command::generate::adoplugin. 
       This command should boost Ado expansion.
     - Implemented Ado::Plugin::initialise() too reduce boilerplate code
       and improved Ado::Plugin::config().

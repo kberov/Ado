@@ -2,6 +2,7 @@ package Ado::Command::generate::adoplugin;
 use Mojo::Base 'Ado::Command::generate';
 use Mojo::Util qw(camelize class_to_path decamelize);
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
+use Time::Piece ();
 
 has description => "Generates directory structures for L<Ado>-specific plugins..\n";
 has usage => sub { shift->extract_usage };
@@ -94,11 +95,31 @@ L<Ado::Command> and implements the following new ones.
 
 Run this command.
 
-
-
 =head1 SEE ALSO
 
+L<Mojolicious::Command::generate::plugin>,
+L<Ado::Command::generate::apache2vhost>,
+L<Ado::Command::generate::apache2htaccess>, L<Ado::Command::generate>,
+L<Mojolicious::Command::generate>, L<Getopt::Long>,
+L<Ado::Command> L<Ado::Manual>,
+L<Mojolicious>, L<Mojolicious::Guides::Cookbook/DEPLOYMENT>
 
+=head1 AUTHOR
+
+Красимир Беров (Krasimir Berov)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2014 Красимир Беров (Krasimir Berov).
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the
+GNU Lesser General Public License v3 (LGPL-3.0).
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
+the license may release under a different license.
+
+See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
 
@@ -113,17 +134,24 @@ use Mojo::Base 'Ado::Plugin';
 our $VERSION = '0.01';
 
 sub register {
-  my ($self, $app, $config) = @_;
+    my ($self, $app, $config) = shift->initialise(@_);
+    # Do your magic here.
+    # You may want to add some helpers
+    # or some new complex routes definitions,
+    # or register this plugin as a template renderer.
+    # Look in Mojolicious and Ado sources for examples and inspiration.
+    return $self;
 }
 
 1;
+
 <% %>__END__
 
 <% %>=encoding utf8
 
 <% %>=head1 NAME
 
-<%= $class %> - an Ado Plugin
+<%= $class %> - an Ado Plugin that does foooooo.
 
 <% %>=head1 SYNOPSIS
 
@@ -151,7 +179,25 @@ Register plugin in L<Ado> application.
 
 <% %>=head1 SEE ALSO
 
-L<Ado::Manual>, L<Mojolicious>, L<Mojolicious::Guides>, L<http://mojolicio.us>.
+L<Ado::Plugin>, L<Mojolicious::Guides::Growing>,
+L<Ado::Manual>, L<Mojolicious>,  L<http://mojolicio.us>.
+
+<% %>=head1 AUTHOR
+
+Your Name
+
+<% %>=head1 COPYRIGHT AND LICENSE
+
+Copyright <%= Time::Piece->new->year %> Your Name.
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the 
+GNU Lesser General Public License v3 (LGPL-3.0).
+You may copy, distribute and modify the software provided that 
+modifications are open source. However, software that includes 
+the license may release under a different license.
+
+See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 <% %>=cut
 
@@ -193,6 +239,7 @@ my $builder = Ado::BuildPlugin->new(
 
 $builder->create_build_script();
 
+
 @@config_file
 % my $decamelized = shift;
 {
@@ -204,7 +251,5 @@ $builder->create_build_script();
       route =>'/<%= $decamelized %>',via => ['GET'],
     }
   ],
-  #look in Ado and Mojolicious sources for examples
+  # Look in Ado and Mojolicious sources for examples.
 }
-
-
