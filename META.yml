@@ -32,7 +32,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.53'
+    version: '0.54'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -43,6 +43,8 @@ provides:
     file: lib/Ado/Command/adduser.pm
   Ado::Command::generate:
     file: lib/Ado/Command/generate.pm
+  Ado::Command::generate::adoplugin:
+    file: lib/Ado/Command/generate/adoplugin.pm
   Ado::Command::generate::apache2htaccess:
     file: lib/Ado/Command/generate/apache2htaccess.pm
   Ado::Command::generate::apache2vhost:
@@ -105,6 +107,7 @@ provides:
   Test::AdoPlugin:
     file: lib/Test/AdoPlugin.pm
 recommends:
+  Apache::LogFormat::Compiler: '0'
   DBD::SQLite: '1.42'
   FCGI: '0.74'
   FCGI::ProcManager: '0.24'
@@ -120,4 +123,4 @@ requires:
 resources:
   bugtracker: http://github.com/kberov/Ado/issues
   repository: http://github.com/kberov/Ado
-version: '0.53'
+version: '0.54'
