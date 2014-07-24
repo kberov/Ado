@@ -2,17 +2,7 @@ package Ado::Plugin::Routes;
 use Mojo::Base 'Ado::Plugin';
 
 sub register {
-    my ($self, $app, $conf) = @_;
-    $self->app($app);    #!Needed in $self->config!
-
-    #Merge passed configuration with configuration
-    #from  etc/ado.conf and etc/plugins/routes.conf
-    $conf = {%{$self->config}, %{$conf ? $conf : {}}};
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($conf));
-
-    # My magic here! :)
-    push @{$app->routes->namespaces}, @{$conf->{namespaces}}
-      if @{$conf->{namespaces} || []};
+    my ($self, $app, $conf) = shift->initialise(@_);
 
     #Add some conditions: Someday
 #    $app->routes->add_condition(
@@ -24,7 +14,6 @@ sub register {
 #            return ($c->require_formats($formats) ? 1 : undef);
 #        }
 #    );
-    $app->load_routes($conf->{routes});
 
     # Rewrite urls in case we are deployed under Apache and using mod_cgi or mod_fcgid.
     # This way we have the same urls as if deployed standalone or with hypnotoad.
