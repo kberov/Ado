@@ -65,7 +65,8 @@ my $builder = Ado::Build->new(
 
     },
     recommends => {
-        'DBD::SQLite' => '1.42',
+        'DBD::SQLite' => '1.43_06',
+        'SQL::Abstract' => '1.78',
 
         # Either
         'Plack'                       => '1.0030',
