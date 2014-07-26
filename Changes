@@ -30,6 +30,7 @@ Revision history for Ado
     - Added method define_mime_types to Ado.
     - Did cleanups recommended by SRI.
     - Upgraded to Mojolicious 5.13.
+    - Upgraded to Semantic UI 0.19.0.
 
 0.51 2014-07-05
     - Fixing  failing tests under Windows.
