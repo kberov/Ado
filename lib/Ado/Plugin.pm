@@ -150,7 +150,7 @@ Defaults to C<$ENV{MOJO_HOME}/etc/plugins>.
 
 =head2 config_classes
 
-Returns a hash reference contining C<file-extension =E<gt> class> pairs.
+Returns a hash reference containing C<file-extension =E<gt> class> pairs.
 Used to decide which configuration plugin to use depending on the file extension.
 The default mapping is:
 

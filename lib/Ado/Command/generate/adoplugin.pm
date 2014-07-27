@@ -4,7 +4,7 @@ use Mojo::Util qw(camelize class_to_path decamelize);
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Time::Piece ();
 
-has description => "Generates directory structures for L<Ado>-specific plugins..\n";
+has description => "Generates directory structures for Ado-specific plugins..\n";
 has usage => sub { shift->extract_usage };
 
 sub run {

@@ -94,7 +94,7 @@ example for learning to build new commands, you're welcome to fork it.
 
 =head1 OPTIONS
 
-Below are the options this command accepts described in L<Getopt::Long> notation.
+Below are the options this command accepts, described in L<Getopt::Long> notation.
 
 =head2 c|config_file=s
 
