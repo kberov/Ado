@@ -31,7 +31,7 @@ sub run {
       'v|verbose'       => \$args->{verbose},
       'c|config_file=s' => \$args->{config_file},
       'm|module=s@'     => \$args->{module};
-    @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
+    @{$args->{module}} = split(/\,/, join(',', @{$args->{module}}));
     Carp::croak $self->usage unless scalar @{$args->{module}};
     $args->{DocumentRoot} = $self->app->home;
     $args->{perl}         = $^X;
