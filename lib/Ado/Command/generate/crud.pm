@@ -9,20 +9,21 @@ has usage => sub { shift->extract_usage };
 
 sub run {
     my ($self, @args) = @_;
-    my $args = $self->args;
+    my $args = $self->args({tables => []})->args;
+
     GetOptionsFromArray(
         \@args,
         'C|controller_namespace=s' => \$args->{controller_namespace},
         'd|dsn=s'                  => \$args->{dsn},
         'M|model_namespace=s'      => \$args->{model_namespace},
-        'N|no_dsc_code'            => => \$args->{no_dsc_code},
-        'O|overwrite'            => \$args->{overwrite},
+        'N|no_dsc_code'            => \$args->{no_dsc_code},
+        'O|overwrite'              => \$args->{overwrite},
         'L|lib_root=s'             => \$args->{lib_root},
-        'T|templates_root=s'         => \$args->{templates_root},
+        'T|templates_root=s'       => \$args->{templates_root},
         't|tables=s@'              => \$args->{tables},
     );
 
-    @{$args->{tables}} = split(/\,/, join(',', @{$args->{tables} || []}));
+    @{$args->{tables}} = split(/\,/, join(',', @{$args->{tables}}));
     Carp::croak $self->usage unless scalar @{$args->{tables}};
 
 
@@ -61,12 +62,15 @@ Ado::Command::generate::crud - Generates MVC set of files
 
 =head1 DESCRIPTION
 
+B<Disclaimer: I<This command is highly experimental!> 
+The generated code is not even expected to work properly.>
+
 L<Ado::Command::generate::crud> generates directory structure for
 a fully functional 
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller> 
 set of files, based on existing tables in the database.
 You should have already created the tables in the database.
-This tool purpose is to promote 
+This tool's purpose is to promote 
 L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>
 and help programmers new to L<Ado> and L<Mojolicious> to quickly create
 fully functional applications.
@@ -74,13 +78,22 @@ fully functional applications.
 Internally this generator uses L<DBIx::Simple::Class::Schema>
 to generate the classes, used to manipulate the tables' records, 
 if they are not already generated. If the I<Model> classes already exist,
-it creates only the controller classes and templates. The needed routes
-are already described in C<etc/ado.conf>.
+it creates only the controller classes and templates. 
 
-In the controller classes' actions you will find I<eventually working> code
+Altough L<Ado> already have defined generic routes for CRUD, 
+this command will generate more specific routes (if used through 
+L<Ado::Command::generate::adoplugin>), that will secure the C<create>, 
+C<update> and C<delete> actions, so they are available only to an 
+authenticated user. After executing the command you should end up with a 
+L<REST|http://en.wikipedia.org/wiki/REST>ful
+service because it will generate code that uses 
+L<Mojolicious::Controller/respond_to>. For details see 
+L<Mojolicious::Guides::Rendering/Content_negotiation>.
+
+In the actions you will find I<eventually working> code
 for reading, creating, updating and deleting records from the tables you
 specified on the command-line. The generated code uses
-L<DBIx::Simple::Class::Schema> based classes.
+L<DBIx::Simple::Class>-based classes.
 
 In addition, example code is created that uses only L<DBIx::Simple>. 
 In case you prefer to use only L<DBIx::Simple> and not L<DBIx::Simple::Class>,
@@ -90,8 +103,6 @@ write the code your self.
 The generated code is just boilerplate to give you a jump start, so you can
 concentrate on writing your business-specific code. It is assumed that you will modify the generated code to suit your specific needs.
 
-B<Disclaimer: I<This command is highly experimental!> 
-The generated code is not even expected to work properly.>
 
 =head1 OPTIONS
 
