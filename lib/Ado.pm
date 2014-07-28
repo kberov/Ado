@@ -75,9 +75,8 @@ sub load_routes {
         my $r = $params ? $routes->route($pattern, %$params) : $routes->route($pattern);
 
         if ($over) {
-            if    (ref $over eq 'ARRAY') { $r->over(@$over); }
-            elsif (ref $over eq 'HASH')  { $r->over(%$over); }
-            else                         { $r->over($over); }
+            if   (ref $over eq 'HASH') { $r->over(%$over); }
+            else                       { $r->over($over); }
         }
         if ($via) {
             $r->via(@$via);
