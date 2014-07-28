@@ -5,7 +5,7 @@ use Mojo::Base 'Ado::Control::Ado';
 #available users on this system
 sub list {
     my $c = shift;
-    $c->require_formats(['json']) || return;
+    $c->require_formats('json') || return;
     my $args = Params::Check::check(
         {   limit => {
                 allow => sub { $_[0] =~ /^\d+$/ ? 1 : ($_[0] = 20); }
