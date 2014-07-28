@@ -25,8 +25,8 @@ sub _which {
 sub run {
     my ($self, @args) = @_;
     my $home = $self->app->home;
-    my $args = $self->args;
-    $args->{module} = [];
+    my $args = $self->args({module => []})->args;
+
     GetOptionsFromArray \@args,
       'v|verbose'       => \$args->{verbose},
       'c|config_file=s' => \$args->{config_file},
