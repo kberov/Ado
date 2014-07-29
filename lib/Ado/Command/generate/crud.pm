@@ -3,29 +3,75 @@ use Mojo::Base 'Ado::Command::generate';
 use Mojo::Util qw(camelize class_to_path decamelize);
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Time::Piece ();
+use List::Util qw(first);
+use DBIx::Simple::Class::Schema;
 
 has description => "Generates directory structures for Ado-specific CRUD..\n";
-has usage => sub { shift->extract_usage };
+has usage       => sub { shift->extract_usage };
+has app         => sub { Mojo::Server->new->build_app('Ado') };
 
-sub run {
+sub initialise {
     my ($self, @args) = @_;
+    return $self if $self->{_initialised};
     my $args = $self->args({tables => []})->args;
 
     GetOptionsFromArray(
         \@args,
         'C|controller_namespace=s' => \$args->{controller_namespace},
         'd|dsn=s'                  => \$args->{dsn},
+        'L|lib_root=s'             => \$args->{lib_root},
         'M|model_namespace=s'      => \$args->{model_namespace},
         'N|no_dsc_code'            => \$args->{no_dsc_code},
         'O|overwrite'              => \$args->{overwrite},
-        'L|lib_root=s'             => \$args->{lib_root},
+        'P|password=s'             => \$args->{password},
         'T|templates_root=s'       => \$args->{templates_root},
         't|tables=s@'              => \$args->{tables},
+        'U|user=s'                 => \$args->{user},
     );
 
     @{$args->{tables}} = split(/\,/, join(',', @{$args->{tables}}));
     Carp::croak $self->usage unless scalar @{$args->{tables}};
+    my $app = $self->app;
+    $args->{controller_namespace} //= $app->routes->namespaces->[0];
+    $args->{model_namespace} //=
+      (first { ref($_) eq 'HASH' and $_->{name} eq 'DSC' } @{$app->config('plugins')})
+      ->{config}{namespace};
+    $args->{lib_root} //= 'lib';
+    $args->{templates_root} = $app->renderer->paths->[0];
+    $self->{_initialised}   = 1;
+    return $self;
+}
 
+sub run {
+    my ($self) = shift->initialise(@_);
+    my $args   = $self->args;
+    my $app    = $self->app;
+
+    # Connect
+    if ($args->{dsn}) {
+        DBIx::Simple::Class::Schema->dbix(
+            DBIx::Simple->connect($args->{dsn}, $args->{user}, $args->{password}));
+    }
+    else {
+        DBIx::Simple::Class::Schema->dbix($app->dbix);
+    }
+
+    # Models
+    foreach my $t (@{$self->args->{tables}}) {
+        DBIx::Simple::Class::Schema->load_schema(
+            namespace => $args->{model_namespace},
+            table     => $t,
+            type      => "'TABLE','VIEW'",           # make classes for tables and views
+        );
+        DBIx::Simple::Class::Schema->dump_schema_at(
+            lib_root  => $args->{lib_root},
+            overwrite => 0                           #overwrite existing files?
+        ) || Carp::croak('Something went wrong! See above...');
+
+    }
+
+    # Controllers
+    # Templates
 
     return $self;
 }
@@ -123,6 +169,13 @@ Optional. Connection string parsed using L<DBI/parse_dsn> and passed to
 L<DBIx::Simple/connect>. See also L<Mojolicious::Plugin::DSC/dsn>.
 By default the connection to the application database is used.
 
+=head2 L|lib_root=s
+
+Defaults to C<lib> relative to the current dierctory.
+If you installed L<Ado> in some custom path and you wish to set it
+to e.g. C<site_lib>, use this option. Do not forget to add this
+directory to C<$ENV{PERL5LIB}>, so the classes can be found by C<perl>.
+
 =head2 M|model_namespace=s
 
 Optional. The namespace for the model classes to be generated.
@@ -141,31 +194,39 @@ is ignored. No table classes will be generated.
 
 If there are already generated files they will be overwritten.
 
-=head2 L|lib_root=s
+=head2 P|password=s
 
-Defaults to C<lib> relative to the current dierctory.
-If you installed L<Ado> in some custom path and you wish to set it
-to e.g. C<site_lib>, use this option. Do not forget to add this
-directory to C<$ENV{PERL5LIB}>, so the classes can be found by C<perl>.
+Password for the database to connect to. Needed only when C<dsn> argument is
+passed and the database requires a password.
 
 =head2 T|templates_root=s
 
 Defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>. This is usually
-C<templates> directory. If you want to use another directory,
+C<site_templates> directory. If you want to use another directory,
 do not forget to add it to the C<app-E<gt>renderer-E<gt>paths> list.
 
 =head2 t|tables=s@
 
-Defaults to '%' which means all the tables from the specified database
-with the C<d|dsn=s> option. Note that existing L<Ado::Model> classes 
-will not be overwritten even if you specify C<O|overwrite>.
+Mandatory. Passing '%' would mean all the tables from the specified 
+database with the C<d|dsn=s> option or the Ado database. Note that existing 
+L<Ado::Model> classes will not be overwritten even if you specify C<O|overwrite>.
 
+=head2 U|user=s
+
+Username for the database to connect to. Needed only when C<dsn> argument is
+passed and the database requires a username.
 
 =head1 ATTRIBUTES
 
 L<Ado::Command::generate::crud> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
 
+=head2 app
+
+  $crud->app($c->app);
+  my $app = $crud->app;
+
+An instance of Ado.
 
 =head2 description
 
@@ -185,6 +246,15 @@ Usage information for this command, used for the help screen.
 
 L<Ado::Command::generate::crud> inherits all methods from
 L<Ado::Command> and implements the following new ones.
+
+=head2 initialise
+
+  sub run {
+      my ($self) = shift->initialise(@_);
+      #...
+  }
+
+Parses arguments and prepares the command to be run. Calling this method for the second time has no effect. Returns C<$self>.
 
 =head2 run
 

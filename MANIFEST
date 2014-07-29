@@ -21,6 +21,7 @@ lib/Ado/Command/generate.pm
 lib/Ado/Command/generate/adoplugin.pm
 lib/Ado/Command/generate/apache2htaccess.pm
 lib/Ado/Command/generate/apache2vhost.pm
+lib/Ado/Command/generate/crud.pm
 lib/Ado/Command/version.pm
 lib/Ado/Control.pm
 lib/Ado/Control/Ado.pm
@@ -159,6 +160,7 @@ t/command/adduser.t
 t/command/adoplugin.t
 t/command/apache2htaccess.t
 t/command/apache2vhost.t
+t/command/crud.t
 t/command/version.t
 t/manifest.t
 t/perl-critic.t
