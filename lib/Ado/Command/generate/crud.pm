@@ -73,7 +73,7 @@ You should have already created the tables in the database.
 This tool's purpose is to promote 
 L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>
 and help programmers new to L<Ado> and L<Mojolicious> to quickly create
-fully functional applications.
+well structured, fully functional applications.
 
 Internally this generator uses L<DBIx::Simple::Class::Schema>
 to generate the classes, used to manipulate the tables' records, 
@@ -86,7 +86,7 @@ L<Ado::Command::generate::adoplugin>), that will secure the C<create>,
 C<update> and C<delete> actions, so they are available only to an 
 authenticated user. After executing the command you should end up with a 
 L<REST|http://en.wikipedia.org/wiki/REST>ful
-service because it will generate code that uses 
+service. The generated code uses 
 L<Mojolicious::Controller/respond_to>. For details see 
 L<Mojolicious::Guides::Rendering/Content_negotiation>.
 
@@ -111,7 +111,7 @@ Below are the options this command accepts, described in L<Getopt::Long> notatio
 
 =head2 C|controller_namespace=s
 
-The namespace for the controller classes to be generated.
+Optional. The namespace for the controller classes to be generated.
 Defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>, usuallly 
 L<Ado::Control>. If you decide to use another namespace for the controllers,
 do not forget to add it to the list C<app-E<gt>routes-E<gt>namespaces> 
@@ -119,12 +119,13 @@ in C<etc/ado.conf> or your plugin configuration file.
 
 =head2 d|dsn=s
 
-Connection string parsed using L<DBI/parse_dsn> and passed to 
+Optional. Connection string parsed using L<DBI/parse_dsn> and passed to 
 L<DBIx::Simple/connect>. See also L<Mojolicious::Plugin::DSC/dsn>.
+By default the connection to the application database is used.
 
 =head2 M|model_namespace=s
 
-The namespace for the model classes to be generated.
+Optional. The namespace for the model classes to be generated.
 Defaults to L<Ado::Model>. If you wish however to use another namespace
 for another database, you will have to add another item for 
 L<Mojolicious::Plugin::DSC> to the list of loaded pligins in C<etc/ado.conf>
@@ -138,7 +139,7 @@ is ignored. No table classes will be generated.
 
 =head2 O|overwrite
 
-If there are already generated files they will be ovwerwritten.
+If there are already generated files they will be overwritten.
 
 =head2 L|lib_root=s
 
@@ -149,9 +150,9 @@ directory to C<$ENV{PERL5LIB}>, so the classes can be found by C<perl>.
 
 =head2 T|templates_root=s
 
-Defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>. This is uasually
-C<templates> directory. If you want to use naother directory,
-doe not forget to add it to the C<app-E<gt>renderer-E<gt>paths> list.
+Defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>. This is usually
+C<templates> directory. If you want to use another directory,
+do not forget to add it to the C<app-E<gt>renderer-E<gt>paths> list.
 
 =head2 t|tables=s@
 
