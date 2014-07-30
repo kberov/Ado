@@ -17,13 +17,13 @@ my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,
 CREATE TABLE IF NOT EXISTS testatii (
-  "id" INTEGER PRIMARY KEY  NOT NULL  check(typeof("id") = 'integer') , 
+  "id" INTEGER PRIMARY KEY  NOT NULL, 
   "title" VARCHAR NOT NULL  UNIQUE , 
-  "body" TEXT check(typeof("body") = 'text') , 
+  "body" TEXT, 
   "published" BOOL, 
   "deleted" BOOL NOT NULL , 
-  "user_id" INTEGER REFERENCES users(id) check(typeof("user_id") = 'integer') , 
-  "group_id" INTEGER REFERENCES groups(id) check(typeof("group_id") = 'integer') , 
+  "user_id" INTEGER REFERENCES users(id), 
+  "group_id" INTEGER REFERENCES groups(id), 
   "permissions" VARCHAR
   )
 TAB

@@ -5,6 +5,7 @@ use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Time::Piece ();
 use List::Util qw(first);
 use DBIx::Simple::Class::Schema;
+File::Spec::Functions->import(qw(catfile catdir splitdir));
 
 has description => "Generates directory structures for Ado-specific CRUD..\n";
 has usage       => sub { shift->extract_usage };
@@ -56,22 +57,37 @@ sub run {
         DBIx::Simple::Class::Schema->dbix($app->dbix);
     }
 
-    # Models
     foreach my $t (@{$self->args->{tables}}) {
+
+        # Model Classes
         DBIx::Simple::Class::Schema->load_schema(
             namespace => $args->{model_namespace},
             table     => $t,
             type      => "'TABLE','VIEW'",           # make classes for tables and views
         );
+
+        #TODO: Dump the Schema Class only when not already in %INC
         DBIx::Simple::Class::Schema->dump_schema_at(
             lib_root  => $args->{lib_root},
             overwrite => 0                           #overwrite existing files?
         ) || Carp::croak('Something went wrong! See above...');
 
-    }
+        # Controllers
+        my $class_name = camelize($t);
+        $args->{class} = $args->{controller_namespace} . '::' . $class_name;
+        my $c_file = catfile($args->{lib_root}, class_to_path($args->{class}));
+        $args->{model_class} = $args->{model_namespace} . '::' . $class_name;
+        $args->{t}           = $t;
+        $self->render_to_rel_file('class', $c_file, $args);
 
-    # Controllers
-    # Templates
+        # Templates
+        my $template_dir  = decamelize($class_name);
+        my $template_root = (splitdir($args->{templates_root}))[-1];
+        my $t_file        = catfile($template_root, $template_dir, 'list.html.ep');
+
+        $self->render_to_rel_file('list_template', $t_file, $args);
+
+    }    # end foreach tables
 
     return $self;
 }
@@ -294,4 +310,107 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
 
+__DATA__
 
+@@ class
+% my $a = shift;
+package <%= $a->{class} %>;
+use Mojo::Base '<%= $a->{controller_namespace} %>';
+
+our $VERSION = '0.01';
+
+# List resourses from table <%= $a->{t} %>.
+sub list {
+    my $c = shift;
+    $c->require_formats('json','html') || return;
+    my $args = Params::Check::check(
+        {   limit => {
+                allow => sub { $_[0] =~ /^\d+$/ ? 1 : ($_[0] = 20); }
+            },
+            offset => {
+                allow => sub { $_[0] =~ /^\d+$/ ? 1 : defined($_[0] = 0); }
+            },
+        },
+        {   limit  => $c->req->param('limit')  || 20,
+            offset => $c->req->param('offset') || 0,
+        }
+    );
+
+    $c->res->headers->content_range(
+        "<%= $a->{t} %> $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
+    $c->debug("rendering json and html only [$$args{limit}, $$args{offset}]");
+
+    #content negotiation
+    my $list = $c->list_for_json(
+            [$$args{limit}, $$args{offset}],
+            [<%= $a->{model_class} %>->select_range($$args{limit}, $$args{offset})]
+        );
+    return $c->respond_to(
+        json => $list,
+        html =>{list =>$list}
+    );
+}
+
+# Creates a resource in table <%= $a->{t} %>.  
+sub create {
+    return shift->render(text => '"create" is not implemented...');
+}
+
+# Reads a resource from table <%= $a->{t} %>.  
+sub read {
+    return shift->render(text => '"read" is not implemented...');
+}
+
+# Updates a resource in table <%= $a->{t} %>.  
+sub update {
+    return shift->render(text => '"update" is not implemented...');
+}
+
+# "Deletes" a resource from table <%= $a->{t} %>.  
+sub delete {
+    return shift->render(text => '"delete" isnot implemented...');
+}
+
+
+
+1;
+
+<% %>__END__
+
+<% %>=encoding utf8
+
+<% %>=head1 NAME
+
+<%= $a->{class} %> - a controller for resource <%= $a->{t} %>.
+
+<% %>=head1 SYNOPSIS
+
+
+
+
+
+
+
+<% %>=cut
+
+
+
+@@ list_template
+% $a = shift;
+%% my $columns = <%= $a->{model_class} %>->COLUMNS;
+<table>
+  <thead>
+    <tr>
+    %% foreach my $column( @$columns ){
+      <th><%%= $column %><th>
+    %% }
+    </tr>
+  </thead>
+    %% foreach my $row (@{$list->{data}}) {
+    <tr>
+      %% foreach my $column( @$columns ){
+      <th><%%= $row->{$column} %><th>
+      %% }
+    </tr>
+    %% }
+</table>
