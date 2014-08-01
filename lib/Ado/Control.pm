@@ -28,9 +28,7 @@ if ($DEV_MODE) {
 #and return false.
 sub require_formats {
     my ($c, @formats) = @_;
-    my $format = $c->accepts('', @formats) || '';
-    $c->debug('format:' . $format) if $DEV_MODE;
-    unless ($format) {
+    unless (my $format = $c->accepts('', @formats) || '') {
 
         #propose an url with the preferred format
         my $location = $c->url_for(format => $formats[0])->to_abs;
