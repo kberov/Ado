@@ -3,8 +3,10 @@ use 5.014000;
 use strict;
 use warnings FATAL => 'all';
 use Test::More;
+
 $SIG{__WARN__} = sub {
     return if $_[0] =~ m|Wide\scharacter\sin\sprint|x;
+    warn @_;
 };
 
 # Ensure use Test::Pod::Spelling is installed

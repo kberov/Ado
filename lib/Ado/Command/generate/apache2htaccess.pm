@@ -25,13 +25,13 @@ sub _which {
 sub run {
     my ($self, @args) = @_;
     my $home = $self->app->home;
-    my $args = $self->args;
-    $args->{module} = [];
+    my $args = $self->args({module => []})->args;
+
     GetOptionsFromArray \@args,
       'v|verbose'       => \$args->{verbose},
       'c|config_file=s' => \$args->{config_file},
       'm|module=s@'     => \$args->{module};
-    @{$args->{module}} = split(/,/, join(',', @{$args->{module}}));
+    @{$args->{module}} = split(/\,/, join(',', @{$args->{module}}));
     Carp::croak $self->usage unless scalar @{$args->{module}};
     $args->{DocumentRoot} = $self->app->home;
     $args->{perl}         = $^X;
@@ -94,7 +94,7 @@ example for learning to build new commands, you're welcome to fork it.
 
 =head1 OPTIONS
 
-Below are the options this command accepts described in L<Getopt::Long> notation.
+Below are the options this command accepts, described in L<Getopt::Long> notation.
 
 =head2 c|config_file=s
 

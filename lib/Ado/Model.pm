@@ -5,6 +5,7 @@ use warnings;
 use utf8;
 use parent qw(DBIx::Simple::Class);
 use Carp;
+use DBIx::Simple::Class::Schema;
 
 our $VERSION = '0.01';
 sub is_base_class { return 1 }
@@ -31,6 +32,34 @@ sub select_range {
     my $SQL = $class->SQL('SELECT') . $class->SQL_LIMIT(@_);
 
     return $dbix->query($SQL)->objects($class);
+}
+
+# Generates classes from tables on the fly and returns the classname.
+sub table_to_class {
+    my ($class, $args) = shift->_get_obj_args(@_);
+    state $tables = {};
+    my $table = $args->{table};
+
+    # already generated?
+    return $tables->{$table} if (exists $tables->{$table});
+
+    $args->{namespace} //= $class;
+    my $class_name = $args->{namespace} . '::' . Mojo::Util::camelize($table);
+
+    # loaded from file?
+    return $tables->{$table} = $class_name
+      if $INC{Mojo::Util::class_to_path($class_name)};
+    state $connected = DBIx::Simple::Class::Schema->dbix($class->dbix) && 1;
+    my $perl_code = DBIx::Simple::Class::Schema->load_schema(
+        namespace => $args->{namespace},
+        table     => $table,
+        type      => $args->{type} || "'TABLE','VIEW'",
+    );
+    Carp::croak($@) unless (eval "{$perl_code}");    ## no critic (ProhibitStringyEval)
+
+    #TODO: Expose the package name from DBIx::Simple::Class::Schema.
+    $tables->{$table} = $class_name;
+    return $tables->{$table};
 }
 
 
@@ -77,6 +106,16 @@ The subclasses are:
 Ado::Model inherits all methods from 
 and implements the following ones.
 
+=head2 table_to_class
+
+Generates classes from tables on the fly and returns the classname.
+
+  state $table_class = Ado::Model->table_to_class(
+      namespace => 'Foo', # defaults to Ado::Model
+      table     => 'pages',
+      type      => 'TABLE'
+  );
+
 =head2 select_range
 
 Returns an array of records.
@@ -97,8 +136,21 @@ L<DBIx::Simple::Class::Schema>
 
 L<DBIx::Simple::Class::Schema>, L<DBIx::Simple::Class>, L<DBIx::Simple>, L<Mojolicious::Plugin::DSC>
 
-=head1 LICENSE AND COPYRIGHT
+=head1 AUTHOR
 
-berov...
+Красимир Беров (Krasimir Berov)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2014 Красимир Беров (Krasimir Berov).
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the
+GNU Lesser General Public License v3 (LGPL-3.0).
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
+the license may release under a different license.
+
+See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut

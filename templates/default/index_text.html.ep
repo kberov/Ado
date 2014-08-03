@@ -58,7 +58,7 @@
     </li>
     <li>For end-user help look at <a href="<%=url_for('/help')%>">/help</a>!</li>
     <li>For development help look at <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
-    <li>Develop your site, application or both!</li>
+    <li>Develop your site, application or both! Read and follow recommendations from <%= link_to 'Mojolicious::Guides::Growing' => '/perldoc/Mojolicious/Guides/Growing', target=>'_blank' %>.</li>
     <li>Enough ado, have fun with <b>Ado</b>!</li>
     <li>Still here? Ado comes with some features which can be tried right away.
         <ol>

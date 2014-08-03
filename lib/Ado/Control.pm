@@ -27,15 +27,15 @@ if ($DEV_MODE) {
 #Require a  list of formats or render "415 - Unsupported Media Type"
 #and return false.
 sub require_formats {
-    my ($c, $formats) = @_;
-    my $format = $c->stash->{format} || '';
-    $c->debug('format:' . $format) if $DEV_MODE;
-    unless ((List::Util::first { $format eq $_ } @$formats)) {
-        my $location = $c->url_for(format => $formats->[0])->to_abs;
+    my ($c, @formats) = @_;
+    unless (my $format = $c->accepts('', @formats) || '') {
+
+        #propose an url with the preferred format
+        my $location = $c->url_for(format => $formats[0])->to_abs;
         $c->res->headers->add('Content-Location' => $location);
-        $location = $c->link_to($location, {format => $formats->[0]});
+        $location = $c->link_to($location, {format => $formats[0]});
         my $message = "415 - Unsupported Media Type $format. Please try $location!";
-        $c->debug($c->url_for . " requires " . join(',', @$formats) . ". Rendering: $message")
+        $c->debug($c->url_for . " requires " . join(',', @formats) . ". Rendering: $message")
           if $DEV_MODE;
         $c->render(
             text   => $message,

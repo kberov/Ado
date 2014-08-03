@@ -54,8 +54,9 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.15',
+        'Mojolicious'              => '5.23',
         'Mojolicious::Plugin::DSC' => '0.999',
+        'DBIx::Simple::Class'      => '1.008',
         'Email::Address'           => '1.901',
         'Locale::Maketext'         => '1.23',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
@@ -65,7 +66,8 @@ my $builder = Ado::Build->new(
 
     },
     recommends => {
-        'DBD::SQLite' => '1.42',
+        'DBD::SQLite' => '1.43_06',
+        'SQL::Abstract' => '1.78',
 
         # Either
         'Plack'                       => '1.0030',

@@ -1,9 +1,18 @@
 Revision history for Ado
+0.55 2014-08-03
+    - $CODENAME changed to
+      "Добро" - U+2C04 GLAGOLITIC CAPITAL LETTER DOBRO (Ⰴ)
+    - Added SQL::Abstract as recommended module.
+    - Upgraded to Mojolicious 5.23.
+    - Upgraded to DBIx::Simple::Class 1.008.
+    - Upgraded to Semantic UI 0.19.0.
+    - Added highly experimental Ado::Command::generate::crud
+      to boost adoption of Ado even more.
 
 0.54 2014-07-25
     - Implemented experimental Ado::Command::generate::adoplugin. 
       This command should boost Ado expansion.
-    - Implemented Ado::Plugin::initialise() too reduce boilerplate code
+    - Implemented Ado::Plugin::initialise() to reduce boilerplate code
       and improved Ado::Plugin::config().
     - Refactored all Ado plugins accordingly.
     - Upgraded to Mojolicious 5.17.

@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Util qw(decamelize decode);
 File::Spec::Functions->import(qw(catfile catdir));
 
-has app => sub { Mojo::Server->new->build_app('Mojo::HelloWorld') };
+has app => sub { Mojo::Server->new->build_app('Ado') };
 has name => sub {
 
     # Only the last word of the plugin's package name
@@ -43,11 +43,8 @@ sub _get_plugin_config {
     }
 
     # Mode specific plugin config file
-    my $mfile = catfile($config_dir, "$name.$mode.$ext");
-
-    if (   (-f $mfile)
-        && (my $cmode = eval { $config_class->new->load($mfile, {}, $app) }))
-    {
+    if (-f (my $mf = catfile($config_dir, "$name.$mode.$ext"))) {
+        my $cmode = eval { $config_class->new->load($mf, {}, $app) };
         Carp::croak($@) unless $cmode;
         return {%$config, %$cmode};    #merge
     }
@@ -150,7 +147,7 @@ Defaults to C<$ENV{MOJO_HOME}/etc/plugins>.
 
 =head2 config_classes
 
-Returns a hash reference contining C<file-extension =E<gt> class> pairs.
+Returns a hash reference containing C<file-extension =E<gt> class> pairs.
 Used to decide which configuration plugin to use depending on the file extension.
 The default mapping is:
 

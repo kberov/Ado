@@ -23,7 +23,7 @@ sub register {
 # general condition for authenticating users - redirects to /login
 sub authenticated {
     my ($route, $c, $captures, $patterns) = @_;
-    $c->debug('in condition "authenticated"');
+    $c->debug('in condition "authenticated"') if $Ado::Control::DEV_MODE;
     if ($c->user->login_name eq 'guest') {
         $c->session(over_route => $c->url_for($route->name));
         $c->redirect_to('/login');
@@ -53,7 +53,7 @@ sub login {
         my $referrer = $c->req->headers->referrer // $base_url;
         $referrer = $base_url unless $referrer =~ m|^$base_url|;
         $c->session('over_route' => $referrer);
-        $c->debug('over_route is ' . $referrer);
+        $c->debug('over_route is ' . $referrer) if $Ado::Control::DEV_MODE;
     }
     return $c->render(status => 200, template => 'login') if $c->req->method ne 'POST';
 
@@ -68,7 +68,8 @@ sub login {
             $c->flash(login_message => 'Thanks for logging in! Wellcome!');
 
             # Redirect to referrer page with a 302 response
-            $c->debug('redirecting to ' . $c->session('over_route'));
+            $c->debug('redirecting to ' . $c->session('over_route'))
+              if $Ado::Control::DEV_MODE;
             $c->redirect_to($c->session('over_route'));
             return;
         }
@@ -128,7 +129,7 @@ sub _login_ado {
         return 1;
     }
 
-    $c->debug('We should not be here! - wrong password');
+    $c->debug('We should not be here! - wrong password') if $Ado::Control::DEV_MODE;
     delete $c->session->{csrf_token};
     return '';
 }
