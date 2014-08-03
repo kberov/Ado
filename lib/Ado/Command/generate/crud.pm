@@ -4,7 +4,6 @@ use Mojo::Util qw(camelize class_to_path decamelize);
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Time::Piece ();
 use List::Util qw(first);
-use DBIx::Simple::Class::Schema;
 File::Spec::Functions->import(qw(catfile catdir splitdir));
 
 has description => "Generates directory structures for Ado-specific CRUD..\n";
@@ -121,7 +120,7 @@ authenticated user. After executing the command you should end up with a
 L<REST|http://en.wikipedia.org/wiki/REST>ful
 service. The generated code uses 
 L<Mojolicious::Controller/respond_to>. For details see 
-L<Mojolicious::Guides::Rendering/Content_negotiation>.
+L<Mojolicious::Guides::Rendering/Content-negotiation>.
 
 In the actions you will find I<eventually working> code
 for reading, creating, updating and deleting records from the tables you
@@ -379,11 +378,12 @@ sub delete {
 
 @@ list_template
 % $a = shift;
+%% my $columns = $table_class->COLUMNS;
 <table>
   <thead>
     <tr>
-    %% foreach my $column( @{$table_class->COLUMNS} ){
-      <th><%%= $column %><th>
+    %% foreach my $column( @$columns ){
+      <th><%%= $column %></th>
     %% }
     </tr>
   </thead>

@@ -78,7 +78,12 @@ TODO: {
     #Run tests on the generated code?!?!
     my $t   = Test::Mojo->new('Ado');
     my $ado = $t->app;
-    $t->get_ok('/testatii/list')->status_is(415);
+    unshift @{$ado->renderer->paths}, catdir($tempdir, 'site_templates');
+    $t->get_ok('/testatii/list')->status_is(415)
+      ->content_like(qr|Unsupported.+Please.+list\.json|x, 'Unsupported Media Type - ok');
+    $t->get_ok('/testatii/list.json')->status_is(200);
+    $t->get_ok('/testatii/list.html')->status_is(200)
+      ;    #->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
 
     #drop the table
     $app->dbix->dbh->do($create_table->[0]);

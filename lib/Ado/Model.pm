@@ -5,6 +5,7 @@ use warnings;
 use utf8;
 use parent qw(DBIx::Simple::Class);
 use Carp;
+use DBIx::Simple::Class::Schema;
 
 our $VERSION = '0.01';
 sub is_base_class { return 1 }
@@ -33,9 +34,9 @@ sub select_range {
     return $dbix->query($SQL)->objects($class);
 }
 
-# Generates classes from tables on the fly and returns the classname
+# Generates classes from tables on the fly and returns the classname.
 sub table_to_class {
-    my ($class, $args) = _get_obj_args(@_);
+    my ($class, $args) = shift->_get_obj_args(@_);
     state $tables = {};
     my $table = $args->{table};
 
@@ -48,15 +49,13 @@ sub table_to_class {
     # loaded from file?
     return $tables->{$table} = $class_name
       if $INC{Mojo::Util::class_to_path($class_name)};
-
-    state $connected = DBIx::Simple::Class::Schema->dbix($class->dbix);
+    state $connected = DBIx::Simple::Class::Schema->dbix($class->dbix) && 1;
     my $perl_code = DBIx::Simple::Class::Schema->load_schema(
         namespace => $args->{namespace},
         table     => $table,
         type      => $args->{type} || "'TABLE','VIEW'",
     );
-    ## no critic (ProhibitStringyEval)
-    Carp::croak($@) unless (eval "$perl_code");
+    Carp::croak($@) unless (eval "{$perl_code}");    ## no critic (ProhibitStringyEval)
 
     #TODO: Expose the package name from DBIx::Simple::Class::Schema.
     $tables->{$table} = $class_name;
@@ -137,8 +136,21 @@ L<DBIx::Simple::Class::Schema>
 
 L<DBIx::Simple::Class::Schema>, L<DBIx::Simple::Class>, L<DBIx::Simple>, L<Mojolicious::Plugin::DSC>
 
-=head1 LICENSE AND COPYRIGHT
+=head1 AUTHOR
 
-berov...
+Красимир Беров (Krasimir Berov)
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2014 Красимир Беров (Krasimir Berov).
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the
+GNU Lesser General Public License v3 (LGPL-3.0).
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
+the license may release under a different license.
+
+See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
