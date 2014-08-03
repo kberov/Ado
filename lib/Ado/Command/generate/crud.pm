@@ -358,7 +358,7 @@ sub create {
         permissions => '-rwxr-xr-x',
         );
     }||$c->stash(error=>$@);#very rude!!!
-        $c->debug('$error:'.$c->stash('error'));
+        $c->debug('$error:'.$c->stash('error')) if $c->stash('error');
 
     my $data = $res->data;
 

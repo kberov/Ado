@@ -85,12 +85,11 @@ TODO: {
     $t->get_ok('/testatii/list.html')->status_is(200)
       ->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
     $t->post_ok(
-        '/testatii/create.json' => {} => form => {
+        '/testatii/create.html' => form => {
             title => 'Hello3',
             body =>
               'Ала, бала, ница турска паница, Хей гиди Ванчо, наш капитанчо...'
-        },
-        'posting content - ok'
+        }
     );
     $t->get_ok('/testatii/read/3.html')->status_is(200)
       ->content_like(qr|Hello3|smx, 'readinkg content - ok');
