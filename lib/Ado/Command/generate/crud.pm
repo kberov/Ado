@@ -48,36 +48,13 @@ sub run {
     my $args   = $self->args;
     my $app    = $self->app;
 
-    # Connect
-    if ($args->{dsn}) {
-        DBIx::Simple::Class::Schema->dbix(
-            DBIx::Simple->connect($args->{dsn}, $args->{user}, $args->{password}));
-    }
-    else {
-        DBIx::Simple::Class::Schema->dbix($app->dbix);
-    }
-
-    foreach my $t (@{$self->args->{tables}}) {
-
-        # Model Classes
-        DBIx::Simple::Class::Schema->load_schema(
-            namespace => $args->{model_namespace},
-            table     => $t,
-            type      => "'TABLE','VIEW'",           # make classes for tables and views
-        );
-
-        #TODO: Dump the Schema Class only when not already in %INC
-        DBIx::Simple::Class::Schema->dump_schema_at(
-            lib_root  => $args->{lib_root},
-            overwrite => 0                           #overwrite existing files?
-        ) || Carp::croak('Something went wrong! See above...');
+    foreach my $t (@{$args->{tables}}) {
 
         # Controllers
         my $class_name = camelize($t);
         $args->{class} = $args->{controller_namespace} . '::' . $class_name;
         my $c_file = catfile($args->{lib_root}, class_to_path($args->{class}));
-        $args->{model_class} = $args->{model_namespace} . '::' . $class_name;
-        $args->{t}           = $t;
+        $args->{t} = lc $t;
         $self->render_to_rel_file('class', $c_file, $args);
 
         # Templates
@@ -108,15 +85,9 @@ Ado::Command::generate::crud - Generates MVC set of files
 
   Usage:
   #on the command-line
-  # for specific tables.
+  # for one or more tables.
   $ bin/ado generate crud --tables='news,articles'
   
-  # for all tables containing 'foo' in their names.
-  $ bin/ado generate crud --tables='%foo%'
-  
-  # for all tables!..
-  $ bin/ado generate crud --tables='%'
-
   #programatically
   use Ado::Command::generate::crud;
   my $v = Ado::Command::generate::crud->new;
@@ -138,7 +109,7 @@ and help programmers new to L<Ado> and L<Mojolicious> to quickly create
 well structured, fully functional applications.
 
 Internally this generator uses L<DBIx::Simple::Class::Schema>
-to generate the classes, used to manipulate the tables' records, 
+to generate on the fly the classes, used to manipulate the tables' records, 
 if they are not already generated. If the I<Model> classes already exist,
 it creates only the controller classes and templates. 
 
@@ -340,10 +311,21 @@ sub list {
         "<%= $a->{t} %> $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
     $c->debug("rendering json and html only [$$args{limit}, $$args{offset}]");
 
+    # Generate class on the fly from the database.
+    # No worries - this is cheap, one-time generation.
+    # See documentation for Ado::Model::class_from_table
+    state $table_class = Ado::Model->table_to_class(
+      namespace => '<%= $a->{model_namespace} %>',
+      table     => '<%= $a->{t} %>',
+      type      => 'TABLE'
+    );
+
+    #Used in template <%= $a->{t}%>/list.html.ep
+    $c->stash('table_class',$table_class);
     #content negotiation
     my $list = $c->list_for_json(
             [$$args{limit}, $$args{offset}],
-            [<%= $a->{model_class} %>->select_range($$args{limit}, $$args{offset})]
+            [$table_class->select_range($$args{limit}, $$args{offset})]
         );
     return $c->respond_to(
         json => $list,
@@ -397,11 +379,10 @@ sub delete {
 
 @@ list_template
 % $a = shift;
-%% my $columns = <%= $a->{model_class} %>->COLUMNS;
 <table>
   <thead>
     <tr>
-    %% foreach my $column( @$columns ){
+    %% foreach my $column( @{$table_class->COLUMNS} ){
       <th><%%= $column %><th>
     %% }
     </tr>

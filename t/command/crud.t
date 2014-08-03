@@ -17,15 +17,15 @@ my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,
 CREATE TABLE IF NOT EXISTS testatii (
-  "id" INTEGER PRIMARY KEY  NOT NULL, 
-  "title" VARCHAR NOT NULL  UNIQUE , 
-  "body" TEXT, 
-  "published" BOOL, 
-  "deleted" BOOL NOT NULL , 
-  "user_id" INTEGER REFERENCES users(id), 
-  "group_id" INTEGER REFERENCES groups(id), 
-  "permissions" VARCHAR
-  )
+  id INTEGER PRIMARY KEY  NOT NULL, 
+  title VARCHAR NOT NULL  UNIQUE , 
+  body TEXT, 
+  published BOOL DEFAULT '0', 
+  deleted BOOL NOT NULL DEFAULT '0', 
+  user_id INTEGER REFERENCES users(id), 
+  group_id INTEGER REFERENCES groups(id), 
+  permissions VARCHAR(10) NOT NULL DEFAULT '-rwxr-xr-x' 
+)
 TAB
     'CREATE INDEX testatii_published ON testatii(published)',
     'CREATE INDEX testatii_deleted ON testatii(deleted)',
@@ -58,13 +58,33 @@ TODO: {
     for my $sql (@$create_table) {
         $app->dbix->dbh->do($sql);
     }
+    $app->dbix->query(
+        'INSERT INTO testatii(title,body,user_id,group_id)' . 'VALUES(?,?,?,?)',
+        'Hello', 'more text in the body',
+        2, 2
+    );
+    $app->dbix->query(
+        'INSERT INTO testatii(title,body,user_id,group_id)' . 'VALUES(?,?,?,?)',
+        'Hello2', 'more text in the body2',
+        2, 2
+    );
+
     chdir $tempdir;
     ok($c->run);
 
-    #unshift @INC, catdir($tempdir, $c->args->{lib_root});
-    #local $ENV{MOJO_HOME} = $tempdir;
+    unshift @INC, catdir($tempdir, $c->args->{lib_root});
 
+    #local $ENV{MOJO_HOME} = $tempdir;
+    #Run tests on the generated code?!?!
+    my $t   = Test::Mojo->new('Ado');
+    my $ado = $t->app;
+    $t->get_ok('/testatii/list')->status_is(415);
+
+    #drop the table
+    $app->dbix->dbh->do($create_table->[0]);
 }
 
+
 chdir $dir;
+
 done_testing();

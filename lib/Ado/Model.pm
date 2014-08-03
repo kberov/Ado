@@ -33,6 +33,36 @@ sub select_range {
     return $dbix->query($SQL)->objects($class);
 }
 
+# Generates classes from tables on the fly and returns the classname
+sub table_to_class {
+    my ($class, $args) = _get_obj_args(@_);
+    state $tables = {};
+    my $table = $args->{table};
+
+    # already generated?
+    return $tables->{$table} if (exists $tables->{$table});
+
+    $args->{namespace} //= $class;
+    my $class_name = $args->{namespace} . '::' . Mojo::Util::camelize($table);
+
+    # loaded from file?
+    return $tables->{$table} = $class_name
+      if $INC{Mojo::Util::class_to_path($class_name)};
+
+    state $connected = DBIx::Simple::Class::Schema->dbix($class->dbix);
+    my $perl_code = DBIx::Simple::Class::Schema->load_schema(
+        namespace => $args->{namespace},
+        table     => $table,
+        type      => $args->{type} || "'TABLE','VIEW'",
+    );
+    ## no critic (ProhibitStringyEval)
+    Carp::croak($@) unless (eval "$perl_code");
+
+    #TODO: Expose the package name from DBIx::Simple::Class::Schema.
+    $tables->{$table} = $class_name;
+    return $tables->{$table};
+}
+
 
 1;
 
@@ -76,6 +106,16 @@ The subclasses are:
 
 Ado::Model inherits all methods from 
 and implements the following ones.
+
+=head2 table_to_class
+
+Generates classes from tables on the fly and returns the classname.
+
+  state $table_class = Ado::Model->table_to_class(
+      namespace => 'Foo', # defaults to Ado::Model
+      table     => 'pages',
+      type      => 'TABLE'
+  );
 
 =head2 select_range
 
