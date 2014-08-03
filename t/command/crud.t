@@ -73,8 +73,8 @@ TODO: {
     ok($c->run);
 
     unshift @INC, catdir($tempdir, $c->args->{lib_root});
+    delete ${Ado::}{dbix};    #shut up redefine
 
-    #local $ENV{MOJO_HOME} = $tempdir;
     #Run tests on the generated code?!?!
     my $t   = Test::Mojo->new('Ado');
     my $ado = $t->app;
@@ -83,7 +83,17 @@ TODO: {
       ->content_like(qr|Unsupported.+Please.+list\.json|x, 'Unsupported Media Type - ok');
     $t->get_ok('/testatii/list.json')->status_is(200);
     $t->get_ok('/testatii/list.html')->status_is(200)
-      ;    #->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
+      ->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
+    $t->post_ok(
+        '/testatii/create.json' => {} => form => {
+            title => 'Hello3',
+            body =>
+              'Ала, бала, ница турска паница, Хей гиди Ванчо, наш капитанчо...'
+        },
+        'posting content - ok'
+    );
+    $t->get_ok('/testatii/read/3.html')->status_is(200)
+      ->content_like(qr|Hello3|smx, 'readinkg content - ok');
 
     #drop the table
     $app->dbix->dbh->do($create_table->[0]);

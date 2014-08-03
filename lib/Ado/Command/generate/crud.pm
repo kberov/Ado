@@ -60,8 +60,14 @@ sub run {
         my $template_dir  = decamelize($class_name);
         my $template_root = (splitdir($args->{templates_root}))[-1];
         my $t_file        = catfile($template_root, $template_dir, 'list.html.ep');
-
         $self->render_to_rel_file('list_template', $t_file, $args);
+        $t_file = catfile($template_root, $template_dir, 'create.html.ep');
+        $self->render_to_rel_file('create_template', $t_file, $args);
+        $t_file = catfile($template_root, $template_dir, 'read.html.ep');
+        $self->render_to_rel_file('read_template', $t_file, $args);
+        $t_file = catfile($template_root, $template_dir, 'delete.html.ep');
+        $self->render_to_rel_file('delete_template', $t_file, $args);
+
 
     }    # end foreach tables
 
@@ -289,6 +295,15 @@ use Mojo::Base '<%= $a->{controller_namespace} %>';
 
 our $VERSION = '0.01';
 
+# Generate class on the fly from the database.
+# No worries - this is cheap, one-time generation.
+# See documentation for Ado::Model::class_from_table
+my $table_class = Ado::Model->table_to_class(
+  namespace => '<%= $a->{model_namespace} %>',
+  table     => '<%= $a->{t} %>',
+  type      => 'TABLE'
+);
+
 # List resourses from table <%= $a->{t} %>.
 sub list {
     my $c = shift;
@@ -310,15 +325,6 @@ sub list {
         "<%= $a->{t} %> $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
     $c->debug("rendering json and html only [$$args{limit}, $$args{offset}]");
 
-    # Generate class on the fly from the database.
-    # No worries - this is cheap, one-time generation.
-    # See documentation for Ado::Model::class_from_table
-    state $table_class = Ado::Model->table_to_class(
-      namespace => '<%= $a->{model_namespace} %>',
-      table     => '<%= $a->{t} %>',
-      type      => 'TABLE'
-    );
-
     #Used in template <%= $a->{t}%>/list.html.ep
     $c->stash('table_class',$table_class);
     #content negotiation
@@ -332,24 +338,58 @@ sub list {
     );
 }
 
-# Creates a resource in table <%= $a->{t} %>.  
+# Creates a resource in table <%= $a->{t} %>. A naive example.  
 sub create {
-    return shift->render(text => '"create" is not implemented...');
+    my $c = shift;
+    #TODO: add validation
+    my $v = $c->validation;
+    $v->required('title')->size(3, 50);
+    $v->required('body')->size(3, 1 * 1024 * 1024);#1MB
+    my $res;
+    eval {
+      $res = $table_class->create(
+        id        => 3,
+        title     => $v->param('title'),
+        body      => $v->param('body'),
+        published => 1,#not a good idea to publish right away - just for example
+        user_id   => $c->user->id,
+        group_id  => $c->user->group_id,
+        deleted   => 0,
+        permissions => '-rwxr-xr-x',
+        );
+    }||$c->stash(error=>$@);#very rude!!!
+        $c->debug('$error:'.$c->stash('error'));
+
+    my $data = $res->data;
+
+    return $c->respond_to(
+        json => {data => $data},
+        html => {data => $data}
+    );
 }
 
-# Reads a resource from table <%= $a->{t} %>.  
+# Reads a resource from table <%= $a->{t} %>. A naive example.
 sub read {
-    return shift->render(text => '"read" is not implemented...');
+    my $c = shift;
+    #This could be validated by a stricter route
+    my ($id) = $c->stash('id') =~/(\d+)/;
+
+    my $data = $table_class->find($id)->data;
+    $c->debug('$data:'.$c->dumper($data));
+    return $c->respond_to(
+        json => {article => $data},
+        html => {article => $data}
+    );
 }
 
 # Updates a resource in table <%= $a->{t} %>.  
 sub update {
-    return shift->render(text => '"update" is not implemented...');
+    return shift->render(message => '"update" is not implemented...');
 }
 
 # "Deletes" a resource from table <%= $a->{t} %>.  
 sub delete {
-    return shift->render(text => '"delete" isnot implemented...');
+    return shift->render(message => '"delete" is not implemented...');
 }
 
 
@@ -387,11 +427,39 @@ sub delete {
     %% }
     </tr>
   </thead>
-    %% foreach my $row (@{$list->{data}}) {
+  <tbody>
+    %% foreach my $row (@{$list->{json}{data}}) {
     <tr>
       %% foreach my $column( @$columns ){
-      <th><%%= $row->{$column} %><th>
+      <td><%%= $row->{$column} %></td>
       %% }
     </tr>
     %% }
+  </tbody>
+    %%#== $c->dumper($list);
 </table>
+
+@@ create_template
+% $a = shift;
+
+@@ read_template
+% $a = shift;
+<article id="<%%= $article->{id} %>">
+  <h1><%%= $article->{title} %></h1>
+  <section><%%= $article->{body} %></section>
+</article>
+
+@@ update_template
+% $a = shift;
+<article>
+  <section class="ui error form segment"><%%= $message %></section>
+</article>
+
+
+@@ delete_template
+% $a = shift;
+<article>
+  <section class="ui error form segment"><%%= $message %></section>
+</article>
+
+
