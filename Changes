@@ -1,7 +1,12 @@
 Revision history for Ado
+
+0.56 2014-08-04
+    - Improved documentation.
+
+
 0.55 2014-08-03
     - $CODENAME changed to
-      "Добро" - U+2C04 GLAGOLITIC CAPITAL LETTER DOBRO (Ⰴ)
+      "Добро" - U+2C04 GLAGOLITIC CAPITAL LETTER DOBRO (Ⰴ).
     - Added SQL::Abstract as recommended module.
     - Upgraded to Mojolicious 5.23.
     - Upgraded to DBIx::Simple::Class 1.008.
