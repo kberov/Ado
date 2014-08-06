@@ -32,9 +32,10 @@ and the default Ado page is a good example for usage.
 We strongly recommend using Ado with your own Perl (not the system-wide)!
 
 Ado is meant to be I<installed into a folder of your choice>.
-It can go into the C<siteprefix> folder of your B<I<non-system Perl distro>> 
-or in its own folder. When installing Ado in its own folder,
-you may want to add the C</path/to/ado/bin> to your C<$PATH> environment variable.
+By default it goes into the C<siteprefix> folder of your B<I<non-system Perl distro>>. 
+When installing Ado in its own folder,
+you may want to add the C</path/to/ado/bin> to your C<$PATH> environment variable
+and when using Ado as a module C</path/to/ado/lib> to C<$PERL5LIB>.
 
 To install manually Ado after downloading, run the following commands:
 
