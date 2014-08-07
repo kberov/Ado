@@ -9,7 +9,7 @@ use Mojo::Util qw(decamelize slurp);
 use Test::Mojo;
 my $dir = getcwd;
 
-my $tempdir = tempdir( CLEANUP => 1 );
+my $tempdir = tempdir(CLEANUP => 1);
 my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,

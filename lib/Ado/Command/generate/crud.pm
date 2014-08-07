@@ -67,8 +67,6 @@ sub run {
         $self->render_to_rel_file('read_template', $t_file, $args);
         $t_file = catfile($template_root, $template_dir, 'delete.html.ep');
         $self->render_to_rel_file('delete_template', $t_file, $args);
-
-
     }    # end foreach tables
 
     return $self;

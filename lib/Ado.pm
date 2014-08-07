@@ -103,11 +103,6 @@ sub define_mime_types {
     return $app;
 }
 
-sub define_hooks {
-    my $app = shift;
-    return $app;
-}
-
 1;
 
 
