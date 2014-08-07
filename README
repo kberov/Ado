@@ -9,22 +9,26 @@ DESCRIPTION
   Ado is a framework for web projects based on Mojolicious, written in the
   Perl programming language <http://www.perl.org/>.
 
-  Ado is a typical Mojo application. It has default configuration and a
-  model layer - Mojolicious::Plugin::DSC. An SQLite database is bundled in
-  the distribution at "etc/ado.sqlite" to get started quickly.
+  Ado is a typical well structured, MVC
+  <http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
+  Mojolicious application. It comes with default configuration and a model
+  layer, plugged in by Mojolicious::Plugin::DSC. An SQLite database is
+  bundled in the distribution at "etc/ado.sqlite" to get started quickly.
 
-  Ado has additional plugins and commands, which are good to have when
-  starting new projects, based on Mojolicious. Semantic UI
+  Ado provides additional plugins and commands, which promote RAD
+  <http://en.wikipedia.org/wiki/Rapid_application_development>, good
+  practices, and team-work when starting new projects. Semantic UI
   <http://semantic-ui.com/> is included in the distribution and the default
   Ado page is a good example for usage.
 
 INSTALLATION
   We strongly recommend using Ado with your own Perl (not the system-wide)!
 
-  Ado is meant to be *installed into a folder of your choice*. It can go
-  into the "siteprefix" folder of your *non-system Perl distro* or in its
-  own folder. When installing Ado in its own folder, you may want to add the
-  "/path/to/ado/bin" to your $PATH environment variable.
+  Ado is meant to be *installed into a folder of your choice*. By default it
+  goes into the "siteprefix" folder of your *non-system Perl distro*. When
+  installing Ado in its own folder, you may want to add the
+  "/path/to/ado/bin" to your $PATH environment variable and when using Ado
+  as a module "/path/to/ado/lib" to $PERL5LIB.
 
   To install manually Ado after downloading, run the following commands:
 

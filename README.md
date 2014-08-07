@@ -12,13 +12,16 @@ Ado::Manual - Getting started with Ado
 [Ado](https://metacpan.org/pod/Ado) is a framework for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
 written in the [Perl programming language](http://www.perl.org/).
 
-Ado is a typical [Mojo](https://metacpan.org/pod/Mojo) application. It has default 
-configuration and a model layer - [Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). 
-An SQLite database is bundled in the distribution at `etc/ado.sqlite` 
-to get started quickly.
+Ado is a typical well structured,
+[MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
+[Mojolicious](https://metacpan.org/pod/Mojolicious) application.
+It comes with default configuration and a model layer, plugged in by
+[Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). An SQLite database is bundled in the distribution 
+at `etc/ado.sqlite` to get started quickly.
 
-Ado has additional [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command), 
-which are good to have when starting new projects, based on Mojolicious.
+Ado provides additional [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command), 
+which promote [RAD](http://en.wikipedia.org/wiki/Rapid_application_development),
+good practices, and team-work when starting new projects.
 [Semantic UI](http://semantic-ui.com/) is included in the distribution
 and the default Ado page is a good example for usage.
 
@@ -27,9 +30,10 @@ and the default Ado page is a good example for usage.
 We strongly recommend using Ado with your own Perl (not the system-wide)!
 
 Ado is meant to be _installed into a folder of your choice_.
-It can go into the `siteprefix` folder of your **_non-system Perl distro_** 
-or in its own folder. When installing Ado in its own folder,
-you may want to add the `/path/to/ado/bin` to your `$PATH` environment variable.
+By default it goes into the `siteprefix` folder of your **_non-system Perl distro_**. 
+When installing Ado in its own folder,
+you may want to add the `/path/to/ado/bin` to your `$PATH` environment variable
+and when using Ado as a module `/path/to/ado/lib` to `$PERL5LIB`.
 
 To install manually Ado after downloading, run the following commands:
 
