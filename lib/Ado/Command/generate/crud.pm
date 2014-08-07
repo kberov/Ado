@@ -105,7 +105,10 @@ L<Ado::Command::generate::crud> generates directory structure for
 a fully functional 
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller> 
 set of files, based on existing tables in the database.
-You should have already created the tables in the database.
+You only need to create the tables. The Model (M) classes
+are generated on the fly from the tables. You can dump them to disk if you want
+using the C<dsc_dump_schema.pl> script that comes with L<DBIx::Simple::Class>.
+
 This tool's purpose is to promote 
 L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>
 and help programmers new to L<Ado> and L<Mojolicious> to quickly create
@@ -131,10 +134,8 @@ for reading, creating, updating and deleting records from the tables you
 specified on the command-line. The generated code uses
 L<DBIx::Simple::Class>-based classes.
 
-In addition, example code is created that uses only L<DBIx::Simple>. 
-In case you prefer to use only L<DBIx::Simple> and not L<DBIx::Simple::Class>,
-use the option C<'N|no_dsc_code'>. If you want pure L<DBI>, 
-write the code your self.
+You can use only L<DBIx::Simple> via the C<$c-E<gt>dbix> helper
+or L<DBI> via C<$c-E<gt>dbix-E<gt>dbh>.
 
 The generated code is just boilerplate to give you a jump start, so you can
 concentrate on writing your business-specific code. It is assumed that you will modify the generated code to suit your specific needs.
@@ -153,12 +154,6 @@ L<Ado::Control>. If you decide to use another namespace for the controllers,
 do not forget to add it to the list C<app-E<gt>routes-E<gt>namespaces> 
 in C<etc/ado.conf> or your plugin configuration file.
 
-=head2 d|dsn=s
-
-Optional. Connection string parsed using L<DBI/parse_dsn> and passed to 
-L<DBIx::Simple/connect>. See also L<Mojolicious::Plugin::DSC/dsn>.
-By default the connection to the application database is used.
-
 =head2 L|lib_root=s
 
 Defaults to C<lib> relative to the current dierctory.
@@ -174,15 +169,6 @@ for another database, you will have to add another item for
 L<Mojolicious::Plugin::DSC> to the list of loaded pligins in C<etc/ado.conf>
 or in your plugin configuration. Yes, multiple database connections/schemas
 are supported.
-
-=head2 N|no_dsc_code
-
-Boolean. If this option is passed the previous option (M|model_namespace=s)
-is ignored. No table classes will be generated.
-
-=head2 O|overwrite
-
-If there are already generated files they will be overwritten.
 
 =head2 P|password=s
 
@@ -339,21 +325,20 @@ sub list {
 # Creates a resource in table <%= $a->{t} %>. A naive example.  
 sub create {
     my $c = shift;
-    #TODO: add validation
     my $v = $c->validation;
+    return $c->render unless $v->has_data;
+    
     $v->required('title')->size(3, 50);
     $v->required('body')->size(3, 1 * 1024 * 1024);#1MB
     my $res;
     eval {
       $res = $table_class->create(
-        id        => 3,
         title     => $v->param('title'),
         body      => $v->param('body'),
-        published => 1,#not a good idea to publish right away - just for example
         user_id   => $c->user->id,
         group_id  => $c->user->group_id,
         deleted   => 0,
-        permissions => '-rwxr-xr-x',
+        #permissions => '-rwxr-xr-x',
         );
     }||$c->stash(error=>$@);#very rude!!!
         $c->debug('$error:'.$c->stash('error')) if $c->stash('error');
@@ -382,7 +367,24 @@ sub read {
 
 # Updates a resource in table <%= $a->{t} %>.  
 sub update {
-    return shift->render(message => '"update" is not implemented...');
+    my $c = shift;
+    my $v = $c->validation;
+    my ($id) = $c->stash('id') =~/(\d+)/;
+    my $res = $table_class->find($id);
+    $c->render_not_found() unless $res->data;
+    $c->debug('$data:'.$c->dumper($res->data));
+    
+    if($v->has_data && $res->data){
+        $v->optional('title')->size(3, 50);
+        $v->optional('body')->size(3, 1 * 1024 * 1024);#1MB
+        $res->title($v->param('title'))->body($v->param('body'))
+         ->update() unless $v->has_error;
+    }
+    my $data = $res->data;
+    return $c->respond_to(
+        json => {article => $data},
+        html => {article => $data}
+    );
 }
 
 # "Deletes" a resource from table <%= $a->{t} %>.  
@@ -450,7 +452,7 @@ sub delete {
 @@ update_template
 % $a = shift;
 <article>
-  <section class="ui error form segment"><%%= $message %></section>
+  Create your form for updating a resource here.
 </article>
 
 
