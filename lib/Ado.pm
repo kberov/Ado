@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.55';
+our $VERSION   = '0.56';
 our $CODENAME  = 'U+2C04 GLAGOLITIC CAPITAL LETTER DOBRO (Ⰴ)';
 
 use Ado::Control;
@@ -23,7 +23,7 @@ has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 # This method will run once at server start
 sub startup {
     my $app = shift;
-    $app->load_config()->load_plugins()->load_routes()->define_mime_types()->define_hooks();
+    $app->load_config()->load_plugins()->load_routes()->define_mime_types();
     return;
 }
 
@@ -100,11 +100,6 @@ sub define_mime_types {
         # Add new MIME type or redefine any existing
         $app->types->type($mime => $mimes->{$mime});
     }
-    return $app;
-}
-
-sub define_hooks {
-    my $app = shift;
     return $app;
 }
 
@@ -196,12 +191,6 @@ Returns $app.
 =head2 define_mime_types
 
 Defines any MIME types listed in C<ado.conf> in C<types =E<gt> {...}>.
-Returns $app.
-
-
-=head2 define_hooks
-
-B<May be never implemented>. Plugins can define code which is run in L<Mojolicious/hooks>.
 Returns $app.
 
 =head1 SPONSORS

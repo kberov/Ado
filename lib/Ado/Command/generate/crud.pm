@@ -18,15 +18,19 @@ sub initialise {
     GetOptionsFromArray(
         \@args,
         'C|controller_namespace=s' => \$args->{controller_namespace},
-        'd|dsn=s'                  => \$args->{dsn},
-        'L|lib_root=s'             => \$args->{lib_root},
-        'M|model_namespace=s'      => \$args->{model_namespace},
-        'N|no_dsc_code'            => \$args->{no_dsc_code},
-        'O|overwrite'              => \$args->{overwrite},
-        'P|password=s'             => \$args->{password},
-        'T|templates_root=s'       => \$args->{templates_root},
-        't|tables=s@'              => \$args->{tables},
-        'U|user=s'                 => \$args->{user},
+
+        #'d|dsn=s'                  => \$args->{dsn},
+        'L|lib_root=s'        => \$args->{lib_root},
+        'M|model_namespace=s' => \$args->{model_namespace},
+
+        #'N|no_dsc_code'            => \$args->{no_dsc_code},
+        'O|overwrite' => \$args->{overwrite},
+
+        #'P|password=s'             => \$args->{password},
+        'T|templates_root=s' => \$args->{templates_root},
+        't|tables=s@'        => \$args->{tables},
+
+        #'U|user=s'                 => \$args->{user},
     );
 
     @{$args->{tables}} = split(/\,/, join(',', @{$args->{tables}}));
@@ -67,8 +71,6 @@ sub run {
         $self->render_to_rel_file('read_template', $t_file, $args);
         $t_file = catfile($template_root, $template_dir, 'delete.html.ep');
         $self->render_to_rel_file('delete_template', $t_file, $args);
-
-
     }    # end foreach tables
 
     return $self;
@@ -107,66 +109,45 @@ L<Ado::Command::generate::crud> generates directory structure for
 a fully functional 
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller> 
 set of files, based on existing tables in the database.
-You should have already created the tables in the database.
+You only need to create the tables. The Model (M) classes are generated on the fly 
+from the tables when the controller classes are Loaded by L<Ado> for the first time.
+You can dump them to disk if you want using the C<dsc_dump_schema.pl> script that 
+comes with L<DBIx::Simple::Class>. You may decide to use only L<DBIx::Simple> 
+via the C<$c-E<gt>dbix> helper or L<DBI> via C<$c-E<gt>dbix-E<gt>dbh>.
+Thats app to you.
+
 This tool's purpose is to promote 
 L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>
+by generating the boilerplate code for controllers (C)
 and help programmers new to L<Ado> and L<Mojolicious> to quickly create
 well structured, fully functional applications.
 
-Internally this generator uses L<DBIx::Simple::Class::Schema>
-to generate on the fly the classes, used to manipulate the tables' records, 
-if they are not already generated. If the I<Model> classes already exist,
-it creates only the controller classes and templates. 
-
-Altough L<Ado> already have defined generic routes for CRUD, 
-this command will generate more specific routes (if used through 
-L<Ado::Command::generate::adoplugin>), that will secure the C<create>, 
-C<update> and C<delete> actions, so they are available only to an 
-authenticated user. After executing the command you should end up with a 
-L<REST|http://en.wikipedia.org/wiki/REST>ful
-service. The generated code uses 
-L<Mojolicious::Controller/respond_to>. For details see 
-L<Mojolicious::Guides::Rendering/Content-negotiation>.
-
-In the actions you will find I<eventually working> code
+In the generated actions you will find I<eventually working> code
 for reading, creating, updating and deleting records from the tables you
-specified on the command-line. The generated code uses
-L<DBIx::Simple::Class>-based classes.
-
-In addition, example code is created that uses only L<DBIx::Simple>. 
-In case you prefer to use only L<DBIx::Simple> and not L<DBIx::Simple::Class>,
-use the option C<'N|no_dsc_code'>. If you want pure L<DBI>, 
-write the code your self.
+specified on the command-line.
 
 The generated code is just boilerplate to give you a jump start, so you can
-concentrate on writing your business-specific code. It is assumed that you will modify the generated code to suit your specific needs.
-
+concentrate on writing your business-specific code. It is assumed that you will
+modify the generated code to suit your specific needs.
 
 =head1 OPTIONS
 
 Below are the options this command accepts, described in L<Getopt::Long> notation.
 
-
 =head2 C|controller_namespace=s
 
 Optional. The namespace for the controller classes to be generated.
-Defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>, usuallly 
+Defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>, usuallly
 L<Ado::Control>. If you decide to use another namespace for the controllers,
-do not forget to add it to the list C<app-E<gt>routes-E<gt>namespaces> 
+do not forget to add it to the list C<app-E<gt>routes-E<gt>namespaces>
 in C<etc/ado.conf> or your plugin configuration file.
-
-=head2 d|dsn=s
-
-Optional. Connection string parsed using L<DBI/parse_dsn> and passed to 
-L<DBIx::Simple/connect>. See also L<Mojolicious::Plugin::DSC/dsn>.
-By default the connection to the application database is used.
 
 =head2 L|lib_root=s
 
 Defaults to C<lib> relative to the current dierctory.
-If you installed L<Ado> in some custom path and you wish to set it
-to e.g. C<site_lib>, use this option. Do not forget to add this
-directory to C<$ENV{PERL5LIB}>, so the classes can be found by C<perl>.
+If you installed L<Ado> in some custom path and you wish to generate your controllers into
+e.g. C<site_lib>, use this option. Do not forget to add this
+directory to C<$ENV{PERL5LIB}>, so the classes can be found and loaded.
 
 =head2 M|model_namespace=s
 
@@ -177,20 +158,6 @@ L<Mojolicious::Plugin::DSC> to the list of loaded pligins in C<etc/ado.conf>
 or in your plugin configuration. Yes, multiple database connections/schemas
 are supported.
 
-=head2 N|no_dsc_code
-
-Boolean. If this option is passed the previous option (M|model_namespace=s)
-is ignored. No table classes will be generated.
-
-=head2 O|overwrite
-
-If there are already generated files they will be overwritten.
-
-=head2 P|password=s
-
-Password for the database to connect to. Needed only when C<dsn> argument is
-passed and the database requires a password.
-
 =head2 T|templates_root=s
 
 Defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>. This is usually
@@ -199,14 +166,7 @@ do not forget to add it to the C<app-E<gt>renderer-E<gt>paths> list.
 
 =head2 t|tables=s@
 
-Mandatory. Passing '%' would mean all the tables from the specified 
-database with the C<d|dsn=s> option or the Ado database. Note that existing 
-L<Ado::Model> classes will not be overwritten even if you specify C<O|overwrite>.
-
-=head2 U|user=s
-
-Username for the database to connect to. Needed only when C<dsn> argument is
-passed and the database requires a username.
+Mandatory. List of tables separated by commas for which controllers should be generated.
 
 =head1 ATTRIBUTES
 
@@ -246,7 +206,8 @@ L<Ado::Command> and implements the following new ones.
       #...
   }
 
-Parses arguments and prepares the command to be run. Calling this method for the second time has no effect. Returns C<$self>.
+Parses arguments and prepares the command to be run. Calling this method for the second time has no effect. 
+Returns C<$self>.
 
 =head2 run
 
@@ -257,6 +218,21 @@ Run this command.
 =head1 TODO
 
 Add authentication checks to update and delete actions.
+
+The following is not implemented yet.
+Altough L<Ado> already have defined generic routes for CRUD, 
+this command will generate more specific routes (if used through/with 
+L<Ado::Command::generate::adoplugin>), that will secure the C<create>, 
+C<update> and C<delete> actions, so they are available only to an 
+authenticated user. After executing the command you should end up with a 
+L<REST|http://en.wikipedia.org/wiki/REST>ful
+service. The generated code uses 
+L<Mojolicious::Controller/respond_to>. For details see 
+L<Mojolicious::Guides::Rendering/Content-negotiation>.
+
+
+
+
 
 =head1 SEE ALSO
 
@@ -341,21 +317,20 @@ sub list {
 # Creates a resource in table <%= $a->{t} %>. A naive example.  
 sub create {
     my $c = shift;
-    #TODO: add validation
     my $v = $c->validation;
+    return $c->render unless $v->has_data;
+    
     $v->required('title')->size(3, 50);
     $v->required('body')->size(3, 1 * 1024 * 1024);#1MB
     my $res;
     eval {
       $res = $table_class->create(
-        id        => 3,
         title     => $v->param('title'),
         body      => $v->param('body'),
-        published => 1,#not a good idea to publish right away - just for example
         user_id   => $c->user->id,
         group_id  => $c->user->group_id,
         deleted   => 0,
-        permissions => '-rwxr-xr-x',
+        #permissions => '-rwxr-xr-x',
         );
     }||$c->stash(error=>$@);#very rude!!!
         $c->debug('$error:'.$c->stash('error')) if $c->stash('error');
@@ -384,7 +359,24 @@ sub read {
 
 # Updates a resource in table <%= $a->{t} %>.  
 sub update {
-    return shift->render(message => '"update" is not implemented...');
+    my $c = shift;
+    my $v = $c->validation;
+    my ($id) = $c->stash('id') =~/(\d+)/;
+    my $res = $table_class->find($id);
+    $c->render_not_found() unless $res->data;
+    $c->debug('$data:'.$c->dumper($res->data));
+    
+    if($v->has_data && $res->data){
+        $v->optional('title')->size(3, 50);
+        $v->optional('body')->size(3, 1 * 1024 * 1024);#1MB
+        $res->title($v->param('title'))->body($v->param('body'))
+         ->update() unless $v->has_error;
+    }
+    my $data = $res->data;
+    return $c->respond_to(
+        json => {article => $data},
+        html => {article => $data}
+    );
 }
 
 # "Deletes" a resource from table <%= $a->{t} %>.  
@@ -452,7 +444,7 @@ sub delete {
 @@ update_template
 % $a = shift;
 <article>
-  <section class="ui error form segment"><%%= $message %></section>
+  Create your form for updating a resource here.
 </article>
 
 

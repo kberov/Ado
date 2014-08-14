@@ -14,13 +14,16 @@ Ado::Manual - Getting started with Ado
 L<Ado> is a framework for web projects based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 
-Ado is a typical L<Mojo> application. It has default 
-configuration and a model layer - L<Mojolicious::Plugin::DSC>. 
-An SQLite database is bundled in the distribution at C<etc/ado.sqlite> 
-to get started quickly.
+Ado is a typical well structured,
+L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
+L<Mojolicious> application.
+It comes with default configuration and a model layer, plugged in by
+L<Mojolicious::Plugin::DSC>. An SQLite database is bundled in the distribution 
+at C<etc/ado.sqlite> to get started quickly.
 
-Ado has additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>, 
-which are good to have when starting new projects, based on Mojolicious.
+Ado provides additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>, 
+which promote L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>,
+good practices, and team-work when starting new projects.
 L<Semantic UI|http://semantic-ui.com/> is included in the distribution
 and the default Ado page is a good example for usage.
 
@@ -29,9 +32,10 @@ and the default Ado page is a good example for usage.
 We strongly recommend using Ado with your own Perl (not the system-wide)!
 
 Ado is meant to be I<installed into a folder of your choice>.
-It can go into the C<siteprefix> folder of your B<I<non-system Perl distro>> 
-or in its own folder. When installing Ado in its own folder,
-you may want to add the C</path/to/ado/bin> to your C<$PATH> environment variable.
+By default it goes into the C<siteprefix> folder of your B<I<non-system Perl distro>>. 
+When installing Ado in its own folder,
+you may want to add the C</path/to/ado/bin> to your C<$PATH> environment variable
+and when using Ado as a module C</path/to/ado/lib> to C<$PERL5LIB>.
 
 To install manually Ado after downloading, run the following commands:
 
