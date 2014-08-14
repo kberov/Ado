@@ -4,4 +4,3 @@ Depending on the environment variable MOJO_MODE
 Ado writes to one or the other.
 $ENV{MOJO_MODE}==development => development.log
 $ENV{MOJO_MODE}==production  => production.log
-
