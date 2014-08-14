@@ -18,14 +18,18 @@ sub initialise {
     GetOptionsFromArray(
         \@args,
         'C|controller_namespace=s' => \$args->{controller_namespace},
+
         #'d|dsn=s'                  => \$args->{dsn},
-        'L|lib_root=s'             => \$args->{lib_root},
-        'M|model_namespace=s'      => \$args->{model_namespace},
+        'L|lib_root=s'        => \$args->{lib_root},
+        'M|model_namespace=s' => \$args->{model_namespace},
+
         #'N|no_dsc_code'            => \$args->{no_dsc_code},
-        'O|overwrite'              => \$args->{overwrite},
+        'O|overwrite' => \$args->{overwrite},
+
         #'P|password=s'             => \$args->{password},
-        'T|templates_root=s'       => \$args->{templates_root},
-        't|tables=s@'              => \$args->{tables},
+        'T|templates_root=s' => \$args->{templates_root},
+        't|tables=s@'        => \$args->{tables},
+
         #'U|user=s'                 => \$args->{user},
     );
 
