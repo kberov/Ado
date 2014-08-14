@@ -38,15 +38,18 @@ TODO: {
     is_deeply(
         $c->args,
         {   controller_namespace => $app->routes->namespaces->[0],
-            dsn                  => undef,
-            lib_root             => 'lib',
-            model_namespace      => 'Ado::Model',
-            no_dsc_code          => undef,
-            password             => undef,
-            overwrite            => undef,
-            templates_root       => $app->home->rel_dir('site_templates'),
-            tables               => ['testatii'],
-            user                 => undef,
+
+            #dsn                  => undef,
+            lib_root        => 'lib',
+            model_namespace => 'Ado::Model',
+
+            #no_dsc_code          => undef,
+            #password       => undef,
+            overwrite      => undef,
+            templates_root => $app->home->rel_dir('site_templates'),
+            tables         => ['testatii'],
+
+            #user           => undef,
         },
         'args are ok'
     );
