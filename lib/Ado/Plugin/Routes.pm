@@ -68,7 +68,7 @@ Default: C<undef>.
 
 =head2 routes
 
-And ARAY reference describing the routes.
+And ARRAY reference describing the routes.
 
 =head1 METHODS
 
@@ -91,7 +91,7 @@ This plugin implements the following hooks.
 
 =head2 before_dispatch
 
-This hook is generated if you add the option L<base_url_path> to plugin cofiguration.
+This hook is generated if you add the option L<base_url_path> to plugin configuration.
 In case the application is deployed as CGI or FCGI application,
 the url part containing C<ado> is removed from the base url path so the 
 urls are the same as if deployed standalone or with 

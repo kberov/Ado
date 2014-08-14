@@ -25,13 +25,15 @@ add_stopwords(
     qw(
       Krasimir Berov Красимир Беров berov
       kumcho vulcho com Вълчо Неделчев Nedelchev Valcho
-      http html org metacpan
+      http html org metacpan url urls
       Mojolicious Mojo app apps Foo SQLite ActivePerl
       URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
-      WMD JS UI
+      WMD JS UI MVC FCGI CGI
       precompiled perldoc RESTful tstamp linkedin
       accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew auth
+      cpan cpanm perl perlbrew auth eg authbar ep
+      plugin plugins yourpluginroute htaccess suexec env
+      ServerName ServerAlias ServerAdmin DocumentRoot UserAgent
       )
 );
 all_pod_files_spelling_ok();

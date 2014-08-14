@@ -137,14 +137,14 @@ Below are the options this command accepts, described in L<Getopt::Long> notatio
 =head2 C|controller_namespace=s
 
 Optional. The namespace for the controller classes to be generated.
-Defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>, usuallly
+Defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>, usually
 L<Ado::Control>. If you decide to use another namespace for the controllers,
 do not forget to add it to the list C<app-E<gt>routes-E<gt>namespaces>
 in C<etc/ado.conf> or your plugin configuration file.
 
 =head2 L|lib_root=s
 
-Defaults to C<lib> relative to the current dierctory.
+Defaults to C<lib> relative to the current directory.
 If you installed L<Ado> in some custom path and you wish to generate your controllers into
 e.g. C<site_lib>, use this option. Do not forget to add this
 directory to C<$ENV{PERL5LIB}>, so the classes can be found and loaded.
@@ -154,7 +154,7 @@ directory to C<$ENV{PERL5LIB}>, so the classes can be found and loaded.
 Optional. The namespace for the model classes to be generated.
 Defaults to L<Ado::Model>. If you wish however to use another namespace
 for another database, you will have to add another item for 
-L<Mojolicious::Plugin::DSC> to the list of loaded pligins in C<etc/ado.conf>
+L<Mojolicious::Plugin::DSC> to the list of loaded plugins in C<etc/ado.conf>
 or in your plugin configuration. Yes, multiple database connections/schemas
 are supported.
 
@@ -225,7 +225,7 @@ this command will generate more specific routes (if used through/with
 L<Ado::Command::generate::adoplugin>), that will secure the C<create>, 
 C<update> and C<delete> actions, so they are available only to an 
 authenticated user. After executing the command you should end up with a 
-L<REST|http://en.wikipedia.org/wiki/REST>ful
+L<RESTful|http://en.wikipedia.org/wiki/REST>
 service. The generated code uses 
 L<Mojolicious::Controller/respond_to>. For details see 
 L<Mojolicious::Guides::Rendering/Content-negotiation>.
