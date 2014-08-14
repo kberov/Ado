@@ -10,6 +10,8 @@ $SIG{__WARN__} = sub {
 };
 
 # Ensure use Test::Pod::Spelling is installed
+eval "use Lingua::Ispell";
+plan skip_all => "Lingua::Ispell and ispell binary is required for testing POD spelling." if $@;
 eval "use Test::Pod::Spelling";
 plan skip_all => "Test::Pod::Spelling is required for testing POD spelling." if $@;
 if (!$ENV{TEST_AUTHOR}) {
