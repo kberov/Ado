@@ -1,17 +1,34 @@
 ---
 abstract: 'a rapid active commotion (framework for web-projects on Mojolicious)'
 author:
-  - unknown
-build_requires: {}
+  - "Ð\x9AÑ\x80Ð°Ñ\x81Ð¸Ð¼Ð¸Ñ\x80 Ð\x91ÐµÑ\x80Ð¾Ð² <berov@cpan.org>"
+build_requires:
+  Test::More: '0'
 configure_requires:
-  Module::Build: '0.38'
+  Module::Build: '0.4204'
 dynamic_config: 1
 generated_by: 'Module::Build version 0.4205, CPAN::Meta::Converter version 2.132830'
-license: unknown
+keywords:
+  - Ado
+  - Mojolicious
+  - realtime
+  - web
+  - ERP
+  - REST
+  - CMS
+  - enterprise
+license: lgpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
 name: Ado
+no_index:
+  namespace:
+    - Ado::Model
+    - Ado::Command
+    - Ado::Control
+    - Ado::Plugin
+    - Test::Ado
 provides:
   Ado:
     file: lib/Ado.pm
@@ -91,4 +108,23 @@ provides:
     file: lib/Ado/Sessions/File.pm
   Test::AdoPlugin:
     file: lib/Test/AdoPlugin.pm
+recommends:
+  Apache::LogFormat::Compiler: '0'
+  DBD::SQLite: 1.43_06
+  FCGI: '0.74'
+  FCGI::ProcManager: '0.24'
+  Mojo::Server::FastCGI: '0.41'
+  Plack: '1.0030'
+  SQL::Abstract: '1.78'
+requires:
+  DBIx::Simple::Class: '1.008'
+  Email::Address: '1.901'
+  Locale::Maketext: '1.23'
+  Mojolicious: '5.28'
+  Mojolicious::Plugin::DSC: '0.999'
+  Text::MultiMarkdown: '1.000035'
+  perl: v5.14.0
+resources:
+  bugtracker: http://github.com/kberov/Ado/issues
+  repository: http://github.com/kberov/Ado
 version: '0.56'
