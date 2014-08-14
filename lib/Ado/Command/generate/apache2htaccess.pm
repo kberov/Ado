@@ -98,8 +98,8 @@ Below are the options this command accepts, described in L<Getopt::Long> notatio
 
 =head2 c|config_file=s
 
-Full path to the file in which the configuaration will be written.
-If not provided the configuaration is printed to the screen.
+Full path to the file in which the configuration will be written.
+If not provided the configuration is printed to the screen.
 
 =head3 v|verbose
 

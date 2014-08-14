@@ -111,7 +111,7 @@ See L<Ado::Manual::Plugins> and L<Ado::Plugin> for more information.
 
 =head1 CONTINUOUS INTEGRATION
 
-We d'like to know our software is always in good health so we count on
+We would like to know that our software is always in good health so we count on
 friendly developers and organisations to install and test it continuously.
 
 L<CPAN Testers Reports for Ado|http://www.cpantesters.org/distro/A/Ado.html>

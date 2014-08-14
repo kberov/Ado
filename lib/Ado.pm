@@ -151,7 +151,7 @@ the following new ones.
 =head2 startup
 
 The startup method is where everything begins. Returns void.
-The following methods are listed in the order they are innvoked in L</startup>.
+The following methods are listed in the order they are invoked in L</startup>.
 
 =head2 load_config
 
