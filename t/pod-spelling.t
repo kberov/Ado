@@ -31,7 +31,7 @@ add_stopwords(
       WMD JS UI MVC FCGI CGI
       precompiled perldoc RESTful tstamp linkedin
       accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew auth eg authbar ep
+      cpan cpanm perl perlbrew auth eg authbar ep wiki
       plugin plugins yourpluginroute htaccess suexec env
       ServerName ServerAlias ServerAdmin DocumentRoot UserAgent
       )
