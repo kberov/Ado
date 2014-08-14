@@ -18,6 +18,7 @@ my $author = {
         'Test::CheckManifest' => '0',
         'Test::Pod::Coverage' => '1.08',
         'Test::Pod'           => '1.48',
+        'Lingua::Ispell'=>'0',
         'Test::Pod::Spelling' => '0.4',
         'Devel::Cover'        => '1.08',
         'Test::Exception'     => '0.32',
