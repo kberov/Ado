@@ -1,14 +1,17 @@
 Revision history for Ado
 
-0.56 2014-08-04
-    - Improved documentation.
+0.57 2014-08-14
+    - Cleanups and clarifications in "Changes" file - no code changes.
 
+0.56 2014-08-14
+    - Improved documentation. TODO - fix pod-spelling.t (falselly passing).
+    - Upgraded to Mojolicious 5.28.
+    - Improved tests and refactored Ado::Command::generate::crud.
 
 0.55 2014-08-03
     - $CODENAME changed to
       "Добро" - U+2C04 GLAGOLITIC CAPITAL LETTER DOBRO (Ⰴ).
     - Added SQL::Abstract as recommended module.
-    - Upgraded to Mojolicious 5.28.
     - Upgraded to DBIx::Simple::Class 1.008.
     - Upgraded to Semantic UI 0.19.0.
     - Added highly experimental Ado::Command::generate::crud

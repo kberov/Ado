@@ -18,7 +18,7 @@ my $author = {
         'Test::CheckManifest' => '0',
         'Test::Pod::Coverage' => '1.08',
         'Test::Pod'           => '1.48',
-        'Lingua::Ispell'=>'0',
+        'Lingua::Ispell'      => '0',
         'Test::Pod::Spelling' => '0.4',
         'Devel::Cover'        => '1.08',
         'Test::Exception'     => '0.32',
@@ -50,7 +50,8 @@ my $builder = Ado::Build->new(
         $ENV{TEST_AUTHOR} ? (%{$$author{configure_requires}}) : (),
     },
     build_requires => {
-        'Test::More' => '0',
+        'Module::Build' => '0.4204',
+        'Test::More'    => '0',
         $ENV{TEST_AUTHOR} ? (%{$$author{build_requires}}) : (),
     },
     requires => {
@@ -67,7 +68,7 @@ my $builder = Ado::Build->new(
 
     },
     recommends => {
-        'DBD::SQLite' => '1.43_06',
+        'DBD::SQLite'   => '1.43_06',
         'SQL::Abstract' => '1.78',
 
         # Either
