@@ -126,8 +126,8 @@ See also documentation for Apache2 directive DocumentRoot.
 
 =head2 c|config_file=s
 
-Full path to the file in which the configuaration will be written.
-If not provided the configuaration is printed to the screen.
+Full path to the file in which the configuration will be written.
+If not provided the configuration is printed to the screen.
 
 =head2 s|with_suexec
 

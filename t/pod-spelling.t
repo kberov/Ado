@@ -31,9 +31,10 @@ add_stopwords(
       WMD JS UI MVC FCGI CGI
       precompiled perldoc RESTful tstamp linkedin
       accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew auth eg authbar ep wiki
+      cpan cpanm perl perlbrew auth eg authbar ep wiki conf
       plugin plugins yourpluginroute htaccess suexec env
       ServerName ServerAlias ServerAdmin DocumentRoot UserAgent
+      initialisation
       )
 );
 all_pod_files_spelling_ok();

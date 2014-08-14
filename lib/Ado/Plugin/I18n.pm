@@ -364,7 +364,7 @@ call it in the template. See C<templates/добре/ок.html.ep> for an example
 
 =head1 TEMPLATES
 
-L<Ado::Plugin::I18n> contains one embeded template.
+L<Ado::Plugin::I18n> contains one embedded template.
 
 =head2 partials/language_menu.html.ep
 
