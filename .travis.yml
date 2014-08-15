@@ -2,8 +2,6 @@ language: perl
 perl:
   - "5.20"
   - "5.18"
-  - "5.16"
-  - "5.14"
 # Whitelist branches for CI, ignore all other branches
 branches:
   only:
