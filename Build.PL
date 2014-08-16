@@ -12,18 +12,19 @@ my $author = {
     build_requires => {
 
         #Modules for QA - while developping
-        'Perl::Tidy'          => '0',
-        'Test::Output'        => '0.16',
-        'Test::Perl::Critic'  => '0',
-        'Test::CheckManifest' => '0',
-        'Test::Pod::Coverage' => '1.08',
+        'Perl::Tidy'          => '20140711',
+        'Test::Output'        => '1.03',
+        'Perl::Critic'        => '1.121',
+        'Test::Perl::Critic'  => '1.02',
+        'Test::CheckManifest' => '1.28',
+        'Test::Pod::Coverage' => '1.10',
         'Test::Pod'           => '1.48',
         'Lingua::Ispell'      => '0',
         'Test::Pod::Spelling' => '0.4',
-        'Devel::Cover'        => '1.08',
+        'Devel::Cover'        => '1.15',
         'Test::Exception'     => '0.32',
-        'Test::Differences'   => '0',
-        'Pod::Markdown'       => '0',
+        'Test::Differences'   => '0.62',
+        'Pod::Markdown'       => '2.002',
     },
     configure_requires => {},
     requires           => {
