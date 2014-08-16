@@ -84,7 +84,7 @@ Generally the rules outlined in L<Mojolicious::Guides::Contributing>
 apply for L<Ado> too.
 For specific to Ado rules see L<Ado::Manual::Contributing>.
 
-We expect that you know how to write perl Modules and 
+We expect that you know how Internet works, how to write Perl modules and 
 are familiar with L<Mojolicious>.
 
 =head1 REST API
@@ -131,7 +131,7 @@ L<http://www.thefreedictionary.com/ado>.
 
 =head1 AUTHORS
 
-Authors in order of joining the core team.
+Authors in order of appearance.
 
 Красимир Беров (Krasimir Berov)(berov@cpan.org) 
 
