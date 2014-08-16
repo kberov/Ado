@@ -12,6 +12,7 @@ sub run {
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'n|name=s' => \$$args{name},
+      'c|crud'   => \$$args{crud},
       ;
 
     Carp::croak $self->usage unless $$args{name};
@@ -49,21 +50,40 @@ Ado::Command::generate::adoplugin - Generates an Ado::Plugin
 
 On the command-line:
 
-  $ bin/ado generate adoplugin --name MyBlog
+  $ cd ~/opt/public_dev
+  # Ado is "globally" installed for the current perlbrew Perl
+  $ ado generate adoplugin --name MyBlog
+  $ ado generate adoplugin --name MyBlog --crud -t 'articles,news'
 
 Programmatically:
 
   use Ado::Command::generate::adoplugin;
   my $vhost = Ado::Command::generate::adoplugin->new;
-  $vhost->run('--name' => 'MyBlog');
+  $vhost->run(-n => 'MyBlog', -c => 1, -t => 'articles,news');
 
 =head1 DESCRIPTION
 
 L<Ado::Command::generate::adoplugin> generates directory structures for
-fully functional L<Ado>-specific plugins.
+fully functional L<Ado>-specific plugins with optional MVC set of files.
+The new plugin is generated in the current directory.
 
-This is a core command, that means it is always enabled and its code a good
-example for learning to build new commands, you're welcome to fork it.
+This is a core command, that means it is always enabled and its code a
+more complex example for learning to build new commands. You're welcome to fork it.
+
+=head1 OPTIONS
+
+Below are the options this command accepts, described in L<Getopt::Long> notation.
+
+=head2 n|name=s
+
+Mandatory. String. The name of the plugin. The resulting full class name is
+the camelized version of C<Ado::Plugin::$$args{name}>.
+
+=head2 c|crud
+
+Boolean. When set you can pass in addition all the arguments accepted by
+L<Ado::Command::generate::crud>
+
 
 =head1 ATTRIBUTES
 
@@ -98,6 +118,7 @@ Run this command.
 =head1 SEE ALSO
 
 L<Mojolicious::Command::generate::plugin>,
+L<Ado::Command::generate::crud>,
 L<Ado::Command::generate::apache2vhost>,
 L<Ado::Command::generate::apache2htaccess>, L<Ado::Command::generate>,
 L<Mojolicious::Command::generate>, L<Getopt::Long>,
