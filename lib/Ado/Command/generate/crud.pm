@@ -41,8 +41,8 @@ sub initialise {
       (first { ref($_) eq 'HASH' and $_->{name} eq 'DSC' } @{$app->config('plugins')})
       ->{config}{namespace};
     $args->{lib_root} //= 'lib';
-    $args->{templates_root} = $app->renderer->paths->[0];
-    $self->{_initialised}   = 1;
+    $args->{templates_root} //= $app->renderer->paths->[0];
+    $self->{_initialised} = 1;
     return $self;
 }
 
