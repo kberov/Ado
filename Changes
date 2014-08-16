@@ -1,8 +1,10 @@
 Revision history for Ado
 
-0.58 2014-08-16
+0.58 2014-08-17
     - Set specific minimum versions of required modules when
       $ENV{TEST_AUTHOR} is 1.
+    - Ado::Plugin::config_dir now defaults to etc/plugins 
+      relative to the plugin base directory.
 
 0.57 2014-08-14
     - Cleanups and clarifications in "Changes" file - no code changes.
