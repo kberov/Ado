@@ -1,4 +1,4 @@
-#t/command/adoplugin.t
+#t/command/adoplugin-00.t
 use Mojo::Base -strict;
 use Test::More;
 use File::Spec::Functions qw(catdir catfile catpath);
