@@ -34,7 +34,7 @@ add_stopwords(
       cpan cpanm perl perlbrew auth eg authbar ep wiki conf
       plugin plugins yourpluginroute htaccess suexec env
       ServerName ServerAlias ServerAdmin DocumentRoot UserAgent
-      initialisation
+      initialisation camelized
       )
 );
 all_pod_files_spelling_ok();
