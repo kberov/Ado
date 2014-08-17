@@ -17,6 +17,7 @@ Revision history for Ado
         and at the same time keeping the file structure.
       - Removed 'TODO' marker in crud.t
     - Upgraded to Mojolicious 5.29.
+    - Updtaed the default index page.
 
 0.57 2014-08-14
     - Cleanups and clarifications in "Changes" file - no code changes.
