@@ -82,7 +82,7 @@ Generally the rules outlined in [Mojolicious::Guides::Contributing](https://meta
 apply for [Ado](https://metacpan.org/pod/Ado) too.
 For specific to Ado rules see [Ado::Manual::Contributing](https://metacpan.org/pod/Ado::Manual::Contributing).
 
-We expect that you know how to write perl Modules and 
+We expect that you know how Internet works, how to write Perl modules and 
 are familiar with [Mojolicious](https://metacpan.org/pod/Mojolicious).
 
 # REST API
@@ -128,7 +128,7 @@ friendly developers and organizations to install and test it continuously.
 
 # AUTHORS
 
-Authors in order of joining the core team.
+Authors in order of appearance.
 
 Красимир Беров (Krasimir Berov)(berov@cpan.org) 
 

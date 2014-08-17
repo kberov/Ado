@@ -3,18 +3,40 @@ use Mojo::Base 'Ado::Command::generate';
 use Mojo::Util qw(camelize class_to_path decamelize);
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Time::Piece ();
+use Carp;
+File::Spec::Functions->import(qw(catfile catdir));
+
 
 has description => "Generates directory structures for Ado-specific plugins..\n";
-has usage => sub { shift->extract_usage };
+has usage       => sub { shift->extract_usage };
+has crud        => sub {
+    require Ado::Command::generate::crud;
+    Ado::Command::generate::crud->new(app => shift->app);
+};
 
 sub run {
     my ($self, @args) = @_;
     my $args = $self->args;
     GetOptionsFromArray \@args,
-      'n|name=s' => \$$args{name},
+      'n|name=s' => \$args->{name},
+      'c|crud'   => \$args->{crud},
+
+      # CRUD options
+      'C|controller_namespace=s' => \$args->{controller_namespace},
+      'L|lib=s'                  => \$args->{lib},
+      'M|model_namespace=s'      => \$args->{model_namespace},
+      'O|overwrite'              => \$args->{overwrite},
+      'T|templates_root=s'       => \$args->{templates_root},
+      't|tables=s@'              => \$args->{tables},
+      'H|home_dir=s'             => \$args->{home_dir},
       ;
 
-    Carp::croak $self->usage unless $$args{name};
+    unless ($$args{name}) {
+        croak $self->usage;
+    }
+    if ($args->{crud} && !$args->{tables}) {
+        croak 'Option --tables is mandatory when option --crud is passed!' . $/;
+    }
 
     # Class
     my $class = $$args{name} =~ /^[a-z]/ ? camelize($$args{name}) : $$args{name};
@@ -24,6 +46,19 @@ sub run {
     $self->render_to_rel_file('class', "$dir/lib/$path", $class, $$args{name});
     my $decamelized = decamelize($$args{name});
 
+    if ($args->{crud}) {
+        $args->{tables} = join(',', @{$args->{tables}});
+
+        $self->crud->run(
+            '-C' => $args->{controller_namespace},
+            '-M' => $args->{model_namespace},
+            '-O' => $args->{overwrite},
+            '-T' => $args->{templates_root},
+            '-t' => $args->{tables},
+            '-H' => $args->{home_dir},
+        );
+    }
+
     # Test
     $self->render_to_rel_file('test', "$dir/t/plugin/$decamelized-00.t", $class, $$args{name});
 
@@ -31,7 +66,8 @@ sub run {
     $self->render_to_rel_file('build_file', "$dir/Build.PL", $class, $path, $dir);
 
     # Configuration
-    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf", $decamelized);
+    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf",
+        $decamelized, $self->crud);
 
     return $self;
 }
@@ -49,26 +85,62 @@ Ado::Command::generate::adoplugin - Generates an Ado::Plugin
 
 On the command-line:
 
-  $ bin/ado generate adoplugin --name MyBlog
+  $ cd ~/opt/public_dev
+  # Ado is "globally" installed for the current perlbrew Perl
+  $ ado generate adoplugin --name MyBlog
+  $ ado generate adoplugin --name MyBlog --crud -t 'articles,news'
 
 Programmatically:
 
   use Ado::Command::generate::adoplugin;
   my $vhost = Ado::Command::generate::adoplugin->new;
-  $vhost->run('--name' => 'MyBlog');
+  $vhost->run(-n => 'MyBlog', -c => 1, -t => 'articles,news');
 
 =head1 DESCRIPTION
 
 L<Ado::Command::generate::adoplugin> generates directory structures for
-fully functional L<Ado>-specific plugins.
+fully functional L<Ado>-specific plugins with optional MVC set of files.
+The new plugin is generated in the current directory.
 
-This is a core command, that means it is always enabled and its code a good
-example for learning to build new commands, you're welcome to fork it.
+This is a core command, that means it is always enabled and its code a
+more complex example for learning to build new commands. You're welcome to fork it.
+
+=head1 OPTIONS
+
+Below are the options this command accepts, described in L<Getopt::Long> notation.
+
+=head2 n|name=s
+
+Mandatory. String. The name of the plugin. The resulting full class name is
+the camelized version of C<Ado::Plugin::$$args{name}>.
+
+=head2 c|crud
+
+Boolean. When set you can pass in addition all the arguments accepted by
+L<Ado::Command::generate::crud>. It is mandatory to pass at least the
+C<--tables> option so the controllers can be generated. 
+
+C<--controller_namespace>
+defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>.
+C<--lib_root> defaults to C<lib> relative to the current directory.
+C<--model_namespace> defaults to L<Ado::Model>.
+C<--templates_root> defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>.
 
 =head1 ATTRIBUTES
 
 L<Ado::Command::generate::adoplugin> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
+
+=head2 crud
+
+  #returns $self.
+  $self->crud(Ado::Command::generate::crud->new(app => $self->app))
+  #returns Ado::Command::generate::crud instance.
+  my $crud = $self->crud->run(%options);
+
+An instance of L<Ado::Command::generate::crud>. 
+Used by L<Ado::Command::generate::adoplugin> to generate routes for controllers
+and possibly others.
 
 =head2 description
 
@@ -98,6 +170,7 @@ Run this command.
 =head1 SEE ALSO
 
 L<Mojolicious::Command::generate::plugin>,
+L<Ado::Command::generate::crud>,
 L<Ado::Command::generate::apache2vhost>,
 L<Ado::Command::generate::apache2htaccess>, L<Ado::Command::generate>,
 L<Mojolicious::Command::generate>, L<Getopt::Long>,
@@ -130,7 +203,6 @@ __DATA__
 % my ($class, $name) = @_;
 package <%= $class %>;
 use Mojo::Base 'Ado::Plugin';
-
 our $VERSION = '0.01';
 
 sub register {
@@ -241,15 +313,13 @@ $builder->create_build_script();
 
 
 @@config_file
-% my $decamelized = shift;
+% my ($decamelized, $crud) = @_;
 {
   # Set some configuration options for your plugin.
   foo=>'bar',
   # Add some routes.
-  routes => [
-    {
-      route =>'/<%= $decamelized %>',via => ['GET'],
-    }
-  ],
+  routes => <%= $crud->app->dumper(
+    @{$crud->routes} ? $crud->routes : [{route =>"/$decamelized",via => ['GET']}]
+    ); %>,
   # Look in Ado and Mojolicious sources for examples.
 }

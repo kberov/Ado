@@ -8,7 +8,7 @@ branches:
     - master
 env:
   global:
-    - "HARNESS_OPTIONS=j9"
+    - "HARNESS_OPTIONS=j3"
     - "cpanm -n --installdeps ."
   matrix:
     - TEST_AUTHOR=1

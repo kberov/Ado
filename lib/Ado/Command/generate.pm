@@ -3,8 +3,8 @@ use Ado;
 use Mojo::Base 'Mojolicious::Command::generate';
 
 has namespaces => sub { ['Ado::Command::generate', 'Mojolicious::Command::generate'] };
-
-has args => sub { {} };
+has app        => sub { Mojo::Server->new->build_app('Ado') };
+has args       => sub { {} };
 
 1;
 
@@ -32,6 +32,16 @@ available by default.
 
 L<Ado::Command::generate> inherits all attributes from
 L<Mojolicious::Command::generate> and implements the following new ones.
+
+=head2 app
+
+  $crud->app(Mojo::Server->new->build_app('Ado'));
+  my $app = $crud->app; # ISA Ado
+
+An instance of Ado. Used in L<Ado::Command::generate::adoplugin>,
+L<Ado::Command::generate::crud> and possibly others.
+
+
 
 =head2 args
 

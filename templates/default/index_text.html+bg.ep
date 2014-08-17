@@ -74,6 +74,22 @@
     които можете да пробвате веднага.
         <ol>
           <li>
+            Създайте няколко таблици в базата данни и използвайте 
+            <a href="<%=url_for('/perldoc/Ado/Command/generate/crud')%>">Ado::Command::generate::crud</a>, за да генерирате контролери за тях.
+            Класовете за модела се генерират динамично.
+          </li>
+          <li>
+            Ако сте наистина сериозни, можете да генерирате класовете за таблиците и да ги запишете на диска, като използвате
+            <code>dsc_dump_schema.pl</code>. Прегледайте 
+            <a href="<%=url_for('/perldoc/DBIx/Simple/Class')%>">DBIx::Simple::Class</a> за да се запознаете с подрбностите.
+          </li>
+          <li>
+            Искате ли да допринесете за развитието на Ado или да сте подготвени
+            за следващото обновление?
+            Започнете с генериране на ваш собствен Ado::Plugin. Използвайте
+            <a href="<%=url_for('/perldoc/Ado/Command/generate/adoplugin')%>">Ado::Command::generate::adoplugin</a>.
+          </li>
+          <li>
             <a href="<%=url_for('/help')%>">Документацията за крайния потребител</a>
             работи благодарение на
             <a href="<%=url_for('/perldoc/Ado/Plugin/MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a>.

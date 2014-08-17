@@ -157,7 +157,8 @@ t/ado/README
 t/basic.t
 t/boilerplate.t
 t/command/adduser.t
-t/command/adoplugin.t
+t/command/adoplugin-00.t
+t/command/adoplugin-01.t
 t/command/apache2htaccess.t
 t/command/apache2vhost.t
 t/command/crud.t

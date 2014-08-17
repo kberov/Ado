@@ -75,8 +75,8 @@ CONTRIBUTING
   the rules outlined in Mojolicious::Guides::Contributing apply for Ado too.
   For specific to Ado rules see Ado::Manual::Contributing.
 
-  We expect that you know how to write perl Modules and are familiar with
-  Mojolicious.
+  We expect that you know how Internet works, how to write Perl modules and
+  are familiar with Mojolicious.
 
 REST API
   Ado strives for strict separation of concerns. The best way to achieve
@@ -112,7 +112,7 @@ SEE ALSO
   <http://www.thefreedictionary.com/ado>.
 
 AUTHORS
-  Authors in order of joining the core team.
+  Authors in order of appearance.
 
   Красимир Беров (Krasimir Berov)(berov@cpan.org)
 

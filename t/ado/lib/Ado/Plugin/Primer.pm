@@ -1,6 +1,7 @@
 #t/ado/lib/Ado/Plugin/Primer.pm
 package Ado::Plugin::Primer;
 use Mojo::Base 'Ado::Plugin';
+has config_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
 
 sub register {
     my ($self, $app, $config) = @_;

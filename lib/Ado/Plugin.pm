@@ -1,6 +1,8 @@
 package Ado::Plugin;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Util qw(decamelize decode);
+use Mojo::Util qw(decamelize decode class_to_path);
+use Cwd qw(abs_path);
+use File::Basename;
 File::Spec::Functions->import(qw(catfile catdir));
 
 has app => sub { Mojo::Server->new->build_app('Ado') };
@@ -10,7 +12,14 @@ has name => sub {
     (ref $_[0] || $_[0]) =~ /(\w+)$/ && return $1;
 };
 
-has config_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
+#has config_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
+has config_dir => sub {
+    catdir($_[0]->home_dir, 'etc', 'plugins');
+};
+
+has home_dir => sub {
+    abs_path(catdir(dirname($INC{class_to_path(ref($_[0]))}), '../../..'));
+};
 has ext => 'conf';
 
 has config_classes => sub {
@@ -143,7 +152,8 @@ Path to plugin directory.
 
   $self->config_dir($app->home->rel_dir('etc/plugins'));
 
-Defaults to C<$ENV{MOJO_HOME}/etc/plugins>.
+Defaults to C<etc/plugins> relative to the plugin base directory.
+This works both while developing a plugin and after installing the plugin.
 
 =head2 config_classes
 
@@ -163,6 +173,17 @@ Using this attribute you can use your own configuration plugin as far as it supp
 Extension used for the plugin specific configuration file. defaults to 'conf';
 
   my $ext  = $self->ext;
+
+=head2 home_dir
+
+  my $plugin_home = $self->home_dir;
+
+The plugin base directory.
+This path works both while developing a plugin and after installing the plugin.
+Using the guessed value allows you to have Ado plugins installed at arbitrary paths,
+possibly not the same where Ado is installed.
+As noted elswhere Ado plugins can be distributed as separate Ado applications and used
+together with other plugins to create custom enterprise-grade systems.
 
 =head2 name
 

@@ -63,6 +63,21 @@
     <li>Still here? Ado comes with some features which can be tried right away.
         <ol>
           <li>
+            Design some tables and use 
+            <a href="<%=url_for('/perldoc/Ado/Command/generate/crud')%>">Ado::Command::generate::crud</a> to generate your controllers
+            to play with them. The model classes are dynamically generated.
+          </li>
+          <li>
+            If you are really serious, you can dump model classes using
+            <code>dsc_dump_schema.pl</code> to disk. See 
+            <a href="<%=url_for('/perldoc/DBIx/Simple/Class')%>">DBIx::Simple::Class</a> for details.
+          </li>
+          <li>
+            Do you want to contribute or be prepared for the next Ado upgrade?
+            Start by generating your own Ado::Plugin. Use
+            <a href="<%=url_for('/perldoc/Ado/Command/generate/adoplugin')%>">Ado::Command::generate::adoplugin</a>.
+          </li>
+          <li>
             User <a href="<%=url_for('/help')%>">documentation</a> works thanks
             to <a href="<%=url_for('/perldoc/Ado/Plugin/MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a>.
           </li>

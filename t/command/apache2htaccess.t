@@ -8,11 +8,11 @@ use Test::Mojo;
 my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 #plan skip_all => 'Not reliable test under this platform.' if $IS_DOS;
-my $t       = Test::Mojo->new('Ado');
-my $app     = $t->app;
-my $command = 'Ado::Command::generate::apache2htaccess';
-
-my $config_file = catfile(tempdir, '.htaccess');
+my $t           = Test::Mojo->new('Ado');
+my $app         = $t->app;
+my $command     = 'Ado::Command::generate::apache2htaccess';
+my $tempdir     = tempdir(CLEANUP => 1);
+my $config_file = catfile($tempdir, '.htaccess');
 use_ok($command);
 
 ok( my $c = $app->start("generate", "apache2htaccess", '-m' => 'cgi,fcgid', '-c' => $config_file),
