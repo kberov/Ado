@@ -7,6 +7,8 @@ Revision history for Ado
       relative to the plugin base directory.
     - Implemented Ado::Plugin::home_dir, pointing to the plugin 
       base directory, no matter where the plugin is installed.
+    - Moved 'app' accessor up to Ado::Command::generate so it can be reused 
+      by other generators. 
 
 0.57 2014-08-14
     - Cleanups and clarifications in "Changes" file - no code changes.

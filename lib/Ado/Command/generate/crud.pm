@@ -7,8 +7,7 @@ use List::Util qw(first);
 File::Spec::Functions->import(qw(catfile catdir splitdir));
 
 has description => "Generates directory structures for Ado-specific CRUD..\n";
-has usage       => sub { shift->extract_usage };
-has app         => sub { Mojo::Server->new->build_app('Ado') };
+has usage => sub { shift->extract_usage };
 
 sub initialise {
     my ($self, @args) = @_;
@@ -162,7 +161,8 @@ are supported.
 
 Defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>. This is usually
 C<site_templates> directory. If you want to use another directory,
-do not forget to add it to the C<app-E<gt>renderer-E<gt>paths> list.
+do not forget to add it to the C<app-E<gt>renderer-E<gt>paths> list
+in your configuration file.
 
 =head2 t|tables=s@
 
@@ -172,13 +172,6 @@ Mandatory. List of tables separated by commas for which controllers should be ge
 
 L<Ado::Command::generate::crud> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
-
-=head2 app
-
-  $crud->app($c->app);
-  my $app = $crud->app;
-
-An instance of Ado.
 
 =head2 description
 
