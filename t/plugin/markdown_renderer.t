@@ -29,7 +29,7 @@ find(
         wanted   => sub {
             ok(unlink($_), 'unlinked existing ' . $_)
               if $_ =~ /\.html$/;
-          }
+        }
     },
     $md_root
 );
@@ -81,7 +81,7 @@ find(
         wanted   => sub {
             ok(unlink($_), 'unlinked created ' . $_)
               if $_ =~ /\.html$/;
-          }
+        }
     },
     $app->home->rel_dir('public/doc/bg')
 );
