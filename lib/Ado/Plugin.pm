@@ -14,9 +14,12 @@ has name => sub {
 
 #has config_dir => sub { $_[0]->app->home->rel_dir('etc/plugins') };
 has config_dir => sub {
-    abs_path(dirname($INC{class_to_path(ref($_[0]))}) . '/../../../etc/plugins');
+    catdir($_[0]->home_dir, 'etc', 'plugins');
 };
 
+has home_dir => sub {
+    abs_path(catdir(dirname($INC{class_to_path(ref($_[0]))}), '../../..'));
+};
 has ext => 'conf';
 
 has config_classes => sub {
@@ -170,6 +173,17 @@ Using this attribute you can use your own configuration plugin as far as it supp
 Extension used for the plugin specific configuration file. defaults to 'conf';
 
   my $ext  = $self->ext;
+
+=head2 home_dir
+
+  my $plugin_home = $self->home_dir;
+
+The plugin base directory.
+This path works both while developing a plugin and after installing the plugin.
+Using the guessed value allows you to have Ado plugins installed at arbitrary paths,
+possibly not the same where Ado is installed.
+As noted elswhere Ado plugins can be distributed as separate Ado applications and used
+together with other plugins to create custom enterprise-grade systems.
 
 =head2 name
 
