@@ -1,5 +1,24 @@
 Revision history for Ado
 
+0.58 2014-08-18
+    - Set specific minimum versions of required modules when
+      $ENV{TEST_AUTHOR} is 1.
+    - Ado::Plugin::config_dir now defaults to etc/plugins
+      relative to the plugin base directory.
+    - Implemented Ado::Plugin::home_dir, pointing to the plugin
+      base directory, no matter where the plugin is installed.
+    - Moved 'app' accessor up to Ado::Command::generate so it can be reused
+      by other generators.
+    - Implemented Ado::Command::generate::crud->routes and used it in
+      Ado::Command::generate::adoplugin.
+    - In Ado::Command::generate::crud: 
+      - renamed argument 'lib_root' to 'lib';
+      - added argument home_dir, so files can be dumped to arbitrary directory,
+        and at the same time keeping the file structure.
+      - Removed 'TODO' marker in crud.t
+    - Upgraded to Mojolicious 5.29.
+    - Updtaed the default index page.
+
 0.57 2014-08-14
     - Cleanups and clarifications in "Changes" file - no code changes.
 

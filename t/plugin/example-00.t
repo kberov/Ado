@@ -18,6 +18,12 @@ my $plugin = $app->plugin('example', {lelemale => 1});
 
 ok($app->plugins->namespaces->[-1] eq 'Ado::Plugin',
     '$app->plugins->namespaces->[-1]: ' . $app->plugins->namespaces->[-1]);
+is($plugin->home_dir, $ENV{MOJO_HOME}, '$plugin->home_dir is $MOJO_HOME');
+is( $plugin->config_dir,
+    catdir($ENV{MOJO_HOME}, 'etc', 'plugins'),
+    '$plugin->config_dir is $MOJO_HOME/etc/plugins'
+);
+
 is_deeply(
     $plugin->config,
     {   "a"        => 1,

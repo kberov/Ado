@@ -1,4 +1,4 @@
-#t/command/adoplugin.t
+#t/command/adoplugin-00.t
 use Mojo::Base -strict;
 use Test::More;
 use File::Spec::Functions qw(catdir catfile catpath);
@@ -19,7 +19,7 @@ my $name        = 'MyBlog';
 my $class       = "Ado::Plugin::$name";
 my $decamelized = decamelize($name);
 
-ok(my $c = $app->start("generate", "adoplugin", '-n' => $name,), 'run() ok');
+ok(my $c = $app->start("generate", "adoplugin", '-n' => $name), 'run() ok');
 my $class_file  = slurp catfile($tempdir, "Ado-Plugin-$name/lib/Ado/Plugin", "$name.pm");
 my $test_file   = slurp catfile($tempdir, "Ado-Plugin-$name/t/plugin",       "$decamelized-00.t");
 my $build_file  = slurp catfile($tempdir, "Ado-Plugin-$name/Build.PL");

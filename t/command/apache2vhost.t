@@ -14,7 +14,9 @@ my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
 
 my $command = 'Ado::Command::generate::apache2vhost';
-my $config_file = catfile(tempdir, 'example.com.conf');
+my $tempdir = tempdir(CLEANUP => 1);
+
+my $config_file = catfile($tempdir, 'example.com.conf');
 use_ok($command);
 ok( my $c = $app->start(
         "generate", "apache2vhost",

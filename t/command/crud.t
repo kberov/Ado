@@ -7,7 +7,6 @@ use Cwd;
 
 use Mojo::Util qw(decamelize slurp);
 use Test::Mojo;
-my $dir = getcwd;
 
 my $tempdir = tempdir(CLEANUP => 1);
 my $create_table = [
@@ -27,92 +26,94 @@ TAB
     'CREATE INDEX testatii_published ON testatii(published)',
     'CREATE INDEX testatii_deleted ON testatii(deleted)',
 ];
+my $t   = Test::Mojo->new('Ado');
+my $ado = $t->app;
 
-TODO: {
-    my $command = 'Ado::Command::generate::crud';
-    use_ok($command);
+my $command = 'Ado::Command::generate::crud';
+use_ok($command);
 
-    # check defaults
-    isa_ok(my $c = $command->new->initialise(-t => 'testatii'), $command);
-    my $app = $c->app;
-    is_deeply(
-        $c->args,
-        {   controller_namespace => $app->routes->namespaces->[0],
+# check defaults
+isa_ok(my $c = $command->new(app => $ado)->initialise('-t' => 'testatii', '-H' => $tempdir),
+    $command);
+is_deeply(
+    $c->args,
+    {   controller_namespace => $ado->routes->namespaces->[0],
 
-            #dsn                  => undef,
-            lib_root        => 'lib',
-            model_namespace => 'Ado::Model',
+        #dsn                  => undef,
+        lib             => 'lib',
+        model_namespace => 'Ado::Model',
 
-            #no_dsc_code          => undef,
-            #password       => undef,
-            overwrite      => undef,
-            templates_root => $app->home->rel_dir('site_templates'),
-            tables         => ['testatii'],
+        #no_dsc_code          => undef,
+        #password       => undef,
+        overwrite      => undef,
+        templates_root => $ado->home->rel_dir('site_templates'),
+        tables         => ['testatii'],
+        home_dir       => $tempdir,
 
-            #user           => undef,
-        },
-        'args are ok'
-    );
+        #user           => undef,
+    },
+    'args are ok'
+);
+is(ref($c->routes), 'ARRAY', '$c->routes ISA ARRAY');
+is_deeply(
+    $c->routes->[0],
+    {   route => '/testatii',
+        via   => ['GET'],
+        to    => "testatii#list",
+    },
+    'first root is OK'
+);
 
-    #create the table
-    for my $sql (@$create_table) {
-        $app->dbix->dbh->do($sql);
-    }
-    $app->dbix->query(
-        'INSERT INTO testatii(title,body,user_id,group_id)' . 'VALUES(?,?,?,?)',
-        'Hello', 'more text in the body',
-        2, 2
-    );
-    $app->dbix->query(
-        'INSERT INTO testatii(title,body,user_id,group_id)' . 'VALUES(?,?,?,?)',
-        'Hello2', 'more text in the body2',
-        2, 2
-    );
-
-    chdir $tempdir;
-    ok($c->run);
-
-    unshift @INC, catdir($tempdir, $c->args->{lib_root});
-    delete ${Ado::}{dbix};    #shut up redefine
-
-    #Run tests on the generated code?!?!
-    my $t   = Test::Mojo->new('Ado');
-    my $ado = $t->app;
-    unshift @{$ado->renderer->paths}, catdir($tempdir, 'site_templates');
-    $t->get_ok('/testatii/list')->status_is(415)
-      ->content_like(qr|Unsupported.+Please.+list\.json|x, 'Unsupported Media Type - ok');
-    $t->get_ok('/testatii/list.json')->status_is(200);
-    $t->get_ok('/testatii/list.html')->status_is(200)
-      ->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
-    $t->post_ok(
-        '/testatii/create.html' => form => {
-            title => 'Hello3',
-            body =>
-              'Ала, бала, ница турска паница, Хей гиди Ванчо, наш капитанчо...'
-        }
-    );
-    $t->get_ok('/testatii/read/3.html')->status_is(200)
-      ->content_like(qr|Hello3|smx, 'reading content - ok');
-    $t->put_ok(
-        '/testatii/update/3.html' => form => {
-            id    => 3,
-            title => 'Hello3 Updated',
-            body =>
-              'Ала, бала, ница турска паница, Хей гиди Ванчо, наш капитанчо...'
-        }
-    );
-
-    $t->get_ok('/testatii/read/3.html')->status_is(200)
-      ->content_like(qr|Hello3\sUpdated</h1>|smx, 'reading updated content - ok');
-
-=pod
-=cut
-
-    #drop the table
-    $app->dbix->dbh->do($create_table->[0]);
+#create the table
+for my $sql (@$create_table) {
+    $ado->dbix->dbh->do($sql);
 }
+$ado->dbix->query(
+    'INSERT INTO testatii(title,body,user_id,group_id)' . 'VALUES(?,?,?,?)',
+    'Hello', 'more text in the body',
+    2, 2
+);
+$ado->dbix->query(
+    'INSERT INTO testatii(title,body,user_id,group_id)' . 'VALUES(?,?,?,?)',
+    'Hello2', 'more text in the body2',
+    2, 2
+);
 
+ok($c->run);
 
-chdir $dir;
+unshift @INC, catdir($tempdir, $c->args->{lib});
+
+#Run tests on the generated code?!?!
+unshift @{$ado->renderer->paths}, catdir($tempdir, 'site_templates');
+$t->get_ok('/testatii/list')->status_is(415)
+  ->content_like(qr|Unsupported.+Please.+list\.json|x, 'Unsupported Media Type - ok');
+
+$t->get_ok('/testatii/list.json')->status_is(200);
+$t->get_ok('/testatii/list.html')->status_is(200)
+  ->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
+$t->post_ok(
+    '/testatii/create.html' => form => {
+        title => 'Hello3',
+        body =>
+          'Ала, бала, ница турска паница, Хей гиди Ванчо, наш капитанчо...'
+    }
+);
+$t->get_ok('/testatii/read/3.html')->status_is(200)
+  ->content_like(qr|Hello3|smx, 'reading content - ok');
+$t->put_ok(
+    '/testatii/update/3.html' => form => {
+        id    => 3,
+        title => 'Hello3 Updated',
+        body =>
+          'Ала, бала, ница турска паница, Хей гиди Ванчо, наш капитанчо...'
+    }
+);
+
+$t->get_ok('/testatii/read/3.html')->status_is(200)
+  ->content_like(qr|Hello3\sUpdated</h1>|smx, 'reading updated content - ok');
+
+#drop the table
+$ado->dbix->dbh->do($create_table->[0]);
+
 
 done_testing();
