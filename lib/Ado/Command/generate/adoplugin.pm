@@ -8,7 +8,8 @@ File::Spec::Functions->import(qw(catfile catdir));
 
 
 has description => "Generates directory structures for Ado-specific plugins..\n";
-has usage => sub { shift->extract_usage };
+has usage       => sub { shift->extract_usage };
+has crud        => sub { Ado::Command::generate::crud->new(app => shift->app) };
 
 sub run {
     my ($self, @args) = @_;
@@ -43,18 +44,14 @@ sub run {
 
     if ($args->{crud}) {
         require Ado::Command::generate::crud;
-        my $app = $self->app;
+        $args->{tables} = join(',', @{$args->{tables}});
 
-        $args->{controller_namespace} //= $app->routes->namespaces->[0];
-        $args->{model_namespace} //= 'Ado::Model';
-
-        #$args->{templates_root} //= catdir('site_templates');
-        Ado::Command::generate::crud->new->run(
-            -C => $args->{controller_namespace},
-            -M => $args->{model_namespace},
-            -O => $args->{overwrite},
-            -T => $args->{templates_root},
-            -t => $args->{tables}
+        $self->crud->run(
+            '-C' => $args->{controller_namespace},
+            '-M' => $args->{model_namespace},
+            '-O' => $args->{overwrite},
+            '-T' => $args->{templates_root},
+            '-t' => $args->{tables}
         );
     }
 
@@ -128,6 +125,17 @@ C<--templates_root> defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>.
 
 L<Ado::Command::generate::adoplugin> inherits all attributes from
 L<Ado::Command::generate> and implements the following new ones.
+
+=head2 crud
+
+  #returns $self.
+  $self->crud(Ado::Command::generate::crud->new(app => $self->app))
+  #returns Ado::Command::generate::crud instance.
+  my $crud = $self->crud->run(%options);
+
+An instance of L<Ado::Command::generate::crud>. 
+Used by L<Ado::Command::generate::adoplugin> to generate routes for controllers
+and possibly others.
 
 =head2 description
 

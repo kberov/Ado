@@ -9,6 +9,39 @@ File::Spec::Functions->import(qw(catfile catdir splitdir));
 has description => "Generates directory structures for Ado-specific CRUD..\n";
 has usage => sub { shift->extract_usage };
 
+has routes => sub {
+    $_[0]->{routes} = [];
+    foreach my $t (@{$_[0]->args->{tables}}) {
+        my $controller = camelize($t);
+        my $route      = decamelize($controller);
+        push @{$_[0]->{routes}},
+          { route => "/$route",
+            via   => ['GET'],
+            to    => "$route#list",
+          },
+          { route => "/$route/read/:id",
+            via   => [qw(GET)],
+            to    => "$route#read",
+          },
+          { route => "/$route/create",
+            via   => ['POST'],
+            to    => "$route#create",
+            over  => {authenticated => 1},
+          },
+          { route => "/$route/update/:id",
+            via   => [qw(PUT)],
+            to    => "$route#update",
+            over  => {authenticated => 1},
+          },
+          { route => "/$route/delete/:id",
+            via   => [qw(DELETE)],
+            to    => "$route#delete",
+            over  => {authenticated => 1},
+          };
+    }
+    return $_[0]->{routes};
+};
+
 sub initialise {
     my ($self, @args) = @_;
     return $self if $self->{_initialised};
@@ -19,7 +52,7 @@ sub initialise {
         'C|controller_namespace=s' => \$args->{controller_namespace},
 
         #'d|dsn=s'                  => \$args->{dsn},
-        'L|lib_root=s'        => \$args->{lib_root},
+        'L|lib=s'             => \$args->{lib},
         'M|model_namespace=s' => \$args->{model_namespace},
 
         #'N|no_dsc_code'            => \$args->{no_dsc_code},
@@ -28,6 +61,7 @@ sub initialise {
         #'P|password=s'             => \$args->{password},
         'T|templates_root=s' => \$args->{templates_root},
         't|tables=s@'        => \$args->{tables},
+        'H|home_dir=s'       => \$args->{home_dir},
 
         #'U|user=s'                 => \$args->{user},
     );
@@ -39,7 +73,8 @@ sub initialise {
     $args->{model_namespace} //=
       (first { ref($_) eq 'HASH' and $_->{name} eq 'DSC' } @{$app->config('plugins')})
       ->{config}{namespace};
-    $args->{lib_root} //= 'lib';
+    $args->{lib}            //= 'lib';
+    $args->{home_dir}       //= $app->home;
     $args->{templates_root} //= $app->renderer->paths->[0];
     $self->{_initialised} = 1;
     return $self;
@@ -55,21 +90,21 @@ sub run {
         # Controllers
         my $class_name = camelize($t);
         $args->{class} = $args->{controller_namespace} . '::' . $class_name;
-        my $c_file = catfile($args->{lib_root}, class_to_path($args->{class}));
+        my $c_file = catfile($args->{home_dir}, $args->{lib}, class_to_path($args->{class}));
         $args->{t} = lc $t;
-        $self->render_to_rel_file('class', $c_file, $args);
+        $self->render_to_file('class', $c_file, $args);
 
         # Templates
         my $template_dir  = decamelize($class_name);
-        my $template_root = (splitdir($args->{templates_root}))[-1];
+        my $template_root = catfile($args->{home_dir}, (splitdir($args->{templates_root}))[-1]);
         my $t_file        = catfile($template_root, $template_dir, 'list.html.ep');
-        $self->render_to_rel_file('list_template', $t_file, $args);
+        $self->render_to_file('list_template', $t_file, $args);
         $t_file = catfile($template_root, $template_dir, 'create.html.ep');
-        $self->render_to_rel_file('create_template', $t_file, $args);
+        $self->render_to_file('create_template', $t_file, $args);
         $t_file = catfile($template_root, $template_dir, 'read.html.ep');
-        $self->render_to_rel_file('read_template', $t_file, $args);
+        $self->render_to_file('read_template', $t_file, $args);
         $t_file = catfile($template_root, $template_dir, 'delete.html.ep');
-        $self->render_to_rel_file('delete_template', $t_file, $args);
+        $self->render_to_file('delete_template', $t_file, $args);
     }    # end foreach tables
 
     return $self;
@@ -109,11 +144,11 @@ a fully functional
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller> 
 set of files, based on existing tables in the database.
 You only need to create the tables. The Model (M) classes are generated on the fly 
-from the tables when the controller classes are Loaded by L<Ado> for the first time.
+from the tables when the controller classes are loaded by L<Ado> for the first time.
 You can dump them to disk if you want using the C<dsc_dump_schema.pl> script that 
 comes with L<DBIx::Simple::Class>. You may decide to use only L<DBIx::Simple> 
 via the C<$c-E<gt>dbix> helper or L<DBI> via C<$c-E<gt>dbix-E<gt>dbh>.
-Thats app to you.
+That's up to you.
 
 This tool's purpose is to promote 
 L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>
@@ -141,9 +176,14 @@ L<Ado::Control>. If you decide to use another namespace for the controllers,
 do not forget to add it to the list C<app-E<gt>routes-E<gt>namespaces>
 in C<etc/ado.conf> or your plugin configuration file.
 
-=head2 L|lib_root=s
+=head2 H|home_dir=s
 
-Defaults to C<lib> relative to the current directory.
+Defaults to C<$ENV{MOJO_HOME}>. Used to set the root directory to which the files
+will be dumped when L<generating an Ado plugin|Ado::Command::generate::adoplugin>.
+
+=head2 L|lib=s
+
+Defaults to C<lib> relative to the C<--home_dir> directory.
 If you installed L<Ado> in some custom path and you wish to generate your controllers into
 e.g. C<site_lib>, use this option. Do not forget to add this
 directory to C<$ENV{PERL5LIB}>, so the classes can be found and loaded.
@@ -180,6 +220,23 @@ L<Ado::Command::generate> and implements the following new ones.
 
 Short description of this command, used for the command list.
 
+=head2 routes
+
+  $self->routtes();
+
+Returns an ARRAY reference containing routes, prepared after C<$self-E<gt>args-E<gt>{tables}>. 
+
+Altough L<Ado> already has defined generic routes for CRUD, 
+this attribute contains more specific routes, that will secure the C<create>, 
+C<update> and C<delete> actions, so they are available only to an 
+authenticated user. This attribute is used for generating routes in 
+L<Ado::Command::generate::adoplugin>.
+After generating a plugin you should end up with a 
+L<RESTful|http://en.wikipedia.org/wiki/REST>
+service. The generated code uses 
+L<Mojolicious::Controller/respond_to>. For details see 
+L<Mojolicious::Guides::Rendering/Content-negotiation>.
+
 =head2 usage
 
   my $usage = $command->usage;
@@ -204,28 +261,9 @@ Returns C<$self>.
 
 =head2 run
 
-  $plugin->run(@ARGV);
+  Ado::Command::generate::crud->new(app=>$app)->run(@ARGV);
 
 Run this command.
-
-=head1 TODO
-
-Add authentication checks to update and delete actions.
-
-The following is not implemented yet.
-Altough L<Ado> already have defined generic routes for CRUD, 
-this command will generate more specific routes (if used through/with 
-L<Ado::Command::generate::adoplugin>), that will secure the C<create>, 
-C<update> and C<delete> actions, so they are available only to an 
-authenticated user. After executing the command you should end up with a 
-L<RESTful|http://en.wikipedia.org/wiki/REST>
-service. The generated code uses 
-L<Mojolicious::Controller/respond_to>. For details see 
-L<Mojolicious::Guides::Rendering/Content-negotiation>.
-
-
-
-
 
 =head1 SEE ALSO
 
