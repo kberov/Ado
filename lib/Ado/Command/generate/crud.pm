@@ -19,22 +19,26 @@ has routes => sub {
             via   => ['GET'],
             to    => "$route#list",
           },
+          { route => "/$route/list",
+            via   => ['GET'],
+            to    => "$route#list",
+          },
           { route => "/$route/read/:id",
             via   => [qw(GET)],
             to    => "$route#read",
           },
           { route => "/$route/create",
-            via   => ['POST'],
+            via   => [qw(GET POST)],
             to    => "$route#create",
             over  => {authenticated => 1},
           },
           { route => "/$route/update/:id",
-            via   => [qw(PUT)],
+            via   => [qw(GET PUT)],
             to    => "$route#update",
             over  => {authenticated => 1},
           },
           { route => "/$route/delete/:id",
-            via   => [qw(DELETE)],
+            via   => [qw(GET DELETE)],
             to    => "$route#delete",
             over  => {authenticated => 1},
           };
@@ -464,6 +468,9 @@ sub delete {
 
 @@ create_template
 % $a = shift;
+<article>
+  Create your form for creating a resource here.
+</article>
 
 @@ read_template
 % $a = shift;

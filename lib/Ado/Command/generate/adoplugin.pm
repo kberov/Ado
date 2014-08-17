@@ -9,7 +9,10 @@ File::Spec::Functions->import(qw(catfile catdir));
 
 has description => "Generates directory structures for Ado-specific plugins..\n";
 has usage       => sub { shift->extract_usage };
-has crud        => sub { Ado::Command::generate::crud->new(app => shift->app) };
+has crud        => sub {
+    require Ado::Command::generate::crud;
+    Ado::Command::generate::crud->new(app => shift->app);
+};
 
 sub run {
     my ($self, @args) = @_;
@@ -20,11 +23,12 @@ sub run {
 
       # CRUD options
       'C|controller_namespace=s' => \$args->{controller_namespace},
-      'L|lib_root=s'             => \$args->{lib_root},
+      'L|lib=s'                  => \$args->{lib},
       'M|model_namespace=s'      => \$args->{model_namespace},
       'O|overwrite'              => \$args->{overwrite},
       'T|templates_root=s'       => \$args->{templates_root},
       't|tables=s@'              => \$args->{tables},
+      'H|home_dir=s'             => \$args->{home_dir},
       ;
 
     unless ($$args{name}) {
@@ -43,7 +47,6 @@ sub run {
     my $decamelized = decamelize($$args{name});
 
     if ($args->{crud}) {
-        require Ado::Command::generate::crud;
         $args->{tables} = join(',', @{$args->{tables}});
 
         $self->crud->run(
@@ -51,7 +54,8 @@ sub run {
             '-M' => $args->{model_namespace},
             '-O' => $args->{overwrite},
             '-T' => $args->{templates_root},
-            '-t' => $args->{tables}
+            '-t' => $args->{tables},
+            '-H' => $args->{home_dir},
         );
     }
 
@@ -62,7 +66,8 @@ sub run {
     $self->render_to_rel_file('build_file', "$dir/Build.PL", $class, $path, $dir);
 
     # Configuration
-    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf", $decamelized);
+    $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf",
+        $decamelized, $self->crud);
 
     return $self;
 }
@@ -308,15 +313,13 @@ $builder->create_build_script();
 
 
 @@config_file
-% my $decamelized = shift;
+% my ($decamelized, $crud) = @_;
 {
   # Set some configuration options for your plugin.
   foo=>'bar',
   # Add some routes.
-  routes => [
-    {
-      route =>'/<%= $decamelized %>',via => ['GET'],
-    }
-  ],
+  routes => <%= $crud->app->dumper(
+    @{$crud->routes} ? $crud->routes : [{route =>"/$decamelized",via => ['GET']}]
+    ); %>,
   # Look in Ado and Mojolicious sources for examples.
 }
