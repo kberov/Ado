@@ -4,6 +4,7 @@ use Mojo::Util qw(camelize class_to_path decamelize);
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
 use Time::Piece ();
 use Carp;
+use Cwd;
 File::Spec::Functions->import(qw(catfile catdir));
 
 
@@ -48,9 +49,12 @@ sub run {
 
     if ($args->{crud}) {
         $args->{tables} = join(',', @{$args->{tables}});
-
+        $args->{home_dir}       //= catdir(getcwd(),          $dir);
+        $args->{templates_root} //= catdir($args->{home_dir}, 'site_templates');
+        $args->{lib}            //= catdir($args->{home_dir}, 'lib');
         $self->crud->run(
             '-C' => $args->{controller_namespace},
+            '-L' => $args->{lib},
             '-M' => $args->{model_namespace},
             '-O' => $args->{overwrite},
             '-T' => $args->{templates_root},
@@ -99,7 +103,8 @@ Programmatically:
 =head1 DESCRIPTION
 
 L<Ado::Command::generate::adoplugin> generates directory structures for
-fully functional L<Ado>-specific plugins with optional MVC set of files.
+fully functional L<Ado>-specific plugins with optional 
+L<MVC set of files|Ado::Command::generate::crud> in the newly created plugin directory.
 The new plugin is generated in the current directory.
 
 This is a core command, that means it is always enabled and its code a
@@ -120,11 +125,13 @@ Boolean. When set you can pass in addition all the arguments accepted by
 L<Ado::Command::generate::crud>. It is mandatory to pass at least the
 C<--tables> option so the controllers can be generated. 
 
+When generting a plugin:
 C<--controller_namespace>
-defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>.
-C<--lib_root> defaults to C<lib> relative to the current directory.
-C<--model_namespace> defaults to L<Ado::Model>.
-C<--templates_root> defaults to C<app-E<gt>renderer-E<gt>paths-E<gt>[0]>.
+defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>;
+C<--home_dir> defaults to the plugin base directory;
+C<--lib> defaults to C<lib> in the plugin base directory;
+C<--model_namespace> defaults to L<Ado::Model>;
+C<--templates_root> defaults to C<site_templates> in the plugin base directory.
 
 =head1 ATTRIBUTES
 

@@ -11,7 +11,7 @@ use Test::Mojo;
 my $command = 'Ado::Command::generate::adoplugin';
 require_ok($command);
 
-my $dir = getcwd;
+my $dir     = getcwd;
 my $tempdir = tempdir(CLEANUP => 1);
 chdir $tempdir;
 my $name         = 'MyBlog';
@@ -55,11 +55,9 @@ $c->app->dbix->query(
 );
 isa_ok(
     $c->run(
-        -n   => $name,
-        -c   => 1,
-        -t   => 'testatii',
-        -T   => "$tempdir/site_templates",
-        '-H' => "$tempdir/Ado-Plugin-$name"
+        -n => $name,
+        -c => 1,
+        -t => 'testatii'
     ),
     $command
 );

@@ -77,8 +77,8 @@ sub initialise {
     $args->{model_namespace} //=
       (first { ref($_) eq 'HASH' and $_->{name} eq 'DSC' } @{$app->config('plugins')})
       ->{config}{namespace};
-    $args->{lib}            //= 'lib';
     $args->{home_dir}       //= $app->home;
+    $args->{lib}            //= catdir($args->{home_dir}, 'lib');
     $args->{templates_root} //= $app->renderer->paths->[0];
     $self->{_initialised} = 1;
     return $self;
@@ -94,13 +94,13 @@ sub run {
         # Controllers
         my $class_name = camelize($t);
         $args->{class} = $args->{controller_namespace} . '::' . $class_name;
-        my $c_file = catfile($args->{home_dir}, $args->{lib}, class_to_path($args->{class}));
+        my $c_file = catfile($args->{lib}, class_to_path($args->{class}));
         $args->{t} = lc $t;
         $self->render_to_file('class', $c_file, $args);
 
         # Templates
         my $template_dir  = decamelize($class_name);
-        my $template_root = catfile($args->{home_dir}, (splitdir($args->{templates_root}))[-1]);
+        my $template_root = $args->{templates_root};
         my $t_file        = catfile($template_root, $template_dir, 'list.html.ep');
         $self->render_to_file('list_template', $t_file, $args);
         $t_file = catfile($template_root, $template_dir, 'create.html.ep');
@@ -182,7 +182,8 @@ in C<etc/ado.conf> or your plugin configuration file.
 
 =head2 H|home_dir=s
 
-Defaults to C<$ENV{MOJO_HOME}>. Used to set the root directory to which the files
+Defaults to C<$ENV{MOJO_HOME}> (which is Ado home directory).
+Used to set the root directory to which the files
 will be dumped when L<generating an Ado plugin|Ado::Command::generate::adoplugin>.
 
 =head2 L|lib=s
