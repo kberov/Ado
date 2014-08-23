@@ -71,7 +71,7 @@ sub run {
 
     # Configuration
     $self->render_to_rel_file('config_file', "$dir/etc/plugins/$decamelized.conf",
-        $decamelized, $self->crud);
+        $decamelized, $self->crud, $args);
 
     return $self;
 }
@@ -320,7 +320,14 @@ $builder->create_build_script();
 
 
 @@config_file
-% my ($decamelized, $crud) = @_;
+% my ($decamelized, $crud, $args) = @_;
+
+# Make your templates findable by Ado while developing your plugin.
+# Remove these lines from etc/plugins/<%=$decamelized%>.conf
+# ready to release.
+# See http://localhost:3000/perldoc/Mojolicious/Renderer#paths
+# push @{app->renderer->paths}, File::Spec->catdir('<%=$args->{templates_root}%>');
+
 {
   # Set some configuration options for your plugin.
   foo=>'bar',
