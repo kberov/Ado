@@ -11,7 +11,7 @@ use Test::Mojo;
 my $command = 'Ado::Command::generate::adoplugin';
 require_ok($command);
 
-my $dir     = getcwd;
+my $dir = getcwd;
 my $tempdir = tempdir(CLEANUP => 1);
 chdir $tempdir;
 my $name         = 'MyBlog';
@@ -69,8 +69,6 @@ ok(ref($c->crud->routes) eq 'ARRAY', '$c->crud->routes ISA ARRAY');
 # make new lib directory findable by Ado
 unshift @INC, catdir($tempdir, "Ado-Plugin-$name", 'lib');
 
-# make new templates findable by Ado
-unshift @{$c->app->renderer->paths}, catdir($tempdir, "Ado-Plugin-$name", 'site_templates');
 use_ok($class);
 isa_ok(my $plugin = $class->new->register($t->app, {'аз' => 'ти'}), 'Ado::Plugin', $name);
 

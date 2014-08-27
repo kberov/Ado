@@ -50,7 +50,7 @@ sub run {
     if ($args->{crud}) {
         $args->{tables} = join(',', @{$args->{tables}});
         $args->{home_dir}       //= catdir(getcwd(),          $dir);
-        $args->{templates_root} //= catdir($args->{home_dir}, 'site_templates');
+        $args->{templates_root} //= catdir($args->{home_dir}, 'templates');
         $args->{lib}            //= catdir($args->{home_dir}, 'lib');
         $self->crud->run(
             '-C' => $args->{controller_namespace},
@@ -322,12 +322,6 @@ $builder->create_build_script();
 @@config_file
 % my ($decamelized, $crud, $args) = @_;
 
-# Make your templates findable by Ado while developing your plugin.
-# Remove these lines from etc/plugins/<%=$decamelized%>.conf
-# ready to release.
-# See http://localhost:3000/perldoc/Mojolicious/Renderer#paths
-# push @{app->renderer->paths}, File::Spec->catdir('<%=$args->{templates_root}%>');
-
 {
   # Set some configuration options for your plugin.
   foo=>'bar',
@@ -335,5 +329,6 @@ $builder->create_build_script();
   routes => <%= $crud->app->dumper(
     @{$crud->routes} ? $crud->routes : [{route =>"/$decamelized",via => ['GET']}]
     ); %>,
-  # Look in Ado and Mojolicious sources for examples.
+  # Look at some of the configuration files of the plugins 
+  # that come with Ado for examples.
 }
