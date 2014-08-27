@@ -13,14 +13,14 @@ my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,
 CREATE TABLE IF NOT EXISTS testatii (
-  id INTEGER PRIMARY KEY, 
-  title VARCHAR NOT NULL UNIQUE , 
-  body TEXT NOT NULL, 
-  published BOOL DEFAULT '0', 
-  deleted BOOL NOT NULL DEFAULT '0', 
-  user_id INTEGER REFERENCES users(id), 
-  group_id INTEGER REFERENCES groups(id), 
-  permissions VARCHAR(10) DEFAULT '-rwxr-xr-x' 
+  id INTEGER PRIMARY KEY,
+  title VARCHAR NOT NULL UNIQUE,
+  body TEXT NOT NULL,
+  published BOOL DEFAULT '0',
+  deleted BOOL NOT NULL DEFAULT '0',
+  user_id INTEGER REFERENCES users(id),
+  group_id INTEGER REFERENCES groups(id),
+  permissions VARCHAR(10) DEFAULT '-rwxr-xr-xr'
 )
 TAB
     'CREATE INDEX testatii_published ON testatii(published)',
