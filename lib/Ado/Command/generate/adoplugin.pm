@@ -125,13 +125,13 @@ Boolean. When set you can pass in addition all the arguments accepted by
 L<Ado::Command::generate::crud>. It is mandatory to pass at least the
 C<--tables> option so the controllers can be generated. 
 
-When generting a plugin:
+When generating a plugin:
 C<--controller_namespace>
 defaults to  C<app-E<gt>routes-E<gt>namespaces-E<gt>[0]>;
 C<--home_dir> defaults to the plugin base directory;
 C<--lib> defaults to C<lib> in the plugin base directory;
 C<--model_namespace> defaults to L<Ado::Model>;
-C<--templates_root> defaults to C<site_templates> in the plugin base directory.
+C<--templates_root> defaults to C<templates> in the plugin base directory.
 
 =head1 ATTRIBUTES
 
