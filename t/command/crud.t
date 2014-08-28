@@ -13,14 +13,14 @@ my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,
 CREATE TABLE IF NOT EXISTS testatii (
-  id INTEGER PRIMARY KEY, 
-  title VARCHAR NOT NULL UNIQUE , 
-  body TEXT NOT NULL, 
-  published BOOL DEFAULT '0', 
-  deleted BOOL NOT NULL DEFAULT '0', 
-  user_id INTEGER REFERENCES users(id), 
-  group_id INTEGER REFERENCES groups(id), 
-  permissions VARCHAR(10) DEFAULT '-rwxr-xr-x' 
+  id INTEGER PRIMARY KEY,
+  title VARCHAR NOT NULL UNIQUE,
+  body TEXT NOT NULL,
+  published BOOL DEFAULT '0',
+  deleted BOOL NOT NULL DEFAULT '0',
+  user_id INTEGER REFERENCES users(id),
+  group_id INTEGER REFERENCES groups(id),
+  permissions VARCHAR(10) DEFAULT '-rwxr-xr-xr'
 )
 TAB
     'CREATE INDEX testatii_published ON testatii(published)',
@@ -33,20 +33,24 @@ my $command = 'Ado::Command::generate::crud';
 use_ok($command);
 
 # check defaults
-isa_ok(my $c = $command->new(app => $ado)->initialise('-t' => 'testatii', '-H' => $tempdir),
-    $command);
+isa_ok(
+    my $c =
+      $command->new(app => $ado)
+      ->initialise('-t' => 'testatii', '-H' => $tempdir, '-T' => "$tempdir/site_templates"),
+    $command
+);
 is_deeply(
     $c->args,
     {   controller_namespace => $ado->routes->namespaces->[0],
 
         #dsn                  => undef,
-        lib             => 'lib',
+        lib             => "$tempdir/lib",
         model_namespace => 'Ado::Model',
 
-        #no_dsc_code          => undef,
+        #no_dsc_code    => undef,
         #password       => undef,
         overwrite      => undef,
-        templates_root => $ado->home->rel_dir('site_templates'),
+        templates_root => "$tempdir/site_templates",
         tables         => ['testatii'],
         home_dir       => $tempdir,
 
@@ -81,7 +85,7 @@ $ado->dbix->query(
 
 ok($c->run);
 
-unshift @INC, catdir($tempdir, $c->args->{lib});
+unshift @INC, $c->args->{lib};
 
 #Run tests on the generated code?!?!
 unshift @{$ado->renderer->paths}, catdir($tempdir, 'site_templates');
@@ -91,6 +95,7 @@ $t->get_ok('/testatii/list')->status_is(415)
 $t->get_ok('/testatii/list.json')->status_is(200);
 $t->get_ok('/testatii/list.html')->status_is(200)
   ->content_like(qr|table.+id</th>.+permissions</th.+Hello</td.+Hello2|smx);
+
 $t->post_ok(
     '/testatii/create.html' => form => {
         title => 'Hello3',
@@ -111,6 +116,10 @@ $t->put_ok(
 
 $t->get_ok('/testatii/read/3.html')->status_is(200)
   ->content_like(qr|Hello3\sUpdated</h1>|smx, 'reading updated content - ok');
+
+=pod
+
+=cut
 
 #drop the table
 $ado->dbix->dbh->do($create_table->[0]);

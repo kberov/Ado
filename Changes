@@ -1,5 +1,21 @@
 Revision history for Ado
 
+0.59 2014-08-28
+    - Upgraded to Mojolicious 5.33.
+    - Improved guessing of 'home_dir', 'lib' and 'templates_root' for CRUD in
+      Ado::Command::generate::adoplugin. 'templates_root' defaults to 'templates'.
+    - Improved guessing of 'lib' in Ado::Command::generate::crud.
+    - Added guessing of templates folder to Ado::Plugin.
+      Developing plugins should now be easy!!!
+    - $CODENAME changed to
+      "Есть" - U+2C05 GLAGOLITIC CAPITAL LETTER YESTU (Ⰵ)
+    - Cleanups, test fixes and documentation improvements.
+    - Presented Ado at YAPC::EU 2014 in Sofia, Bulgaria on 23 August
+      http://act.yapc.eu/ye2014/talk/5652
+    - Published presentation on Slideshare: 
+      http://www.slideshare.net/kberov/ado-yapceu2014
+    - Improved Ado::Sessions::File.
+
 0.58 2014-08-18
     - Set specific minimum versions of required modules when
       $ENV{TEST_AUTHOR} is 1.

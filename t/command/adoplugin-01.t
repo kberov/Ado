@@ -21,14 +21,14 @@ my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,
 CREATE TABLE IF NOT EXISTS testatii (
-  id INTEGER PRIMARY KEY, 
-  title VARCHAR NOT NULL UNIQUE , 
-  body TEXT NOT NULL, 
-  published BOOL DEFAULT '0', 
-  deleted BOOL NOT NULL DEFAULT '0', 
-  user_id INTEGER REFERENCES users(id), 
-  group_id INTEGER REFERENCES groups(id), 
-  permissions VARCHAR(10) DEFAULT '-rwxr-xr-x' 
+  id INTEGER PRIMARY KEY,
+  title VARCHAR NOT NULL UNIQUE,
+  body TEXT NOT NULL,
+  published BOOL DEFAULT '0',
+  deleted BOOL NOT NULL DEFAULT '0',
+  user_id INTEGER REFERENCES users(id),
+  group_id INTEGER REFERENCES groups(id),
+  permissions VARCHAR(10) DEFAULT '-rwxr-xr-xr'
 )
 TAB
     'CREATE INDEX testatii_published ON testatii(published)',
@@ -55,11 +55,9 @@ $c->app->dbix->query(
 );
 isa_ok(
     $c->run(
-        -n   => $name,
-        -c   => 1,
-        -t   => 'testatii',
-        -T   => "$tempdir/site_templates",
-        '-H' => "$tempdir/Ado-Plugin-$name"
+        -n => $name,
+        -c => 1,
+        -t => 'testatii'
     ),
     $command
 );
@@ -67,9 +65,10 @@ my $crud_class = 'Ado::Command::generate::crud';
 ok(ref($c->crud) eq $crud_class,     '$c->crud ISA ' . $crud_class);
 ok(ref($c->crud->routes) eq 'ARRAY', '$c->crud->routes ISA ARRAY');
 
-#test generated plugin
+# test generated plugin
+# make new lib directory findable by Ado
 unshift @INC, catdir($tempdir, "Ado-Plugin-$name", 'lib');
-unshift @{$c->app->renderer->paths}, catdir($tempdir, "Ado-Plugin-$name", 'site_templates');
+
 use_ok($class);
 isa_ok(my $plugin = $class->new->register($t->app, {'аз' => 'ти'}), 'Ado::Plugin', $name);
 

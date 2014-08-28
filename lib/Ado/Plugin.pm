@@ -96,6 +96,12 @@ sub initialise {
 
     # Load routes if defined.
     $app->load_routes($conf->{routes}) if (@{$conf->{routes} || []});
+    my $templates_dir = catdir($self->home_dir, 'templates');
+    if ((!List::Util::first { $templates_dir eq $_ // '' } @{$app->renderer->paths})
+        && -d $templates_dir)
+    {
+        push @{$app->renderer->paths}, $templates_dir;
+    }
     $self->{_initialised} = 1;
     return ($self, $app, $conf);
 }
@@ -166,7 +172,8 @@ The default mapping is:
         pl   => 'Mojolicious::Plugin::Config'
     };
 
-Using this attribute you can use your own configuration plugin as far as it supports the L<Mojolicious::Plugin::Config> API.
+Using this attribute you can use your own configuration plugin as far as it
+supports the L<Mojolicious::Plugin::Config> API.
 
 =head2 ext
 
@@ -182,7 +189,7 @@ The plugin base directory.
 This path works both while developing a plugin and after installing the plugin.
 Using the guessed value allows you to have Ado plugins installed at arbitrary paths,
 possibly not the same where Ado is installed.
-As noted elswhere Ado plugins can be distributed as separate Ado applications and used
+As noted elswhere, Ado plugins can be distributed as separate Ado applications and used
 together with other plugins to create custom enterprise-grade systems.
 
 =head2 name
@@ -205,8 +212,8 @@ configuration file will overwrite options form the generic file.
 You usually do not need to invoke this method directly since it is 
 invoked in L</initialise>.
 
-  # everything in '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.conf'
-  # and/or   '$ENV{MOJO_HOME}/etc/plugins/$my_plugin.$mode.conf'
+  # everything in $self->config_dir.'/$my_plugin.conf'
+  # and/or   $self->config_dir.'/$my_plugin.$mode.conf'
   my $config = $self->config; 
   
   #get a config value
@@ -218,20 +225,34 @@ invoked in L</initialise>.
 
 Used to initialise you plugin and reduce boilerplate code. 
 
-  * Merges configurations.
-  * Adds new $app->routes->namespaces if defined in config.
-  * Loads routes if defined in config
-  * Returns ($self, $app, $config).
-
   sub register {
-    my ($self, $app, $conf) = @_;
-    $self->initialise($app, $conf);
+    my ($self, $app, $config) = shift->initialise(@_);
     # ...
   
 This method 
 should be the first invoked in your L<Mojolicious::Plugin/register> method. 
 If you need to do some very custom stuff, you are free to implement the
 initialisation yourself.
+
+Currently this method does the following:
+
+=over
+
+=item * Merges configurations (invokes L</config>).
+
+=item * Pushes C<@{$conf-E<gt>{namespaces}}> to C<$app-E<gt>routes-E<gt>namespaces> 
+if additional namespaces are defined in configuration file.
+
+=item * Loads routes if defined in configuration file.
+
+=item * Pushes the plugin C<templates> directory to C<@{app-E<gt>renderer-E<gt>paths}>
+(if the plugin is not installed) so the templates can be found by L<Ado> while developing your plugin.
+
+=item * Returns C<($self, $app, $config)>.
+
+=back
+
+Look at some of the configuration files of the plugins that come with L<Ado>.
 
 
 =head1 SEE ALSO

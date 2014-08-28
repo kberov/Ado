@@ -57,7 +57,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.28',
+        'Mojolicious'              => '5.33',
         'Mojolicious::Plugin::DSC' => '0.999',
         'DBIx::Simple::Class'      => '1.008',
         'Email::Address'           => '1.901',
@@ -88,10 +88,7 @@ my $builder = Ado::Build->new(
             bugtracker => "http://github.com/kberov/Ado/issues",
         },
         keywords => [qw/Ado Mojolicious realtime web ERP REST CMS enterprise/],
-        no_index => {
-            namespace =>
-              ['Ado::Model', 'Ado::Command', 'Ado::Control', 'Ado::Plugin', 'Test::Ado'],
-        }
+        no_index => {namespace => ['Ado::Model'],}
     },
     script_files   => 'bin',
     add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 'public/doc/**/*.html'],

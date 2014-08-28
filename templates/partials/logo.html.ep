@@ -1,1 +1,1 @@
-<a class="Ⰴ popup item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰴ</a>
+<a class="Ⰵ popup item" title="<%= $self->generator %>" href="<%=url_for('/')%>">Ⰵ</a>
