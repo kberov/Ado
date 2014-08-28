@@ -26,14 +26,10 @@ name: Ado
 no_index:
   namespace:
     - Ado::Model
-    - Ado::Command
-    - Ado::Control
-    - Ado::Plugin
-    - Test::Ado
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.58'
+    version: '0.59'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -121,11 +117,11 @@ requires:
   DBIx::Simple::Class: '1.008'
   Email::Address: '1.901'
   Locale::Maketext: '1.23'
-  Mojolicious: '5.28'
+  Mojolicious: '5.33'
   Mojolicious::Plugin::DSC: '0.999'
   Text::MultiMarkdown: '1.000035'
   perl: v5.14.0
 resources:
   bugtracker: http://github.com/kberov/Ado/issues
   repository: http://github.com/kberov/Ado
-version: '0.58'
+version: '0.59'

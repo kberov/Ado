@@ -2,12 +2,9 @@ package Ado::Sessions::File;
 
 use Mojo::Base 'Ado::Sessions';
 use Mojo::Util qw(slurp spurt);
+use File::Spec::Functions qw(tmpdir catfile);
 
-sub dstdir {
-
-    # TODO: Replace this with File::Spec->tmpdir
-    return $ENV{TMP} || $ENV{TEMP} || $ENV{TMPDIR} || '/tmp';
-}
+has dstdir => sub {tmpdir};
 
 sub dstfile {
     my ($self, $id) = @_;
@@ -16,7 +13,7 @@ sub dstfile {
 
 sub absfile {
     my ($self, $id) = @_;
-    return $self->dstdir . '/' . $self->dstfile($id);
+    return catfile $self->dstdir, $self->dstfile($id);
 }
 
 sub load {
@@ -40,9 +37,9 @@ sub store {
 
     my ($id, $session) = $self->prepare_store($c);
     my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
-
-    spurt $value, $self->absfile($id);
-
+    my $file = $self->absfile($id);
+    spurt $value, $file;
+    chmod(oct('0600'), $file);
     return;
 }
 
@@ -76,6 +73,16 @@ L<Ado>. All data gets serialized with L<Mojo::JSON> and stored
 C<Base64> encoded in a file. A cookie or a request parameter can be used to
 share the session id between the server and the user agents.
 
+=head1 ATTRIBUTES
+
+L<Ado::Sessions::File> inherits all attributes from
+L<Ado::Sessions> and implements the following new ones.
+
+=head2 dstdir
+
+Path where to store session data files.
+
+
 =head1 METHODS
 
 =head2 absfile
@@ -86,9 +93,6 @@ Compose absolute path to session data file.
 
 This method is a garbage collector. Cleans up expired session files.
 
-=head2 dstdir
-
-Path where to store session data files.
 
 =head2 dstfile
 
