@@ -72,10 +72,7 @@ unshift @INC, catdir($tempdir, "Ado-Plugin-$name", 'lib');
 use_ok($class);
 isa_ok(my $plugin = $class->new->register($t->app, {'аз' => 'ти'}), 'Ado::Plugin', $name);
 
-is( $plugin->home_dir,
-    catdir($tempdir, "Ado-Plugin-$name"),
-    '$plugin->home_dir is ' . catdir($tempdir, "Ado-Plugin-$name")
-);
+ok($plugin->home_dir =~ /Ado-Plugin-$name$/, '$plugin->home_dir ends with ' . "Ado-Plugin-$name");
 is( $plugin->config_dir,
     catdir($tempdir, "Ado-Plugin-$name", 'etc', 'plugins'),
     'right config directory'
