@@ -74,7 +74,7 @@ Options +FollowSymLinks
 # developer.yahoo.com/performance/rules.html#etags
 FileETag None
 
-% if( grep {$_ eq 'cgi'} @{$args->{module}} ){
+% if( grep {$_ eq 'cgi'} @{$args->{modules}} ){
 <IfModule mod_cgi.c>
   # Set explicitly Ado executables as cgi scripts.
   # Running Mojolicious apps (such as Ado) as CGI is discouraged.
@@ -89,7 +89,7 @@ FileETag None
 </IfModule>
 % }
 % my $has_msfcgi = eval {require Mojo::Server::FastCGI};
-% if(grep {$_ eq 'fcgid'} @{$args->{module}}){
+% if(grep {$_ eq 'fcgid'} @{$args->{modules}}){
 <IfModule mod_fcgid.c>
   # See http://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html
   % if(!$plackup && !$has_msfcgi) {

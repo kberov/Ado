@@ -1,5 +1,12 @@
 Revision history for Ado
 
+0.60 2014-08-31
+    - Upgraded to Mojolicious 5.35.
+    - Changed option in Ado::Command::generate::apache2htaccess
+      from m|module=s@ to M|modules=s@ and explained the limitation in
+      Ado::Command.
+    - Fixed failing test on Windows in t/command/adoplugin-01.t.
+
 0.59 2014-08-28
     - Upgraded to Mojolicious 5.33.
     - Improved guessing of 'home_dir', 'lib' and 'templates_root' for CRUD in

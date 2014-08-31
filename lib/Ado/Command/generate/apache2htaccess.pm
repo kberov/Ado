@@ -25,14 +25,15 @@ sub _which {
 sub run {
     my ($self, @args) = @_;
     my $home = $self->app->home;
-    my $args = $self->args({module => []})->args;
-
+    my $args = $self->args;
     GetOptionsFromArray \@args,
       'v|verbose'       => \$args->{verbose},
       'c|config_file=s' => \$args->{config_file},
-      'm|module=s@'     => \$args->{module};
-    @{$args->{module}} = split(/\,/, join(',', @{$args->{module}}));
-    Carp::croak $self->usage unless scalar @{$args->{module}};
+      'M|modules=s@'    => \($args->{modules} //= []);
+
+    @{$args->{modules}} = split(/\,/, join(',', @{$args->{modules}}));
+
+    Carp::croak $self->usage unless scalar @{$args->{modules}};
     $args->{DocumentRoot} = $self->app->home;
     $args->{perl}         = $^X;
 
@@ -105,7 +106,7 @@ If not provided the configuration is printed to the screen.
 
 Verbose output.
 
-=head2 m|module=s@
+=head2 M|modules=s@
 
 Apache modules to use for running C<ado>. Currently supported modules are
 C<mod_cgi> and C<mod_fcgid>. You can mention them both to add the corresponding

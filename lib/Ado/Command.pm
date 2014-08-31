@@ -102,6 +102,13 @@ altough you may have used short variants.
     #if you passed -s or --something
     $self->args->{something} #foo
 
+Also, please note that some options turn out to be "eaten-up" by 
+L<Mojolicious::Commands>. So, do not use them in your commands and consider them
+reserved. The known options are 'C<home=s>' and 'C<m|mode=s>'. 
+L<Ado::Command::generate::apache2htaccess> worked around this limitation by using 
+upper case for a short variant of its options - 'C<M|modules=s@>'.
+
+
 =head2 name
 
 The name of your command - C<(ref $self) =~ /(\w+)$/;>.
