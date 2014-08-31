@@ -15,7 +15,7 @@ my $tempdir     = tempdir(CLEANUP => 1);
 my $config_file = catfile($tempdir, '.htaccess');
 use_ok($command);
 
-ok( my $c = $app->start("generate", "apache2htaccess", '-m' => 'cgi,fcgid', '-c' => $config_file),
+ok( my $c = $app->start("generate", "apache2htaccess", '-M' => 'cgi,fcgid', '-c' => $config_file),
     'run() ok'
 );
 isa_ok($c, $command);
