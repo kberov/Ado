@@ -1,7 +1,7 @@
 #t/command/adoplugin.t
 use Mojo::Base -strict;
 use Test::More;
-use File::Spec::Functions qw(catdir catfile catpath);
+use File::Spec::Functions qw(catdir catfile);
 use File::Temp qw(tempdir);
 use Cwd;
 
@@ -34,9 +34,11 @@ use_ok($command);
 
 # check defaults
 isa_ok(
-    my $c =
-      $command->new(app => $ado)
-      ->initialise('-t' => 'testatii', '-H' => $tempdir, '-T' => "$tempdir/site_templates"),
+    my $c = $command->new(app => $ado)->initialise(
+        '-t' => 'testatii',
+        '-H' => $tempdir,
+        '-T' => catdir($tempdir, 'site_templates')
+    ),
     $command
 );
 is_deeply(
@@ -44,13 +46,13 @@ is_deeply(
     {   controller_namespace => $ado->routes->namespaces->[0],
 
         #dsn                  => undef,
-        lib             => "$tempdir/lib",
+        lib             => catdir($tempdir, 'lib'),
         model_namespace => 'Ado::Model',
 
         #no_dsc_code    => undef,
         #password       => undef,
         overwrite      => undef,
-        templates_root => "$tempdir/site_templates",
+        templates_root => catdir($tempdir, 'site_templates'),
         tables         => ['testatii'],
         home_dir       => $tempdir,
 
