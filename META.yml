@@ -3,12 +3,12 @@ abstract: 'a rapid active commotion (framework for web-projects on Mojolicious)'
 author:
   - "Ð\x9AÑ\x80Ð°Ñ\x81Ð¸Ð¼Ð¸Ñ\x80 Ð\x91ÐµÑ\x80Ð¾Ð² <berov@cpan.org>"
 build_requires:
-  Module::Build: '0.4204'
+  Module::Build: '0.4210'
   Test::More: '0'
 configure_requires:
-  Module::Build: '0.4204'
+  Module::Build: '0.4210'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4205, CPAN::Meta::Converter version 2.132830'
+generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.142060'
 keywords:
   - Ado
   - Mojolicious
@@ -29,7 +29,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.60'
+    version: '0.61'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -115,13 +115,13 @@ recommends:
   SQL::Abstract: '1.78'
 requires:
   DBIx::Simple::Class: '1.008'
-  Email::Address: '1.901'
-  Locale::Maketext: '1.23'
-  Mojolicious: '5.35'
+  Email::Address: '1.905'
+  Locale::Maketext: '1.25'
+  Mojolicious: '5.36'
   Mojolicious::Plugin::DSC: '0.999'
   Text::MultiMarkdown: '1.000035'
   perl: v5.14.0
 resources:
   bugtracker: http://github.com/kberov/Ado/issues
   repository: http://github.com/kberov/Ado
-version: '0.60'
+version: '0.61'

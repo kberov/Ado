@@ -3,6 +3,10 @@ Revision history for Ado
 0.61 2014-09-01
     - Fixed failing test of crud.pm on Windows.
     - Added example configuration for Hypnotoad in etc/ado.conf.
+    - Upgraded to Mojolicious 5.36.
+    - Upgraded to Module::Build 0.4210.
+    - Upgraded to Email::Address 1.905.
+    - Upgraded to Locale::Maketext 1.25.
 
 0.60 2014-08-31
     - Upgraded to Mojolicious 5.35.

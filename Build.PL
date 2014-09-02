@@ -47,21 +47,21 @@ my $builder = Ado::Build->new(
 
     #release_status     => 'unstable',
     configure_requires => {
-        'Module::Build' => '0.4204',
+        'Module::Build' => '0.4210',
         $ENV{TEST_AUTHOR} ? (%{$$author{configure_requires}}) : (),
     },
     build_requires => {
-        'Module::Build' => '0.4204',
+        'Module::Build' => '0.4210',
         'Test::More'    => '0',
         $ENV{TEST_AUTHOR} ? (%{$$author{build_requires}}) : (),
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.35',
+        'Mojolicious'              => '5.36',
         'Mojolicious::Plugin::DSC' => '0.999',
         'DBIx::Simple::Class'      => '1.008',
-        'Email::Address'           => '1.901',
-        'Locale::Maketext'         => '1.23',
+        'Email::Address'           => '1.905',
+        'Locale::Maketext'         => '1.25',
         $ENV{TEST_AUTHOR} ? (%{$$author{requires}}) : (),
 
         #Default markdown renderer
