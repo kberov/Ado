@@ -32,3 +32,5 @@ log/production.log
 log/apache*
 .htaccess
 *vhost.conf
+*.sublime-project
+*.sublime-workspace
