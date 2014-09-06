@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.62 2014-09-06
+    - Speeded up home_dir in Ado::Plugin.
+
 0.61 2014-09-01
     - Fixed failing test of crud.pm on Windows.
     - Added example configuration for Hypnotoad in etc/ado.conf.

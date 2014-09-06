@@ -1,8 +1,6 @@
 package Ado::Plugin;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Util qw(decamelize decode class_to_path);
-use Cwd qw(abs_path);
-use File::Basename;
+use Mojo::Util qw(decamelize class_to_path);
 File::Spec::Functions->import(qw(catfile catdir));
 
 has app => sub { Mojo::Server->new->build_app('Ado') };
@@ -18,7 +16,11 @@ has config_dir => sub {
 };
 
 has home_dir => sub {
-    abs_path(catdir(dirname($INC{class_to_path(ref($_[0]))}), '../../..'));
+    my $p = $INC{class_to_path(ref($_[0]))};
+
+    #/home/you/dev/Ado-Plugin-Foo/lib/Ado/Plugin/Foo.pm
+    $p =~ s|/[^/]+/Ado/Plugin/.*$||x;
+    return $p;
 };
 has ext => 'conf';
 
@@ -96,6 +98,8 @@ sub initialise {
 
     # Load routes if defined.
     $app->load_routes($conf->{routes}) if (@{$conf->{routes} || []});
+
+    # Add templates folder if differs from app templates
     my $templates_dir = catdir($self->home_dir, 'templates');
     if ((!List::Util::first { $templates_dir eq $_ // '' } @{$app->renderer->paths})
         && -d $templates_dir)
