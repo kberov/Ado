@@ -19,7 +19,7 @@ has home_dir => sub {
     my $p = $INC{class_to_path(ref($_[0]))};
 
     #/home/you/dev/Ado-Plugin-Foo/lib/Ado/Plugin/Foo.pm
-    $p =~ s|/[^/]+/Ado/Plugin/.*$||x;
+    $p =~ s|[\\/][^/]+[\\/]Ado[\\/]Plugin[\\/].*$||x;
     return $p;
 };
 has ext => 'conf';

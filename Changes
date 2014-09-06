@@ -1,7 +1,7 @@
 Revision history for Ado
 
 0.62 2014-09-06
-    - Speeded up home_dir in Ado::Plugin.
+    - Ado::Plugin: simplified guessing of home_dir and speeded it up.
 
 0.61 2014-09-01
     - Fixed failing test of crud.pm on Windows.
