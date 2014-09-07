@@ -57,7 +57,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                     => '5.14.0',
-        'Mojolicious'              => '5.36',
+        'Mojolicious'              => '5.39',
         'Mojolicious::Plugin::DSC' => '0.999',
         'DBIx::Simple::Class'      => '1.008',
         'Email::Address'           => '1.905',
@@ -69,8 +69,10 @@ my $builder = Ado::Build->new(
 
     },
     recommends => {
-        'DBD::SQLite'   => '1.43_06',
-        'SQL::Abstract' => '1.78',
+
+        #'DBD::SQLite'   => '1.43_06',
+        'SQL::Abstract'                   => '1.78',
+        'Mojolicious::Plugin::SemanticUI' => '0',
 
         # Either
         'Plack'                       => '1.0030',
