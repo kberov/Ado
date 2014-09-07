@@ -43,10 +43,10 @@
       "runtime" : {
          "recommends" : {
             "Apache::LogFormat::Compiler" : "0",
-            "DBD::SQLite" : "1.43_06",
             "FCGI" : "0.74",
             "FCGI::ProcManager" : "0.24",
             "Mojo::Server::FastCGI" : "0.41",
+            "Mojolicious::Plugin::SemanticUI" : "0",
             "Plack" : "1.0030",
             "SQL::Abstract" : "1.78"
          },
@@ -54,7 +54,7 @@
             "DBIx::Simple::Class" : "1.008",
             "Email::Address" : "1.905",
             "Locale::Maketext" : "1.25",
-            "Mojolicious" : "5.36",
+            "Mojolicious" : "5.39",
             "Mojolicious::Plugin::DSC" : "0.999",
             "Text::MultiMarkdown" : "1.000035",
             "perl" : "v5.14.0"
@@ -64,7 +64,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.61"
+         "version" : "0.62"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -188,5 +188,5 @@
          "url" : "http://github.com/kberov/Ado"
       }
    },
-   "version" : "0.61"
+   "version" : "0.62"
 }
