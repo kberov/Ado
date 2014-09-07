@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.63 2014-09-07
+    - Deleted public/vendor/Semantic-UI. 
+    - Now example pages depend on Mojolicious::Plugin::SemanticUI.
+
 0.62 2014-09-07
     - Ado::Plugin: simplified guessing of home_dir and speeded it up.
     - Upgraded to Mojolicious 5.39.
