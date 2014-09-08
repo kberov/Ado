@@ -1,6 +1,6 @@
 %# adobar.html.ep
 
-  <nav id="adobar" class="ui borderless small purple inverted fixed menu">
+  <nav id="adobar" class="ui borderless inverted fixed menu">
     <%= include 'partials/logo' %>
     <a class="popup icon book item" href="<%=url_for('/perldoc')%>"
       data-content="Manual"><i class="book icon"></i></a>

@@ -1,5 +1,14 @@
 Revision history for Ado
 
+0.63 2014-09-09
+    - Deleted public/vendor/Semantic-UI. 
+    - Now example pages depend on Mojolicious::Plugin::SemanticUI,
+      but you can just comment 'SemanticUI' in ado.conf and it will not be loaded.
+    - Today in 1944 the communists took over Bulgaria. 
+      As a consequence in 1951 my grand-daddy got bitten and killed by them.
+      http://en.wikipedia.org/wiki/Bulgarian_coup_d%27%C3%A9tat_of_1944
+
+
 0.62 2014-09-07
     - Ado::Plugin: simplified guessing of home_dir and speeded it up.
     - Upgraded to Mojolicious 5.39.

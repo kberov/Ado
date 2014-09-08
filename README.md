@@ -22,18 +22,19 @@ at `etc/ado.sqlite` to get started quickly.
 Ado provides additional [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command), 
 which promote [RAD](http://en.wikipedia.org/wiki/Rapid_application_development),
 good practices, and team-work when starting new projects.
-[Semantic UI](http://semantic-ui.com/) is included in the distribution
-and the default Ado page is a good example for usage.
+The default Ado page uses [Semantic UI](http://semantic-ui.com/)
+via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plugin::SemanticUI) and is a good place to get acquainted.
 
 # INSTALLATION
 
 We strongly recommend using Ado with your own Perl (not the system-wide)!
 
-Ado is meant to be _installed into a folder of your choice_.
-By default it goes into the `siteprefix` folder of your **_non-system Perl distro_**. 
-When installing Ado in its own folder,
-you may want to add the `/path/to/ado/bin` to your `$PATH` environment variable
-and when using Ado as a module `/path/to/ado/lib` to `$PERL5LIB`.
+Ado can be _installed into any folder of your choice_.
+By default it goes into the `siteprefix` folder of your
+**_non-system Perl distro_**. When installing Ado in its own folder,
+you may want to add the `/path/to/yourAdo/bin` to your `$PATH`
+environment variable. When using Ado as a module from `/path/to/yourAdo/lib`,
+add the path to `$PERL5LIB`.
 
 To install manually Ado after downloading, run the following commands:
 
@@ -50,9 +51,7 @@ To see more installation methods and details, go to [Ado::Manual::Installation](
 # SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
-perldoc command. To use `perldoc` for reading documentation you may 
-need to add the full path to [Ado](https://metacpan.org/pod/Ado) `lib` directory to `PERL5LIB`
-environment variable in case you passed the `--install_base` to `Build.PL`.
+perldoc command.
 
     perldoc Ado
     perldoc Ado::Manual #this page
@@ -60,7 +59,7 @@ environment variable in case you passed the `--install_base` to `Build.PL`.
 For better experience run the **`ado`** application and read the documentation
 from your browser.
 
-    $HOME/opt/ado/bin/ado daemon
+    /path/to/yourAdo/bin/ado daemon
 
 If you installed `ado` in your Perl distro, you can simply type:
 
@@ -74,7 +73,7 @@ Feel invited to make pull requests for your contributions.
 
 # CONTRIBUTING
 
-Of course anybody can contribute by reporting issues via github 
+Anybody can contribute by reporting issues via github 
 or fixing typos in the documentation.
 To be able to contribute with code, some rules need to be kept.
 This is mandatory for any community project.

@@ -18,7 +18,7 @@ You can always **download the last stable release from
 
 The author offers **payed services** with regards to the application
 such as **integration**, **deployment**, **support and development** 
-of specific modules for your business
+of specific modules for your business.
 Please contact him at
 **(<i class="ne">------</i>&#98;<i class="ne">b</i>&#101;<i class="ne">e</i>&#114;<i class="ne">r</i>o<em class="ne"></em>v<i class="ne"></i>&#64;<b class="ne">&#x123;</b>c<i class="ne">кво</i>p<i class="ъ">сакашпатибе</i>a<i class="тц">&123;</i>n<i class="ne">&№;</i>.<i class="ne">уф</i>o<i class="ne">омръзна</i>r<i class="ne">ми</i>g<i class="тц">++++</i>)**. 
 

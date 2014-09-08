@@ -72,7 +72,7 @@ my $builder = Ado::Build->new(
 
         #'DBD::SQLite'   => '1.43_06',
         'SQL::Abstract'                   => '1.78',
-        'Mojolicious::Plugin::SemanticUI' => '0',
+        'Mojolicious::Plugin::SemanticUI' => '0.04',
 
         # Either
         'Plack'                       => '1.0030',
