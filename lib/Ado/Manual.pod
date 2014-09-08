@@ -24,18 +24,19 @@ at C<etc/ado.sqlite> to get started quickly.
 Ado provides additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>, 
 which promote L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>,
 good practices, and team-work when starting new projects.
-L<Semantic UI|http://semantic-ui.com/> is included in the distribution
-and the default Ado page is a good example for usage.
+The default Ado page uses L<Semantic UI|http://beta.semantic-ui.com/>
+via L<Mojolicious::Plugin::SemanticUI> and is a good place to get acquainted.
 
 =head1 INSTALLATION
 
 We strongly recommend using Ado with your own Perl (not the system-wide)!
 
-Ado is meant to be I<installed into a folder of your choice>.
-By default it goes into the C<siteprefix> folder of your B<I<non-system Perl distro>>. 
-When installing Ado in its own folder,
-you may want to add the C</path/to/ado/bin> to your C<$PATH> environment variable
-and when using Ado as a module C</path/to/ado/lib> to C<$PERL5LIB>.
+Ado can be I<installed into any folder of your choice>.
+By default it goes into the C<siteprefix> folder of your
+B<I<non-system Perl distro>>. When installing Ado in its own folder,
+you may want to add the C</path/to/yourAdo/bin> to your C<$PATH>
+environment variable. When using Ado as a module from C</path/to/yourAdo/lib>,
+add the path to C<$PERL5LIB>.
 
 To install manually Ado after downloading, run the following commands:
 
@@ -52,9 +53,7 @@ To see more installation methods and details, go to L<Ado::Manual::Installation>
 =head1 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation with the
-perldoc command. To use C<perldoc> for reading documentation you may 
-need to add the full path to L<Ado> C<lib> directory to C<PERL5LIB>
-environment variable in case you passed the C<--install_base> to C<Build.PL>.
+perldoc command.
 
     perldoc Ado
     perldoc Ado::Manual #this page
@@ -62,7 +61,7 @@ environment variable in case you passed the C<--install_base> to C<Build.PL>.
 For better experience run the B<C<ado>> application and read the documentation
 from your browser.
 
-  $HOME/opt/ado/bin/ado daemon
+  /path/to/yourAdo/bin/ado daemon
 
 If you installed C<ado> in your Perl distro, you can simply type:
 
@@ -76,7 +75,7 @@ Feel invited to make pull requests for your contributions.
 
 =head1 CONTRIBUTING
 
-Of course anybody can contribute by reporting issues via github 
+Anybody can contribute by reporting issues via github 
 or fixing typos in the documentation.
 To be able to contribute with code, some rules need to be kept.
 This is mandatory for any community project.
