@@ -13,7 +13,7 @@ Revision history for Ado
     - Ado::Plugin: simplified guessing of home_dir and speeded it up.
     - Upgraded to Mojolicious 5.39.
     - Started work on Mojolicious::Plugin::SemanticUI.
-      Semantic UI will go there and Ado will recommend this plugin.
+      Semantic UI will go there and Ado will depend on this plugin.
 
 0.61 2014-09-01
     - Fixed failing test of crud.pm on Windows.
