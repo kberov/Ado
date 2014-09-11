@@ -13,7 +13,7 @@ use Exporter qw( import );    #export functionality to Ado::BuildPlugin etc..
 our @EXPORT_OK = qw(
   create_build_script process_etc_files
   process_public_files process_templates_files
-  ACTION_perltidy ACTION_submit);
+  ACTION_perltidy ACTION_submit PERL_DIRS);
 
 #Shamelessly stollen from File::HomeDir::Windows
 my $HOME =
@@ -25,7 +25,7 @@ my $HOME =
     : abs_path('./')
   );
 
-sub PERL_FILES {
+sub PERL_DIRS {
     state $dirs = [map { catdir($_[0]->base_dir, $_) } qw(bin lib etc t)];
     return @$dirs;
 }
@@ -206,7 +206,8 @@ sub ACTION_perltidy {
         return;
     };
     my @files;
-    for my $dir ($self->PERL_FILES) {
+    for my $dir ($self->PERL_DIRS) {
+        next unless -d $dir;
         my $dir_files = $self->rscan_dir($dir);
         for my $file (@$dir_files) {
             push @files, $file
@@ -331,13 +332,13 @@ build, test, install and even if you need to add a new C<ACTION_*> to your setup
 
 Ado::Build defines some attributes, used across different actions.
 
-=head2 PERL_FILES
+=head2 PERL_DIRS
 
 Returns the list of absolute paths to directories in the project 
 containing Perl files.
 Read-only.
 
-  $self->PERL_FILES;
+  $self->PERL_DIRS;
   #(/base/dir/bin, /base/dir/lib, /base/dir/t, /base/dir/etc) 
 
 

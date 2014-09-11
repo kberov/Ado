@@ -3,6 +3,9 @@ Revision history for Ado
     - Preparing for the first Ado plugin that will be an example of
       how to build applications on top of Ado.
     - Upgraded to Mojolicious::Plugin::SemanticUI 0.05.
+    - Importing PERL_DIRS in Ado::BuildPlugin so it is usable
+      for plugins as much as Ado::Build is useful for Ado.
+
 
 0.63 2014-09-09
     - Deleted public/vendor/Semantic-UI. 
