@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.63';
+our $VERSION   = '0.64';
 our $CODENAME  = 'U+2C05 GLAGOLITIC CAPITAL LETTER YESTU (Ⰵ)';
 
 use Ado::Control;

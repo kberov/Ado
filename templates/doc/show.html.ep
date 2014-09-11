@@ -1,7 +1,7 @@
 % layout('doc');
 
 <main class="ui">
-  <div id="menu" class="ui borderless small purple inverted fixed menu">
+  <div id="menu" class="ui borderless inverted fixed menu">
     <div class="ui small blue launch right attached button">
       <i class="icon list layout"></i>
     </div>

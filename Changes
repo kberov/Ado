@@ -1,4 +1,8 @@
 Revision history for Ado
+0.64 2014-09-11
+    - Preparing for the first Ado plugin that will be an example of
+      how to build applications on top of Ado.
+    - Upgraded to Mojolicious::Plugin::SemanticUI 0.05.
 
 0.63 2014-09-09
     - Deleted public/vendor/Semantic-UI. 
