@@ -90,10 +90,11 @@ sub validate_input {
 
         #field
         my $f =
-          delete $checks->{required}
+            $checks->{required}
           ? $v->required($param)
           : $v->optional($param);
         foreach my $check (keys %$checks) {
+            next if $check eq 'required';
             if (ref $$checks{$check} eq 'HASH') {
                 $f->$check(%{$checks->{$check}});
             }

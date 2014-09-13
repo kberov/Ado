@@ -1,5 +1,5 @@
 Revision history for Ado
-0.64 2014-09-12
+0.64 2014-09-13
     - Preparing for the first Ado plugin that will be an example of
       how to build applications on Ado.
     - Upgraded to Mojolicious::Plugin::SemanticUI 0.05.
@@ -7,6 +7,7 @@ Revision history for Ado
     - Importing PERL_DIRS in Ado::BuildPlugin so it can be used
       for plugins like Ado::Build is used for installing Ado.
     - Upgraded to Mojolicious 5.40.
+    - Fixed bug in Ado::Control::validate_input().
 
 
 0.63 2014-09-09
