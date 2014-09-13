@@ -8,6 +8,7 @@ Revision history for Ado
       for plugins like Ado::Build is used for installing Ado.
     - Upgraded to Mojolicious 5.40.
     - Fixed bug in Ado::Control::validate_input().
+    - Added dummy records in tables groups and users.
 
 
 0.63 2014-09-09
