@@ -40,7 +40,7 @@ sub setup {
 
 =head1 NAME
 
-Test::AdoPlugin - common code needed for testing Ado plugins
+Test::AdoPlugin - This module is deprecated
 
 =head1 SYNOPSIS
 
@@ -48,6 +48,8 @@ Test::AdoPlugin - common code needed for testing Ado plugins
 
 =head1 DESCRIPTION
 
+This module is deprecated, Mojo seems to have what we needed so far and
+what it missed is now in L<Ado::Plugin> base class.
 This modules holds boilerplate code which sets up the environment for your
 Ado plugin tests
 
