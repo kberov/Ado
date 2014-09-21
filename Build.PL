@@ -47,7 +47,7 @@ my $builder = Ado::Build->new(
 
     #release_status     => 'unstable',
     configure_requires => {
-        'Module::Build' => '0.4210',
+        'Module::Build' => '0.42',
         $ENV{TEST_AUTHOR} ? (%{$$author{configure_requires}}) : (),
     },
     build_requires => {
@@ -57,7 +57,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                            => '5.14.0',
-        'Mojolicious'                     => '5.41',
+        'Mojolicious'                     => '5.42',
         'Mojolicious::Plugin::DSC'        => '0.999',
         'Mojolicious::Plugin::SemanticUI' => '0.05',
         'DBIx::Simple::Class'             => '1.008',
