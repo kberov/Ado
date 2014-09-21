@@ -106,6 +106,16 @@ sub initialise {
     {
         push @{$app->renderer->paths}, $templates_dir;
     }
+
+    # Add plugin specific public folder if differs from app public
+    my $public_dir = catdir($self->home_dir, 'public');
+    if ((!List::Util::first { $public_dir eq $_ // '' } @{$app->static->paths})
+        && -d $public_dir)
+    {
+        push @{$app->static->paths}, $public_dir;
+    }
+
+
     $self->{_initialised} = 1;
     return ($self, $app, $conf);
 }
@@ -250,7 +260,12 @@ if additional namespaces are defined in configuration file.
 =item * Loads routes if defined in configuration file.
 
 =item * Pushes the plugin C<templates> directory to C<@{app-E<gt>renderer-E<gt>paths}>
-(if the plugin is not installed) so the templates can be found by L<Ado> while developing your plugin.
+(if it exists and is not the same as Ado's one) so the templates can be found by
+L<Ado> while developing your plugin.
+
+=item * Pushes the plugin C<public> directory to C<@{app-E<gt>static-E<gt>paths}>
+(if it exists and is not the same as Ado's one) so the templates can be found by
+L<Ado> while developing your plugin.
 
 =item * Returns C<($self, $app, $config)>.
 
