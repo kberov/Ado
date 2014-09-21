@@ -51,7 +51,7 @@ my $builder = Ado::Build->new(
         $ENV{TEST_AUTHOR} ? (%{$$author{configure_requires}}) : (),
     },
     build_requires => {
-        'Module::Build' => '0.4210',
+        'Module::Build' => '0.42',
         'Test::More'    => '0',
         $ENV{TEST_AUTHOR} ? (%{$$author{build_requires}}) : (),
     },
