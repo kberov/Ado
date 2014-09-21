@@ -109,7 +109,7 @@ Creating\sAdo-\d+\.\d{2}\n
 Creating\sAdo-\d+\.\d{2}\.tar.gz\n/x;
 
 stdout_like(sub { $build->dispatch('dist') }, $dist_out, 'ACTION_dist output ok');
-my $directories_rx = join $/, map { $_ . '.+?' } $build->PERL_FILES;
+my $directories_rx = join $/, map { $_ . '.+?' } $build->PERL_DIRS;
 
 stdout_like(
     sub { $build->dispatch('perltidy', verbose => 1) },

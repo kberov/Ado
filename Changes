@@ -1,4 +1,18 @@
 Revision history for Ado
+0.64 2014-09-21
+    - Preparing for the first Ado plugin - Ado::Plugin::Vest,
+      that will be an example of how to build applications on Ado.
+    - Upgraded to Mojolicious::Plugin::SemanticUI 0.05.
+    - Renamed method PERL_FILES to PERL_DIRS in Ado::Build. 
+    - Importing PERL_DIRS in Ado::BuildPlugin so it can be used
+      for plugins like Ado::Build is used for installing Ado.
+    - Upgraded to Mojolicious 5.42.
+    - Fixed bug in Ado::Control::validate_input().
+    - Added dummy records in tables groups and users.
+    - Test::AdoPlugin is deprecated.
+    - In Ado::Plugin::initialise() now we also check for plugin specific
+      public folder and add it to Ado $app->static->paths.
+    - Downgraded to Module::Build 0.42.
 
 0.63 2014-09-09
     - Deleted public/vendor/Semantic-UI. 
@@ -7,7 +21,6 @@ Revision history for Ado
     - Today in 1944 the communists took over Bulgaria. 
       As a consequence in 1951 my grand-daddy got bitten and killed by them.
       http://en.wikipedia.org/wiki/Bulgarian_coup_d%27%C3%A9tat_of_1944
-
 
 0.62 2014-09-07
     - Ado::Plugin: simplified guessing of home_dir and speeded it up.

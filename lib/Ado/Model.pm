@@ -103,7 +103,7 @@ The subclasses are:
 
 =head2 METHODS
 
-Ado::Model inherits all methods from 
+Ado::Model inherits all methods from L<DBIx::Simple::Class>
 and implements the following ones.
 
 =head2 table_to_class
@@ -124,7 +124,7 @@ Returns an array of records.
   #users 1, and 2
   my @users = Ado::Model::Users->select_range(2,4);
   #users 3, and 4
-  
+
 
 =head1 GENERATOR
 

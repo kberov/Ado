@@ -31,13 +31,13 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Module::Build" : "0.4210",
+            "Module::Build" : "0.42",
             "Test::More" : "0"
          }
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.4210"
+            "Module::Build" : "0.42"
          }
       },
       "runtime" : {
@@ -53,9 +53,9 @@
             "DBIx::Simple::Class" : "1.008",
             "Email::Address" : "1.905",
             "Locale::Maketext" : "1.25",
-            "Mojolicious" : "5.39",
+            "Mojolicious" : "5.42",
             "Mojolicious::Plugin::DSC" : "0.999",
-            "Mojolicious::Plugin::SemanticUI" : "0.04",
+            "Mojolicious::Plugin::SemanticUI" : "0.05",
             "Text::MultiMarkdown" : "1.000035",
             "perl" : "v5.14.0"
          }
@@ -64,7 +64,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.63"
+         "version" : "0.64"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -188,5 +188,5 @@
          "url" : "http://github.com/kberov/Ado"
       }
    },
-   "version" : "0.63"
+   "version" : "0.64"
 }
