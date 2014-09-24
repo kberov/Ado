@@ -51,7 +51,12 @@ sub list_for_json {
     my $url = $c->url_with(format => $c->stash->{format})->query('limit' => $$range[0]);
     my $prev = $$range[1] - $$range[0];
     $prev = $prev > 0 ? $prev : 0;
-    my $data = [map { $_->data } @$dsc_objects];
+
+    #arrayref of hashes or DSC objects?
+    my $data =
+      ref($dsc_objects->[0]) eq 'HASH'
+      ? $dsc_objects
+      : [map { $_->data } @$dsc_objects];
     return {
         json => {
 
@@ -74,7 +79,7 @@ sub list_for_json {
                     : ()
                 ),
             ],
-            data => [map { $_->data } @$dsc_objects]
+            data => $data
         },
     };
 }    # end sub list_for_json
@@ -184,10 +189,11 @@ A shortcut to:
 =head2 list_for_json
 
 Prepares a structure suitable for rendering as JSON for 
-listing L<Ado::Model>* objects returned by L<Ado::Model/select_range> and returns it.
+listing  an ARRAYref of HASHES or L<Ado::Model>* objects,
+returned by L<Ado::Model/select_range> and returns it.
 Accepts two C<ARRAYREF>s as parameters:
 
-  my $res = $c->list_for_json([$limit, $offset], \@list_of_objects);
+  my $res = $c->list_for_json([$limit, $offset], \@list_of_objects_or_hashes);
 
 Use this method to ensure uniform and predictable representation 
 across all listing resources.
@@ -196,9 +202,11 @@ and L<Ado::Control::Ado::Users/list> for the example source.
 
   my @range = ($c->param('limit') || 10, $c->param('offset') || 0);
   return $c->respond_to(
-    json => $c->list_for_json(
-      \@range, 
-      [Ado::Model::Users->select_range(@range)])
+    json => $c->list_for_json(\@range, [Ado::Model::Users->select_range(@range)])
+  );
+
+return $c->respond_to(
+    json => $c->list_for_json(\@range, [$dbix->query($SQL,@range)->hashes])
   );
 
 =head2 require_formats
@@ -258,7 +266,7 @@ L<Mojolicious::Validator::Validation/output>.
 =head1 SEE ALSO
 
 L<Mojolicious::Controller>, L<Ado::Manual::Controllers>,
-L<Ado::Manual::RESTAPI>
+L<Ado::Manual::RESTAPI>, L<DBIx::Simple>
 
 =head1 AUTHOR
 
