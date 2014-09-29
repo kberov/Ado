@@ -205,7 +205,7 @@ and L<Ado::Control::Ado::Users/list> for the example source.
     json => $c->list_for_json(\@range, [Ado::Model::Users->select_range(@range)])
   );
 
-return $c->respond_to(
+  return $c->respond_to(
     json => $c->list_for_json(\@range, [$dbix->query($SQL,@range)->hashes])
   );
 
