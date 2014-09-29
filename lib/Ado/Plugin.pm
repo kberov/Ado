@@ -18,8 +18,10 @@ has config_dir => sub {
 has home_dir => sub {
     my $p = $INC{class_to_path(ref($_[0]))};
 
-    #/home/you/dev/Ado-Plugin-Foo/lib/Ado/Plugin/Foo.pm
-    $p =~ s|[\\/][^/]+[\\/]Ado[\\/]Plugin[\\/].*$||x;
+    # /home/you/dev/Ado-Plugin-Foo/lib/Ado/Plugin/Foo.pm
+    # /home/you/dev/Ado-Plugin-Foo
+    $p =~ s|[\\/][^\\/]+[\\/]Ado[\\/]Plugin[\\/].*$||x
+      || return $_[0]->app->home;
     return $p;
 };
 has ext => 'conf';

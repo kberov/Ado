@@ -193,9 +193,9 @@ listing  an ARRAYref of HASHES or L<Ado::Model>* objects,
 returned by L<Ado::Model/select_range> and returns it.
 Accepts two C<ARRAYREF>s as parameters:
 
-  my $res = $c->list_for_json([$limit, $offset], \@list_of_objects_or_hashes);
+  my $res = $c->list_for_json([$limit, $offset], \@list_of_AMobjects_or_hashes);
 
-Use this method to ensure uniform and predictable representation 
+Use this method to ensure uniform and predictable representation
 across all listing resources.
 See L<http://127.0.0.1:3000/ado-users/list.json> for example output
 and L<Ado::Control::Ado::Users/list> for the example source.
