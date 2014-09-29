@@ -1,5 +1,12 @@
 Revision history for Ado
 
+0.66 2014-09-30
+  - Improved Ado::Control::list_for_json() to accept an arrayref of simple hashes.
+  - Upgraded to Mojolicious 5.47.
+  - Fixed failing test with Mojolicious 5.47.
+  - Fixed detection of Ado::Plugin home directory under Windows.
+  - Upgraded to Mojolicious::Plugin::SemanticUI 0.06.
+
 0.65 2014-09-21
     - Removed plugin "vest" listed in etc/ado.conf but not yet on CPAN.
 
