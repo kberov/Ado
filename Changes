@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.67 2014-10-01
+  - Defined defaults - stash variables $language and $language_from
+    in Ado::Plugin::I18n.
+
 0.66 2014-09-30
   - Improved Ado::Control::list_for_json() to accept an arrayref of simple hashes.
   - Upgraded to Mojolicious 5.47.
