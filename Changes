@@ -1,8 +1,12 @@
 Revision history for Ado
 
-0.67 2014-10-01
+0.67 2014-10-04
   - Defined defaults - stash variables $language and $language_from
     in Ado::Plugin::I18n.
+  - Feature request for encode_json_text in Mojo::JSON was accepted.
+  - Added helper encode_json_text to Ado::Plugin::AdoHelpers, alias
+    to Mojo::JSON::encode_json_text. 
+    This feature will be available in Mojolicious 5.48.
 
 0.66 2014-09-30
   - Improved Ado::Control::list_for_json() to accept an arrayref of simple hashes.
