@@ -79,8 +79,8 @@ sub register {
     $app->log->error(qq{Loading "$config->{namespace}" failed: $e}) if $e;
 
     # Defaults for $c->stash so templates without controllers can be used
-    $app->defaults('language' =>'');
-    $app->defaults('language_from' =>'');
+    $app->defaults('language'      => '');
+    $app->defaults('language_from' => '');
 
     #Add helpers
     $app->helper(language => \&language);
@@ -127,8 +127,7 @@ sub language {
     #already set from route or called in an action as: $c->language()
     if ($stash->{$l_param}) {
         $stash->{i18n}
-          ||= $$config{namespace}->get_handle($stash->{$l_param}, 
-                @{$$config{languages}});
+          ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
         $c->debug("already set in \$stash->{$l_param}:" . $stash->{$l_param});
         return $stash->{$l_param};
     }

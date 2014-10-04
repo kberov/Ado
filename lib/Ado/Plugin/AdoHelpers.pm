@@ -10,6 +10,8 @@ sub register {
             Ado::Model::Users->by_login_name(shift->session->{login_name} //= 'guest');
         }
     );
+    $app->helper(encode_json_text => sub { Mojo::JSON::encode_json_text($_[1]) });
+
     return $self;
 }
 
@@ -44,6 +46,17 @@ by default.
 =head1 HELPERS
 
 L<Ado::Plugin::AdoHelpers> implements the following helpers.
+
+=head2 encode_json_text
+
+  my $chars = $c->encode_json_text({name =>'Петър',id=>2});
+  $c->stash(user_as_js => $chars);
+  # in a javascript chunk of a template
+  var user = <%== $user_as_js %>;
+  var user_group_names = <%== encode_json_text([user->ingroup]) %>;
+
+Alias for L<Mojo::JSON/encode_json_text>. Suitable for preparing JavaScript
+objects from Perl references that will be used from stash and in templates.
 
 =head2 user
 
