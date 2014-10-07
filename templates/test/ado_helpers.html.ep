@@ -3,7 +3,7 @@
   <head>
     <script>
     var group_names = 
-      <%== encode_json_text({name => 'Петър', groups => [user->ingroup]}) %>;
+      <%== to_json({name => 'Петър', groups => [user->ingroup]}) %>;
     </script>
   </head>
   <body>

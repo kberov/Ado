@@ -6,6 +6,6 @@ my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
 
 $t->get_ok('/test/ado_helpers')->content_like(qr/\["guest"/i, 'user helper')
-  ->content_like(qr/\:"Петър"/, 'encode_json_text helper');
+  ->content_like(qr/\:"Петър"/, 'to_json helper');
 
 done_testing;
