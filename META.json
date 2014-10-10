@@ -53,7 +53,7 @@
             "DBIx::Simple::Class" : "1.008",
             "Email::Address" : "1.905",
             "Locale::Maketext" : "1.25",
-            "Mojolicious" : "5.47",
+            "Mojolicious" : "5.48",
             "Mojolicious::Plugin::DSC" : "0.999",
             "Mojolicious::Plugin::SemanticUI" : "0.06",
             "Text::MultiMarkdown" : "1.000035",
@@ -64,7 +64,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.66"
+         "version" : "0.67"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -188,5 +188,5 @@
          "url" : "http://github.com/kberov/Ado"
       }
    },
-   "version" : "0.66"
+   "version" : "0.67"
 }

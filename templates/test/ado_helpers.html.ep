@@ -1,0 +1,11 @@
+% #ado_helpers.html.ep
+<html>
+  <head>
+    <script>
+    var group_names = 
+      <%== to_json({name => 'Петър', groups => [user->ingroup]}) %>;
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

@@ -10,6 +10,10 @@ sub register {
             Ado::Model::Users->by_login_name(shift->session->{login_name} //= 'guest');
         }
     );
+
+    # http://irclog.perlgeek.de/mojo/2014-10-03#i_9453021
+    $app->helper(to_json => sub { Mojo::JSON::to_json($_[1]) });
+
     return $self;
 }
 
@@ -44,6 +48,17 @@ by default.
 =head1 HELPERS
 
 L<Ado::Plugin::AdoHelpers> implements the following helpers.
+
+=head2 to_json
+
+  my $chars = $c->to_json({name =>'Петър',id=>2});
+  $c->stash(user_as_js => $chars);
+  # in a javascript chunk of a template
+  var user = <%== $user_as_js %>;
+  var user_group_names = <%== to_json([user->ingroup]) %>;
+
+Suitable for preparing JavaScript
+objects from Perl references that will be used from stash and in templates.
 
 =head2 user
 

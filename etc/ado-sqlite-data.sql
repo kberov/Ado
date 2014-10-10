@@ -7,7 +7,7 @@
  Further on we will always have 'PRAGMA foreign_keys = ON;'
 */
 PRAGMA foreign_keys = OFF;
-BEGIN TRANSACTION;
+-- BEGIN TRANSACTION;
 
 INSERT INTO `domains` 
 VALUES(1,'localhost','LocalHost',
@@ -47,7 +47,7 @@ INSERT INTO `users` VALUES(4,4,'test2','272a11a0206b949355be4b0bda9a8918609f1ac6
 1,1,54022241011303270,0,0,0,0);
 INSERT INTO `user_group` VALUES(4,4);
 
-COMMIT;
+-- COMMIT;
 
 PRAGMA foreign_keys = ON;
 VACUUM;

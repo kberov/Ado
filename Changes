@@ -1,5 +1,15 @@
 Revision history for Ado
 
+0.67 2014-10-10
+  - Fixed failing tests for Ado::Plugin::I18n after upgrade and improved it.
+  - Added universal exception.html.ep.
+  - Upgraded to Mojolicious 5.48.
+  - Added helper to_json to Ado::Plugin::AdoHelpers, same as
+    Mojo::JSON::to_json.
+  - Assuming stupidly an UTF-8 terminal for command 'adduser'.
+  - Defined defaults - stash variables $language and $language_from
+    in Ado::Plugin::I18n.
+
 0.66 2014-09-30
   - Improved Ado::Control::list_for_json() to accept an arrayref of simple hashes.
   - Upgraded to Mojolicious 5.47.
