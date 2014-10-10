@@ -64,13 +64,14 @@ sub register {
     #Supported languages by this system
     $config->{languages} ||= ['en', 'bg'];
 
-    #Try to get language from these places in the order below
-    $config->{language_from_route}   ||= 1;
-    $config->{language_from_host}    ||= 1;
-    $config->{language_from_param}   ||= 1;
-    $config->{language_from_cookie}  ||= 1;
-    $config->{language_from_headers} ||= 1;
-    $config->{language_param}        ||= 'language';
+    # Language will be guessed from one of these places in the order below.
+    # Specify/narrow your preferences in etc/plugins/i18n.conf.
+    $config->{language_from_route}   //= 1;
+    $config->{language_from_host}    //= 1;
+    $config->{language_from_param}   //= 1;
+    $config->{language_from_cookie}  //= 1;
+    $config->{language_from_headers} //= 1;
+    $config->{language_param}        //= 'language';
 
     #Allow other namespaces too
     $config->{namespace} ||= 'Ado::I18n';
@@ -79,8 +80,7 @@ sub register {
     $app->log->error(qq{Loading "$config->{namespace}" failed: $e}) if $e;
 
     # Defaults for $c->stash so templates without controllers can be used
-    $app->defaults('language'      => '');
-    $app->defaults('language_from' => '');
+    $app->defaults(language => '', language_from => '');
 
     #Add helpers
     $app->helper(language => \&language);
@@ -479,7 +479,7 @@ __DATA__
 % my $conf = config('Ado::Plugin::I18n');
 % my @languages = @{$conf->{languages}};
 % $language_from ||= 'route';
-% $self->debug('$language_from:'.$language_from);
+% $c->debug('$language_from:' . $language_from);
 % $language ||= $conf->{default_language};
 
 <!-- language_menu start -->
@@ -489,7 +489,7 @@ __DATA__
 % if($language_from eq 'route') {
 %   my $route = $$stash{id} ? 'languagecontrolleractionid' : 'languagecontrolleraction';
 %   foreach my $l(@languages) {
-%     my $active = $l eq $$stash{language} ? 'active ' : '';
+%     my $active = $l eq $language ? 'active ' : '';
 %     my $url = url_for($route, language => $l);
 %=    link_to $url,(class => "${active}button popup item", title => l($l) ), begin
 %=      t(img =>src => "/css/flags/$l.png", alt=>$l)
@@ -498,7 +498,7 @@ __DATA__
 % }
 % elsif($language_from eq 'host'){
 %   foreach my $l(@languages){
-%     my $active = $l eq $$stash{language} ? 'active ' : '';
+%     my $active = $l eq $language ? 'active ' : '';
 %     my $url = $self->req->url->to_abs->clone;
 %     my ($port, $host) = ($url->port,$url->host);
 %     $host =~ s|^\w{2}\.||;
@@ -512,7 +512,7 @@ __DATA__
 % elsif($language_from eq 'param'){
 %   my $language_param = $conf->{language_param};
 %   foreach my $l(@languages){
-%     my $active = $l eq $$stash{language} ? 'active ' : '';
+%     my $active = $l eq $language ? 'active ' : '';
   <a class="<%= $active %>button popup item"
     href="<%= url_with->query([$language_param => $l]); %>"
     data-content="<%= l($l) %>">
@@ -523,7 +523,7 @@ __DATA__
 % elsif($language_from eq 'cookie'){
 %   my $language_param = $conf->{language_param};
 %   foreach my $l(@languages){
-%   my $active = $l eq $$stash{language} ? 'active ' : '';
+%   my $active = $l eq $language ? 'active ' : '';
   <a class="<%="$l $active" %>button popup item"
     href="<%= url_for; %>"
     data-content="<%= l($l) %>" data-language="<%= $l %>">
