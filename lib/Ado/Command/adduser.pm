@@ -56,6 +56,14 @@ sub init {
               $_[1] ? Time::Piece->strptime('%Y-%m-%d', $_[1])->epoch : time;
         },
     );
+
+    # Assume an UTF-8 terminal. TODO: make this more clever
+    utf8::decode($args->{login_name})
+      if ($args->{login_name} && !utf8::is_utf8($args->{login_name}));
+    utf8::decode($args->{first_name})
+      if ($args->{first_name} && !utf8::is_utf8($args->{first_name}));
+    utf8::decode($args->{last_name})
+      if ($args->{last_name} && !utf8::is_utf8($args->{last_name}));
     $args->{login_password} = Mojo::Util::sha1_hex($args->{login_name} . $args->{login_password});
     unless ($args->{ingroup}) {
         say($self->usage)
