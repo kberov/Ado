@@ -170,6 +170,7 @@ templates/default/index.html.ep
 templates/default/index_text.html+bg.ep
 templates/default/index_text.html.ep
 templates/doc/show.html.ep
+templates/exception.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/partials/adobar.html.ep

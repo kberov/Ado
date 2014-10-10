@@ -1,0 +1,9 @@
+% if($ENV{TAP_VERSION}) {
+  Exception! See the logs!
+% }
+% elsif(app->mode eq 'development') {
+%   include 'exception.development.html.ep';
+% } 
+% else {
+  500 Internal Server Error!
+% }
