@@ -2,7 +2,8 @@
   Exception! See the logs!
 % }
 % elsif(app->mode eq 'development') {
-%   include 'exception.development.html.ep';
+% #TODO: take a look and fix endless loop when same template name is included
+%=   include 'development';
 % } 
 % else {
   <body>
