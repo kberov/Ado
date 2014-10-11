@@ -5,5 +5,7 @@
 %   include 'exception.development.html.ep';
 % } 
 % else {
-  500 Internal Server Error!
+  <body>
+    <h1>500 Internal Server Error!</h1>
+  </body>
 % }
