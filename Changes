@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.68 2014-10-11
+  - Upgraded to Mojolicious 5.49.
+  
 0.67 2014-10-10
   - Fixed failing tests for Ado::Plugin::I18n after upgrade and improved it.
   - Added universal exception.html.ep.
