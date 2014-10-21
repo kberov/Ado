@@ -1,6 +1,9 @@
 Revision history for Ado
 
-0.68 2014-10-11
+0.68 2014-10-22
+  - Dramatic performance improvement with 'PRAGMA synchronous = OFF' and
+    'PRAGMA journal_mode=WAL'.
+  - Improved Ado::Command::adduser documentation.
   - Upgraded to Mojolicious 5.49.
   
 0.67 2014-10-10
