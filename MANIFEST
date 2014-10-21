@@ -173,6 +173,7 @@ templates/doc/show.html.ep
 templates/exception.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
+templates/not_found.html.ep
 templates/partials/adobar.html.ep
 templates/partials/apache2htaccess.ep
 templates/partials/apache2vhost.ep
