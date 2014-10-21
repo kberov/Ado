@@ -1,0 +1,12 @@
+% if($ENV{TAP_VERSION}) {
+  NOt FOUND! See the logs!
+% }
+% elsif(app->mode eq 'development') {
+% #TODO: take a look and fix endless loop when same template name is included
+%=   include 'development';
+% } 
+% else {
+  <body>
+    <h1>Page Not Found!</h1>
+  </body>
+% }
