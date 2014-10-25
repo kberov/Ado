@@ -13,6 +13,7 @@ sub register {
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
+    $app->routes->add_condition(ingroup => sub { $_[1]->user->ingroup($_[-1]) });
 
     #Add to classes used for finding templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
@@ -218,7 +219,19 @@ if condition redirects to C</login/:auth_method>.
     }
   ],
 
+=head2 ingroup
 
+Checks if a user is in the given group. Returns true or false
+  
+  # in etc/routes.conf or etc/fooplugin.conf
+  {
+    route => '/vest', 
+    via => ['GET'], 
+    to => 'vest#screen', 
+    over => {authenticated => 1, ingroup => 'foo'},
+  }
+  # programatically
+  $app->routes->route('/ado-users/:action', over => {ingroup => 'foo'});
 
 =head1 HELPERS
 

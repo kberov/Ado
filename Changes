@@ -1,7 +1,7 @@
 Revision history for Ado
 
 0.69 2014-10-25
-
+  - Added the condition 'ingroup' to Ado::Plugin::Auth.
 
 0.68 2014-10-25
   - Upgraded to Mojolicious 5.54.
