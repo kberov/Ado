@@ -125,16 +125,30 @@ Ado::Command::adduser - adduser command
 
 =head1 SYNOPSIS
 
-  
+  # Programatically
   use Ado::Command::adduser;
   Ado::Command::adduser->run('--login_name'=>'test1',...);
+
+  # On the command line
+  # Minimal required options to add a user
+  ado adduser --login_name USERNAME --email user\@example.com \
+    --first_name John --last_name Smith 
+
+  # Add a user to an additional group
+  ado adduser --login_name USERNAME --ingroup GROUPNAME
+
+  # Change password / disable a user
+  ado adduser --login_name USERNAME --ingroup GROUPNAME --disabled \
+    --login_password !@#\$\%^&
+
+
 
 =head1 DESCRIPTION
 
 L<Ado::Command::adduser> adds a user to an L<Ado> application.
 It is a facade for L<Ado::Model::Users>.
-This is a core L<Ado> command, that means it is always enabled and its code a good
-example for learning to build new L<Ado> commands, you're welcome to fork it.
+This is a core L<Ado> command, that means it is always available and its code
+a good example for learning to build new L<Ado> commands, you're welcome to fork it.
 
 =head1 ATTRIBUTES
 
@@ -170,7 +184,7 @@ On the commandline C<ado adduser> accepts the following options:
     'u|login_name=s'     #username (mandatory)
     'p|login_password=s' #the user password (optional, random is generated)
     'e|email=s'          #user email (mandatory)
-    'g|ingroup=s'        #additional group, can be used for existing users too
+    'g|ingroup=s'        #existing users can be added to other groups too
     'd|disabled:i'       #is user disabled? (1 by default)
     'f|first_name=s'     #user's first name (mandatory)
     'l|last_name=s'      #user's last name (mandatory)

@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.67';
+our $VERSION   = '0.68';
 our $CODENAME  = 'U+2C05 GLAGOLITIC CAPITAL LETTER YESTU (Ⰵ)';
 
 use Ado::Control;
@@ -91,6 +91,21 @@ sub load_routes {
 
     return $app;
 }
+
+# sub define_hooks {
+#     my $app = shift;
+#     $app->hook(
+#         before_dispatch => sub {
+#             my ($c) = @_;
+#             $c->res->headers->from_hash(
+#                 {   'Access-Control-Allow-Origin'      => '*',
+#                     'Access-Control-Allow-Credentials' => 'true'
+#                 }
+#             );
+#         }
+#     );
+#     return;
+# }
 
 sub define_mime_types {
     my $app = shift;

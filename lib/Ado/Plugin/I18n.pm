@@ -96,7 +96,7 @@ sub register {
     push @{$app->renderer->classes}, __PACKAGE__;
 
     #make plugin configuration available for later in the app
-    $app->config(__PACKAGE__, \%$config);
+    $app->config(__PACKAGE__, $config);
     return $self;
 }
 

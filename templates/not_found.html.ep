@@ -1,5 +1,5 @@
 % if($ENV{TAP_VERSION}) {
-  Exception! See the logs!
+  NOt FOUND! See the logs!
 % }
 % elsif(app->mode eq 'development') {
 % #TODO: take a look and fix endless loop when same template name is included
@@ -7,6 +7,6 @@
 % } 
 % else {
   <body>
-    <h1>500 Internal Server Error!</h1>
+    <h1>Page Not Found!</h1>
   </body>
 % }
