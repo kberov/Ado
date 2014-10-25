@@ -1,7 +1,7 @@
 package Ado::Sessions::Database;
 use Mojo::Base 'Ado::Sessions';
 use Mojo::JSON;
-use Mojo::Util qw(b64_decode b64_encode);
+use Mojo::Util qw(slurp spurt b64_decode b64_encode);
 use Ado::Model::Sessions;
 
 sub load {
@@ -14,7 +14,7 @@ sub load {
         my $adosession = Ado::Model::Sessions->find($id);
         if ($adosession->data) {
             return
-              unless $session = Mojo::JSON->new->decode(b64_decode $adosession->sessiondata);
+              unless $session = Mojo::JSON::j(b64_decode $adosession->sessiondata);
         }
     }
 
@@ -26,7 +26,7 @@ sub store {
 
     my ($id, $session) = $self->prepare_store($c);
     return unless $id;
-    my $value = Mojo::Util::b64_encode(Mojo::JSON->new->encode($session), '');
+    my $value = b64_encode(Mojo::JSON::encode_json($session), '');
     my $adosession = Ado::Model::Sessions->find($id);
     if ($adosession->data) {
         $adosession->sessiondata($value)->update();
