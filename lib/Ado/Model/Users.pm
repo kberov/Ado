@@ -192,6 +192,23 @@ sub ingroup {
     return @{$self->{ingroup}};
 }
 
+#Selects users belonging to a group only.
+sub by_group_name {
+    my ($class, $group, $limit, $offset) = @_;
+    state $group_id_SQL   = 'SELECT id FROM ' . Ado::Model::Groups->TABLE . ' WHERE name = ?';
+    state $user_group_SQL = <<"UG";
+    SELECT user_id FROM user_group WHERE group_id = ($group_id_SQL) 
+UG
+
+    state $SQL =
+        $class->SQL('SELECT')
+      . " WHERE id IN($user_group_SQL) ORDER BY first_name, last_name ASC "
+      . $class->SQL_LIMIT('?', '?');
+    $limit  //= 500;
+    $offset //= 0;
+    return $class->query($SQL, $group, $limit, $offset);
+}
+
 1;
 
 =pod
@@ -298,6 +315,16 @@ Creates the group if it does not already exists.
 Returns the group.
 
     $ingroup = Ado::Model::Users->add_to_group(login_name=>'petko',ingroup=>'admin');
+
+=head2 by_group_name
+
+Selects users belonging to a group only, within a given range, ordered by
+C<first_name, last_name> alphabetically.
+C<$limit> defaults to 500 and C<$offset> to 0.
+Returns an array of Ado::Model::Users instances.
+
+  #get contacts of the user 'berov'
+  my @users = Ado::Model::Users->by_group_name('vest_contacts_for_berov', $limit, $offset);
 
 =head2 by_login_name
 
