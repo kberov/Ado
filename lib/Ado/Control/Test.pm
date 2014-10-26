@@ -29,6 +29,17 @@ sub language_menu {
     $c->debug('$$stash{language_from}:' . $$stash{language_from});
     return;
 }
+
+# Test Ado::Model::Users->by_group_name
+sub ingroup {
+    my $c = shift;
+
+    #get users from group with the same name as the user login_name
+    my @users = Ado::Model::Users->by_group_name($c->user->login_name, $c->param('offset'),
+        $c->param('limit'));
+    return $c->render(json => [map { $_->data } @users]);
+
+}
 1;
 
 =pod
@@ -68,6 +79,10 @@ Used to test the produced HTML by C<partials/language_menu.html.ep>.
 =head2 index
 
 Alias for C<l10n> action.
+
+=head2 ingroup
+
+Used to test the C<ingroup> condition and  L<Ado::Model::Users/by_group_name>.
 
 =head1 AUTHOR
 
