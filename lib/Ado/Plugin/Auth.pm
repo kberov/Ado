@@ -329,8 +329,8 @@ __DATA__
 %# displayed as a menu item
 <div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
-  <div class="ui simple dropdown item" title="<%=l('Sign in with') %>">
-    <i class="sign in icon"></i>
+  <div class="ui simple dropdown item">
+    <i class="sign in icon"></i><%=l('Sign in') %>
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
       <a href="<%=url_for("login/$auth")->to_abs %>" 
@@ -345,8 +345,8 @@ __DATA__
     %=include 'partials/login_form'
   </div><!-- end modal dialog with login form in it -->
 % } else {
-  <a class="ui item" href="<%= url_for('logout') %>" title="<%= l('Logout').' ('. user->name .')' %>">
-    <i class="sign out icon"></i>
+  <a class="ui item" href="<%= url_for('logout') %>">
+    <i class="sign out icon"></i><%= l('Logout').' ('. user->name .')' %>
   </a>
 % }
 </div>

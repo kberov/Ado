@@ -10,9 +10,7 @@
     <meta name="description" content="<%= $description %>" />
     <meta name="keywords" content="<%= $keywords %>" />
     <title><%= title %></title>
-    <link rel="shortcut icon" 
-        href="/favicon.ico"
-        type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="<%=$base_url%>/favicon.png" type="image/png" />
     %= stylesheet begin
 @import url('/vendor/SemanticUI/definitions/globals/reset.min.css');
 @import url('/vendor/SemanticUI/definitions/css/semantic.min.css');

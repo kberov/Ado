@@ -81,22 +81,16 @@ a.footnote {
   font-weight: bolder;
 }
 
-.Ⰵ {
-  font-family: FreeSerif;
-  text-shadow:2px 2px 2px #aaa;
-  font-weight: bolder;
-}
-a.Ⰵ.popup.visible {
+a.icon.ado.popup.visible {
   font-family: FreeSerif;  
 }
 i.icon.ado{
   font-family: FreeSerif;
-  background-color: #fff;
   text-shadow:2px 2px 2px #aaa;
   font-weight: bolder;
 }
 i.icon.ado:before {
-  content: "Ⰵ";
+  content: "Ⰶ";
 }
 
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}
