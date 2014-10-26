@@ -1,5 +1,13 @@
 Revision history for Ado
 
+0.69 2014-10-26
+  - $CODENAME changed to
+      "Живете" - U+2C06 GLAGOLITIC CAPITAL LETTER ZHIVETE (Ⰶ)
+  - Switched from favicon.ico to favicon.png for better quality.
+  - Fixed popup positioning and appearance of the logo in the main menu.
+  - Added the condition 'ingroup' to Ado::Plugin::Auth.
+  - Implemented Ado::Model::Users::by_group_name.
+
 0.68 2014-10-25
   - Upgraded to Mojolicious 5.54.
   - Added templates/not_found.html.ep.
@@ -7,7 +15,7 @@ Revision history for Ado
   - Dramatic performance improvement with 'PRAGMA synchronous = OFF' and
     'PRAGMA journal_mode=WAL'.
   - Improved Ado::Command::adduser documentation.
-  
+
 0.67 2014-10-10
   - Fixed failing tests for Ado::Plugin::I18n after upgrade and improved it.
   - Added universal exception.html.ep.

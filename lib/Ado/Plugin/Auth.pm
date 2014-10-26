@@ -13,6 +13,7 @@ sub register {
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
+    $app->routes->add_condition(ingroup => sub { $_[1]->user->ingroup($_[-1]) });
 
     #Add to classes used for finding templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
@@ -218,7 +219,19 @@ if condition redirects to C</login/:auth_method>.
     }
   ],
 
+=head2 ingroup
 
+Checks if a user is in the given group. Returns true or false
+  
+  # in etc/routes.conf or etc/fooplugin.conf
+  {
+    route => '/vest', 
+    via => ['GET'], 
+    to => 'vest#screen', 
+    over => {authenticated => 1, ingroup => 'foo'},
+  }
+  # programatically
+  $app->routes->route('/ado-users/:action', over => {ingroup => 'foo'});
 
 =head1 HELPERS
 
@@ -316,8 +329,8 @@ __DATA__
 %# displayed as a menu item
 <div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
-  <div class="ui simple dropdown item" title="<%=l('Sign in with') %>">
-    <i class="sign in icon"></i>
+  <div class="ui simple dropdown item">
+    <i class="sign in icon"></i><%=l('Sign in') %>
     <div class="menu">
     % for my $auth(@{app->config('auth_methods')}){
       <a href="<%=url_for("login/$auth")->to_abs %>" 
@@ -332,8 +345,8 @@ __DATA__
     %=include 'partials/login_form'
   </div><!-- end modal dialog with login form in it -->
 % } else {
-  <a class="ui item" href="<%= url_for('logout') %>" title="<%= l('Logout').' ('. user->name .')' %>">
-    <i class="sign out icon"></i>
+  <a class="ui item" href="<%= url_for('logout') %>">
+    <i class="sign out icon"></i><%= l('Logout').' ('. user->name .')' %>
   </a>
 % }
 </div>

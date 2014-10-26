@@ -17,7 +17,6 @@
     %= include 'partials/language_menu'
   </nav>
   <script type="text/javascript">
-    $('#adobar a.popup').popup({position : 'bottom right'});
-    $('.Ⰳ').popup({position : 'bottom right'});
+    $('#adobar a.popup').popup({position : 'bottom left'});
   </script>
 %#$self->debug(dumper(stash));
