@@ -330,7 +330,7 @@ belonging to a given group only
 and within a given range, ordered by
 C<first_name, last_name> alphabetically.
 C<$limit> defaults to 500 and C<$offset> to 0.
-Only the following fields are retreived: C<id, login_name, first_name, last_name, email>.
+Only the following fields are retrieved: C<id, login_name, first_name, last_name, email>.
 
 Returns an array of hashes. The L</name> method is executed for each 
 row in the resultset and the evaluation is available via key 'name'.
