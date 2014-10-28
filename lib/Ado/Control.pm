@@ -28,13 +28,16 @@ if ($DEV_MODE) {
 #and return false.
 sub require_formats {
     my ($c, @formats) = @_;
-    unless (my $format = $c->accepts('', @formats) || '') {
+    unless ($c->accepts(@formats)) {
 
-        #propose an url with the preferred format
-        my $location = $c->url_for(format => $formats[0])->to_abs;
-        $c->res->headers->add('Content-Location' => $location);
-        $location = $c->link_to($location, {format => $formats[0]});
-        my $message = "415 - Unsupported Media Type $format. Please try $location!";
+        #propose urls with the accepted formats
+        my @locations = map { $c->url_for(format => $_)->to_abs } @formats;
+        $c->res->headers->add('Content-Location' => $locations[0]);
+
+        my $message =
+            "415 - Unsupported Media Type \""
+          . ($c->req->headers->accept // '')
+          . "\". Please try ${\ join(', ', @locations)}!";
         $c->debug($c->url_for . " requires " . join(',', @formats) . ". Rendering: $message")
           if $DEV_MODE;
         $c->render(
@@ -227,23 +230,22 @@ and L<Ado::Control::Ado::Users/list> for the example source.
 
 =head2 require_formats
 
-Require a list of relevant formats or renders "415 - Unsupported Media Type"
-with a text/html type and link to the resource using the first 
-of the preferred formats, and returns false.
+Checks for a list of accepted formats or renders "415 - Unsupported Media Type"
+with a text/html type and links to the preferred formats, and returns false.
 If the URL is in the required format, returns true.
-Adds a header C<Content-Location> with the proper URL to the resource.
+Adds a header C<Content-Location> pointing to the first URL of the required formats.
 
   #in an action serving only json
   sub list {
-      my $c = shift;
-    $c->require_formats(['json']) || return;
+    my $c = shift;
+    $c->require_formats('json') || return;
     $c->debug('rendering json only');
       #your stuff here...
       return;
   }
 
-This method exists only to show more descriptive message to the end user
-and to give a chance to user agents to go to the proper resource URL.
+This method exists only to show more descriptive message with available formats
+to the end user and to give a chance to user agents to go to the preferred resource URL.
 
 =head2 validate_input
 

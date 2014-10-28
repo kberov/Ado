@@ -3,7 +3,7 @@ Revision history for Ado
 0.70 2014-10-28
   - Implemented more safe $c->user and user helper 
     in which some fields are not available.
-
+  - Improved Ado::Control::require_formats(@formats).
 
 0.69 2014-10-26
   - $CODENAME changed to

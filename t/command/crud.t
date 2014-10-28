@@ -91,7 +91,7 @@ unshift @INC, $c->args->{lib};
 
 #Run tests on the generated code?!?!
 unshift @{$ado->renderer->paths}, catdir($tempdir, 'site_templates');
-$t->get_ok('/testatii/list')->status_is(415)
+$t->get_ok('/testatii/list', {Accept => 'text/plain'})->status_is(415)
   ->content_like(qr|Unsupported.+Please.+list\.json|x, 'Unsupported Media Type - ok');
 
 $t->get_ok('/testatii/list.json')->status_is(200);
