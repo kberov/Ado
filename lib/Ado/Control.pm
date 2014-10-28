@@ -127,6 +127,22 @@ sub validate_input {
         )
     };
 }
+
+sub user {
+    my ($c, $user) = @_;
+    if ($user) {
+        delete @{$user->data}{qw(login_password created_by changed_by disabled start_date)};
+        $c->{user} = $user;
+        return $c;
+    }
+    elsif ($c->{user}) {
+        return $c->{user};
+    }
+    $c->{user} = Ado::Model::Users->by_login_name($c->session->{login_name} //= 'guest');
+    delete @{$c->{user}->data}{qw(login_password created_by changed_by disabled start_date)};
+    return $c->{user};
+}
+
 1;
 
 =pod
@@ -260,7 +276,16 @@ L<Mojolicious::Validator::Validation/output>.
         json   => $result->{json}
     ) if $result->{errors};
 
+=head2 user
 
+Returns the current user. This is the user C<guest> for not authenticated users.
+Note that this instance is not meant for manipulation and some fields are not available
+for security reasons. The fields are:
+C<login_password created_by changed_by disabled start_date>.
+
+
+  $c->user(Ado::Model::Users->by_login_name($login_name));
+  my $names = $c->user->name;
 
 
 =head1 SEE ALSO
