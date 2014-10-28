@@ -1,12 +1,20 @@
 Revision history for Ado
 
+0.70 2014-10-28
+  - Implemented more safe $c->user and user helper 
+    in which some fields are not available.
+  - Improved Ado::Control::require_formats(@formats).
+  - Improved Ado::Model::Users::by_group_name($group, $limit, $offset).
+  - TODO: Improve Test Coverage.
+
+
 0.69 2014-10-26
   - $CODENAME changed to
-      "Живете" - U+2C06 GLAGOLITIC CAPITAL LETTER ZHIVETE (Ⰶ)
+    "Живете" - U+2C06 GLAGOLITIC CAPITAL LETTER ZHIVETE (Ⰶ)
   - Switched from favicon.ico to favicon.png for better quality.
   - Fixed popup positioning and appearance of the logo in the main menu.
   - Added the condition 'ingroup' to Ado::Plugin::Auth.
-  - Implemented Ado::Model::Users::by_group_name.
+  - Implemented Ado::Model::Users::by_group_name($group, $limit, $offset).
 
 0.68 2014-10-25
   - Upgraded to Mojolicious 5.54.

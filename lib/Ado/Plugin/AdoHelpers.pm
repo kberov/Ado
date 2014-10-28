@@ -5,11 +5,7 @@ sub register {
     my ($self, $app, $conf) = shift->initialise(@_);
 
     # Add helpers
-    $app->helper(
-        user => sub {
-            Ado::Model::Users->by_login_name(shift->session->{login_name} //= 'guest');
-        }
-    );
+    $app->helper(user => sub { shift->user(@_) });
 
     # http://irclog.perlgeek.de/mojo/2014-10-03#i_9453021
     $app->helper(to_json => sub { Mojo::JSON::to_json($_[1]) });
@@ -62,7 +58,8 @@ objects from Perl references that will be used from stash and in templates.
 
 =head2 user
 
-Returns the current user - C<guest> for not authenticated users.
+Returns the current user. This is the user C<guest> for not authenticated users.
+This helper is a wrapper for L<Ado::Control/user>.
 
   $c->user(Ado::Model::Users->query("SELECT * from users WHERE login_name='guest'"));
   #in a controller action:

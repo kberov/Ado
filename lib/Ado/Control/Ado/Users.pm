@@ -21,7 +21,7 @@ sub list {
 
     $c->res->headers->content_range(
         "users $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
-    $c->debug("rendering json only [$$args{limit}, $$args{offset}]");
+    $c->debug("rendering json only ($$args{limit}, $$args{offset})");
 
     #content negotiation
     return $c->respond_to(

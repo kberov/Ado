@@ -13,7 +13,13 @@ sub register {
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
-    $app->routes->add_condition(ingroup => sub { $_[1]->user->ingroup($_[-1]) });
+    $app->routes->add_condition(
+        ingroup => sub {
+            $_[1]->debug("is user " . $_[1]->user->name . " in  group $_[-1]?")
+              if $Ado::Control::DEV_MODE;
+            return $_[1]->user->ingroup($_[-1]);
+        }
+    );
 
     #Add to classes used for finding templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;

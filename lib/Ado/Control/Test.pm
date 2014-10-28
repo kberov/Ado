@@ -37,7 +37,7 @@ sub ingroup {
     #get users from group with the same name as the user login_name
     my @users = Ado::Model::Users->by_group_name($c->user->login_name, $c->param('offset'),
         $c->param('limit'));
-    return $c->render(json => [map { $_->data } @users]);
+    return $c->render(json => [@users]);
 
 }
 1;
