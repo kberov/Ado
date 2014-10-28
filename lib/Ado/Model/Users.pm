@@ -211,7 +211,7 @@ SQL
     $limit  //= 500;
     $offset //= 0;
     my $time = time;
-    my @a = $class->query($SQL, $time, $time, $group, $limit, $offset);
+    my @a = $class->query($SQL, $group, $time, $time, $limit, $offset);
     return map { +{%{$_->data}, name => $_->name} } @a;
 }
 
