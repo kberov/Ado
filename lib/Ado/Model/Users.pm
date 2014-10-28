@@ -197,16 +197,22 @@ sub by_group_name {
     my ($class, $group, $limit, $offset) = @_;
     state $group_id_SQL   = 'SELECT id FROM ' . Ado::Model::Groups->TABLE . ' WHERE name = ?';
     state $user_group_SQL = <<"UG";
-    SELECT user_id FROM user_group WHERE group_id = ($group_id_SQL) 
+    SELECT user_id FROM user_group WHERE group_id = ($group_id_SQL)
 UG
 
-    state $SQL =
-        $class->SQL('SELECT')
-      . " WHERE id IN($user_group_SQL) ORDER BY first_name, last_name ASC "
-      . $class->SQL_LIMIT('?', '?');
+    state $SQL = <<"SQL";
+        SELECT id, login_name, first_name, last_name, email
+        FROM ${\ $class->TABLE }
+        WHERE id IN($user_group_SQL) 
+            AND (disabled=0 AND (stop_date>? OR stop_date=0) AND start_date<?) 
+        ORDER BY first_name, last_name ASC
+        ${\ $class->SQL_LIMIT('?', '?')};
+SQL
     $limit  //= 500;
     $offset //= 0;
-    return $class->query($SQL, $group, $limit, $offset);
+    my $time = time;
+    my @a = $class->query($SQL, $time, $time, $group, $limit, $offset);
+    return map { +{%{$_->data}, name => $_->name} } @a;
 }
 
 1;
@@ -318,10 +324,16 @@ Returns the group.
 
 =head2 by_group_name
 
-Selects users belonging to a group only, within a given range, ordered by
+Selects active users 
+(C<WHERE (disabled=0 AND (stop_date>$now OR stop_date=0) AND start_date<$now )>)
+belonging to a given group only
+and within a given range, ordered by
 C<first_name, last_name> alphabetically.
 C<$limit> defaults to 500 and C<$offset> to 0.
-Returns an array of Ado::Model::Users instances.
+Only the following fields are retreived: C<id, login_name, first_name, last_name, email>.
+
+Returns an array of hashes. The L</name> method is executed for each 
+row in the resultset and the evaluation is available via key 'name'.
 
   #get contacts of the user 'berov'
   my @users = Ado::Model::Users->by_group_name('vest_contacts_for_berov', $limit, $offset);
