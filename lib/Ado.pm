@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.69';
+our $VERSION   = '0.70';
 our $CODENAME  = 'U+2C06 GLAGOLITIC CAPITAL LETTER ZHIVETE (Ⰶ)';
 
 use Ado::Control;
