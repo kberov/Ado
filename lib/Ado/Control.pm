@@ -282,6 +282,7 @@ Returns the current user. This is the user C<guest> for not authenticated users.
 Note that this instance is not meant for manipulation and some fields are not available
 for security reasons. The fields are:
 C<login_password created_by changed_by disabled start_date>.
+TODO: move as much as possible checks and fields retreival in SQL, not in Perl.
 
 
   $c->user(Ado::Model::Users->by_login_name($login_name));
