@@ -54,7 +54,6 @@ lib/Ado/Plugin/Routes.pm
 lib/Ado/Sessions.pm
 lib/Ado/Sessions/Database.pm
 lib/Ado/Sessions/File.pm
-lib/Test/AdoPlugin.pm
 LICENSE
 log/development.log
 log/production.log
