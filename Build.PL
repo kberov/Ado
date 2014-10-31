@@ -86,8 +86,8 @@ my $builder = Ado::Build->new(
     recursive_test_files => 1,
     meta_merge           => {
         resources => {
-            repository => "http://github.com/kberov/Ado",
-            bugtracker => "http://github.com/kberov/Ado/issues",
+            repository => "https://github.com/kberov/Ado",
+            bugtracker => "https://github.com/kberov/Ado/issues",
         },
         keywords => [qw/Ado Mojolicious realtime web ERP REST CMS enterprise/],
         no_index => {namespace => ['Ado::Model'],}

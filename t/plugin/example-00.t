@@ -29,7 +29,9 @@ is_deeply(
     {   "a"        => 1,
         "bla"      => "off",
         "err"      => 1,
-        "lelemale" => 1
+        "lelemale" => 1,
+        routes     => [{route => '/a', to => 'a#b', over => 'a'}],
+
     },
     'All plugin configs are merged right!'
 );

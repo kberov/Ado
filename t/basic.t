@@ -4,6 +4,7 @@ use Test::Mojo;
 sub encode { Mojo::Util::encode $^O=~ /win/i ? 'cp866' : 'UTF-8', $_[0] }
 my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
+like($app->CODENAME, qr/CAPITAL\sLETTER/x);
 
 # Ado::define_mime_types()
 is($app->types->type('xht'), 'application/xhtml+xml', 'define_mime_types (ok)');

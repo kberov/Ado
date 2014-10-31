@@ -29,7 +29,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.70'
+    version: '0.71'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -103,8 +103,6 @@ provides:
     file: lib/Ado/Sessions/Database.pm
   Ado::Sessions::File:
     file: lib/Ado/Sessions/File.pm
-  Test::AdoPlugin:
-    file: lib/Test/AdoPlugin.pm
 recommends:
   Apache::LogFormat::Compiler: '0'
   DBD::SQLite: '1.44'
@@ -123,6 +121,6 @@ requires:
   Text::MultiMarkdown: '1.000035'
   perl: v5.14.0
 resources:
-  bugtracker: http://github.com/kberov/Ado/issues
-  repository: http://github.com/kberov/Ado
-version: '0.70'
+  bugtracker: https://github.com/kberov/Ado/issues
+  repository: https://github.com/kberov/Ado
+version: '0.71'
