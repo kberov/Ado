@@ -20,7 +20,7 @@ has home_dir => sub {
 
     # /home/you/dev/Ado-Plugin-Foo/lib/Ado/Plugin/Foo.pm
     # /home/you/dev/Ado-Plugin-Foo
-    $p =~ s|[\\/][^\\/]+[\\/]Ado[\\/]Plugin[\\/].*$||x
+    $p =~ s|[\\/]lib.+||x
       || return $_[0]->app->home;
     return $p;
 };
