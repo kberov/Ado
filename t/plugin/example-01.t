@@ -20,7 +20,9 @@ is_deeply(
     $plugin->config,
     {   "a"        => 1,
         "bla"      => "uff",
-        "lelemale" => 2
+        "lelemale" => 2,
+        routes     => [{route => '/a', to => 'a#b', over => 'a'}],
+
     },
     'No mode specific file - ok!'
 );
