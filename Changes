@@ -1,5 +1,12 @@
 Revision history for Ado
 
+0.71 2014-11-01
+  - Fixed bug in Ado::Plugin::home_dir(). Wrong assumption regarding %INC keys.
+  - Removed unused Test::AdoPlugin.
+  - Improved Test coverage (total: 85.9).
+  - Works with Mojolicious 5.56. New versions will not be required in Build.PL
+    unless necessary.
+
 0.70 2014-10-28
   - Implemented more safe $c->user and user helper 
     in which some fields are not available.

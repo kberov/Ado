@@ -65,7 +65,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.70"
+         "version" : "0.71"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -175,19 +175,16 @@
       },
       "Ado::Sessions::File" : {
          "file" : "lib/Ado/Sessions/File.pm"
-      },
-      "Test::AdoPlugin" : {
-         "file" : "lib/Test/AdoPlugin.pm"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "http://github.com/kberov/Ado/issues"
+         "web" : "https://github.com/kberov/Ado/issues"
       },
       "repository" : {
-         "url" : "http://github.com/kberov/Ado"
+         "url" : "https://github.com/kberov/Ado"
       }
    },
-   "version" : "0.70"
+   "version" : "0.71"
 }
