@@ -72,7 +72,7 @@ sub login {
         if ($authnticated) {
 
             # Store a friendly message for the next page in flash
-            $c->flash(login_message => 'Thanks for logging in! Wellcome!');
+            $c->flash(login_message => 'Thanks for logging in! Welcome!');
 
             # Redirect to referrer page with a 302 response
             $c->debug('redirecting to ' . $c->session('over_route'))
