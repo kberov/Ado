@@ -23,7 +23,8 @@
   <ol>
     <li>Copy <code>etc/ado.conf</code> to 
     <code>etc/ado.development.conf</code>. 
-    This will be your configuration file during development. 
+    This will be your configuration file during development.
+    Logging is more verbose within this environment.
     You can rename the default <code>etc/ado.conf</code> to something known to you only 
     and keep it for restoring the configuration to its initial state.
     Alternatively you can keep it but modify only <code>etc/ado.development.conf</code>. 
