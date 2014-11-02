@@ -1,0 +1,111 @@
+  <img id="ado-img" class="ui rounded right floated image" 
+    title="Ado – a rapid active commotion" 
+    src="/img/5FE59-ado.jpg" />
+  <p>
+    Wenn Sie diese Seite über Ihren Browser lesen können,
+    hat der Admin dieser Website (Sie?!?) erfolgreich
+    <a href="<%=url_for('/perldoc/Ado')%>">Ado</a> installiert.
+    <i>Herzlichen Glückwunsch!</i>
+    Bitte lesen Sie zunächst die allgemeine
+    <a href="<%=url_for('/help/en/intro.md')%>">Einführung in Ado</a>.
+  </p>
+  <p>
+    Dies ist die Standard-Seite von Ado, die von
+    <code><%=ref($self)%>::<%=$action%>()</code> generiert wurde,
+    dabei wird das Template:
+    <code>templates/default/index.html.ep</code> verwendet.
+    Ihr Ado-System wurde im Verzeichnis <code><%=$home%></code> installiert.
+    Alle weiteren Pfade befinden sich unterhalb davon.
+    Ihre aktuelle URL ist <code>"<%=url_for('/')->base%>"</code>.
+    Auf der rechten Seite oben sehen Sie ein Foto, das eine der Bedeutungen von "Ado" versinnbildlicht: Hektik, Aufregung (engl.).
+  </p>
+  <h2>Was kommt als Nächstes?</h2>
+  <ol>
+    <li>Kopieren Sie <code>etc/ado.conf</code> nach
+    <code>etc/ado.development.conf</code>. 
+    Dies wird Ihre Konfigurations-Datei während Ihrer Entwicklungs-Phase sein.
+    Darin wird insbesondere der Log-Level erhöht.
+    Sie können die Standard-Datei <code>etc/ado.conf</code> zu einem beliebigen Namen umbenennen, um von dieser Datei zu einem späteren Zeitpunkt den ursprünglichen Stand der Konfiguration wiederherstellen zu können.
+    Alternativ dazu können Sie ihn beibehalten, und lediglich die Datei <code>etc/ado.development.conf</code> verändern. 
+    Beide Dateien werden eingelesen, wobei jedoch die umgebungsspezifische Konfiguration die Einstellungen der Standard-Datei überlagert.
+    <blockquote> 
+    Wenn Sie später für den offiziellen <i>Produktions-Modus</i> bereit sind,
+    kopieren Sie <code>etc/ado.development.conf</code> zu <code>etc/ado.production.conf</code>,
+    passen die Einstellungen (Pfade, Passwörter, etc.) dementsprechend an. Bitte setzen Sie dann <code>MOJO_MODE='production'</code> in Ihrem ~/.bashrc oder kopieren Sie <code>bin/ado</code> nach <code>bin/ado.production.pl</code>. Sobald die Einstellungen angepasst sind, kann dieses Skript zum Start von Ado verwendet werden.
+    </blockquote>
+    </li>
+    <li>Führen Sie das Kommando <code>ado inflate</code> aus, um alle enthaltenen Dateien und Templates als komplettes Abbild - in einem neuen Verzeichnis "templates" - erstellen zu lassen.</li>
+    <li>Legen Sie das Verzeichnis <code>site_templates</code> unterhalb von <code><%=$home%></code> an.
+    Dieser Verzeichnisbaum <code>site_templates</code> wird bei der Suche nach Templates zuerst abgesucht,
+    so dass Sie einzelne Dateien vom Verzeichnisbaum <code>templates</code> kopieren und nach Ihren Anpassungswünschen verändern können.
+    </li>
+    <li>Legen Sie im Verzeichnisbaum <code>site_templates</code> ein Verzeichnis <code>default</code>
+    und darin eine Datei namens <code>index.html.ep</code>
+    (bzw. als deutschsprachige Datei ggf. index.html+de.ep) an.
+    Diese wird das neue Template anstelle der Seite, die Sie gerade lesen
+    Der vollständige Pfad sollte wie folgt aussehen:
+    <code><%=$home%>/site_templates/default/index.html.ep</code>
+    bzw.
+    <code><%=$home%>/site_templates/default/index.html+de.ep</code>
+    </li>
+    <li>Kopieren Sie <code>etc/ado.sqlite</code> nach <code>etc/ado.development.sqlite</code>. 
+    Dies wird dann Ihre Entwicklungs-Datenbank, in der zunächst vor allem die Benutzerverwaltung enthalten ist.
+    <blockquote> 
+      Später - wenn Sie soweit sind, in den <i>Produktions-Modus</i> zu gehen -
+      kopieren Sie <code>etc/ado.development.sqlite</code> nach <code>etc/ado.production.sqlite</code>
+      setzen Sie bitte, <code>MOJO_MODE='production'</code> in Ihrem .bashrc 
+      oder kopieren Sie das Programm <code>bin/ado</code> nach <code>bin/ado.production.pl</code>. Sobald die Einstellungen angepasst sind, kann dieses Skript zum Start von Ado verwendet werden.
+    </blockquote>
+    </li>
+    <li>Als Anwender schauen Sie bitte auf die Endbenutzer-Hilfe unter <a href="<%=url_for('/help')%>">/help</a>!</li>
+    <li>Als PERL-Entwickler schauen Sie auf die Hilfe-Seiten unter <a href="<%=url_for('/perldoc')%>">/perldoc</a>!</li>
+    <li>Entwickeln Sie Ihre Website, Applikation - oder beides! Lesen und befolgen Sie die folgenden Empfehlungen unter <%= link_to 'Mojolicious::Guides::Growing' => '/perldoc/Mojolicious/Guides/Growing', target=>'_blank' %>.</li>
+    <li>Genug zu Ado - viel Spaß mit <b>Ado</b>!</li>
+    <li>Immer noch hier? Sie lesen weiter? Ado enthält einige Features, die jederzeit ausprobiert werden können:
+        <ol>
+          <li>
+            Designen Sie einige Tabellen und verwenden Sie 
+            <a href="<%=url_for('/perldoc/Ado/Command/generate/crud')%>">Ado::Command::generate::crud</a>, um Ihre eigenen Controller zu generieren, um mit ihnen
+            zu spielen. Die Modell-Klassen (Model classes) werden dynamisch generiert.
+          </li>
+          <li>
+            Wenn Sie tiefer einsteigen wollen, können Sie mittels
+            <code>dsc_dump_schema.pl</code> die Modell-Klassen (Model classes) auf Platte schreiben lassen. Siehe
+            <a href="<%=url_for('/perldoc/DBIx/Simple/Class')%>">DBIx::Simple::Class</a> für weitere Details.
+          </li>
+          <li>
+            Möchten Sie als Contributor zum Ado-Projekt beitragen oder zumindest vorbereitet auf das nächste Ado-Upgrade sein?
+            Starten Sie zur Entwicklung Ihres eigenen Ado::Plugin das Tool
+            <a href="<%=url_for('/perldoc/Ado/Command/generate/adoplugin')%>">Ado::Command::generate::adoplugin</a>.
+          </li>
+          <li>
+            Die Programm-Logik zur Benutzer-<a href="<%=url_for('/help')%>">Dokumentation</a> 
+            ist unter <a href="<%=url_for('/perldoc/Ado/Plugin/MarkdownRenderer')%>">Ado::Plugin::MarkdownRenderer</a> dokumentiert.
+          </li>
+          <li>
+            Die Programm-Logik zur Benutzer-<a href="<%=url_for('/test/authenticateduser')%>">Authentifizierung</a> ist unter <a href="<%=url_for('/perldoc/Ado/Plugin/Auth')%>">Ado::Plugin::Auth</a> dokumentiert.
+            Verwenden Sie dazu das Login <i>User: 'test1'; Password: 'test1'</i>!
+          </li>
+          <li>
+            Mehrsprachige Websites werden implementiert über
+            <a href="<%=url_for('/perldoc/Ado/Plugin/I18n')%>">Ado::Plugin::I18n</a>.
+          </li>
+          <li>Sie können Konfigurationsdateien für Apache 2 über die Kommandos
+            <code>ado generate apache2vhost</code> und
+            <code>ado generate apache2htaccess</code> generieren lassen.
+          </li>
+        </ol>
+    </li>
+  </ol>
+</article>
+<div class="ui horizontal section divider" style="margin-top:2em">
+  <i class="circular ado icon"></i>
+</div>
+<article class="ui footer small">
+  <h3>COPYRIGHT AND LICENSE</h3>
+<p>&copy; 2013-2014 Красимир Беров (Krasimir Berov).</p>
+<p>
+This program is free software, you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may copy, distribute and modify the software provided that modifications are open source. However, software that includes the license may release under a different license.
+
+<br />
+See http://opensource.org/licenses/lgpl-3.0.html for more information.</p>
