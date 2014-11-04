@@ -150,11 +150,11 @@ sub _login_ado {
 
 =head1 NAME
 
-Ado::Plugin::Auth - Authenticate users
+Ado::Plugin::Auth - Passwordless user authentication for Ado
 
 =head1 SYNOPSIS
 
-  #in ado.${\$app->mode}.conf
+  #in ado.$mode.conf
   plugins =>[
     #...
     {name => 'auth', config => {
@@ -169,7 +169,13 @@ Ado::Plugin::Auth - Authenticate users
 
 L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
 Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
-and other authentication service-providers.
+and other authentication service-providers. 
+
+Note that the user's pasword is never sent over the network. When using the local
+authentication method (ado) a digest is prepared in the browser using JavaScript.
+The digest is sent and compared on the server side. The digest is different in
+every POST request. The other authentication methods use the services provided by
+well known service providers like Google, Facebook, Github etc.
 
 =head1 OPTIONS
 
@@ -183,7 +189,7 @@ authenticate a user. The services will be listed in the specified order
 in the partial template C<authbar.html.ep> that can be included
 in any other template on your site.
 
-  #in ado.${\$app->mode}.conf
+  #in ado.$mode.conf
   plugins =>[
     #...
     {name => 'auth', config => {
@@ -208,10 +214,10 @@ if condition redirects to C</login/:auth_method>.
   # add the condition programatically
   $app->routes->route('/ado-users/:action', over => {authenticated=>1});
   $app->routes->route('/ado-users/:action', 
-    over => [authenticated => 1, authz => {group => 'admin'}]
+    over => [authenticated => 1, ingroup => 'admin']
   );
 
-  #in ado.conf or ado.${\$app->mode}.conf
+  #in ado.conf or ado.$mode.conf
   routes => [
     #...
     {
@@ -220,7 +226,7 @@ if condition redirects to C</login/:auth_method>.
       
       # only authenticated users can edit and delete users,
       # and only if they are authorized to do so
-      over => [authenticated => 1, authz => {group => 'admin'}],
+      over => [authenticated => 1, ingroup => 'admin'],
       to =>'ado-users#edit'
     }
   ],
@@ -234,7 +240,7 @@ Checks if a user is in the given group. Returns true or false
     route => '/vest', 
     via => ['GET'], 
     to => 'vest#screen', 
-    over => {authenticated => 1, ingroup => 'foo'},
+    over => [authenticated => 1, ingroup => 'foo'],
   }
   # programatically
   $app->routes->route('/ado-users/:action', over => {ingroup => 'foo'});
@@ -252,10 +258,10 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 
 =head2 /login
 
-  /login/:auth_method
+  /login/ado
 
 If accessed using a C<GET> request displays a login form.
-If accessed via C<POST> performs authentication using C<:auth_method>.
+If accessed via C<POST> performs authentication using C<ado> system database.
 
 =head2 /logout
 
@@ -265,7 +271,8 @@ Expires the session and redirects to the base URL.
 
 =head1 TEMPLATES
 
-L<Ado::Plugin::Auth> embeds the following templates. You can run C<ado inflate> and modify them.
+L<Ado::Plugin::Auth> embeds the following templates.
+You can run C<ado inflate> and modify them.
 Usage examples can be found at L<http://localhost:3000> after starting ado.
 
 =head2 partials/authbar.html.ep
@@ -292,13 +299,15 @@ L<Ado::Plugin> and implements the following new ones.
 This method is called by C<$app-E<gt>plugin>.
 Registers the plugin in L<Ado> application and merges authentication 
 configuration from C<$MOJO_HOME/etc/ado.conf> with settings defined in
-C<$MOJO_HOME/etc/plugins/auth.conf>. Authentication settings defined in C<ado.conf>
-will overwrite those defined in C<plugins/auth.conf>.
+C<$MOJO_HOME/etc/plugins/auth.conf>. Authentication settings defined in
+C<plugins/auth.$mode.conf>C<ado.conf> will override those defined in
+C<plugins/auth.conf>. Authentication settings defined in C<ado.conf> will
+override both.
 
 =head1 TODO
 
 The following authentication methods are in the TODO list:
-facebook, linkedin, google.
+facebook, linkedin, google, github.
 Others may be added later.
 
 =head1 SEE ALSO

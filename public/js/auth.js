@@ -20,7 +20,8 @@ function switch_login_method() {
 }
 /**
  * Generates digest value and adds it to digest field in the login form.
- * Removes the value from the password field.
+ * Removes the password field. It is not sent over HTTP.
+ * See https://developer.mozilla.org/en-US/docs/Security/InsecurePasswords
  */
 function generate_digest () {
   var digest = $('#login_form [name="digest"]');
@@ -30,7 +31,7 @@ function generate_digest () {
   login_password_sha1 = CryptoJS.SHA1(login_name.val() + login_password.val());
   //set digest
   digest.val(CryptoJS.SHA1(csrf_token.val() + login_password_sha1));
-  login_password.val('');
+  login_password.remove();
 
 }
 
