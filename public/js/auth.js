@@ -36,7 +36,7 @@ function generate_digest () {
 }
 
 jQuery( document ).ready(function( $ ) {
-  $('#authbar .dropdown a.item, #login_form .checkbox [type="radio"]').click(switch_login_method);
+  $('#authbar .dropdown ado.ado, #login_form .checkbox [type="radio"]').click(switch_login_method);
   $('#login_form .header')
     .text('Login using ' + 
       $.trim($('#login_form .checkbox>:checked').parent().text())

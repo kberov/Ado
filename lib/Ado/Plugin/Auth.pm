@@ -1,15 +1,43 @@
 package Ado::Plugin::Auth;
 use Mojo::Base 'Ado::Plugin';
+use Mojo::Util qw(class_to_path);
 
 sub register {
     my ($self, $app, $conf) = shift->initialise(@_);
 
     # Make sure we have all we need from config files.
-    $conf->{auth_methods} ||= ['ado', 'facebook'];
+    $conf->{auth_methods} ||= ['ado'];
+    $app->helper(login_ado => \&_login_ado);
+
     $app->config(auth_methods => $conf->{auth_methods});
+    $app->config(ref($self)   => $conf);
+
+
+    #OAuth2 providers
+    my @auth_methods = @{$conf->{auth_methods}}[1 .. $#{$conf->{auth_methods}}];
+
+    if (@auth_methods) {
+        for my $m (@auth_methods) {
+            Carp::croak("Configuration options for authentication method \"$m\" "
+                  . "are not enough!. Please add them.")
+              if (keys %{$conf->{providers}{$m}} < 2);
+        }
+        $app->plugin('OAuth2', $conf->{providers});
+    }
 
     # Add helpers
-    $app->helper(login_ado => \&_login_ado);
+    #oauth2 links - helpers after 'ado'
+    for my $m (@auth_methods) {
+        $app->log->debug("prepraing helper: login_$m() ");
+        $app->helper(
+            "login_$m" => sub {
+                my ($c) = @_;
+                my $token = $c->get_token($m);
+                $c->debug("\$token: $token");
+                return '1';
+            }
+        );
+    }
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
@@ -140,6 +168,7 @@ sub _login_ado {
     delete $c->session->{csrf_token};
     return '';
 }
+
 
 1;
 
@@ -342,16 +371,27 @@ __DATA__
 
 @@ partials/authbar.html.ep
 %# displayed as a menu item
+% $c->debug($c->dumper(config('Ado::Plugin::Auth')));
+% my $providers = config('Ado::Plugin::Auth')->{providers};
 <div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
   <div class="ui simple dropdown item">
     <i class="sign in icon"></i><%=l('Sign in') %>
     <div class="menu">
-    % for my $auth(@{app->config('auth_methods')}){
+    % for my $auth (@{app->config('auth_methods')}){
+      % if ($auth eq 'ado') {
       <a href="<%=url_for("login/$auth")->to_abs %>" 
-        title="<%=ucfirst l($auth) %>" class="item">
+        title="<%=ucfirst l($auth) %>" class="item <%= $auth %>">
         <i class="<%=$auth %> icon"></i>
       </a>
+      % }
+      % else { $providers->{$auth}{redirect_uri} = url_for("/login/$auth")->to_abs;
+      <a href="<%= get_authorize_url($auth,%{$providers->{$auth}}) %>" 
+        title="<%= ucfirst l($auth) %>" class="item <%= $auth %>">
+        <i class="<%=$auth %> icon"></i>
+      </a>
+      
+      %}
     % }    
     </div>
   </div>
