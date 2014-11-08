@@ -62,7 +62,7 @@ sub register {
     $config->{default_language} ||= 'en';
 
     #Supported languages by this system
-    $config->{languages} ||= ['en', 'bg'];
+    $config->{languages} ||= ['en', 'de', 'bg'];
 
     # Language will be guessed from one of these places in the order below.
     # Specify/narrow your preferences in etc/plugins/i18n.conf.
