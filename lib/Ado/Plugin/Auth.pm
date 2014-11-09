@@ -27,17 +27,8 @@ sub register {
 
     # Add helpers
     #oauth2 links - helpers after 'ado'
-    for my $m (@auth_methods) {
-        $app->log->debug("prepraing helper: login_$m() ");
-        $app->helper(
-            "login_$m" => sub {
-                my ($c) = @_;
-                my $token = $c->get_token($m);
-                $c->debug("\$token: $token");
-                return '1';
-            }
-        );
-    }
+    $app->helper(login_google => \&_login_google)
+      if(List::Util::first {$_ eq 'google'} @auth_methods);
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
@@ -49,7 +40,7 @@ sub register {
         }
     );
 
-    #Add to classes used for finding templates in DATA sections
+    #Add this package to classes searched for templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
     return $self;
 }
@@ -90,10 +81,12 @@ sub login {
         $c->session('over_route' => $referrer);
         $c->debug('over_route is ' . $referrer) if $Ado::Control::DEV_MODE;
     }
-    return $c->render(status => 200, template => 'login') if $c->req->method ne 'POST';
+    my $auth_method = Mojo::Util::trim($c->param('auth_method'));
+
+    return $c->render(status => 200, template => 'login')
+      if $c->req->method ne 'POST' && $auth_method eq 'ado';
 
     #derive a helper name for login the user
-    my $auth_method  = Mojo::Util::trim($c->param('auth_method'));
     my $login_helper = 'login_' . $auth_method;
     my $authnticated = 0;
     if (eval { $authnticated = $c->$login_helper(); 1 }) {
@@ -169,6 +162,86 @@ sub _login_ado {
     return '';
 }
 
+#used as helper within login()
+# this method is called as return_url after the user
+# agrees or denies access for the application
+sub _login_google {
+    my ($c) = @_;
+    state $app = $c->app;
+    my $provider  = $c->param('auth_method');
+    my $providers = $app->config('Ado::Plugin::Auth')->{providers};
+    $providers->{$provider}{redirect_uri} = '' . $c->url_for("/")->to_abs;
+
+    #second call should get the token it self
+    my $access_token = $c->get_token($provider, %{$providers->{$provider}});
+    $c->debug("in _login_google \$acc_token: " . ($access_token || 'no'));
+    $c->debug("in _login_google error from provider: " . ($c->param('error') || 'no error'));
+
+    #When we have an 'access_denied' from provider we get a reference to $c and not a false value!
+    if ($access_token && !ref($access_token)) {    #Athenticate, create and login the user.
+        return _create_or_authenticate_user($c, $access_token, $providers->{$provider});
+    }
+    else {
+        #Redirect to front-page and say sorry
+        # We are very sorry but we need to know you are a reasonable human being.
+        $c->flash(error_login => $c->l('oauth2_sorry') . ($c->param('error') || ''));
+        $c->debug('no token sorry');
+        $c->res->code(307);    #307 Temporary Redirect
+        $c->redirect_to('/');
+    }
+    return;
+}
+
+sub _create_or_authenticate_user {
+    my ($c, $access_token, $provider) = @_;
+    my $token_type = 'Bearer';
+
+    #make call for the user info
+    my $ua = Mojo::UserAgent->new;
+    my $user_info =
+      $ua->get($provider->{info_url} => {Authorization => "$token_type $access_token"})
+      ->res->json;
+    $c->debug('$user_info:' . $c->dumper($user_info));
+    state $sql = Ado::Model::Users->SQL('SELECT') . ' WHERE email=?';
+    my $user = Ado::Model::Users->query($sql, $user_info->{email});
+    $c->debug('$user:' . $c->dumper($user));
+    if ($user->id) {
+
+        if ($user->disabled) {
+            $c->flash(login_message => $c->l('oauth2_disabled'));
+            $c->redirect_to('/');
+            return;
+        }
+
+    }
+    else {
+        #create the user
+
+        $c->flash(login_message => $c->l('oauth2_wellcome'));
+        $c->redirect_to('/');
+        return 1;
+
+    }
+    return;
+}
+
+
+#action that gets authentication token from google
+# and redirects to Concent screen or directly to /login/google
+sub get_token {
+    my ($c)       = @_;
+    my $provider  = $c->param('auth_method');
+    my $providers = $c->app->config('Ado::Plugin::Auth')->{providers};
+    $providers->{$provider}{redirect_uri} = '' . $c->url_for("/login/$provider")->to_abs;
+
+    #First call will redirect the user to the provider Concent screen.
+    #$c->get_token($provider,%{$providers->{$provider}});
+    $c->redirect_to($c->get_authorize_url($provider, %{$providers->{$provider}}));
+
+    # $c->get_token redirected to the provider
+    $c->debug("in get_token: we should redirect now to: " . $c->res->headers->location);
+    return;
+}
 
 1;
 
@@ -371,27 +444,19 @@ __DATA__
 
 @@ partials/authbar.html.ep
 %# displayed as a menu item
-% $c->debug($c->dumper(config('Ado::Plugin::Auth')));
 % my $providers = config('Ado::Plugin::Auth')->{providers};
 <div class="right compact menu" id="authbar">
 % if (user->login_name eq 'guest') {
   <div class="ui simple dropdown item">
     <i class="sign in icon"></i><%=l('Sign in') %>
     <div class="menu">
-    % for my $auth (@{app->config('auth_methods')}){
-      % if ($auth eq 'ado') {
-      <a href="<%=url_for("login/$auth")->to_abs %>" 
+    % my $action ='login';
+    % for my $auth (@{app->config('auth_methods')}) {
+      % if ($auth ne 'ado') {$action ='token';}
+      <a href="<%=url_for("/$action/$auth")->to_abs %>" 
         title="<%=ucfirst l($auth) %>" class="item <%= $auth %>">
         <i class="<%=$auth %> icon"></i>
       </a>
-      % }
-      % else { $providers->{$auth}{redirect_uri} = url_for("/login/$auth")->to_abs;
-      <a href="<%= get_authorize_url($auth,%{$providers->{$auth}}) %>" 
-        title="<%= ucfirst l($auth) %>" class="item <%= $auth %>">
-        <i class="<%=$auth %> icon"></i>
-      </a>
-      
-      %}
     % }    
     </div>
   </div>

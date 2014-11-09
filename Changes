@@ -3,9 +3,10 @@ Revision history for Ado
   - Added German language (Joachim Astel). Thanks!
   - Improved Ado::Manual::Plugins a lot.
 
-0.72 2014-11-07
+0.72 2014-11-09
   - Emphasized the passwordless login feature in Ado::Plugin::Auth.
   - Added Mojolicious::Plugin::OAuth2 as a recommended dependency.
+    It will be required only if some of the supported providers is enabled.
   - Added authentication via Google.
 
 0.71 2014-11-01
