@@ -30,7 +30,7 @@ $t->get_ok('/test/bgl10n')
   ->content_is('Здрасти, Guest!', 'language explicitly set in action');
 
 $cookie = first { $_->name eq 'language' } $jar->all;
-$cookie->value('de');
+$cookie->value('is');
 $t->get_ok('/')->status_is(200)
   ->text_is('#login_form label[for="login_name"]', 'User', '/:language - fallback content');
 
