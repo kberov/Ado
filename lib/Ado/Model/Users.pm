@@ -44,8 +44,8 @@ my $CHECKS = {
     },
     'stop_date'   => {'allow' => qr/(?^x:^-?\d{1,}$)/},
     'description' => {
-        'allow'   => qr/(?^x:^.{1,255}$)/,
-        'default' => 'NULL'
+        'allow'   => qr/(?^x:^.{0,255}$)/,
+        'default' => ''
     },
     'last_name' => {'allow' => qr/(?^x:^.{1,100}$)/},
     'email'     => {
@@ -127,6 +127,7 @@ sub add {
             changed_by     => $args->{changed_by},
             stop_date      => $args->{stop_date},
             start_date     => $args->{start_date},
+            description    => $args->{description},
             group_id       => $group->id,
         );
 

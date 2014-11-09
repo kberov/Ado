@@ -179,7 +179,7 @@ sub _login_google {
 
     #When we have an 'access_denied' from provider we get a reference to $c and not a false value!
     if ($access_token && !ref($access_token)) {    #Athenticate, create and login the user.
-        return _create_or_authenticate_user($c, $access_token, $providers->{$provider});
+        return _create_or_authenticate_google_user($c, $access_token, $providers->{$provider});
     }
     else {
         #Redirect to front-page and say sorry
@@ -192,37 +192,67 @@ sub _login_google {
     return;
 }
 
-sub _create_or_authenticate_user {
-    my ($c, $access_token, $provider) = @_;
-    my $token_type = 'Bearer';
+sub _authenticate_oauth2_user {
+    my ($c, $user, $time) = @_;
+    if (   $user->disabled
+        || ($user->stop_date != 0 && $user->stop_date < $time)
+        || $user->start_date > $time)
+    {
+        $c->flash(login_message => $c->l('oauth2_disabled'));
+        $c->redirect_to('/');
+        return;
+    }
+    $c->session(login_name => $user->login_name);
+    $c->user($user);
+    $c->app->log->info('$user ' . $user->login_name . ' logged in!');
+    return 1;
+}
 
-    #make call for the user info
-    my $ua = Mojo::UserAgent->new;
+sub _create_or_authenticate_google_user {
+    my ($c, $access_token, $provider) = @_;
+
+    #make request for the user info
+    my $token_type = 'Bearer';
+    my $ua         = Mojo::UserAgent->new;
     my $user_info =
       $ua->get($provider->{info_url} => {Authorization => "$token_type $access_token"})
       ->res->json;
-    $c->debug('$user_info:' . $c->dumper($user_info));
     my $U = 'Ado::Model::Users';
     state $sql = $U->SQL('SELECT') . ' WHERE email=?';
     my $user = $U->query($sql, $user_info->{email});
-    $c->debug('$user:' . $c->dumper($user));
+    my $time = time;
 
     if ($user->id) {
-
-        if ($user->disabled) {
-            $c->flash(login_message => $c->l('oauth2_disabled'));
-            $c->redirect_to('/');
-            return;
-        }
-
+        return _authenticate_oauth2_user($c, $user, $time);
     }
     else {
         #create the user
-        #$U->add();
-        $c->flash(login_message => $c->l('oauth2_wellcome'));
-        $c->redirect_to('/');
-        return 1;
+        my %args = ();
+        $args{email}      = $user_info->{email};
+        $args{login_name} = $time . $user_info->{email};
+        $args{login_name} =~ s/\@.+//;
+        $args{login_password} =
+          Mojo::Util::sha1_hex($args{login_name} . Ado::Sessions->generate_id());
+        $args{first_name}  = $user_info->{given_name};
+        $args{last_name}   = $user_info->{family_name};
+        $args{description} = "Registered via $provider->{info_url}!";
+        $args{created_by}  = $args{changed_by} = 1;
+        $args{start_date}  = $args{disabled} = $args{stop_date} = 0;
 
+        if ($user = $U->add(%args)) {
+            $c->session(login_name => $user->login_name);
+            $c->user($user);
+            $c->app->log->info(
+                $user->description . ' $user ' . $user->login_name . ' logged in!');
+            $c->flash(login_message => $c->l('oauth2_wellcome'));
+            $c->redirect_to('/');
+            $c->debug('new user:' . $c->dumper($user->data));
+            return 1;
+        }
+        else {
+            $c->app->log->error($@);
+            return;
+        }
     }
     return;
 }
@@ -312,7 +342,7 @@ Condition for routes used to check if a user is authenticated.
 =cut
 
 #TODO:
-#Additional parameters can be passed to specify the preferred 
+#Additional parameters can be passed to specify the preferred
 #authentication method to be preselected in the login form
 #if condition redirects to C</login/:auth_method>.
 
