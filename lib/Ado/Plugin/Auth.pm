@@ -28,7 +28,7 @@ sub register {
     # Add helpers
     #oauth2 links - helpers after 'ado'
     $app->helper(login_google => \&_login_google)
-      if(List::Util::first {$_ eq 'google'} @auth_methods);
+      if (List::Util::first { $_ eq 'google' } @auth_methods);
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
@@ -202,9 +202,11 @@ sub _create_or_authenticate_user {
       $ua->get($provider->{info_url} => {Authorization => "$token_type $access_token"})
       ->res->json;
     $c->debug('$user_info:' . $c->dumper($user_info));
-    state $sql = Ado::Model::Users->SQL('SELECT') . ' WHERE email=?';
-    my $user = Ado::Model::Users->query($sql, $user_info->{email});
+    my $U = 'Ado::Model::Users';
+    state $sql = $U->SQL('SELECT') . ' WHERE email=?';
+    my $user = $U->query($sql, $user_info->{email});
     $c->debug('$user:' . $c->dumper($user));
+
     if ($user->id) {
 
         if ($user->disabled) {
@@ -216,7 +218,7 @@ sub _create_or_authenticate_user {
     }
     else {
         #create the user
-
+        #$U->add();
         $c->flash(login_message => $c->l('oauth2_wellcome'));
         $c->redirect_to('/');
         return 1;
@@ -226,20 +228,15 @@ sub _create_or_authenticate_user {
 }
 
 
-#action that gets authentication token from google
-# and redirects to Concent screen or directly to /login/google
-sub get_token {
-    my ($c)       = @_;
-    my $provider  = $c->param('auth_method');
-    my $providers = $c->app->config('Ado::Plugin::Auth')->{providers};
-    $providers->{$provider}{redirect_uri} = '' . $c->url_for("/login/$provider")->to_abs;
+# Redirects to Concent screen
+sub authorize {
+    my ($c)    = @_;
+    my $m      = $c->param('auth_method');
+    my $params = $c->app->config('Ado::Plugin::Auth')->{providers}{$m};
+    $params->{redirect_uri} = '' . $c->url_for("/login/$m")->to_abs;
 
-    #First call will redirect the user to the provider Concent screen.
-    #$c->get_token($provider,%{$providers->{$provider}});
-    $c->redirect_to($c->get_authorize_url($provider, %{$providers->{$provider}}));
-
-    # $c->get_token redirected to the provider
-    $c->debug("in get_token: we should redirect now to: " . $c->res->headers->location);
+    #This call will redirect the user to the provider Concent screen.
+    $c->redirect_to($c->get_authorize_url($m, %$params));
     return;
 }
 
@@ -260,7 +257,7 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
   plugins =>[
     #...
     {name => 'auth', config => {
-        auth_methods =>['ado', 'facebook',...],
+        auth_methods =>['ado', 'google',...],
         routes => [...]
       }
     }
@@ -270,14 +267,16 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
-Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter
+Users can be authenticated locally or using (TODO!) Facebook, Github, Twitter
 and other authentication service-providers. 
 
 Note that the user's pasword is never sent over the network. When using the local
 authentication method (ado) a digest is prepared in the browser using JavaScript.
 The digest is sent and compared on the server side. The digest is different in
 every POST request. The other authentication methods use the services provided by
-well known service providers like Google, Facebook, Github etc.
+well known service providers like Google, Facebook, Github etc. To use external
+authentication providers the module L<Mojolicious::Plugin::OAuth2> needs to be
+installed.
 
 =head1 OPTIONS
 
@@ -295,7 +294,7 @@ in any other template on your site.
   plugins =>[
     #...
     {name => 'auth', config => {
-        auth_methods =>['ado', 'facebook',...]
+        auth_methods =>['ado', 'google',...]
       }
     }
     #...
@@ -309,9 +308,15 @@ To find more about conditions read L<Mojolicious::Guides::Routing/Conditions>.
 =head2 authenticated
 
 Condition for routes used to check if a user is authenticated.
-Additional parameters can be passed to specify the preferred 
-authentication method to be preselected in the login form
-if condition redirects to C</login/:auth_method>.
+
+=cut
+
+#TODO:
+#Additional parameters can be passed to specify the preferred 
+#authentication method to be preselected in the login form
+#if condition redirects to C</login/:auth_method>.
+
+=pod
 
   # add the condition programatically
   $app->routes->route('/ado-users/:action', over => {authenticated=>1});
@@ -352,11 +357,26 @@ Checks if a user is in the given group. Returns true or false
 L<Ado::Plugin::Auth> provides the following helpers for use in  
 L<Ado::Control> methods and templates.
 
+=head2 login_ado
 
+Finds and logs in a user locally. Returns true on success, false otherwise.
+
+=head2 login_google
+
+Called via C</login/google>. Finds an existing user and logs it in via Google.
+Creates a new user if it does not exist and logs it in via Google.
+The new user can login only via Google.
+Returns true on success, false otherwise.
 
 =head1 ROUTES
 
 L<Ado::Plugin::Auth> provides the following routes (actions):
+
+=head2 /authorize/:auth_method
+
+Redirects to an OAuth2 provider concent screen where the user can authorize L<Ado>
+to use his information or not.
+Currently L<Ado> supports only Google.
 
 =head2 /login
 
@@ -364,6 +384,12 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 
 If accessed using a C<GET> request displays a login form.
 If accessed via C<POST> performs authentication using C<ado> system database.
+
+  /login/google
+
+Google concent screen redirects to this action. 
+This action is handled by L</login_google>.
+
 
 =head2 /logout
 
@@ -409,11 +435,12 @@ override both.
 =head1 TODO
 
 The following authentication methods are in the TODO list:
-facebook, linkedin, google, github.
+facebook, linkedin, github.
 Others may be added later.
 
 =head1 SEE ALSO
 
+L<Mojolicious::Plugin::OAuth2>,
 L<Ado::Plugin>, L<Ado::Manual::Plugins>, L<Mojolicious::Plugins>, 
 L<Mojolicious::Plugin>, L<Mojolicious::Guides::Routing/Conditions>
 
@@ -452,7 +479,7 @@ __DATA__
     <div class="menu">
     % my $action ='login';
     % for my $auth (@{app->config('auth_methods')}) {
-      % if ($auth ne 'ado') {$action ='token';}
+      % if ($auth ne 'ado') {$action ='authorize';}
       <a href="<%=url_for("/$action/$auth")->to_abs %>" 
         title="<%=ucfirst l($auth) %>" class="item <%= $auth %>">
         <i class="<%=$auth %> icon"></i>
