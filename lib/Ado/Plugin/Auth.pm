@@ -370,7 +370,7 @@ __DATA__
       <%= stash->{error_login} %></div>
     % }
     <div class="field auth_methods">
-      % for my $auth(@{app->config('auth_methods')}){
+      % for my $auth(@{config('auth_methods')}){
       <span class="ui toggle radio checkbox">
         <input name="_method" type="radio" id="<%=$auth %>_radio"
           %== (stash->{auth_method}//'') eq $auth ? 'checked="checked"' : ''
