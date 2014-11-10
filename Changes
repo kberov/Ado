@@ -1,7 +1,4 @@
 Revision history for Ado
-0.72 2014-11-10
-  - Added German language (Joachim Astel). Thanks!
-  - Improved Ado::Manual::Plugins a lot.
 
 0.72 2014-11-15
   - Emphasized the passwordless login feature in Ado::Plugin::Auth.
@@ -10,6 +7,8 @@ Revision history for Ado
     It will be required only if some of the supported providers is enabled.
   - Implemented experimental authentication via Google.
   - Added hook "after_user_add" emited by Ado::Plugin::Auth.
+  - Improved Ado::Manual::Plugins a lot.
+  - Added German language (Joachim Astel). Thanks!
 
 0.71 2014-11-01
   - Fixed bug in Ado::Plugin::home_dir(). Wrong assumption regarding %INC keys.
