@@ -1,4 +1,6 @@
 Revision history for Ado
+0.72 2014-11-10
+  - Added German language (Joachim Astel). Thanks!
 
 0.71 2014-11-01
   - Fixed bug in Ado::Plugin::home_dir(). Wrong assumption regarding %INC keys.
