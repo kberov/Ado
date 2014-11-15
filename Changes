@@ -1,5 +1,15 @@
 Revision history for Ado
 
+0.72 2014-11-15
+  - Emphasized the passwordless login feature in Ado::Plugin::Auth.
+  - overeall improvement of Ado::Plugin::Auth documentation.
+  - Added Mojolicious::Plugin::OAuth2 as a recommended dependency.
+    It will be required only if some of the supported providers is enabled.
+  - Implemented experimental authentication via Google.
+  - Added hook "after_user_add" emited by Ado::Plugin::Auth.
+  - Added German language (Joachim Astel). Thanks!
+  - Improved Ado::Manual::Plugins a lot.
+
 0.71 2014-11-01
   - Fixed bug in Ado::Plugin::home_dir(). Wrong assumption regarding %INC keys.
   - Removed unused Test::AdoPlugin.

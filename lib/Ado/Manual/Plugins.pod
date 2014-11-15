@@ -13,47 +13,107 @@ The only difference between Ado and Mojolicious plugins is that Ado
 plugins can retrieve their settings from their own files.
 
 The files must be named after the plugins for which they contain configuration.
-A plugin Ado::Plugin::Hello will search its configuration in 
+A plugin Ado::Plugin::Hello (when installed) will search its configuration in
 C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
 depending on the current mode ($ENV{MOJO_MODE}) the file 
-C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')> will also be loaded
-and will overwrite all settings from C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
-The file must return a HASHREF.
-See the code of the listed plugins below for examples of 
-how and what can be done in a plugin.
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')>
+will also be loaded and will override all settings from 
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
+The file must return a HASHREF. See the code of the listed plugins below for
+examples of how and what can be done in a plugin.
 
-L<Ado> can be stripped down to a bare Mojolicious application 
-by not loading any Ado plugins.
-And L<Ado> can be extended I<infinitely> just by adding helpers, 
+To create your own plugin do the following (Example):
+
+=over
+
+=item * Create one or more tables to be used by your plugin in C<etc/ado.sqlite>
+
+  CREATE TABLE blog (
+    id INTEGER PRIMARY KEY,
+    title VARCHAR NOT NULL UNIQUE,
+    body TEXT NOT NULL,
+    published BOOL DEFAULT '0',
+    deleted BOOL NOT NULL DEFAULT '0', 
+    user_id INTEGER REFERENCES users(id), 
+    group_id INTEGER REFERENCES groups(id), 
+    permissions VARCHAR(10) DEFAULT '-rwxr-xr-xr' 
+  );
+  CREATE INDEX blog_published ON blog(published);
+  CREATE INDEX blog_deleted ON blog(deleted);
+
+=item * Add some dummy records.
+
+  INSERT INTO blog(title,body,user_id,group_id) 
+  VALUES('Hey','Hello world',3,3);
+  INSERT INTO blog(title,body,user_id,group_id) 
+  VALUES('Hey You','Hello Universe',3,3);
+
+=item * Generate the files for the plugin. These are the files which you will edit :).
+
+  $ cd ~/opt/public_dev
+  $ ado generate adoplugin -n Blog --crud -t blog
+
+The above command will generate the needed files for an ado plugin
+which can even be uploaded to and subsequently downloaded from
+L<CPAN|http://www.cpan.org/>. L<CPAN> is the best open source dependency
+management system. You can also use L<Stratopan|https://stratopan.com/> if you wish.
+
+=back
+
+Ado uses L<Ado::Build> and L<Ado::BuildPlugin> which extend L<Module::Build>.
+They were created to add some custom actions and handle the additional
+C<templates>,C<log> and C<public> directories in Ado root folder.
+The file tree looks like the following:
+
+  ~/opt/public_dev/Ado-Plugin-Blog$ tree
+  .
+  ├── Build.PL
+  ├── etc
+  │   └── plugins
+  │       └── blog.conf
+  ├── lib
+  │   └── Ado
+  │       ├── Control
+  │       │   └── Blog.pm
+  │       └── Plugin
+  │           └── Blog.pm
+  ├── templates
+  │   └── blog
+  │       ├── create.html.ep
+  │       ├── delete.html.ep
+  │       ├── list.html.ep
+  │       └── read.html.ep
+  └── t
+      └── plugin
+          └── blog-00.t
+
+
+No worries, your plugin has everything needed to be installed from CPAN.
+L<Ado::Plugin::Vest> was started using this command.
+
+L<Ado> can be stripped down to a bare Mojolicious application by not loading any
+plugins. And L<Ado> can be extended I<infinitely> just by adding helpers,
 conditions, routes, templates and injecting code into hooks from plugins.
 I<This is true for any Mojolicious application.>
 
 
 =head1 PLUGINS
 
-Ado comes with the following default plugins.
+Ado comes with the following default plugins. They can be used as examples and for inspiration.
 
 =over 2
 
-=item L<Ado::Plugin::AdoHelpers>
+=item * L<Ado::Plugin::AdoHelpers> - Default Ado helpers
 
-Default Ado helpers
+=item * L<Ado::Plugin::Auth> - Authenticate users
 
-=item L<Ado::Plugin::Auth>
+=item * L<Ado::Plugin::I18n> - Internationalization and localization for Ado
 
-Authenticate users.
+=item * L<Ado::Plugin::MarkDownRenderer> - Render markdown to HTML
 
-=item L<Ado::Plugin::MarkDownRenderer>
+=item * L<Ado::Plugin::Routes> - Keep routes in their own configuration file separately
 
-Render markdown to HTML.
-
-=item L<Ado::Plugin::Routes>
-
-Keep routes in their own configuration file separately.
-
-=item L<Ado::Control::Test>
-
-A controller used for testing Ado.
+=item * L<Ado::Control::Test> - A controller used for testing Ado
 
 =back
 

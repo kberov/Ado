@@ -28,7 +28,7 @@ INSERT INTO `user_group` VALUES(1,1);
 
 INSERT INTO `groups` VALUES(2,'guest','guest',1,1,0);
 INSERT INTO `users` VALUES(2,2,'guest','8097beb8d5950479e49d803e683932150f469827',
-'Guest','','foo@localhost',
+'Guest','','guest@localhost',
 'Guest user. Anybody not authenticated gets a guest session.',
 1,1,54022241011303270,0,1,0,0);
 INSERT INTO `user_group` VALUES(2,2);
