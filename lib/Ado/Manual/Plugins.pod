@@ -26,7 +26,7 @@ To create your own plugin do the following (Example):
 
 =over
 
-=item * Create one or more tables to be used by your plugin in etc/ado.sqlite
+=item * Create one or more tables to be used by your plugin in C<etc/ado.sqlite>
 
   CREATE TABLE blog (
     id INTEGER PRIMARY KEY,
@@ -54,8 +54,8 @@ To create your own plugin do the following (Example):
   $ ado generate adoplugin -n Blog --crud -t blog
 
 The above command will generate the needed files for an ado plugin
-which can even be uploaded to and subsequently downloaded from L
-<CPAN|http://www.cpan.org/>. L<CPAN> is the best open source dependency
+which can even be uploaded to and subsequently downloaded from
+L<CPAN|http://www.cpan.org/>. L<CPAN> is the best open source dependency
 management system. You can also use L<Stratopan|https://stratopan.com/> if you wish.
 
 =back
