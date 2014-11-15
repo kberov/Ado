@@ -266,14 +266,14 @@ sub _create_or_authenticate_google_user {
 }
 
 
-# Redirects to Concent screen
+# Redirects to Consent screen
 sub authorize {
     my ($c)    = @_;
     my $m      = $c->param('auth_method');
     my $params = $c->app->config('Ado::Plugin::Auth')->{providers}{$m};
     $params->{redirect_uri} = '' . $c->url_for("/login/$m")->to_abs;
 
-    #This call will redirect the user to the provider Concent screen.
+    #This call will redirect the user to the provider Consent screen.
     $c->redirect_to($c->get_authorize_url($m, %$params));
     return;
 }
@@ -443,7 +443,7 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 
 =head2 /authorize/:auth_method
 
-Redirects to an OAuth2 provider concent screen where the user can authorize L<Ado>
+Redirects to an OAuth2 provider consent screen where the user can authorize L<Ado>
 to use his information or not.
 Currently L<Ado> supports only Google.
 
@@ -456,7 +456,7 @@ If accessed via C<POST> performs authentication using C<ado> system database.
 
   /login/google
 
-Google concent screen redirects to this action. 
+Google consent screen redirects to this action. 
 This action is handled by L</login_google>.
 
 
