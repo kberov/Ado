@@ -23,7 +23,7 @@ if (!$ENV{TEST_AUTHOR}) {
 #or find another way to shut up "Wide character in print" warnings
 add_stopwords(
     qw(
-      Krasimir Berov Красимир Беров berov
+      Krasimir Berov Красимир Беров berov Joachim Astel
       kumcho vulcho com Вълчо Неделчев Nedelchev Valcho
       http html org metacpan url urls
       Mojolicious Mojo app apps Foo SQLite ActivePerl
