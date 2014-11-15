@@ -39,6 +39,14 @@ sub register {
             return $_[1]->user->ingroup($_[-1]);
         }
     );
+    $app->hook(
+        after_user_add => sub {
+            my ($c, $user, $raw_data) = @_;
+            $app->log->info($user->description . ' $user->id ' . $user->id . ' added!');
+            $c->debug('new user created with arguments:' . $c->dumper($user->data, $raw_data))
+              if $Ado::Control::DEV_MODE;
+        }
+    );
 
     #Add this package to classes searched for templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
@@ -238,19 +246,19 @@ sub _create_or_authenticate_google_user {
         $args{description} = "Registered via $provider->{info_url}!";
         $args{created_by}  = $args{changed_by} = 1;
         $args{start_date}  = $args{disabled} = $args{stop_date} = 0;
+        my $app = $c->app;
 
         if ($user = $U->add(%args)) {
-            $c->session(login_name => $user->login_name);
+            $app->plugins->emit_hook(after_user_add => $c, $user, $user_info);
             $c->user($user);
-            $c->app->log->info(
-                $user->description . ' $user ' . $user->login_name . ' logged in!');
+            $c->session(login_name => $user->login_name);
+            $app->log->info($user->description . ' $user ' . $user->login_name . ' logged in!');
             $c->flash(login_message => $c->l('oauth2_wellcome'));
             $c->redirect_to('/');
-            $c->debug('new user:' . $c->dumper($user->data));
             return 1;
         }
         else {
-            $c->app->log->error($@);
+            $app->log->error($@);
             return;
         }
     }
@@ -283,16 +291,12 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
 
 =head1 SYNOPSIS
 
-  #in ado.$mode.conf
+  #in etc/ado.$mode.conf
   plugins =>[
     #...
-    {name => 'auth', config => {
-        auth_methods =>['ado', 'google',...],
-        routes => [...]
-      }
-    }
+    'auth',
     #...
-  ]
+  ],
 
 =head1 DESCRIPTION
 
@@ -308,9 +312,9 @@ well known service providers like Google, Facebook, Github etc. To use external
 authentication providers the module L<Mojolicious::Plugin::OAuth2> needs to be
 installed.
 
-=head1 OPTIONS
+=head1 CONFIGURATION
 
-The following options can be set in C<etc/ado.conf>.
+The following options can be set in C<etc/plugins/auth.$mode.conf>.
 You can find default options in C<etc/plugins/auth.conf>.
 
 =head2 auth_methods
@@ -320,15 +324,34 @@ authenticate a user. The services will be listed in the specified order
 in the partial template C<authbar.html.ep> that can be included
 in any other template on your site.
 
-  #in ado.$mode.conf
-  plugins =>[
-    #...
-    {name => 'auth', config => {
-        auth_methods =>['ado', 'google',...]
-      }
-    }
-    #...
-  ]
+  #in etc/plugins/auth.$mode.conf
+  {
+    #methods which will be displayed in the "Sign in" menu
+    auth_methods => ['ado', 'google'],
+  }
+
+=head2 providers
+
+A Hash reference with keys representing names of providers (same as auth_methods)
+and values, containing the configurations for the specific providers.
+This option will be merged with already defined providers by
+L<Mojolicious::Plugin::OAuth2>.
+Add the rest of the needed configuration options to auth.development.conf or
+auth.production.conf only because this is highly sensitive and application
+specific information.
+
+  #Example for google:
+  google =>{
+      #client_id
+      key =>'123456654321abcd.apps.googleusercontent.com',
+      secret =>'Y0uRS3cretHEre',
+      scope=>'profile email',
+      info_url => 'https://www.googleapis.com/userinfo/v2/me',
+      },
+
+=head2 routes
+
+Currently defined routes are described in L</ROUTES>.
 
 =head1 CONDITIONS
 
@@ -341,7 +364,7 @@ Condition for routes used to check if a user is authenticated.
 
 =cut
 
-#TODO:
+#TODO:?
 #Additional parameters can be passed to specify the preferred
 #authentication method to be preselected in the login form
 #if condition redirects to C</login/:auth_method>.
@@ -354,7 +377,7 @@ Condition for routes used to check if a user is authenticated.
     over => [authenticated => 1, ingroup => 'admin']
   );
 
-  #in ado.conf or ado.$mode.conf
+  #in etc/ado.$mode.conf or etc/plugins/foo.$mode.conf
   routes => [
     #...
     {
@@ -372,7 +395,7 @@ Condition for routes used to check if a user is authenticated.
 
 Checks if a user is in the given group. Returns true or false
   
-  # in etc/routes.conf or etc/fooplugin.conf
+  # in etc/plugins/routes.conf or etc/plugins/foo.conf
   {
     route => '/vest', 
     via => ['GET'], 
@@ -397,6 +420,22 @@ Called via C</login/google>. Finds an existing user and logs it in via Google.
 Creates a new user if it does not exist and logs it in via Google.
 The new user can login only via Google.
 Returns true on success, false otherwise.
+
+=head1 HOOKS
+
+Ado::Plugin::Auth emits the following hooks.
+
+=head2 after_user_add
+
+  $app->hook(after_build_tx => sub {
+    my ($c, $user, $raw_data) = @_;
+    my $group = $user->add_to_group(ingroup=>'vest');
+    ...
+  });
+
+In your plugin you can define some functionality to be executed right after a user
+is added. For example add a user to a group after registration. Passed the controller,
+the newly created C<$user> and the $raw_data used to create the user.
 
 =head1 ROUTES
 
@@ -430,7 +469,7 @@ Expires the session and redirects to the base URL.
 =head1 TEMPLATES
 
 L<Ado::Plugin::Auth> embeds the following templates.
-You can run C<ado inflate> and modify them.
+You can run C<ado inflate> and modify the inflated files.
 Usage examples can be found at L<http://localhost:3000> after starting ado.
 
 =head2 partials/authbar.html.ep
@@ -458,9 +497,8 @@ This method is called by C<$app-E<gt>plugin>.
 Registers the plugin in L<Ado> application and merges authentication 
 configuration from C<$MOJO_HOME/etc/ado.conf> with settings defined in
 C<$MOJO_HOME/etc/plugins/auth.conf>. Authentication settings defined in
-C<plugins/auth.$mode.conf>C<ado.conf> will override those defined in
-C<plugins/auth.conf>. Authentication settings defined in C<ado.conf> will
-override both.
+C<plugins/auth.$mode.conf> will override those defined in C<plugins/auth.conf>.
+Authentication settings defined in C<ado.conf> will override both.
 
 =head1 TODO
 
@@ -473,10 +511,6 @@ Others may be added later.
 L<Mojolicious::Plugin::OAuth2>,
 L<Ado::Plugin>, L<Ado::Manual::Plugins>, L<Mojolicious::Plugins>, 
 L<Mojolicious::Plugin>, L<Mojolicious::Guides::Routing/Conditions>
-
-=head1 SPONSORS
-
-The original author
 
 =head1 AUTHOR
 

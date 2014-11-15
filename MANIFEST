@@ -150,6 +150,7 @@ t/plugin/ado_helpers.t
 t/plugin/auth-00.t
 t/plugin/auth-01.t
 t/plugin/auth-02.t
+t/plugin/auth-03.t
 t/plugin/example-00.t
 t/plugin/example-01.t
 t/plugin/i18n-00.t
