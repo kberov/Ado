@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
   login_password varchar(40) NOT NULL,
   first_name varchar(255) NOT NULL DEFAULT '',
   last_name varchar(255) NOT NULL DEFAULT '',
-  email varchar(255) NOT NULL DEFAULT '',
+  email varchar(255) NOT NULL UNIQUE,
   description varchar(255) DEFAULT NULL,
 --  'id of who created this user.'
   created_by INTEGER REFERENCES users(id),

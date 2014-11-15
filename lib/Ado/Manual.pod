@@ -130,11 +130,14 @@ L<http://www.thefreedictionary.com/ado>.
 
 =head1 AUTHORS
 
-Authors in order of appearance.
+Authors, ordered by contributions.
 
-Красимир Беров (Krasimir Berov)(berov@cpan.org) 
+Красимир Беров (Krasimir Berov)(berov@cpan.org)
 
 Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
+
+Joachim Astel
+
 
 =head1 COPYRIGHT AND LICENSE
 

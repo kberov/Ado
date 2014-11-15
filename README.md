@@ -127,11 +127,13 @@ friendly developers and organizations to install and test it continuously.
 
 # AUTHORS
 
-Authors in order of appearance.
+Authors, ordered by contributions.
 
-Красимир Беров (Krasimir Berov)(berov@cpan.org) 
+Красимир Беров (Krasimir Berov)(berov@cpan.org)
 
 Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
+
+Joachim Astel
 
 # COPYRIGHT AND LICENSE
 
