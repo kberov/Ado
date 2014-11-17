@@ -57,7 +57,7 @@
             "Locale::Maketext" : "1.25",
             "Mojolicious" : "5.54",
             "Mojolicious::Plugin::DSC" : "0.999",
-            "Mojolicious::Plugin::SemanticUI" : "0.06",
+            "Mojolicious::Plugin::SemanticUI" : "0.08",
             "Text::MultiMarkdown" : "1.000035",
             "perl" : "v5.14.0"
          }
@@ -66,7 +66,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.72"
+         "version" : "0.73"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -190,5 +190,5 @@
          "url" : "https://github.com/kberov/Ado"
       }
    },
-   "version" : "0.72"
+   "version" : "0.73"
 }
