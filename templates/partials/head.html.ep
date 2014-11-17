@@ -12,10 +12,10 @@
     <title><%= title %></title>
     <link rel="icon" href="<%=$base_url%>/favicon.png" type="image/png" />
     %= stylesheet begin
-@import url('/vendor/SemanticUI/definitions/globals/reset.min.css');
-@import url('/vendor/SemanticUI/definitions/css/semantic.min.css');
+@import url('/vendor/SemanticUI/componenets/reset.min.css');
+@import url('/vendor/SemanticUI/semantic.min.css');
     %=end
     <!-- <link href='//fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css' /> -->
     <link href="/css/ado.css" rel="stylesheet" type="text/css" />
     %= javascript "/mojo/jquery/jquery.js"
-    %= javascript "/vendor/SemanticUI/definitions/javascript/semantic.min.js"
+    %= javascript "/vendor/SemanticUI/semantic.min.js"
