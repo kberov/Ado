@@ -2,8 +2,8 @@
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
-my $t = Test::Mojo->new('Ado');
-my $ado    = $t->app;
+my $t   = Test::Mojo->new('Ado');
+my $ado = $t->app;
 
 note('Testing authentication via Google');
 if (!List::Util::first { $_ eq 'google' } @{$ado->config('auth_methods')}) {
@@ -25,7 +25,9 @@ MSG
 #   7. Run your application: morbo -l "http://*:3000" ./bin/ado
 #   8. Run this test: prove -lv t/plugin/auth-03.t
 
-$t->get_ok('/authorize/google')->status_is(302)->header_like(Location => qr|^https://accou.+?response_type=code|,);
+$t->get_ok('/authorize/google')->status_is(302)
+  ->header_like(Location => qr|^https://accou.+?response_type=code|,);
+
 # TODO: Fake the communication flow with Google to test the
 # functionality under /login/google.
 # No idea how to test the whole real flow. Any idea is highly appreciated.

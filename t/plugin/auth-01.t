@@ -24,6 +24,7 @@ $t->get_ok('/login/ado', {Referer => $test_auth_url})->status_is(200)
   ->element_exists('section.ui.login_form form#login_form')
   ->text_is('form#login_form .ui.header:nth-child(1)' => 'Login')->element_exists('#login_name')
   ->element_exists('#login_password')->element_exists('#ado_radio')
+
   #->element_exists('#google_radio')->element_exists('.login_form script')
   ->element_exists('input[name="_method"][checked="checked"][value$="/ado"]');
 
