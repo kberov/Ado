@@ -12,9 +12,9 @@ $t->get_ok('/de/test/l10n')->content_is('Hallo Guest,', '/:language/:controller/
 $t->get_ok('/en/test/l10n')->content_is('Hello Guest,', '/:language/:controller/:action content');
 $t->get_ok('/en/test/bgl10n')
   ->content_is('Здрасти, Guest!', 'language explicitly set in action');
-$t->get_ok('/is')->status_is(404, 'unknown /:language not found');
+$t->get_ok('/fr')->status_is(404, 'unknown /:language not found');
 $t->get_ok('/fr/test')->status_is(404, 'unknown /:language/:controller not found');
-$t->get_ok('/is/test/l10n')->status_is(404, 'unknown /:language/:controller:action not found');
+$t->get_ok('/fr/test/l10n')->status_is(404, 'unknown /:language/:controller:action not found');
 
 #$config->{language_from_host} TODO
 
