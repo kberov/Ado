@@ -83,7 +83,7 @@ __PACKAGE__->QUOTE_IDENTIFIERS(0);
 #find and instantiate a user object by login name
 sub by_login_name {
     state $sql = $_[0]->SQL('SELECT') . ' WHERE login_name=?';
-    return shift->query($sql, shift);
+    return $_[0]->query($sql, $_[1]);
 }
 
 sub name {
