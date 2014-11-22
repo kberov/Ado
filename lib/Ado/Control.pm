@@ -145,7 +145,7 @@ sub user {
         return $c->{user};
     }
 
-    # Called for the first time without a $user object. 
+    # Called for the first time without a $user object.
     # Defaults to current user or Guest.
     $c->{user} = Ado::Model::Users->by_login_name($c->session->{login_name} //= 'guest');
     delete @{$c->{user}->data}{@$delete_fields};

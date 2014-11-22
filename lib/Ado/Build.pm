@@ -2,10 +2,9 @@ package Ado::Build;
 use 5.014;
 use strict;
 use warnings FATAL => 'all';
-use File::Spec::Functions qw(catdir catfile catpath);
+use File::Spec::Functions qw(catdir catfile);
 use File::Path qw(make_path);
 use File::Copy qw(copy);
-use Cwd qw(abs_path);
 use ExtUtils::Installed;
 use ExtUtils::Install;
 use parent 'Module::Build';
@@ -14,16 +13,6 @@ our @EXPORT_OK = qw(
   create_build_script process_etc_files
   process_public_files process_templates_files
   ACTION_perltidy ACTION_submit PERL_DIRS);
-
-#Shamelessly stollen from File::HomeDir::Windows
-my $HOME =
-     $ENV{HOME}
-  || $ENV{USERPROFILE}
-  || (
-    $ENV{HOMEDRIVE} && $ENV{HOMEPATH}
-    ? catpath($ENV{HOMEDRIVE}, $ENV{HOMEPATH}, '')
-    : abs_path('./')
-  );
 
 sub PERL_DIRS {
     state $dirs = [map { catdir($_[0]->base_dir, $_) } qw(bin lib etc t)];

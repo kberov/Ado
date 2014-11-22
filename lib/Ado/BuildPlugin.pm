@@ -2,18 +2,13 @@ package Ado::BuildPlugin;
 use 5.014;
 use strict;
 use warnings FATAL => 'all';
-use File::Spec::Functions qw(catdir catfile catpath);
-use File::Path qw(make_path);
-use File::Copy qw(copy);
 use parent 'Module::Build';
 use Ado::Build qw(
   process_etc_files process_public_files
   process_templates_files create_build_script
   ACTION_perltidy ACTION_submit PERL_DIRS);
 
-
 1;
-
 
 =pod
 
