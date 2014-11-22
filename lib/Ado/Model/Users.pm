@@ -83,7 +83,7 @@ __PACKAGE__->QUOTE_IDENTIFIERS(0);
 #find and instantiate a user object by login name
 sub by_login_name {
     state $sql = $_[0]->SQL('SELECT') . ' WHERE login_name=?';
-    return shift->query($sql, shift);
+    return $_[0]->query($sql, $_[1]);
 }
 
 sub name {
@@ -180,17 +180,18 @@ sub add_to_group {
 }
 
 __PACKAGE__->SQL(SELECT_group_names => <<"SQL");
-    SELECT name 
-    FROM groups 
-    WHERE id IN (SELECT group_id FROM user_group WHERE user_id=?)
+    SELECT name FROM groups
+        WHERE id IN (SELECT group_id FROM user_group WHERE user_id=?)
 SQL
 
 sub ingroup {
     my ($self, $group) = @_;
-    $self->{ingroup}
-      ||= $self->dbix->query(__PACKAGE__->SQL('SELECT_group_names'), $self->id)->flat;
-    return List::Util::first { $_ eq $group } @{$self->{ingroup}} if $group;
-    return @{$self->{ingroup}};
+    state $sql = __PACKAGE__->SQL('SELECT_group_names');
+    my @groups = $self->dbix->query($sql, $self->id)->flat;
+    if ($group) {
+        return List::Util::first { $_ eq $group } @groups;
+    }
+    return @groups;
 }
 
 #Selects users belonging to a group only.
@@ -237,7 +238,7 @@ A class for TABLE users in schema main
     #in a template
     <h1>Hello, <%=user->name%>!</h1>
 
-    #Add a new user.
+    #Create a new user.
     my $user = Ado::Model::Users->add(login_name=>'petko'...);
     #Add the user to a group
     $user->add_to_group('cool');
@@ -321,7 +322,7 @@ Adds a user with C<login_name> to a group.
 Creates the group if it does not already exists.
 Returns the group.
 
-    $ingroup = Ado::Model::Users->add_to_group(login_name=>'petko',ingroup=>'admin');
+    $ingroup = $user->add_to_group(ingroup=>'admin');
 
 =head2 by_group_name
 

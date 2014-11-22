@@ -12,7 +12,7 @@
     <title><%= title %></title>
     <link rel="icon" href="<%=$base_url%>/favicon.png" type="image/png" />
     %= stylesheet begin
-@import url('/vendor/SemanticUI/componenets/reset.min.css');
+@import url('/vendor/SemanticUI/components/reset.min.css');
 @import url('/vendor/SemanticUI/semantic.min.css');
     %=end
     <!-- <link href='//fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css' /> -->

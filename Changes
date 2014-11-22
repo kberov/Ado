@@ -1,4 +1,10 @@
 Revision history for Ado
+
+0.74 2014-11-22
+  - Fixed path to reset.min.js from Semantic-UI.
+  - Fixed regression with I18n and Mojolicious 5.62.
+  - Code optimisations.
+
 0.73 2014-11-17
   - Upgraded to Mojolicious::Plugin::SemanticUI 0.08.
   - Works with Mojolicious 5.62.

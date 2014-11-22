@@ -133,16 +133,22 @@ sub validate_input {
 
 sub user {
     my ($c, $user) = @_;
+    state $delete_fields = [qw(login_password created_by changed_by disabled start_date email)];
     if ($user) {
-        delete @{$user->data}{qw(login_password created_by changed_by disabled start_date)};
+
+        # Remove as much as possible user data.
+        delete @{$user->data}{@$delete_fields};
         $c->{user} = $user;
         return $c;
     }
     elsif ($c->{user}) {
         return $c->{user};
     }
+
+    # Called for the first time without a $user object. 
+    # Defaults to current user or Guest.
     $c->{user} = Ado::Model::Users->by_login_name($c->session->{login_name} //= 'guest');
-    delete @{$c->{user}->data}{qw(login_password created_by changed_by disabled start_date)};
+    delete @{$c->{user}->data}{@$delete_fields};
     return $c->{user};
 }
 

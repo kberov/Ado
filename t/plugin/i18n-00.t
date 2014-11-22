@@ -25,6 +25,7 @@ my $config = {
 my $l = join '|', @{$$config{languages}};
 my $routes = [
 
+#Language prefixed front-end controllers
     {   route  => '/:language',
         params => {$$config{language_param} => qr/(?:$l)/},
         via    => [qw(GET OPTIONS)],
@@ -34,7 +35,7 @@ my $routes = [
     },
     {   route  => '/:language/:controller',
         via    => [qw(GET OPTIONS)],
-        params => {$$config{language_param} => qr/(?:$l)/},
+        params => {$$config{language_param} => qr/(?:$l)/, controller => qr/[\w-]{3,}/},
         to     => {
 
             #Ado::Control::Default
@@ -44,8 +45,12 @@ my $routes = [
     },
     {   route  => '/:language/:controller/:action',
         via    => [qw(GET POST OPTIONS)],
-        params => {$$config{language_param} => qr/(?:$l)/},
-        to     => {
+        params => {
+            $$config{language_param} => qr/(?:$l)/,
+            controller               => qr/[\w-]{3,}/,
+            action                   => qr/\w{3,}/
+        },
+        to => {
 
             #Ado::Control::Default
             controller => 'Default',
@@ -54,8 +59,13 @@ my $routes = [
     },
     {   route  => '/:language/:controller/:action/:id',
         via    => [qw(GET PUT DELETE OPTIONS)],
-        params => {$$config{language_param} => qr/($l)/},
-        to     => {
+        params => {
+            $$config{language_param} => qr/(?:$l)/,
+            controller               => qr/[\w-]{3,}/,
+            action                   => qr/\w{3,}/,
+            id                       => qr/\d+/
+        },
+        to => {
 
             #Ado::Control::Default
             controller => 'Default',
