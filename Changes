@@ -1,7 +1,8 @@
 Revision history for Ado
 
-0.75 2014-11-22
+0.75 2014-11-24
   - Cleaned up Ado::Build and Ado::BuildPlugin.
+  - Implemented experimental authentication via Facebook.
 
 0.74 2014-11-22
   - Fixed path to reset.min.js from Semantic-UI.
