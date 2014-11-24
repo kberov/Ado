@@ -366,11 +366,33 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
     #...
   ],
 
+    #in etc/plugins/auth.$mode.conf
+    {
+      #methods which will be displayed in the "Sign in" menu
+      auth_methods => ['ado', 'facebook', 'google'],
+      
+      providers => {
+        google => {
+            key =>'123456789....apps.googleusercontent.com',
+            secret =>'YourSECR3T',
+            scope=>'profile email',
+            info_url => 'https://www.googleapis.com/userinfo/v2/me',
+        },
+        facebook => {
+            key =>'123456789',
+            secret =>'123456789abcdef',
+            scope =>'public_profile,email',
+            info_url => 'https://graph.facebook.com/v2.2/me',
+        },
+      }
+    }
+
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
-Users can be authenticated locally or using (TODO!) Facebook, Github, Twitter
-and other authentication service-providers. 
+Users can be authenticated locally or using (TODO!) Github, Twitter
+and other authentication service-providers. B<Currently supported providers are
+Google and Facebook.>
 
 Note that the user's pasword is never sent over the network. When using the local
 authentication method (ado) a digest is prepared in the browser using JavaScript.
@@ -488,7 +510,7 @@ Called via C</login/google>. Finds an existing user and logs it in via Google.
 Creates a new user if it does not exist and logs it in via Google.
 The new user can login via any supported Oauth2 provider as long as it
 has the same email. The user can not login using Ado local authentication
-be cause he does not know his password, which is randomly generated.
+because he does not know his password, which is randomly generated.
 Returns true on success, false otherwise.
 
 =head2 login_facebook
@@ -524,7 +546,7 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 
 Redirects to an OAuth2 provider consent screen where the user can authorize L<Ado>
 to use his information or not.
-Currently L<Ado> supports only Google.
+Currently L<Ado> supports Facebook and Google.
 
 =head2 /login
 
@@ -533,9 +555,15 @@ Currently L<Ado> supports only Google.
 If accessed using a C<GET> request displays a login form.
 If accessed via C<POST> performs authentication using C<ado> system database.
 
+  /login/facebook
+
+Facebook consent screen redirects to this action.
+This action is handled by L</login_facebook>.
+
+
   /login/google
 
-Google consent screen redirects to this action. 
+Google consent screen redirects to this action.
 This action is handled by L</login_google>.
 
 
@@ -557,12 +585,12 @@ Renders a menu dropdown for choosing methods for signing in.
 
 =head2 partials/login_form.html.ep
 
-Renders a Login form.
+Renders a Login form to authenticate locally.
 
 
 =head2 login.html.ep
 
-Renders a page containing the login form.
+Renders a page containing the login form above.
 
 =head1 METHODS
 
@@ -582,8 +610,9 @@ Authentication settings defined in C<ado.conf> will override both.
 =head1 TODO
 
 The following authentication methods are in the TODO list:
-facebook, linkedin, github.
-Others may be added later.
+linkedin, github.
+Others may be added later. Please help by implementing authentication
+via more providers.
 
 =head1 SEE ALSO
 
