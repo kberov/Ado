@@ -29,6 +29,8 @@ sub register {
     #oauth2 links - helpers after 'ado'
     $app->helper(login_google => \&_login_google)
       if (List::Util::first { $_ eq 'google' } @auth_methods);
+    $app->helper(login_facebook => \&_login_facebook)
+      if (List::Util::first { $_ eq 'google' } @auth_methods);
 
     # Add conditions
     $app->routes->add_condition(authenticated => \&authenticated);
@@ -200,6 +202,34 @@ sub _login_google {
     return;
 }
 
+#used as helper within login()
+# this method is called as return_url after the user
+# agrees or denies access for the application
+sub _login_facebook {
+    my ($c) = @_;
+    state $app = $c->app;
+    my $provider  = $c->param('auth_method');
+    my $providers = $app->config('Ado::Plugin::Auth')->{providers};
+    $providers->{$provider}{redirect_uri} = '' . $c->url_for("/")->to_abs;
+
+    #second call should get the token it self
+    my $access_token = $c->get_token($provider, %{$providers->{$provider}});
+    $c->debug("in _login_facebook \$acc_token: " . ($access_token || 'no'));
+    if ($access_token && !ref($access_token)) {    #Athenticate, create and login the user.
+        return _create_or_authenticate_facebook_user($c, $access_token, $providers->{$provider});
+    }
+    else {
+        #Redirect to front-page and say sorry
+        # We are very sorry but we need to know you are a reasonable human being.
+        $c->flash(error_login => $c->l('oauth2_sorry') . ($c->param('error') || ''));
+        $c->debug('no token sorry');
+        $c->res->code(307);    #307 Temporary Redirect
+        $c->redirect_to('/');
+    }
+    return;
+
+}
+
 sub _authenticate_oauth2_user {
     my ($c, $user, $time) = @_;
     if (   $user->disabled
@@ -214,6 +244,45 @@ sub _authenticate_oauth2_user {
     $c->user($user);
     $c->app->log->info('$user ' . $user->login_name . ' logged in!');
     return 1;
+}
+
+#Creates a user using given info from provider
+sub _create_oauth2_user {
+    my ($c, $user_info, $provider) = @_;
+    state $app = $c->app;
+    if (my $user = Ado::Model::Users->add(_user_info_to_args($user_info, $provider))) {
+        $app->plugins->emit_hook(after_user_add => $c, $user, $user_info);
+        $c->user($user);
+        $c->session(login_name => $user->login_name);
+        $app->log->info($user->description . ' New $user ' . $user->login_name . ' logged in!');
+        $c->flash(login_message => $c->l('oauth2_wellcome'));
+        $c->redirect_to('/');
+        return 1;
+    }
+    $app->log->error($@);
+    return;
+}
+
+sub _create_or_authenticate_facebook_user {
+    my ($c, $access_token, $provider) = @_;
+    my $ua = Mojo::UserAgent->new;
+    my $appsecret_proof = Digest::SHA::hmac_sha256_hex($access_token, $provider->{secret});
+    $c->debug('$appsecret_proof:' . $appsecret_proof);
+    my $user_info =
+      $ua->get($provider->{info_url},
+        form => {access_token => $access_token, appsecret_proof => $appsecret_proof})->res->json;
+    $c->debug('Response from info_url:' . $c->dumper($user_info));
+    my $U = 'Ado::Model::Users';
+    state $sql = $U->SQL('SELECT') . ' WHERE email=?';
+    my $user = $U->query($sql, $user_info->{email});
+    my $time = time;
+
+    if ($user->id) {
+        return _authenticate_oauth2_user($c, $user, $time);
+    }
+
+    #else create the user
+    return _create_oauth2_user($c, $user_info, $provider);
 }
 
 sub _create_or_authenticate_google_user {
@@ -233,38 +302,10 @@ sub _create_or_authenticate_google_user {
     if ($user->id) {
         return _authenticate_oauth2_user($c, $user, $time);
     }
-    else {
-        #create the user
-        my %args = ();
-        $args{email}      = $user_info->{email};
-        $args{login_name} = $time . $user_info->{email};
-        $args{login_name} =~ s/\@.+//;
-        $args{login_password} =
-          Mojo::Util::sha1_hex($args{login_name} . Ado::Sessions->generate_id());
-        $args{first_name}  = $user_info->{given_name};
-        $args{last_name}   = $user_info->{family_name};
-        $args{description} = "Registered via $provider->{info_url}!";
-        $args{created_by}  = $args{changed_by} = 1;
-        $args{start_date}  = $args{disabled} = $args{stop_date} = 0;
-        my $app = $c->app;
 
-        if ($user = $U->add(%args)) {
-            $app->plugins->emit_hook(after_user_add => $c, $user, $user_info);
-            $c->user($user);
-            $c->session(login_name => $user->login_name);
-            $app->log->info($user->description . ' $user ' . $user->login_name . ' logged in!');
-            $c->flash(login_message => $c->l('oauth2_wellcome'));
-            $c->redirect_to('/');
-            return 1;
-        }
-        else {
-            $app->log->error($@);
-            return;
-        }
-    }
-    return;
+    #else create the user
+    return _create_oauth2_user($c, $user_info, $provider);
 }
-
 
 # Redirects to Consent screen
 sub authorize {
@@ -278,6 +319,33 @@ sub authorize {
     return;
 }
 
+# Maps user info given from provider to arguments for
+# Ado::Model::Users->new
+sub _user_info_to_args {
+    my ($ui, $provider) = @_;
+    my %args;
+    if (index($provider->{info_url}, 'google') > -1) {
+        $args{first_name} = $ui->{given_name};
+        $args{last_name}  = $ui->{family_name};
+    }
+    elsif (index($provider->{info_url}, 'facebook') > -1) {
+        $args{first_name} = $ui->{first_name};
+        $args{last_name}  = $ui->{last_name};
+    }
+    else {
+        Carp::croak('Unknown provider info_url:' . $provider->{info_url});
+    }
+    $args{email}      = $ui->{email};
+    $args{login_name} = $ui->{email};
+    $args{login_name} =~ s/[\@\.]+//g;
+    $args{login_password} =
+      Mojo::Util::sha1_hex($args{login_name} . Ado::Sessions->generate_id());
+    $args{description} = "Registered via $provider->{info_url}!";
+    $args{created_by}  = $args{changed_by} = 1;
+    $args{start_date}  = $args{disabled} = $args{stop_date} = 0;
+
+    return %args;
+}
 1;
 
 
@@ -298,11 +366,33 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
     #...
   ],
 
+    #in etc/plugins/auth.$mode.conf
+    {
+      #methods which will be displayed in the "Sign in" menu
+      auth_methods => ['ado', 'facebook', 'google'],
+      
+      providers => {
+        google => {
+            key =>'123456789....apps.googleusercontent.com',
+            secret =>'YourSECR3T',
+            scope=>'profile email',
+            info_url => 'https://www.googleapis.com/userinfo/v2/me',
+        },
+        facebook => {
+            key =>'123456789',
+            secret =>'123456789abcdef',
+            scope =>'public_profile,email',
+            info_url => 'https://graph.facebook.com/v2.2/me',
+        },
+      }
+    }
+
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
-Users can be authenticated locally or using (TODO!) Facebook, Github, Twitter
-and other authentication service-providers. 
+Users can be authenticated locally or using (TODO!) Github, Twitter
+and other authentication service-providers. B<Currently supported providers are
+Google and Facebook.>
 
 Note that the user's pasword is never sent over the network. When using the local
 authentication method (ado) a digest is prepared in the browser using JavaScript.
@@ -418,7 +508,18 @@ Finds and logs in a user locally. Returns true on success, false otherwise.
 
 Called via C</login/google>. Finds an existing user and logs it in via Google.
 Creates a new user if it does not exist and logs it in via Google.
-The new user can login only via Google.
+The new user can login via any supported Oauth2 provider as long as it
+has the same email. The user can not login using Ado local authentication
+because he does not know his password, which is randomly generated.
+Returns true on success, false otherwise.
+
+=head2 login_facebook
+
+Called via C</login/facebook>. Finds an existing user and logs it in via Facebook.
+Creates a new user if it does not exist and logs it in via Facebook.
+The new user can login via any supported Oauth2 provider as long as it
+has the same email. The user can not login using Ado local authentication
+because he does not know his password, which is randomly generated.
 Returns true on success, false otherwise.
 
 =head1 HOOKS
@@ -445,7 +546,7 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 
 Redirects to an OAuth2 provider consent screen where the user can authorize L<Ado>
 to use his information or not.
-Currently L<Ado> supports only Google.
+Currently L<Ado> supports Facebook and Google.
 
 =head2 /login
 
@@ -454,9 +555,15 @@ Currently L<Ado> supports only Google.
 If accessed using a C<GET> request displays a login form.
 If accessed via C<POST> performs authentication using C<ado> system database.
 
+  /login/facebook
+
+Facebook consent screen redirects to this action.
+This action is handled by L</login_facebook>.
+
+
   /login/google
 
-Google consent screen redirects to this action. 
+Google consent screen redirects to this action.
 This action is handled by L</login_google>.
 
 
@@ -478,12 +585,12 @@ Renders a menu dropdown for choosing methods for signing in.
 
 =head2 partials/login_form.html.ep
 
-Renders a Login form.
+Renders a Login form to authenticate locally.
 
 
 =head2 login.html.ep
 
-Renders a page containing the login form.
+Renders a page containing the login form above.
 
 =head1 METHODS
 
@@ -503,8 +610,9 @@ Authentication settings defined in C<ado.conf> will override both.
 =head1 TODO
 
 The following authentication methods are in the TODO list:
-facebook, linkedin, github.
-Others may be added later.
+linkedin, github.
+Others may be added later. Please help by implementing authentication
+via more providers.
 
 =head1 SEE ALSO
 
