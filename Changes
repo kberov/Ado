@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.75 2014-11-24
+0.75 2014-11-26
   - $CODENAME changed to
     "Дзело" - U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)
   - Cleaned up Ado::Build and Ado::BuildPlugin.
