@@ -148,3 +148,7 @@ the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kberov/ado/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
