@@ -501,7 +501,7 @@ __DATA__
 %     my $active = $l eq $language ? 'active ' : '';
 %     my $url = url_for($route, language => $l);
 %=    link_to $url,(class => "${active}button popup item", title => l($l) ), begin
-%=      t(img =>src => "/css/flags/$l.png", alt=>$l)
+        <%=$l%>
 %=    end
 %   }
 % }
@@ -513,9 +513,7 @@ __DATA__
 %     $host =~ s|^\w{2}\.||;
   <a class="<%= $active %>button popup item"
     href="//<%= $l.'.'.$host .($port?':'.$port:'') %>"
-    data-content="<%= l($l) %>">
-      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
-  </a>
+    data-content="<%= l($l) %>"><%=$l%></a>
 %   }
 % }
 % elsif($language_from eq 'param'){
@@ -524,9 +522,7 @@ __DATA__
 %     my $active = $l eq $language ? 'active ' : '';
   <a class="<%= $active %>button popup item"
     href="<%= url_with->query([$language_param => $l]); %>"
-    data-content="<%= l($l) %>">
-      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
-  </a>
+    data-content="<%= l($l) %>"><%=$l%></a>
 %   }
 % }
 % elsif($language_from eq 'cookie'){
@@ -534,10 +530,8 @@ __DATA__
 %   foreach my $l(@languages){
 %   my $active = $l eq $language ? 'active ' : '';
   <a class="<%="$l $active" %>button popup item"
-    href="<%= url_for; %>"
-    data-content="<%= l($l) %>" data-language="<%= $l %>">
-      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
-  </a>
+    href="<%= url_for; %>" data-content="<%= l($l) %>" 
+    data-language="<%= $l %>"><%=$l%></a>
 %   }
 %   my $languages_css_selectors = join(', ', map("#language_menu a.$_", @languages));
   <script src="/js/jquery.cookie.js"></script>
