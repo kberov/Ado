@@ -505,7 +505,7 @@ __DATA__
 %     my $active = $l eq $language ? 'active ' : '';
 %     my $url = url_for($route, language => $l);
 %=    link_to $url,(class => "${active}button item", title => l($l) ), begin
-        %= l($l)
+%=      l($l)
 %=    end
 %   }
 % }
