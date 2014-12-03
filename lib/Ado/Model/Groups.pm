@@ -27,7 +27,7 @@ my $CHECKS = {
     'name' => {
         'required' => 1,
         'defined'  => 1,
-        'allow'    => qr/(?^x:^.{1,255}$)/
+        'allow'    => qr/(?^x:^.{1,100}$)/
     },
     'id'          => {'allow' => qr/(?^x:^-?\d{1,}$)/},
     'description' => {

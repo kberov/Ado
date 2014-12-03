@@ -12,7 +12,7 @@ PRAGMA foreign_keys = OFF;
 DROP TABLE IF EXISTS groups;
 CREATE TABLE IF NOT EXISTS groups (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(100) UNIQUE NOT NULL,
   description VARCHAR(255) NOT NULL,
 --  'id of who created this group.'
   created_by INTEGER REFERENCES users(id),
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS users (
   login_name varchar(100) UNIQUE,
 --  'Mojo::Util::sha1_hex($login_name.$login_password)'
   login_password varchar(40) NOT NULL,
-  first_name varchar(255) NOT NULL DEFAULT '',
-  last_name varchar(255) NOT NULL DEFAULT '',
+  first_name varchar(100) NOT NULL DEFAULT '',
+  last_name varchar(100) NOT NULL DEFAULT '',
   email varchar(255) NOT NULL UNIQUE,
   description varchar(255) DEFAULT NULL,
 --  'id of who created this user.'
