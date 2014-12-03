@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.76 2014-11-29
+0.76 2014-12-03
   - Cleaned up Login form. It is used for local login only.
   - Not using flags for languages. Language menu is now a dropdown menu.
   - Upgraded to Mojolicious::Plugin::DSC 1.000.
