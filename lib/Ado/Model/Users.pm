@@ -7,6 +7,7 @@ use parent qw(Ado::Model);
 use Carp;
 use Email::Address;
 sub is_base_class { return 0 }
+my $CLASS      = __PACKAGE__;
 my $TABLE_NAME = 'users';
 
 sub TABLE       { return $TABLE_NAME }
@@ -194,22 +195,25 @@ sub ingroup {
     return @groups;
 }
 
+$CLASS->SQL('user_id_by_group_name' => <<"UG");
+    SELECT user_id FROM user_group WHERE group_id = 
+        (SELECT id FROM groups  WHERE name = ?)
+UG
+
+$CLASS->SQL('by_group_name' => <<"SQL");
+    SELECT id, login_name, first_name, last_name, email
+    FROM ${\ $CLASS->TABLE }
+    WHERE id IN(${\ $CLASS->SQL('user_id_by_group_name') })
+        AND (disabled=0 AND (stop_date>? OR stop_date=0) AND start_date<?) 
+    ORDER BY first_name, last_name ASC
+
+SQL
+
 #Selects users belonging to a group only.
 sub by_group_name {
     my ($class, $group, $limit, $offset) = @_;
-    state $group_id_SQL   = 'SELECT id FROM ' . Ado::Model::Groups->TABLE . ' WHERE name = ?';
-    state $user_group_SQL = <<"UG";
-    SELECT user_id FROM user_group WHERE group_id = ($group_id_SQL)
-UG
 
-    state $SQL = <<"SQL";
-        SELECT id, login_name, first_name, last_name, email
-        FROM ${\ $class->TABLE }
-        WHERE id IN($user_group_SQL) 
-            AND (disabled=0 AND (stop_date>? OR stop_date=0) AND start_date<?) 
-        ORDER BY first_name, last_name ASC
-        ${\ $class->SQL_LIMIT('?', '?')};
-SQL
+    state $SQL = $class->SQL('by_group_name') . $CLASS->SQL_LIMIT('?', '?');
     $limit  //= 500;
     $offset //= 0;
     my $time = time;
