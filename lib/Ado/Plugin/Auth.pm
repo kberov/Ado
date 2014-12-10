@@ -528,7 +528,7 @@ Ado::Plugin::Auth emits the following hooks.
 
 =head2 after_user_add
 
-  $app->hook(after_build_tx => sub {
+  $app->hook(after_user_add => sub {
     my ($c, $user, $raw_data) = @_;
     my $group = $user->add_to_group(ingroup=>'vest');
     ...
