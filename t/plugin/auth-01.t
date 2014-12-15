@@ -9,8 +9,7 @@ my $t = Test::Mojo->new('Ado');
 #Plugins are loaded already.
 #list of authentication methods in main menu
 $t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => 'Sign in')
-  ->text_is('.simple.dropdown a.item:nth-child(1)', '')
-  ->text_is('.simple.dropdown a.item:nth-child(2)', '')
+  ->text_is('#authbar .simple.dropdown a.item:nth-child(1)', 'Ado')
 
 #login form in a modal box hidden also there
   ->text_is('#authbar .modal form#login_form .ui.header:nth-child(1)' => 'Sign in')

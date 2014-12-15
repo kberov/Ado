@@ -652,11 +652,11 @@ __DATA__
     % my $action ='login';
     % for my $auth (@{app->config('auth_methods')}) {
       % if ($auth ne 'ado') {$action ='authorize';}
-      <a href="<%=url_for("/$action/$auth")->to_abs %>" 
-        title="<%=ucfirst l($auth) %>" class="item <%= $auth %>">
-        <i class="<%=$auth %> icon"></i>
+      <a href="<%=url_for("/$action/$auth")->to_abs %>"
+        class="item <%= $auth %>">
+        <i class="<%=$auth %> icon"></i> <%=ucfirst l($auth) %>
       </a>
-    % }    
+    % }
     </div>
   </div>
   <div class="ui small modal" id="modal_login_form">
