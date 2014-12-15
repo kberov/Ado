@@ -13,7 +13,7 @@ $t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => 'Sign 
   ->text_is('.simple.dropdown a.item:nth-child(2)', '')
 
 #login form in a modal box hidden also there
-  ->text_is('#authbar .modal form#login_form .ui.header:nth-child(1)' => 'Login')
+  ->text_is('#authbar .modal form#login_form .ui.header:nth-child(1)' => 'Sign in')
 
 #user is Guest
   ->text_is('article.ui.main.container h1' => 'Hello Guest,');
@@ -22,11 +22,8 @@ $t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => 'Sign 
 my $test_auth_url = $t->ua->server->url->path('/test/authenticateduser');
 $t->get_ok('/login/ado', {Referer => $test_auth_url})->status_is(200)
   ->element_exists('section.ui.login_form form#login_form')
-  ->text_is('form#login_form .ui.header:nth-child(1)' => 'Login')->element_exists('#login_name')
-  ->element_exists('#login_password')->element_exists('#ado_radio')
-
-  #->element_exists('#google_radio')->element_exists('.login_form script')
-  ->element_exists('input[name="_method"][checked="checked"][value$="/ado"]');
+  ->text_is('form#login_form .ui.header:nth-child(1)' => 'Sign in')
+  ->element_exists('#login_name')->element_exists('#login_password');
 
 #try unexisting login method
 my $help_url = $t->ua->server->url->path('/help');

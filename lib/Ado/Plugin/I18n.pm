@@ -495,13 +495,17 @@ __DATA__
 <!-- language_from: <%=$language_from%> -->
 
 <div class="right compact menu" id="language_menu">
+<div class="ui simple dropdown item">
+  <i class="translate icon"></i><%=l('Translate') %>
+  <div class="menu">
+
 % if($language_from eq 'route') {
 %   my $route = $$stash{id} ? 'languagecontrolleractionid' : 'languagecontrolleraction';
 %   foreach my $l(@languages) {
 %     my $active = $l eq $language ? 'active ' : '';
 %     my $url = url_for($route, language => $l);
-%=    link_to $url,(class => "${active}button popup item", title => l($l) ), begin
-%=      t(img =>src => "/css/flags/$l.png", alt=>$l)
+%=    link_to $url,(class => "${active}button item", title => l($l) ), begin
+%=      l($l)
 %=    end
 %   }
 % }
@@ -511,33 +515,27 @@ __DATA__
 %     my $url = $self->req->url->to_abs->clone;
 %     my ($port, $host) = ($url->port,$url->host);
 %     $host =~ s|^\w{2}\.||;
-  <a class="<%= $active %>button popup item"
+  <a class="<%= $active %>button item"
     href="//<%= $l.'.'.$host .($port?':'.$port:'') %>"
-    data-content="<%= l($l) %>">
-      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
-  </a>
+    data-content="<%= l($l) %>"><%=l($l)%></a>
 %   }
 % }
 % elsif($language_from eq 'param'){
 %   my $language_param = $conf->{language_param};
 %   foreach my $l(@languages){
 %     my $active = $l eq $language ? 'active ' : '';
-  <a class="<%= $active %>button popup item"
+  <a class="<%= $active %>button item"
     href="<%= url_with->query([$language_param => $l]); %>"
-    data-content="<%= l($l) %>">
-      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
-  </a>
+    data-content="<%= l($l) %>"><%=l($l)%></a>
 %   }
 % }
 % elsif($language_from eq 'cookie'){
 %   my $language_param = $conf->{language_param};
 %   foreach my $l(@languages){
 %   my $active = $l eq $language ? 'active ' : '';
-  <a class="<%="$l $active" %>button popup item"
-    href="<%= url_for; %>"
-    data-content="<%= l($l) %>" data-language="<%= $l %>">
-      <img src="/css/flags/<%=$l%>.png" alt="<%=$l%>"/>
-  </a>
+  <a class="<%="$l $active" %>button item"
+    href="<%= url_for; %>" data-content="<%= l($l) %>" 
+    data-language="<%= $l %>"><%=l($l)%></a>
 %   }
 %   my $languages_css_selectors = join(', ', map("#language_menu a.$_", @languages));
   <script src="/js/jquery.cookie.js"></script>
@@ -549,6 +547,8 @@ __DATA__
     });
   </script>
 % }
+  </div><!-- end div class="dropdown menu" -->
+</div><!-- end div class="ui simple dropdown item" -->
 </div>
 <!-- language_menu end -->
 

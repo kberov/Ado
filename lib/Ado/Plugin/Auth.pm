@@ -528,7 +528,7 @@ Ado::Plugin::Auth emits the following hooks.
 
 =head2 after_user_add
 
-  $app->hook(after_build_tx => sub {
+  $app->hook(after_user_add => sub {
     my ($c, $user, $raw_data) = @_;
     my $group = $user->add_to_group(ingroup=>'vest');
     ...
@@ -673,27 +673,15 @@ __DATA__
 
 
 @@ partials/login_form.html.ep
-  <form class="ui form segment" method="POST" action="" id="login_form">
+  <form class="ui form segment" method="POST" 
+    action="<%=url_for('login/ado') %>" id="login_form">
     <div class="ui header">
-    % # Messages will be I18N-ed via JS or Perl on a per-case basis
-      Login
+    %=  l('Sign in') 
     </div>
     % if(stash->{error_login}) {
     <div id="error_login" class="ui error message" style="display:block">
       <%= stash->{error_login} %></div>
     % }
-    <div class="field auth_methods">
-      % for my $auth(@{config('auth_methods')}){
-      <span class="ui toggle radio checkbox">
-        <input name="_method" type="radio" id="<%=$auth %>_radio"
-          %== (stash->{auth_method}//'') eq $auth ? 'checked="checked"' : ''
-          value="<%=url_for('login/'.$auth) %>" />
-        <label for="<%=$auth %>_radio">
-          <i class="<%=$auth %> icon"></i><%=ucfirst l($auth) %>
-        </label>
-      </span>&nbsp;&nbsp;
-      % }
-    </div>
     <div class="field">
       <label for="login_name"><%=ucfirst l('login_name')%></label>
       <div class="ui left labeled icon input">
