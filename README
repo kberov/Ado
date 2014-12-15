@@ -23,6 +23,8 @@ DESCRIPTION
 
 INSTALLATION
   We strongly recommend using Ado with your own Perl (not the system-wide)!
+  This will give you freedom to experiment with new versions and modules
+  without polluting your system perl.
 
   Ado can be *installed into any folder of your choice*. By default it goes
   into the "siteprefix" folder of your *non-system Perl distro*. When

@@ -28,6 +28,8 @@ via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plug
 # INSTALLATION
 
 We strongly recommend using Ado with your own Perl (not the system-wide)!
+This will give you freedom to experiment with new versions and modules
+without polluting your system perl.
 
 Ado can be _installed into any folder of your choice_.
 By default it goes into the `siteprefix` folder of your
@@ -76,9 +78,8 @@ Feel invited to make pull requests for your contributions.
 Anybody can contribute by reporting issues via github 
 or fixing typos in the documentation.
 To be able to contribute with code, some rules need to be kept.
-This is mandatory for any community project.
-Generally the rules outlined in [Mojolicious::Guides::Contributing](https://metacpan.org/pod/Mojolicious::Guides::Contributing)
-apply for [Ado](https://metacpan.org/pod/Ado) too.
+This is mandatory for any community project. Generally the rules outlined in
+[Mojolicious::Guides::Contributing](https://metacpan.org/pod/Mojolicious::Guides::Contributing) apply for [Ado](https://metacpan.org/pod/Ado) too.
 For specific to Ado rules see [Ado::Manual::Contributing](https://metacpan.org/pod/Ado::Manual::Contributing).
 
 We expect that you know how Internet works, how to write Perl modules and 
@@ -147,8 +148,4 @@ modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kberov/ado/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
