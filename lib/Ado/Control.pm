@@ -20,7 +20,8 @@ if ($DEV_MODE) {
 
     sub debug {
         my ($package, $filename, $line, $subroutine) = caller(1);
-        return shift->app->log->debug(@_, "$package:$filename:$line in $subroutine");
+        state $log = shift->app->log;
+        return $log->debug(@_, "$package:$filename:$line in $subroutine");
     }
 }
 
