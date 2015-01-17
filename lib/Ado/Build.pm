@@ -291,7 +291,7 @@ Ado::Build - Custom routines for Ado installation
   use lib("$FindBin::Bin/lib");
   use Ado::Build;
   my $builder = Ado::Build->new(..);
-  $self->create_build_script();
+  $builder->create_build_script();
   
   #on the command line
   cd /path/to/cloned/Ado
