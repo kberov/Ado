@@ -1,5 +1,14 @@
 Revision history for Ado
 
+0.77 2015-01-21
+  - Happy Christmass amd New Year!
+  - Applied for Grant from TPF:
+    http://news.perlfoundation.org/2015/01/grant-proposal-ado---a-rapid-a.html
+  - Fixed typo in Ado::Build SYNOPSIS. Thanks RSAVAGE, WEBY.
+  - Do not use deprecated in Mojolicious 5.73 $c->render_exception()
+    and $c->render_not_found(). Use $c->reply->not_found() and
+    $c->reply->exception() instead.
+
 0.76 2014-12-14
   - Cleaned up Login form. It is used for local login only.
   - Not using flags for languages. Language menu is now a dropdown menu.
