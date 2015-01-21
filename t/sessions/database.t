@@ -13,7 +13,7 @@ my $cookie_name = $t->app->sessions->cookie_name;
 is($cookie_name, 'ado_session_id', '$cookie_name is ado_session_id');
 
 # Create new SID
-$t->get_ok('/добре/ок', 'created new session in template ok');
+$t->get_ok('/test', 'created new session ok');
 my $sid = $t->tx->res->cookie($cookie_name)->value;
 ok $sid, "new sid $sid ok";
 
@@ -32,10 +32,10 @@ ok(Time::Piece->strptime($expires)->epoch <= gmtime(time + $default_expiration)-
 #session expired
 my $old_session_id = $t->tx->res->cookie($cookie_name)->value;
 $t->app->sessions->default_expiration(-3);
-$t->get_ok('/добре/ок', 'expired session');
+$t->get_ok('/test', 'expired session');
 $expires = $t->tx->res->cookie($cookie_name)->expires;
 ok(Time::Piece->strptime($expires)->epoch <= gmtime(time)->epoch, '$expires is ok');
-$t->get_ok("/добре/ок");
+$t->get_ok("/test");
 my $new_session_id = $t->tx->res->cookie($cookie_name)->value;
 isnt($old_session_id, $new_session_id, 'new id is different');
 

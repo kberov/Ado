@@ -182,4 +182,3 @@ templates/partials/apache2vhost.ep
 templates/partials/head.html.ep
 templates/partials/logo.html.ep
 templates/test/ado_helpers.html.ep
-templates/добре/ок.html.ep

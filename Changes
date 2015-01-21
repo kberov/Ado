@@ -8,6 +8,9 @@ Revision history for Ado
   - Do not use deprecated in Mojolicious 5.73 $c->render_exception()
     and $c->render_not_found(). Use $c->reply->not_found() and
     $c->reply->exception() instead.
+  - Started cleanups:
+    Removed templates/добре/ок.html.ep just to reduce
+    http://cpants.cpanauthors.org/dist/Ado/errors
 
 0.76 2014-12-14
   - Cleaned up Login form. It is used for local login only.
