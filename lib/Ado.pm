@@ -170,7 +170,8 @@ The following methods are listed in the order they are invoked in L</startup>.
 
 =head2 load_config
 
-Loads the configuration file C<$app-E<gt>home/etc/ado.conf>.
+Checks C<$ENV{MOJO_CONFIG}> and if not set sets it to C<$app-E<gt>home/etc/ado.conf>.
+Loads L<Mojolicious::Plugin::Config> to do the rest of the dirty work.
 Returns $app.
 
 =head2 load_plugins
