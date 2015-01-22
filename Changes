@@ -11,6 +11,8 @@ Revision history for Ado
   - Started cleanups:
     Removed templates/добре/ок.html.ep just to reduce
     http://cpants.cpanauthors.org/dist/Ado/errors
+  - Noted in etc/ado.conf that arbitrary Perl code can be executed
+    when connecting to the database.
 
 0.76 2014-12-14
   - Cleaned up Login form. It is used for local login only.
