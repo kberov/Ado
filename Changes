@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.77 2015-01-21
+0.77 2015-01-23
   - Happy Christmass amd New Year!
   - Applied for Grant from TPF:
     http://news.perlfoundation.org/2015/01/grant-proposal-ado---a-rapid-a.html
@@ -13,6 +13,7 @@ Revision history for Ado
     http://cpants.cpanauthors.org/dist/Ado/errors
   - Noted in etc/ado.conf that arbitrary Perl code can be executed
     when connecting to the database.
+  - Improved POD in Ado.pm and cleaned commented code.
 
 0.76 2014-12-14
   - Cleaned up Login form. It is used for local login only.

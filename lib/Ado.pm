@@ -92,21 +92,6 @@ sub load_routes {
     return $app;
 }
 
-# sub define_hooks {
-#     my $app = shift;
-#     $app->hook(
-#         before_dispatch => sub {
-#             my ($c) = @_;
-#             $c->res->headers->from_hash(
-#                 {   'Access-Control-Allow-Origin'      => '*',
-#                     'Access-Control-Allow-Credentials' => 'true'
-#                 }
-#             );
-#         }
-#     );
-#     return;
-# }
-
 sub define_mime_types {
     my $app = shift;
     my $mimes = $app->config('types') || {};    #HASHREF
