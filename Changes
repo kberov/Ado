@@ -15,6 +15,7 @@ Revision history for Ado
   - Noted in etc/ado.conf that arbitrary Perl code can be executed
     when connecting to the database.
   - POD improvements and cleanups.
+  - Upgraded to Mojolicious::Plugin::SemanticUI 0.11.
 
 0.76 2014-12-14
   - Cleaned up Login form. It is used for local login only.
