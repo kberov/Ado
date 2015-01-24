@@ -390,15 +390,14 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
-Users can be authenticated locally or using (TODO!) Github, Twitter
-and other authentication service-providers. B<Currently supported providers are
-Google and Facebook.>
+Users can be authenticated via Google, Facebook, locally
+and in the future other authentication service-providers.
 
-Note that the user's pasword is never sent over the network. When using the local
+B<Note that the user's pasword is never sent over the network>. When using the local
 authentication method (ado) a digest is prepared in the browser using JavaScript.
 The digest is sent and compared on the server side. The digest is different in
 every POST request. The other authentication methods use the services provided by
-well known service providers like Google, Facebook, Github etc. To use external
+well known service providers like Google, Facebook etc. To use external
 authentication providers the module L<Mojolicious::Plugin::OAuth2> needs to be
 installed.
 
@@ -610,9 +609,8 @@ Authentication settings defined in C<ado.conf> will override both.
 =head1 TODO
 
 The following authentication methods are in the TODO list:
-linkedin, github.
-Others may be added later. Please help by implementing authentication
-via more providers.
+linkedin, github. Others may be added later.
+Please help by implementing authentication via more providers.
 
 =head1 SEE ALSO
 

@@ -1,9 +1,10 @@
 Revision history for Ado
 
-0.77 2015-01-23
-  - Happy Christmass amd New Year!
+0.77 2015-01-24
+  - Happy Christmass and New Year!
   - Applied for Grant from TPF:
     http://news.perlfoundation.org/2015/01/grant-proposal-ado---a-rapid-a.html
+    This proposal will be used as roadmap.
   - Fixed typo in Ado::Build SYNOPSIS. Thanks RSAVAGE, WEBY.
   - Do not use deprecated in Mojolicious 5.73 $c->render_exception()
     and $c->render_not_found(). Use $c->reply->not_found() and
@@ -13,7 +14,7 @@ Revision history for Ado
     http://cpants.cpanauthors.org/dist/Ado/errors
   - Noted in etc/ado.conf that arbitrary Perl code can be executed
     when connecting to the database.
-  - Improved POD in Ado.pm and cleaned commented code.
+  - POD improvements and cleanups.
 
 0.76 2014-12-14
   - Cleaned up Login form. It is used for local login only.
