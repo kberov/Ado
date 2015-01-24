@@ -35,7 +35,7 @@ sub md_to_html {
 
     #remove anchors
     $file_path =~ s{[^#]#.+}{};
-    unless ($file_path) { $c->render_not_found && return '' }
+    unless ($file_path) { $c->reply->not_found() && return '' }
     my $fullname = catfile($config->{md_root}, $file_path);
     $c->debug("md_file: $file_path;\$fullname: $fullname");
 
@@ -53,7 +53,7 @@ sub md_to_html {
 
     #404 Not Found
     my $md_filepath = catfile($path, "$name$suffix");
-    unless (-s $md_filepath) { $c->render_not_found && return '' }
+    unless (-s $md_filepath) { $c->reply->not_found() && return '' }
 
     my $markdown = Mojo::Util::slurp($md_filepath);
     my $self_url = $c->url_for()->to_string;

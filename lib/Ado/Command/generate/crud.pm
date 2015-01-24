@@ -399,7 +399,7 @@ sub update {
     my $v = $c->validation;
     my ($id) = $c->stash('id') =~/(\d+)/;
     my $res = $table_class->find($id);
-    $c->render_not_found() unless $res->data;
+    $c->reply->not_found() unless $res->data;
     $c->debug('$data:'.$c->dumper($res->data));
     
     if($v->has_data && $res->data){

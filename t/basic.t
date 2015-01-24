@@ -9,15 +9,6 @@ like($app->CODENAME, qr/CAPITAL\sLETTER/x);
 # Ado::define_mime_types()
 is($app->types->type('xht'), 'application/xhtml+xml', 'define_mime_types (ok)');
 
-# cyrillic
-$t->get_ok('/добре/ок')->status_is(200)
-  ->content_like(qr/Добре/i,     encode 'Content contains "Добре".')
-  ->content_like(qr/ти си №1/i, encode 'Content contains "ти си №1".');
-
-# qrs
-$t->get_ok('/добре/ок/нещо')->status_is(200)
-  ->content_like(qr/нещо/i, encode 'Content contains "нещо".');
-
 # default perldoc page
 $t->get_ok('/perldoc')->status_is(200)
   ->content_like(qr/Ado::Manual - Getting/i, encode '"/perldoc" Content contains "Ado::Manual".');

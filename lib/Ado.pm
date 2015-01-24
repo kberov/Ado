@@ -11,7 +11,7 @@ BEGIN {
     }
 }
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.76';
+our $VERSION   = '0.77';
 our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 
 use Ado::Control;
@@ -92,21 +92,6 @@ sub load_routes {
     return $app;
 }
 
-# sub define_hooks {
-#     my $app = shift;
-#     $app->hook(
-#         before_dispatch => sub {
-#             my ($c) = @_;
-#             $c->res->headers->from_hash(
-#                 {   'Access-Control-Allow-Origin'      => '*',
-#                     'Access-Control-Allow-Credentials' => 'true'
-#                 }
-#             );
-#         }
-#     );
-#     return;
-# }
-
 sub define_mime_types {
     my $app = shift;
     my $mimes = $app->config('types') || {};    #HASHREF
@@ -170,7 +155,8 @@ The following methods are listed in the order they are invoked in L</startup>.
 
 =head2 load_config
 
-Loads the configuration file C<$app-E<gt>home/etc/ado.conf>.
+Checks C<$ENV{MOJO_CONFIG}> and if not set sets it to C<$app-E<gt>home/etc/ado.conf>.
+Loads L<Mojolicious::Plugin::Config> to do the rest of the dirty work.
 Returns $app.
 
 =head2 load_plugins
