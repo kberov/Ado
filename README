@@ -18,7 +18,7 @@ DESCRIPTION
   Ado provides additional plugins and commands, which promote RAD
   <http://en.wikipedia.org/wiki/Rapid_application_development>, good
   practices, and team-work when starting new projects. The default Ado page
-  uses Semantic UI <http://beta.semantic-ui.com/> via
+  uses Semantic UI <http://semantic-ui.com/> via
   Mojolicious::Plugin::SemanticUI and is a good place to get acquainted.
 
 INSTALLATION
