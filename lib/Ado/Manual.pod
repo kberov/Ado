@@ -24,7 +24,7 @@ at C<etc/ado.sqlite> to get started quickly.
 Ado provides additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>, 
 which promote L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>,
 good practices, and team-work when starting new projects.
-The default Ado page uses L<Semantic UI|http://beta.semantic-ui.com/>
+The default Ado page uses L<Semantic UI|http://semantic-ui.com/>
 via L<Mojolicious::Plugin::SemanticUI> and is a good place to get acquainted.
 
 =head1 INSTALLATION

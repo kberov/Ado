@@ -22,7 +22,7 @@ at `etc/ado.sqlite` to get started quickly.
 Ado provides additional [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command), 
 which promote [RAD](http://en.wikipedia.org/wiki/Rapid_application_development),
 good practices, and team-work when starting new projects.
-The default Ado page uses [Semantic UI](http://beta.semantic-ui.com/)
+The default Ado page uses [Semantic UI](http://semantic-ui.com/)
 via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plugin::SemanticUI) and is a good place to get acquainted.
 
 # INSTALLATION
