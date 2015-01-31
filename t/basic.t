@@ -26,18 +26,5 @@ $t->get_ok('/default/index')->status_is(200)
   ->content_like(qr/Controller: default; Action: index/);
 $t->get_ok('/default/form')->status_is(200)->content_like(qr/Controller: default; Action: form/);
 
-# default ado page
-$t->get_ok('/ado')->status_is(200)->content_like(qr/Controller: ado-default; Action: index/);
-
-# default ado page
-$t->get_ok('/ado-default')->status_is(200)
-  ->content_like(qr/Controller: ado-default; Action: index/);
-
-# default ado page
-$t->get_ok('/ado-default/index')->status_is(200)
-  ->content_like(qr/Controller: ado-default; Action: index/);
-$t->get_ok('/ado-default/form')->status_is(200)
-  ->content_like(qr/Controller: ado-default; Action: form/);
-
 done_testing();
 

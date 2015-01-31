@@ -160,7 +160,6 @@ t/plugin/routes.t
 t/pod-coverage.t
 t/pod-spelling.t
 t/pod.t
-t/restapi.t
 t/sessions/00-load.t
 t/sessions/database.t
 t/sessions/file.t
