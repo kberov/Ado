@@ -101,7 +101,7 @@ I<This is true for any Mojolicious application.>
 
 Ado comes with the following default plugins. They can be used as examples and for inspiration.
 
-=over 2
+=over
 
 =item * L<Ado::Plugin::AdoHelpers> - Default Ado helpers
 
@@ -114,8 +114,23 @@ Ado comes with the following default plugins. They can be used as examples and f
 =item * L<Ado::Plugin::Routes> - Keep routes in their own configuration file separately
 
 =item * L<Ado::Control::Test> - A controller used for testing Ado
+(not a plugin by it self)
 
 =back
+
+The following plugins are known to exist. You can install and use
+them in your application.
+
+=over
+
+=item * L<Ado::Plugin::Vest> - Messaging services for an Ado system!
+
+=item * L<Ado::Plugin::Admin> - system (site) administration user interface
+
+=back
+
+Do not hesitate to contact the Ado team and request your plugin to be added
+to the above list.
 
 =head1 SPONSORS
 

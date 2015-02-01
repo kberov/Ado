@@ -1,5 +1,12 @@
 Revision history for Ado
 
+0.78 2015-02-01
+  - Improved documentation.
+  - Cleanups.
+    - Moved Ado::Control::Ado::Users and
+      Ado::Control::Ado::Default to Ado::Plugin::Admin distribution.
+    - Moved generic routes to be always defined last.
+
 0.77 2015-01-24
   - Happy Christmass and New Year!
   - Applied for Grant from TPF:

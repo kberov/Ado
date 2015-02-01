@@ -151,7 +151,6 @@ Create your plugin like this:
 
 but better use L<Ado::Command::generate::adoplugin> to do everything for you.
 
-
 =head1 DESCRIPTION
 
 Ado::Plugin is a base class for Ado specific plugins. 
@@ -172,9 +171,10 @@ Application for plugin, defaults to a L<Mojo::HelloWorld> object.
 
 Path to plugin directory.
 
+  my $config_dir   = $self->config_dir;
   $self->config_dir($app->home->rel_dir('etc/plugins'));
 
-Defaults to C<etc/plugins> relative to the plugin base directory.
+Defaults to C<etc/plugins> relative to the plugin base directory, see L</home_dir>.
 This works both while developing a plugin and after installing the plugin.
 
 =head2 config_classes
@@ -205,7 +205,7 @@ The plugin base directory.
 This path works both while developing a plugin and after installing the plugin.
 Using the guessed value allows you to have Ado plugins installed at arbitrary paths,
 possibly not the same where Ado is installed.
-As noted elswhere, Ado plugins can be distributed as separate Ado applications and used
+As noted elsewhere, Ado plugins can be distributed as separate Ado applications and used
 together with other plugins to create custom enterprise-grade systems.
 
 =head2 name
