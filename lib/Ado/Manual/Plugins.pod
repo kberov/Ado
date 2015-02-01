@@ -114,7 +114,7 @@ Ado comes with the following default plugins. They can be used as examples and f
 =item * L<Ado::Plugin::Routes> - Keep routes in their own configuration file separately
 
 =item * L<Ado::Control::Test> - A controller used for testing Ado
-(not a plugin per se)
+(not a plugin by it self)
 
 =back
 
