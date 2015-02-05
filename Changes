@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.79 2015-02-05
+  - Implemented $app->home to better detect and set MOJO_HOME.
+
 0.78 2015-02-01
   - Improved documentation.
   - Cleanups.

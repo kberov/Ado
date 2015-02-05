@@ -3,15 +3,8 @@ package Ado;
 use Mojo::Base 'Mojolicious';
 use File::Spec::Functions qw(splitdir catdir catfile);
 
-BEGIN {
-    return if $ENV{MOJO_HOME};
-    my @home = splitdir File::Basename::dirname(__FILE__);
-    while (pop @home) {
-        $ENV{MOJO_HOME} ||= catdir(@home) if -s catfile(@home, 'bin', 'ado');
-    }
-}
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.78';
+our $VERSION   = '0.79';
 our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 
 use Ado::Control;
@@ -19,6 +12,16 @@ use Ado::Sessions;
 
 sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
+
+#allow many ado scripts sharing the same lib
+has home => sub {
+    return Mojo::Home->new->detect(ref shift) if $ENV{MOJO_HOME};
+    my @home = splitdir File::Basename::dirname(__FILE__);
+    while (pop @home) {
+        $ENV{MOJO_HOME} = catdir(@home) if -s catfile(@home, 'bin', 'ado');
+    }
+    return Mojo::Home->new->detect(ref shift);
+};
 
 # This method will run once at server start
 sub startup {
@@ -30,7 +33,7 @@ sub startup {
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $ENV{MOJO_CONFIG} ||= catfile($app->home, 'etc', 'ado.conf');
+    $ENV{MOJO_CONFIG} //= catfile($app->home, 'etc', 'ado.conf');
     $app->plugin('Config');
     return $app;
 }
@@ -133,6 +136,15 @@ Ado inherits all attributes from Mojolicious and implements the following ones.
 =head2 CODENAME
 
 Returns the current C<CODENAME>.
+
+=head2 home
+
+    #/where/is/ado/root dir
+    $app->home;
+
+Returns the root directory into which Ado is installed.
+B<Note>: This is the directory that contains C<bin/ado>.
+
 
 =head2 sessions
 
