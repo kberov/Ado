@@ -1,7 +1,8 @@
 Revision history for Ado
 
-0.79 2015-02-05
-  - Implemented $app->home to better detect and set MOJO_HOME.
+0.79 2015-02-06
+  - $ENV{MOJO_HOME} is not set explicitly any more.
+    Just using app->home from Mojo.
 
 0.78 2015-02-01
   - Improved documentation.
