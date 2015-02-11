@@ -1,8 +1,10 @@
 Revision history for Ado
 
-0.79 2015-02-06
+0.79 2015-02-10
   - $ENV{MOJO_HOME} is not set explicitly any more.
     Just using app->home from Mojo.
+  - Cleanups.
+    - Moved Ado::Control::Ado to Ado-Plugin-Admin where it logically belongs.
 
 0.78 2015-02-01
   - Improved documentation.
