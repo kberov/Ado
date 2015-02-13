@@ -4,6 +4,12 @@ use Test::More;
 use Test::Mojo;
 use Time::Piece;
 
+my $mojo_version;
+{
+    require Mojolicious;
+    $mojo_version = Mojolicious->VERSION;
+}
+
 my $t = Test::Mojo->new('Ado');
 $t->app->config(session => {type => 'file', options => {cookie_name => 'ado_session_file',}});
 
@@ -22,7 +28,12 @@ is $sid, $t->tx->res->cookie($cookie_name)->value, 'Cookie $sid ok';
 $t->get_ok("/");
 my $default_expiration = $t->app->sessions->default_expiration;
 my $expires            = $t->tx->res->cookie($cookie_name)->expires;
-my $equal = Time::Piece->strptime($expires)->epoch - gmtime(time + $default_expiration)->epoch;
+
+if ( $mojo_version < 5.78 ) {
+    $expires = Time::Piece->strptime($expires)->epoch;
+}
+
+my $equal = $expires - gmtime(time + $default_expiration)->epoch;
 
 #may differ with one second
 ok($equal == 0 || $equal == -1, '$default_expiration is ok');
@@ -32,7 +43,12 @@ my $old_session_id = $t->tx->res->cookie($cookie_name)->value;
 $t->app->sessions->default_expiration(-3);
 $t->get_ok('/test', 'expired session');
 $expires = $t->tx->res->cookie($cookie_name)->expires;
-ok(Time::Piece->strptime($expires)->epoch < gmtime(time)->epoch, '$expires is ok');
+
+if ( $mojo_version < 5.78 ) {
+    $expires = Time::Piece->strptime($expires)->epoch;
+}
+
+ok($expires < gmtime(time)->epoch, '$expires is ok');
 $t->get_ok("/test");
 my $new_session_id = $t->tx->res->cookie($cookie_name)->value;
 isnt($old_session_id, $new_session_id, 'new id is different');
