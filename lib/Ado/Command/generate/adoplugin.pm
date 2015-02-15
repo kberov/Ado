@@ -234,7 +234,7 @@ sub register {
 
 <% %>=head1 SYNOPSIS
 
-  # <%= $ENV{MOJO_HOME}%>/etc/ado.config
+  # $ENV{MOJO_HOME}/etc/ado.config
   plugins => {
     # other plugins here...
     '<%= $name %>',

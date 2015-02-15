@@ -24,7 +24,6 @@ lib/Ado/Command/generate/apache2vhost.pm
 lib/Ado/Command/generate/crud.pm
 lib/Ado/Command/version.pm
 lib/Ado/Control.pm
-lib/Ado/Control/Ado.pm
 lib/Ado/Control/Default.pm
 lib/Ado/Control/Doc.pm
 lib/Ado/Control/Test.pm

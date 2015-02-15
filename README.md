@@ -128,13 +128,15 @@ friendly developers and organizations to install and test it continuously.
 
 # AUTHORS
 
-Authors, ordered by contributions.
+Authors, ordered by contributions (https://github.com/kberov/Ado/graphs/contributors).
 
 Красимир Беров (Krasimir Berov)(berov@cpan.org)
 
 Вълчо Неделчев (Valcho Nedelchev)(kumcho@vulcho.com)
 
 Joachim Astel
+
+Renee Baecker (RENEEB)(module@renee-baecker.de)
 
 # COPYRIGHT AND LICENSE
 
