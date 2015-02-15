@@ -150,12 +150,12 @@ The guessing order is the following:
 
 =over
 
-=item 1. If C<$ENV{MOJO_HOME}> is defined, it is honoured.
+=item 1. If C<$ENV{MOJO_HOME}> is defined, it is honored.
 
 =item 2. The upper directory of the directory in which the starting executable is found, eg C<bin/$your_app>
 This is usually the directory that contains C<bin/ado>.
 
-=item 3. Fallback to L<Mojo/home>. This is the usual behaviour of any L<Mojo> application.
+=item 3. Fallback to L<Mojo/home>. This is the usual behavior of any L<Mojo> application.
 
 =back
 

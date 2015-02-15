@@ -131,7 +131,7 @@ L<http://www.thefreedictionary.com/ado>.
 
 =head1 AUTHORS
 
-Authors, ordered by contributions (https://github.com/kberov/Ado/graphs/contributors).
+Authors, ordered by contributions (L<https://github.com/kberov/Ado/graphs/contributors>).
 
 Красимир Беров (Krasimir Berov)(berov@cpan.org)
 
