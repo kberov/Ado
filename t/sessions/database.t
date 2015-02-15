@@ -6,8 +6,8 @@ use Time::Piece;
 
 my $mojo_version;
 {
-  require Mojolicious;
-  $mojo_version = Mojolicious->VERSION;
+    require Mojolicious;
+    $mojo_version = Mojolicious->VERSION;
 }
 
 my $t = Test::Mojo->new('Ado');
@@ -31,13 +31,12 @@ $t->get_ok("/");
 my $default_expiration = $t->app->sessions->default_expiration;
 my $expires            = $t->tx->res->cookie($cookie_name)->expires;
 
-if ( $mojo_version < 5.78 ) {
+if ($mojo_version < 5.78) {
     $expires = Time::Piece->strptime($expires)->epoch;
 }
 
 #may differ with one second
-ok($expires <= gmtime(time + $default_expiration)->epoch,
-    '$default_expiration is ok');
+ok($expires <= gmtime(time + $default_expiration)->epoch, '$default_expiration is ok');
 
 #session expired
 my $old_session_id = $t->tx->res->cookie($cookie_name)->value;
@@ -45,7 +44,7 @@ $t->app->sessions->default_expiration(-3);
 $t->get_ok('/test', 'expired session');
 $expires = $t->tx->res->cookie($cookie_name)->expires;
 
-if ( $mojo_version < 5.78 ) {
+if ($mojo_version < 5.78) {
     $expires = Time::Piece->strptime($expires)->epoch;
 }
 

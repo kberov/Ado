@@ -5,6 +5,8 @@ Revision history for Ado
     Just using app->home from Mojo.
   - Cleanups.
     - Moved Ado::Control::Ado to Ado-Plugin-Admin where it logically belongs.
+  - Fixed broken tests with Mojolicious 5.78 - Renee Baecker (RENEEB). Thanks!
+  - Works with Mojolicious 5.79.
 
 0.78 2015-02-01
   - Improved documentation.
