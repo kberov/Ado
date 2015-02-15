@@ -139,7 +139,7 @@ Authors, ordered by contributions (L<https://github.com/kberov/Ado/graphs/contri
 
 Joachim Astel
 
-Renee Baecker (RENEEB)(module@renee-baecker.de)
+Renee Baecker (module@renee-baecker.de)
 
 
 =head1 COPYRIGHT AND LICENSE
