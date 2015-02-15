@@ -29,7 +29,7 @@ $t->get_ok("/");
 my $default_expiration = $t->app->sessions->default_expiration;
 my $expires            = $t->tx->res->cookie($cookie_name)->expires;
 
-if ( $mojo_version < 5.78 ) {
+if ($mojo_version < 5.78) {
     $expires = Time::Piece->strptime($expires)->epoch;
 }
 
@@ -44,7 +44,7 @@ $t->app->sessions->default_expiration(-3);
 $t->get_ok('/test', 'expired session');
 $expires = $t->tx->res->cookie($cookie_name)->expires;
 
-if ( $mojo_version < 5.78 ) {
+if ($mojo_version < 5.78) {
     $expires = Time::Piece->strptime($expires)->epoch;
 }
 
