@@ -2,6 +2,7 @@ package Ado;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec::Functions qw(splitdir catdir catfile);
+use Mojo::Util 'class_to_path';
 
 our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.79';
@@ -13,6 +14,18 @@ use Ado::Sessions;
 sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
+has home => sub {
+    my $app   = shift;
+    my $class = ref $app;
+    return $app->SUPER::home if $ENV{MOJO_HOME};    # MOJO_HOME was forsed
+    my @home    = splitdir $INC{class_to_path $class};
+    my $moniker = $app->moniker;
+    while (pop @home) {
+        return Mojo::Home->new->parts([@home])
+          if -s catfile(@home, 'bin', $moniker);    # bin/..
+    }
+    return $app->SUPER::home;                       #fallback to Mojo::Home
+};
 
 # This method will run once at server start
 sub startup {
@@ -24,7 +37,7 @@ sub startup {
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $ENV{MOJO_CONFIG} //= catfile($app->home, 'etc', 'ado.conf');
+    $ENV{MOJO_CONFIG} //= catfile($app->home, 'etc', $app->moniker . '.conf');
     $app->plugin('Config');
     return $app;
 }
@@ -127,6 +140,24 @@ Ado inherits all attributes from Mojolicious and implements the following ones.
 =head2 CODENAME
 
 Returns the current C<CODENAME>.
+
+=head2 home
+
+#/where/is/your_app/rootdir
+$app->home;
+Returns the root directory into which $app is installed.
+The guessing order is the following:
+
+=over
+
+=item 1. If C<$ENV{MOJO_HOME}> is defined, it is honoured.
+
+=item 2. The upper directory of the directory in which the starting executable is found, eg C<bin/$your_app>
+This is usually the directory that contains C<bin/ado>.
+
+=item 3. Fallback to L<Mojo/home>. This is the usual behaviour of any L<Mojo> application.
+
+=back
 
 =head2 sessions
 

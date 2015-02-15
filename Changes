@@ -2,11 +2,11 @@ Revision history for Ado
 
 0.79 2015-02-10
   - $ENV{MOJO_HOME} is not set explicitly any more.
-    Just using app->home from Mojo.
+    Detecting properly app->home and falling back to Mojo::home.
   - Cleanups.
     - Moved Ado::Control::Ado to Ado-Plugin-Admin where it logically belongs.
-  - Fixed broken tests with Mojolicious 5.78 - Renee Baecker (RENEEB). Thanks!
-  - Works with Mojolicious 5.79.
+  - Fixed broken tests with Mojolicious < 5.78 - Renee Baecker (RENEEB). Thanks!
+  - Works with Mojolicious 5.79 too.
 
 0.78 2015-02-01
   - Improved documentation.

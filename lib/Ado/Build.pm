@@ -97,7 +97,8 @@ sub _uninstall {
     # Remove all installed files
     ExtUtils::Install::uninstall($packlist, $verbose, $dryrun);
 
-    # Remove empty installation directories
+    # Remove empty installation directories.
+    # TODO: Fully remove root directory in case application was installed in a custom path.
     foreach (reverse sort $installed->directories($module)) {
         say "rmdir $_" and next if $verbose and $dryrun;
         say rmdir $_ ? "rmdir $_" : "rmdir $_ - $!" if not $dryrun;

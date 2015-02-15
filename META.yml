@@ -29,7 +29,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.78'
+    version: '0.79'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -52,8 +52,6 @@ provides:
     file: lib/Ado/Command/version.pm
   Ado::Control:
     file: lib/Ado/Control.pm
-  Ado::Control::Ado:
-    file: lib/Ado/Control/Ado.pm
   Ado::Control::Default:
     file: lib/Ado/Control/Default.pm
   Ado::Control::Doc:
@@ -122,4 +120,4 @@ requires:
 resources:
   bugtracker: https://github.com/kberov/Ado/issues
   repository: https://github.com/kberov/Ado
-version: '0.78'
+version: '0.79'
