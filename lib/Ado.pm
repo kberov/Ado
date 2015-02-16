@@ -131,7 +131,7 @@ Ado - a rapid active commotion (framework for web-projects on Mojolicious)
 L<Ado> is a framework for web-projects based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 This is the base application class. Ado C<ISA> L<Mojolicious>.
-For a more detailed description on how to get started with Ado see L<Ado::Manual>.
+For a more detailed description on what Ado is and how to get started with Ado see L<Ado::Manual>.
 
 =head1 ATTRIBUTES
 
@@ -152,8 +152,8 @@ The guessing order is the following:
 
 =item 1. If C<$ENV{MOJO_HOME}> is defined, it is honored.
 
-=item 2. The upper directory of the directory in which the starting executable is found, eg C<bin/$your_app>
-This is usually the directory that contains C<bin/ado>.
+=item 2. The upper directory of the directory in which the starting executable C<$app-E<gt>>moniker>
+s found, eg C<bin/..>
 
 =item 3. Fallback to L<Mojo/home>. This is the usual behavior of any L<Mojo> application.
 
