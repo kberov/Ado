@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.80 2015-02-16
+
+
 0.79 2015-02-15
   - $ENV{MOJO_HOME} is not set explicitly any more.
     Detecting properly app->home and falling back to Mojo::home.

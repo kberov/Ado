@@ -5,7 +5,7 @@ use File::Spec::Functions qw(splitdir catdir catfile);
 use Mojo::Util 'class_to_path';
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.79';
+our $VERSION   = '0.80';
 our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 
 use Ado::Control;
