@@ -9,12 +9,14 @@ Ado::Manual - Getting started with Ado
 
 # DESCRIPTION
 
-[Ado](https://metacpan.org/pod/Ado) is a framework for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
+[Ado](https://metacpan.org/pod/Ado) is a framework and base application for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
 written in the [Perl programming language](http://www.perl.org/).
 
 Ado is a typical well structured,
 [MVC](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
 [Mojolicious](https://metacpan.org/pod/Mojolicious) application.
+Ado is a base application for building on it a CMS, ERP, CRM or all of them integrated together.
+
 It comes with default configuration and a model layer, plugged in by
 [Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). An SQLite database is bundled in the distribution 
 at `etc/ado.sqlite` to get started quickly.
@@ -30,10 +32,10 @@ via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plug
 We strongly recommend using Ado with your own Perl (not the system-wide)!
 This will give you freedom to experiment with new versions and modules
 without polluting your system perl.
-
 Ado can be _installed into any folder of your choice_.
-By default it goes into the `siteprefix` folder of your
-**_non-system Perl distro_**. When installing Ado in its own folder,
+By default it goes into the `siteprefix` folder of the perl distribution used for installation.
+
+When installing Ado in its own folder,
 you may want to add the `/path/to/yourAdo/bin` to your `$PATH`
 environment variable. When using Ado as a module from `/path/to/yourAdo/lib`,
 add the path to `$PERL5LIB`.
@@ -45,7 +47,7 @@ To install manually Ado after downloading, run the following commands:
     perl Build.PL --install_base $HOME/opt/ado
     ./Build installdeps
     ./Build
-    ./Build test
+    ./Build test #optional
     ./Build install
 
 To see more installation methods and details, go to [Ado::Manual::Installation](https://metacpan.org/pod/Ado::Manual::Installation).
@@ -90,20 +92,21 @@ are familiar with [Mojolicious](https://metacpan.org/pod/Mojolicious).
 Ado strives for strict separation of concerns. The best way to achieve 
 this is to fully separate the client code from the server code. 
 Ado is ideally suited for the purpose thanks to
-[Mojolicious](https://metacpan.org/pod/Mojolicious). Every resource is accessible via the REST API.
+[Mojolicious](https://metacpan.org/pod/Mojolicious). Every resource(route) is accessible via a browser as `/path/to/resourse`
+an returns HTML or using `/path/to/resourse.json` and returns JSON.
 We follow closely and elaborate on the recommendations in
-"RESTful Service Best Practices" 
-at [www.RestApiTutorial.com](https://metacpan.org/pod/www.RestApiTutorial.com). See [Ado::Manual::RESTAPI](https://metacpan.org/pod/Ado::Manual::RESTAPI).
+"RESTful Service Best Practices" at [www.RestApiTutorial.com](https://metacpan.org/pod/www.RestApiTutorial.com). See [Ado::Manual::RESTAPI](https://metacpan.org/pod/Ado::Manual::RESTAPI).
 
 # PLUGINS
 
+Business-specific applications for an Ado-based system are usually implemented 
+as plugins. One way to contribute to [Ado](https://metacpan.org/pod/Ado) is by writing plugins.
+
 Ado plugins work the same way as [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins) and share 
-the same common base trough [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin).
+the same common base trough [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) which ISA [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins).
 Ado plugins have one small additional feature. 
 They can load their own configuration from
 `$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`.
-Business-specific applications for an Ado-based system are usually implemented 
-as plugins. One way to contribute to [Ado](https://metacpan.org/pod/Ado) is by writing plugins.
 
 See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) for more information.
 
@@ -128,7 +131,7 @@ friendly developers and organizations to install and test it continuously.
 
 # AUTHORS
 
-Authors, ordered by contributions (https://github.com/kberov/Ado/graphs/contributors).
+Authors, ordered by contributions ([https://github.com/kberov/Ado/graphs/contributors](https://github.com/kberov/Ado/graphs/contributors)).
 
 Красимир Беров (Krasimir Berov)(berov@cpan.org)
 
@@ -136,7 +139,7 @@ Authors, ordered by contributions (https://github.com/kberov/Ado/graphs/contribu
 
 Joachim Astel
 
-Renee Baecker (RENEEB)(module@renee-baecker.de)
+Renee Baecker (module@renee-baecker.de)
 
 # COPYRIGHT AND LICENSE
 

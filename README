@@ -6,14 +6,18 @@ SYNOPSIS
     Server available at http://127.0.0.1:3000
 
 DESCRIPTION
-  Ado is a framework for web projects based on Mojolicious, written in the
-  Perl programming language <http://www.perl.org/>.
+  Ado is a framework and base application for web projects based on
+  Mojolicious, written in the Perl programming language
+  <http://www.perl.org/>.
 
   Ado is a typical well structured, MVC
   <http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
-  Mojolicious application. It comes with default configuration and a model
-  layer, plugged in by Mojolicious::Plugin::DSC. An SQLite database is
-  bundled in the distribution at "etc/ado.sqlite" to get started quickly.
+  Mojolicious application. Ado is a base application for building on it a
+  CMS, ERP, CRM or all of them integrated together.
+
+  It comes with default configuration and a model layer, plugged in by
+  Mojolicious::Plugin::DSC. An SQLite database is bundled in the
+  distribution at "etc/ado.sqlite" to get started quickly.
 
   Ado provides additional plugins and commands, which promote RAD
   <http://en.wikipedia.org/wiki/Rapid_application_development>, good
@@ -24,11 +28,11 @@ DESCRIPTION
 INSTALLATION
   We strongly recommend using Ado with your own Perl (not the system-wide)!
   This will give you freedom to experiment with new versions and modules
-  without polluting your system perl.
+  without polluting your system perl. Ado can be *installed into any folder
+  of your choice*. By default it goes into the "siteprefix" folder of the
+  perl distribution used for installation.
 
-  Ado can be *installed into any folder of your choice*. By default it goes
-  into the "siteprefix" folder of your *non-system Perl distro*. When
-  installing Ado in its own folder, you may want to add the
+  When installing Ado in its own folder, you may want to add the
   "/path/to/yourAdo/bin" to your $PATH environment variable. When using Ado
   as a module from "/path/to/yourAdo/lib", add the path to $PERL5LIB.
 
@@ -39,7 +43,7 @@ INSTALLATION
     perl Build.PL --install_base $HOME/opt/ado
     ./Build installdeps
     ./Build
-    ./Build test
+    ./Build test #optional
     ./Build install
 
   To see more installation methods and details, go to
@@ -80,18 +84,21 @@ CONTRIBUTING
 REST API
   Ado strives for strict separation of concerns. The best way to achieve
   this is to fully separate the client code from the server code. Ado is
-  ideally suited for the purpose thanks to Mojolicious. Every resource is
-  accessible via the REST API. We follow closely and elaborate on the
-  recommendations in "RESTful Service Best Practices" at
-  www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
+  ideally suited for the purpose thanks to Mojolicious. Every
+  resource(route) is accessible via a browser as "/path/to/resourse" an
+  returns HTML or using "/path/to/resourse.json" and returns JSON. We follow
+  closely and elaborate on the recommendations in "RESTful Service Best
+  Practices" at www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
 
 PLUGINS
+  Business-specific applications for an Ado-based system are usually
+  implemented as plugins. One way to contribute to Ado is by writing
+  plugins.
+
   Ado plugins work the same way as Mojolicious::Plugins and share the same
-  common base trough Ado::Plugin. Ado plugins have one small additional
-  feature. They can load their own configuration from
-  "$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf". Business-specific
-  applications for an Ado-based system are usually implemented as plugins.
-  One way to contribute to Ado is by writing plugins.
+  common base trough Ado::Plugin which ISA Mojolicious::Plugins. Ado plugins
+  have one small additional feature. They can load their own configuration
+  from "$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf".
 
   See Ado::Manual::Plugins and Ado::Plugin for more information.
 
@@ -112,7 +119,7 @@ SEE ALSO
 
 AUTHORS
   Authors, ordered by contributions
-  (https://github.com/kberov/Ado/graphs/contributors).
+  (<https://github.com/kberov/Ado/graphs/contributors>).
 
   Красимир Беров (Krasimir Berov)(berov@cpan.org)
 
@@ -120,7 +127,7 @@ AUTHORS
 
   Joachim Astel
 
-  Renee Baecker (RENEEB)(module@renee-baecker.de)
+  Renee Baecker (module@renee-baecker.de)
 
 COPYRIGHT AND LICENSE
   Copyright 2013-2014 Красимир Беров (Krasimir Berov).
