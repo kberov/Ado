@@ -1,6 +1,6 @@
 package Ado::Plugin;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Util qw(decamelize class_to_path);
+use Mojo::Util qw(decamelize class_to_path slurp decode);
 File::Spec::Functions->import(qw(catfile catdir));
 
 has app => sub { Mojo::Server->new->build_app('Ado') };
@@ -91,8 +91,6 @@ sub initialise {
     #from  etc/ado.conf and etc/plugins/$name.conf
     for my $k (keys %$conf) { $self->config($k => $conf->{$k}); }
     $conf = $self->config;
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($conf))
-      if ($mode eq 'development');
 
     # Add namespaces if defined.
     push @{$app->routes->namespaces}, @{$conf->{namespaces}}
@@ -122,6 +120,38 @@ sub initialise {
     return ($self, $app, $conf);
 }
 
+# allow plugins to process SQL scripts while loading
+sub do_sql_file {
+    my ($self, $dbh, $sql_file) = @_;
+    $self->app->log->debug('do_sql_file:' . $sql_file)
+      if $Ado::Control::DEV_MODE;
+
+    my $SQL = decode('UTF-8', slurp($sql_file));
+
+    #Remove multi-line comments
+    $SQL =~ s|/\*+.+?\*/\s+?||gsmx;
+    $self->app->log->debug('$SQL:' . $SQL)
+      if $Ado::Control::DEV_MODE;
+    local $dbh->{RaiseError} ||= 1;
+    my $statement = '';
+    eval {
+        $dbh->begin_work;
+        for my $st (split /;/smx, $SQL) {
+            $statement = $st;
+
+            #$self->app->log->debug('$statement:'.$statement);
+            $dbh->do($st) if $st =~ /\S+/smx;
+        }
+        $dbh->commit;
+    } || do {
+        $dbh->rollback;
+        my $e = "\nError in statement:$statement\n$@";
+        $self->app->log->error($e);
+        Carp::croak($e);
+    };
+    return 1;
+}
+
 1;
 
 =pod
@@ -149,7 +179,8 @@ Create your plugin like this:
     return $self;
   }
 
-but better use L<Ado::Command::generate::adoplugin> to do everything for you.
+but better use L<Ado::Command::generate::adoplugin> to 
+generate all the files for you.
 
 =head1 DESCRIPTION
 
@@ -158,7 +189,8 @@ It provides some methods specific to L<Ado> only.
 
 =head1 ATTRIBUTES
 
-Ado::Plugin provides the following attributes for use by subclasses.
+Ado::Plugin inherits all attributes from L<Mojolicious::Plugin>
+and provides the following for use by subclasses.
 
 =head2 app
 
@@ -180,7 +212,7 @@ This works both while developing a plugin and after installing the plugin.
 =head2 config_classes
 
 Returns a hash reference containing C<file-extension =E<gt> class> pairs.
-Used to decide which configuration plugin to use depending on the file extension.
+Used to detect which configuration plugin to use depending on the file extension.
 The default mapping is:
 
     {   conf => 'Mojolicious::Plugin::Config',
@@ -188,7 +220,7 @@ The default mapping is:
         pl   => 'Mojolicious::Plugin::Config'
     };
 
-Using this attribute you can use your own configuration plugin as far as it
+This attribute allows you to use your own configuration plugin as far as it
 supports the L<Mojolicious::Plugin::Config> API.
 
 =head2 ext
@@ -216,7 +248,8 @@ The name - only the last word of the plugin's package name.
 
 =head1 METHODS
 
-Ado::Plugin provides the following methods for use by subclasses.
+Ado::Plugin inherits all methods from L<Mojolicious::Plugin>
+and provides the following for use by subclasses.
 
 =head2 config
 
@@ -236,6 +269,15 @@ invoked in L</initialise>.
   my $value = $self->config('key');
   #set
   my $config = $self->config(foo => 'bar');
+
+=head2 do_sql_file
+
+Your plugin may need to add some new tables, add columns to already
+existing tables or add some metadata. This method allows you to do that.
+See the source code of L<Ado::Plugin::Vest> for example.
+
+  $self->do_sql_file($dbh, catfile($self->config_dir, $sql_file));
+  $self->do_sql_file($app->dbix->dbh, $conf->{vest_data_sql_file});
 
 =head2 initialise
 
