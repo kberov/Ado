@@ -1,7 +1,7 @@
 Revision history for Ado
 
-0.80 2015-02-18
-  Implemented do_sql_file in Ado::Plugin.
+0.80 2015-02-20
+  - Implemented do_sql_file in Ado::Plugin.
 
 0.79 2015-02-15
   - $ENV{MOJO_HOME} is not set explicitly any more.
