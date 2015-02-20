@@ -9,7 +9,7 @@ Ado::Manual - Getting started with Ado
 
 # DESCRIPTION
 
-[Ado](https://metacpan.org/pod/Ado) is a framework and base application for web projects based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
+[Ado](https://metacpan.org/pod/Ado) is a framework and application for web-projects, based on [Mojolicious](https://metacpan.org/pod/Mojolicious),
 written in the [Perl programming language](http://www.perl.org/).
 
 Ado is a typical well structured,
@@ -17,8 +17,8 @@ Ado is a typical well structured,
 [Mojolicious](https://metacpan.org/pod/Mojolicious) application.
 Ado is a base application for building on it a CMS, ERP, CRM or all of them integrated together.
 
-It comes with default configuration and a model layer, plugged in by
-[Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). An SQLite database is bundled in the distribution 
+It comes with default configuration and a model layer [Ado::Model](https://metacpan.org/pod/Ado::Model), plugged in by
+[Mojolicious::Plugin::DSC](https://metacpan.org/pod/Mojolicious::Plugin::DSC). An SQLite database is bundled with the distribution 
 at `etc/ado.sqlite` to get started quickly.
 
 Ado provides additional [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command), 
@@ -27,9 +27,15 @@ good practices, and team-work when starting new projects.
 The default Ado page uses [Semantic UI](http://semantic-ui.com/)
 via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plugin::SemanticUI) and is a good place to get acquainted.
 
+In short, Ado can be used right away as a [CMS](http://en.wikipedia.org/wiki/Content_management_system)
+that can be extended with [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command) or as a
+<CMF|http://en.wikipedia.org/wiki/List\_of\_content\_management\_frameworks> on which to build a
+specific application.
+
 # INSTALLATION
 
-We strongly recommend using Ado with your own Perl (not the system-wide)!
+We strongly recommend using Ado with [your own Perl](https://metacpan.org/pod/distribution/App-perlbrew/bin/perlbrew)
+(not the system-wide)!
 This will give you freedom to experiment with new versions and modules
 without polluting your system perl.
 Ado can be _installed into any folder of your choice_.
