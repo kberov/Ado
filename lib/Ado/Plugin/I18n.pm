@@ -85,7 +85,7 @@ sub register {
     #Allow other namespaces too
     $config->{namespace} ||= 'Ado::I18n';
 
-    my $e = Mojo::Loader->new->load($config->{namespace});
+    my $e = Mojo::Loader::load_class($config->{namespace});
     $app->log->error(qq{Loading "$config->{namespace}" failed: $e}) if $e;
 
     # Defaults for $c->stash so templates without controllers can be used

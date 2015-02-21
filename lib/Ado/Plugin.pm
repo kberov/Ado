@@ -1,6 +1,7 @@
 package Ado::Plugin;
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Util qw(decamelize class_to_path slurp decode);
+
 File::Spec::Functions->import(qw(catfile catdir));
 
 has app => sub { Mojo::Server->new->build_app('Ado') };
@@ -35,17 +36,16 @@ has config_classes => sub {
 
 sub _get_plugin_config {
     my ($self) = @_;
-    state $app    = $self->app;
-    state $mode   = $app->mode;
-    state $home   = $app->home;
-    state $loader = Mojo::Loader->new;
+    state $app  = $self->app;
+    state $mode = $app->mode;
+    state $home = $app->home;
 
     my $config_dir   = $self->config_dir;
     my $ext          = $self->ext;
     my $name         = decamelize($self->name);
     my $config       = {};
     my $config_class = $self->config_classes->{$ext};
-    if (my $e = $loader->load($config_class)) {
+    if (my $e = Mojo::Loader::load_class($config_class)) {
         Carp::croak ref $e ? "Exception: $e" : $config_class . ' - Not found!';
     }
 
