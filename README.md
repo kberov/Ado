@@ -93,6 +93,20 @@ For specific to Ado rules see [Ado::Manual::Contributing](https://metacpan.org/p
 We expect that you know how Internet works, how to write Perl modules and 
 are familiar with [Mojolicious](https://metacpan.org/pod/Mojolicious).
 
+To ease discusssions on Ado further development, a forum was created.
+[https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev)
+
+<div>
+    <iframe id="ado-dev_forum_embed" src="javascript:void(0)"
+     scrolling="no" frameborder="0" style="width:100%;height:500px"></iframe>
+    <script type="text/javascript">
+     document.getElementById("ado-dev_forum_embed").src =
+      "https://groups.google.com/forum/embed/?place=forum/ado-dev" +
+      "&showsearch=true&showtabs=true&showpopout=true&parenturl=" +
+      encodeURIComponent(window.location.href);
+    </script> 
+</div>
+
 # REST API
 
 Ado strives for strict separation of concerns. The best way to achieve 

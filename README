@@ -87,6 +87,9 @@ CONTRIBUTING
   We expect that you know how Internet works, how to write Perl modules and
   are familiar with Mojolicious.
 
+  To ease discusssions on Ado further development, a forum was created.
+  <https://groups.google.com/d/forum/ado-dev>
+
 REST API
   Ado strives for strict separation of concerns. The best way to achieve
   this is to fully separate the client code from the server code. Ado is
