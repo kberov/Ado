@@ -5,6 +5,7 @@ Revision history for Ado
   - Improved documentation.
     Added the newly created google group Ado-dev to Ado::Manual page.
   - Upgraded to Mojolicious 5.81.
+  - Upgraded to Mojolicious::Plugin::DSC 1.002.
 
 0.79 2015-02-15
   - $ENV{MOJO_HOME} is not set explicitly any more.
