@@ -14,6 +14,8 @@ sub dbix {
 
     # Singleton DBIx::Simple instance
     state $DBIx;
+
+    # uncoverable statement
     return ($_[1] ? ($DBIx = $_[1]) : $DBIx)
       || Carp::croak('DBIx::Simple is not instantiated. Please first do '
           . $_[0]
@@ -43,6 +45,7 @@ sub table_to_class {
     # already generated?
     return $tables->{$table} if (exists $tables->{$table});
 
+    # uncoverable branch false
     $args->{namespace} //= $class;
     my $class_name = $args->{namespace} . '::' . Mojo::Util::camelize($table);
 

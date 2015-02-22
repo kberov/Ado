@@ -1,6 +1,7 @@
 package Ado::Plugin;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Util qw(decamelize class_to_path);
+use Mojo::Util qw(decamelize class_to_path slurp decode);
+
 File::Spec::Functions->import(qw(catfile catdir));
 
 has app => sub { Mojo::Server->new->build_app('Ado') };
@@ -35,17 +36,16 @@ has config_classes => sub {
 
 sub _get_plugin_config {
     my ($self) = @_;
-    state $app    = $self->app;
-    state $mode   = $app->mode;
-    state $home   = $app->home;
-    state $loader = Mojo::Loader->new;
+    state $app  = $self->app;
+    state $mode = $app->mode;
+    state $home = $app->home;
 
     my $config_dir   = $self->config_dir;
     my $ext          = $self->ext;
     my $name         = decamelize($self->name);
     my $config       = {};
     my $config_class = $self->config_classes->{$ext};
-    if (my $e = $loader->load($config_class)) {
+    if (my $e = Mojo::Loader::load_class($config_class)) {
         Carp::croak ref $e ? "Exception: $e" : $config_class . ' - Not found!';
     }
 
@@ -91,8 +91,6 @@ sub initialise {
     #from  etc/ado.conf and etc/plugins/$name.conf
     for my $k (keys %$conf) { $self->config($k => $conf->{$k}); }
     $conf = $self->config;
-    $app->log->debug('Plugin ' . $self->name . ' configuration:' . $app->dumper($conf))
-      if ($mode eq 'development');
 
     # Add namespaces if defined.
     push @{$app->routes->namespaces}, @{$conf->{namespaces}}
@@ -122,6 +120,7 @@ sub initialise {
     return ($self, $app, $conf);
 }
 
+
 1;
 
 =pod
@@ -149,7 +148,8 @@ Create your plugin like this:
     return $self;
   }
 
-but better use L<Ado::Command::generate::adoplugin> to do everything for you.
+but better use L<Ado::Command::generate::adoplugin> to 
+generate all the files for you.
 
 =head1 DESCRIPTION
 
@@ -158,7 +158,8 @@ It provides some methods specific to L<Ado> only.
 
 =head1 ATTRIBUTES
 
-Ado::Plugin provides the following attributes for use by subclasses.
+Ado::Plugin inherits all attributes from L<Mojolicious::Plugin>
+and provides the following for use by subclasses.
 
 =head2 app
 
@@ -180,7 +181,7 @@ This works both while developing a plugin and after installing the plugin.
 =head2 config_classes
 
 Returns a hash reference containing C<file-extension =E<gt> class> pairs.
-Used to decide which configuration plugin to use depending on the file extension.
+Used to detect which configuration plugin to use depending on the file extension.
 The default mapping is:
 
     {   conf => 'Mojolicious::Plugin::Config',
@@ -188,7 +189,7 @@ The default mapping is:
         pl   => 'Mojolicious::Plugin::Config'
     };
 
-Using this attribute you can use your own configuration plugin as far as it
+This attribute allows you to use your own configuration plugin as far as it
 supports the L<Mojolicious::Plugin::Config> API.
 
 =head2 ext
@@ -216,7 +217,8 @@ The name - only the last word of the plugin's package name.
 
 =head1 METHODS
 
-Ado::Plugin provides the following methods for use by subclasses.
+Ado::Plugin inherits all methods from L<Mojolicious::Plugin>
+and provides the following for use by subclasses.
 
 =head2 config
 

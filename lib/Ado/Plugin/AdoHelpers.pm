@@ -1,5 +1,38 @@
 package Ado::Plugin::AdoHelpers;
 use Mojo::Base 'Ado::Plugin';
+use Mojo::Util qw(slurp decode);
+
+# allow plugins to process SQL scripts while loading
+sub do_sql_file {
+    my ($app, $sql_file) = @_;
+    my $dbh = $app->dbix->dbh;
+    $app->log->debug('do_sql_file:' . $sql_file)
+      if $Ado::Control::DEV_MODE;
+
+    my $SQL = decode('UTF-8', slurp($sql_file));
+
+    #Remove multi-line comments
+    $SQL =~ s|/\*+.+?\*/\s+?||gsmx;
+    $app->log->debug('$SQL:' . $SQL)
+      if $Ado::Control::DEV_MODE;
+    local $dbh->{RaiseError} = 1;
+    my $last_statement = '';
+    return eval {
+        $dbh->begin_work;
+        for my $st (split /;/smx, $SQL) {
+            $last_statement = $st;
+
+            #$app->app->log->debug('$statement:'.$statement);
+            $dbh->do($st) if $st =~ /\S+/smx;
+        }
+        $dbh->commit;
+    } || do {
+        $dbh->rollback;
+        my $e = "\nError in statement:$last_statement\n$@";
+        $app->log->error($e);
+        Carp::croak($e);
+    };
+}
 
 sub register {
     my ($self, $app, $conf) = shift->initialise(@_);
@@ -9,6 +42,8 @@ sub register {
 
     # http://irclog.perlgeek.de/mojo/2014-10-03#i_9453021
     $app->helper(to_json => sub { Mojo::JSON::to_json($_[1]) });
+    Mojo::Util::monkey_patch(ref($app), do_sql_file => \&Ado::Plugin::AdoHelpers::do_sql_file);
+
 
     return $self;
 }
@@ -44,6 +79,25 @@ by default.
 =head1 HELPERS
 
 L<Ado::Plugin::AdoHelpers> implements the following helpers.
+
+=head2 do_sql_file
+
+Your plugin may need to add some new tables, add columns to already
+existing tables or insert some data. This method allows you to do that.
+See the source code of L<Ado::Plugin::Vest> for example.
+The SQL file will be slurped, multiline comments will be removed.
+The content will be split into C<';'> and each statement will be executed
+using L<DBI/do>.
+
+  # in a plugin somewhere in register
+  $app->do_sql_file(catfile($self->config_dir, $sql_file));
+  $app->do_sql_file($conf->{vest_data_sql_file});
+
+  # on the command line
+  $ ado eval 'app->do_sql_file(shift)' some_file.sql
+
+  # elsewhere in an application
+  $app->do_sql_file($sql_file)
 
 =head2 to_json
 

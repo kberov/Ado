@@ -14,6 +14,7 @@ use Test::Mojo;
 my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
 
+isa_ok($app->plugin('ado_helpers'), 'Ado::Plugin::AdoHelpers');
 my $plugin = $app->plugin('example', {lelemale => 1});
 
 ok($app->plugins->namespaces->[-1] eq 'Ado::Plugin',

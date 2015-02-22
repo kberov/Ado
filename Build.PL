@@ -57,8 +57,8 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                            => '5.14.0',
-        'Mojolicious'                     => '5.54',
-        'Mojolicious::Plugin::DSC'        => '1.000',
+        'Mojolicious'                     => '5.81',
+        'Mojolicious::Plugin::DSC'        => '1.002',
         'Mojolicious::Plugin::SemanticUI' => '0.11',
         'DBIx::Simple::Class'             => '1.008',
         'Email::Address'                  => '1.905',

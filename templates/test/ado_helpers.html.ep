@@ -1,4 +1,5 @@
 % #ado_helpers.html.ep
+
 <html>
   <head>
     <script>
@@ -7,5 +8,8 @@
     </script>
   </head>
   <body>
+    updated rows: <%= 
+    app->do_sql_file(app->home->rel_file('t/ado/etc/plugins/foo.sql'));
+    %>
   </body>
 </html>

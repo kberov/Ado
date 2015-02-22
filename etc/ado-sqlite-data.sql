@@ -50,4 +50,3 @@ INSERT INTO `user_group` VALUES(4,4);
 -- COMMIT;
 
 PRAGMA foreign_keys = ON;
-VACUUM;

@@ -11,14 +11,16 @@ Ado::Manual - Getting started with Ado
 
 =head1 DESCRIPTION
 
-L<Ado> is a framework for web projects based on L<Mojolicious>,
+L<Ado> is a framework and application for web-projects, based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 
 Ado is a typical well structured,
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
 L<Mojolicious> application.
-It comes with default configuration and a model layer, plugged in by
-L<Mojolicious::Plugin::DSC>. An SQLite database is bundled in the distribution 
+Ado is a base application for building on it a CMS, ERP, CRM or all of them integrated together.
+
+It comes with default configuration and a model layer L<Ado::Model>, plugged in by
+L<Mojolicious::Plugin::DSC>. An SQLite database is bundled with the distribution 
 at C<etc/ado.sqlite> to get started quickly.
 
 Ado provides additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>, 
@@ -27,15 +29,21 @@ good practices, and team-work when starting new projects.
 The default Ado page uses L<Semantic UI|http://semantic-ui.com/>
 via L<Mojolicious::Plugin::SemanticUI> and is a good place to get acquainted.
 
+In short, Ado can be used right away as a L<CMS|http://en.wikipedia.org/wiki/Content_management_system>
+that can be extended with L<plugins|Ado::Manual::Plugins> and L<commands|Ado::Command> or as a
+<CMF|http://en.wikipedia.org/wiki/List_of_content_management_frameworks> on which to build a
+specific application.
+
 =head1 INSTALLATION
 
-We strongly recommend using Ado with your own Perl (not the system-wide)!
+We strongly recommend using Ado with L<your own Perl|https://metacpan.org/pod/distribution/App-perlbrew/bin/perlbrew>
+(not the system-wide)!
 This will give you freedom to experiment with new versions and modules
 without polluting your system perl.
-
 Ado can be I<installed into any folder of your choice>.
-By default it goes into the C<siteprefix> folder of your
-B<I<non-system Perl distro>>. When installing Ado in its own folder,
+By default it goes into the C<siteprefix> folder of the perl distribution used for installation.
+
+When installing Ado in its own folder,
 you may want to add the C</path/to/yourAdo/bin> to your C<$PATH>
 environment variable. When using Ado as a module from C</path/to/yourAdo/lib>,
 add the path to C<$PERL5LIB>.
@@ -47,7 +55,7 @@ To install manually Ado after downloading, run the following commands:
   perl Build.PL --install_base $HOME/opt/ado
   ./Build installdeps
   ./Build
-  ./Build test
+  ./Build test #optional
   ./Build install
 
 To see more installation methods and details, go to L<Ado::Manual::Installation>.
@@ -75,9 +83,14 @@ You can report bugs and suggest features at L<http://github.com/kberov/Ado/issue
 Bugs will be considered and fixed as time permits.
 Feel invited to make pull requests for your contributions.
 
+If you are simply looking for help with using Ado,
+please ask your questions at
+L<https://groups.google.com/d/forum/ado-dev>.
+
+
 =head1 CONTRIBUTING
 
-Anybody can contribute by reporting issues via github 
+Anybody can contribute by reporting issues via github
 or fixing typos in the documentation.
 To be able to contribute with code, some rules need to be kept.
 This is mandatory for any community project. Generally the rules outlined in
@@ -87,25 +100,42 @@ For specific to Ado rules see L<Ado::Manual::Contributing>.
 We expect that you know how Internet works, how to write Perl modules and 
 are familiar with L<Mojolicious>.
 
+To ease discusssions on Ado further development, a forum was created.
+L<https://groups.google.com/d/forum/ado-dev>
+
+=begin html
+
+<iframe id="ado-dev_forum_embed" src="javascript:void(0)"
+ scrolling="no" frameborder="0" style="width:100%;height:500px"></iframe>
+<script type="text/javascript">
+ document.getElementById("ado-dev_forum_embed").src =
+  "https://groups.google.com/forum/embed/?place=forum/ado-dev" +
+  "&showsearch=true&showtabs=true&showpopout=true&parenturl=" +
+  encodeURIComponent(window.location.href);
+</script> 
+
+=end html
+
 =head1 REST API
 
 Ado strives for strict separation of concerns. The best way to achieve 
 this is to fully separate the client code from the server code. 
 Ado is ideally suited for the purpose thanks to
-L<Mojolicious>. Every resource is accessible via the REST API.
+L<Mojolicious>. Every resource(route) is accessible via a browser as C</path/to/resourse>
+an returns HTML or using C</path/to/resourse.json> and returns JSON.
 We follow closely and elaborate on the recommendations in
-"RESTful Service Best Practices" 
-at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
+"RESTful Service Best Practices" at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
 =head1 PLUGINS
 
+Business-specific applications for an Ado-based system are usually implemented 
+as plugins. One way to contribute to L<Ado> is by writing plugins.
+
 Ado plugins work the same way as L<Mojolicious::Plugins> and share 
-the same common base trough L<Ado::Plugin>.
+the same common base trough L<Ado::Plugin> which ISA L<Mojolicious::Plugins>.
 Ado plugins have one small additional feature. 
 They can load their own configuration from
 C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
-Business-specific applications for an Ado-based system are usually implemented 
-as plugins. One way to contribute to L<Ado> is by writing plugins.
 
 See L<Ado::Manual::Plugins> and L<Ado::Plugin> for more information.
 

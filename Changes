@@ -1,5 +1,12 @@
 Revision history for Ado
 
+0.80 2015-02-22
+  - Implemented do_sql_file application helper in Ado::Plugin::AdoHelpers.
+  - Improved documentation.
+    Added the newly created google group Ado-dev to Ado::Manual page.
+  - Upgraded to Mojolicious 5.81.
+  - Upgraded to Mojolicious::Plugin::DSC 1.002.
+
 0.79 2015-02-15
   - $ENV{MOJO_HOME} is not set explicitly any more.
     Detecting properly app->home and falling back to Mojo::home.
