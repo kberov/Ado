@@ -120,37 +120,6 @@ sub initialise {
     return ($self, $app, $conf);
 }
 
-# allow plugins to process SQL scripts while loading
-sub do_sql_file {
-    my ($self, $dbh, $sql_file) = @_;
-    $self->app->log->debug('do_sql_file:' . $sql_file)
-      if $Ado::Control::DEV_MODE;
-
-    my $SQL = decode('UTF-8', slurp($sql_file));
-
-    #Remove multi-line comments
-    $SQL =~ s|/\*+.+?\*/\s+?||gsmx;
-    $self->app->log->debug('$SQL:' . $SQL)
-      if $Ado::Control::DEV_MODE;
-    local $dbh->{RaiseError} ||= 1;
-    my $statement = '';
-    eval {
-        $dbh->begin_work;
-        for my $st (split /;/smx, $SQL) {
-            $statement = $st;
-
-            #$self->app->log->debug('$statement:'.$statement);
-            $dbh->do($st) if $st =~ /\S+/smx;
-        }
-        $dbh->commit;
-    } || do {
-        $dbh->rollback;
-        my $e = "\nError in statement:$statement\n$@";
-        $self->app->log->error($e);
-        Carp::croak($e);
-    };
-    return 1;
-}
 
 1;
 
@@ -269,15 +238,6 @@ invoked in L</initialise>.
   my $value = $self->config('key');
   #set
   my $config = $self->config(foo => 'bar');
-
-=head2 do_sql_file
-
-Your plugin may need to add some new tables, add columns to already
-existing tables or add some metadata. This method allows you to do that.
-See the source code of L<Ado::Plugin::Vest> for example.
-
-  $self->do_sql_file($dbh, catfile($self->config_dir, $sql_file));
-  $self->do_sql_file($app->dbix->dbh, $conf->{vest_data_sql_file});
 
 =head2 initialise
 

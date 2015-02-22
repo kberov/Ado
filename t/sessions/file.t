@@ -23,7 +23,7 @@ is $sid, $t->tx->res->cookie($cookie_name)->value, 'Cookie $sid ok';
 $t->get_ok("/");
 my $default_expiration = $t->app->sessions->default_expiration;
 my $expires            = $t->tx->res->cookie($cookie_name)->expires;
-my $equal = $expires - gmtime(time + $default_expiration)->epoch;
+my $equal              = $expires - gmtime(time + $default_expiration)->epoch;
 
 #may differ with one second
 ok($equal == 0 || $equal == -1, '$default_expiration is ok');

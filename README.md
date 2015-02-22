@@ -28,7 +28,7 @@ The default Ado page uses [Semantic UI](http://semantic-ui.com/)
 via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plugin::SemanticUI) and is a good place to get acquainted.
 
 In short, Ado can be used right away as a [CMS](http://en.wikipedia.org/wiki/Content_management_system)
-that can be extended with [plugins](https://metacpan.org/pod/Ado::Plugin) and [commands](https://metacpan.org/pod/Ado::Command) or as a
+that can be extended with [plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [commands](https://metacpan.org/pod/Ado::Command) or as a
 <CMF|http://en.wikipedia.org/wiki/List\_of\_content\_management\_frameworks> on which to build a
 specific application.
 
@@ -81,9 +81,13 @@ You can report bugs and suggest features at [http://github.com/kberov/Ado/issues
 Bugs will be considered and fixed as time permits.
 Feel invited to make pull requests for your contributions.
 
+If you are simply looking for help with using Ado,
+please ask your questions at
+[https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev).
+
 # CONTRIBUTING
 
-Anybody can contribute by reporting issues via github 
+Anybody can contribute by reporting issues via github
 or fixing typos in the documentation.
 To be able to contribute with code, some rules need to be kept.
 This is mandatory for any community project. Generally the rules outlined in
