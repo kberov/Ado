@@ -85,7 +85,7 @@ L<Ado::Plugin::AdoHelpers> implements the following helpers.
 Your plugin may need to add some new tables, add columns to already
 existing tables or insert some data. This method allows you to do that.
 See the source code of L<Ado::Plugin::Vest> for example.
-The sql file will be slurped, multiline comments will be removed.
+The SQL file will be slurped, multiline comments will be removed.
 The content will be split into C<';'> and each statement will be executed
 using L<DBI/do>.
 
