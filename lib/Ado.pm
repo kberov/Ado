@@ -11,6 +11,16 @@ our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 use Ado::Control;
 use Ado::Sessions;
 
+has ado_home => sub {
+    my $app   = shift;
+    my $class = ref $app;
+    my @home  = splitdir $INC{class_to_path $class};
+    while (pop @home) {
+        return Mojo::Home->new->parts([@home])
+          if -s catfile(@home, 'bin', 'ado');    # bin/..
+    }
+    return;
+};
 sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
@@ -137,6 +147,16 @@ For a more detailed description on what Ado is and how to get started with Ado s
 
 Ado inherits all attributes from Mojolicious and implements the following ones.
 
+=head2 ado_home
+
+Returns an instance of L<Mojo::Home> pointing to the
+base directory where Ado is installed.
+
+    ~$ ado eval 'say app->ado_home'
+    /home/berov/opt/public_dev/Ado
+
+
+
 =head2 CODENAME
 
 Returns the current C<CODENAME>.
@@ -152,8 +172,8 @@ The guessing order is the following:
 
 =item 1. If C<$ENV{MOJO_HOME}> is defined, it is honored.
 
-=item 2. The upper directory of the directory in which the starting executable C<$app-E<gt>>moniker>
-s found, eg C<bin/..>
+=item 2. The upper directory of the directory in which the starting executable C<$app-E<gt>>moniker> is found, eg C<bin/..>.
+This may happen to be the same as L</ado_home>.
 
 =item 3. Fallback to L<Mojo/home>. This is the usual behavior of any L<Mojo> application.
 

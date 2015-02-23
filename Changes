@@ -1,5 +1,9 @@
 Revision history for Ado
 
+0.81 2015-02-23
+  - Implemented Ado::ado_home - pointing always to where
+    Ado is installed.
+
 0.80 2015-02-22
   - Implemented do_sql_file application helper in Ado::Plugin::AdoHelpers.
   - Improved documentation.
