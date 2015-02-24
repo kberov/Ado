@@ -8,6 +8,7 @@ use Test::More;
 
 BEGIN {
     $ENV{MOJO_HOME} = abs_path(catdir(dirname(__FILE__), updir, 'ado'));
+    $ENV{MOJO_CONFIG} = abs_path(catfile($ENV{MOJO_HOME}, '../../etc/ado.conf'));
     $ENV{MOJO_MODE} = 'alabala';
 }
 use lib("$ENV{MOJO_HOME}/lib");
