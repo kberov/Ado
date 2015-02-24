@@ -3,9 +3,10 @@ package Ado;
 use Mojo::Base 'Mojolicious';
 use File::Spec::Functions qw(splitdir catdir catfile);
 use Mojo::Util 'class_to_path';
+use List::Util 'first';
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.81';
+our $VERSION   = '0.82';
 our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 
 use Ado::Control;
@@ -38,13 +39,26 @@ has home => sub {
     return $app->SUPER::home;                        #fallback to Mojo::Home
 };
 
+
 sub _initialise {
-    my $app  = shift;
-    my $home = $app->home;
-    my $mode = $app->mode;
+    my $app      = shift;
+    my $home     = $app->home;
+    my $mode     = $app->mode;
+    my $ado_home = $app->ado_home;
+
+    # add paths to bundled files if needed.
+    my $templates_dir  = $ado_home->rel_dir('templates');
+    my $site_templates = $home->rel_dir('site_templates');
+    my $renderer_paths = $app->renderer->paths;
+    my $public_dir     = $ado_home->rel_dir('public');
+    my $static_paths   = $app->static->paths;
+    push @$renderer_paths, $templates_dir
+      unless (first { $_ eq $templates_dir } @$renderer_paths);
+    push @$static_paths, $public_dir
+      unless (first { $_ eq $public_dir } @$static_paths);
 
     $app->secrets([Mojo::Util::sha1_sum($mode . $home),]);
-    unshift @{$app->renderer->paths}, $home->rel_dir('site_templates');
+    unshift @$renderer_paths, $site_templates if -d $site_templates;
     $app->controller_class("${CLASS}::Control");
     $app->routes->namespaces(["${CLASS}::Control"]);
     $app->plugins->namespaces(['Mojolicious::Plugin', "${CLASS}::Plugin",]);
@@ -54,15 +68,14 @@ sub _initialise {
 
 # This method will run once at server start
 sub startup {
-    my $app = shift;
-    $app->_initialise()->load_config()->load_plugins()->load_routes()->define_mime_types();
+    shift->_initialise()->load_config()->load_plugins()->load_routes()->define_mime_types();
     return;
 }
 
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $ENV{MOJO_CONFIG} //= catfile($app->ado_home, 'etc', $app->moniker . '.conf');
+    $ENV{MOJO_CONFIG} //= catfile($app->home, 'etc', $app->moniker . '.conf');
     $app->plugin('Config');
     return $app;
 }
@@ -206,10 +219,10 @@ a L<Mojolicious::Sessions> is returned.
 Ado inherits all methods from Mojolicious and implements
 the following new ones.
 
+
 =head2 startup
 
-The startup method is where everything begins. Returns void.
-The following methods are listed in the order they are invoked in L</startup>.
+Just calls the following methods in the order they are listed. Returns void.
 
 =head2 load_config
 
