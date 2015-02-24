@@ -27,10 +27,10 @@ is( $plugin->config_dir,
     catdir($ENV{MOJO_HOME}, 'etc', 'plugins'),
     '$plugin->config_dir is $MOJO_HOME/etc/plugins'
 );
-is(catdir($app->home,     'public'),    $app->static->paths->[0],   'app static path is first');
-is(catdir($app->ado_home, 'public'),    $app->static->paths->[1],   'Ado static path is second');
-is(catdir($app->home,     'templates'), $app->renderer->paths->[0], 'app renderer path is first');
-is(catdir($app->ado_home, 'templates'), $app->renderer->paths->[1],
+is($app->home->rel_dir('public'),    $app->static->paths->[0],   'app static path is first');
+is($app->ado_home->rel_dir('public'),    $app->static->paths->[1],   'Ado static path is second');
+is($app->home->rel_dir('templates'), $app->renderer->paths->[0], 'app renderer path is first');
+is($app->ado_home->rel_dir('templates'), $app->renderer->paths->[1],
     'Ado renderer path is second');
 
 is_deeply(
