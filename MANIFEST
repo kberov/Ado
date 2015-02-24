@@ -122,7 +122,6 @@ README.md
 t/.perlcriticrc
 t/00-load.t
 t/ado-build.t
-t/ado/etc/ado.conf
 t/ado/etc/plugins/example.conf
 t/ado/etc/plugins/example.development.conf
 t/ado/etc/plugins/foo.dummy

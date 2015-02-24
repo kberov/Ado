@@ -4,6 +4,9 @@ use Test::Mojo;
 sub encode { Mojo::Util::encode $^O=~ /win/i ? 'cp866' : 'UTF-8', $_[0] }
 my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
+
+ok($app->ado_home, 'ado_home is set');
+is($app->ado_home, $app->home, 'home is equal to ado_home');
 like($app->CODENAME, qr/CAPITAL\sLETTER/x);
 
 # Ado::define_mime_types()

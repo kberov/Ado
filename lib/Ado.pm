@@ -5,11 +5,22 @@ use File::Spec::Functions qw(splitdir catdir catfile);
 use Mojo::Util 'class_to_path';
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.80';
+our $VERSION   = '0.81';
 our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 
 use Ado::Control;
 use Ado::Sessions;
+my $CLASS = __PACKAGE__;
+
+has ado_home => sub {
+
+    my @home = splitdir $INC{class_to_path $CLASS};
+    while (pop @home) {
+        return Mojo::Home->new->parts([@home])
+          if -s catfile(@home, 'bin', lc $CLASS);    # bin/..
+    }
+    Carp::croak("$CLASS installation directory not found!");
+};
 
 sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
@@ -17,27 +28,41 @@ has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 has home => sub {
     my $app   = shift;
     my $class = ref $app;
-    return $app->SUPER::home if $ENV{MOJO_HOME};    # MOJO_HOME was forsed
+    return $app->SUPER::home if $ENV{MOJO_HOME};     # MOJO_HOME was forsed
     my @home    = splitdir $INC{class_to_path $class};
     my $moniker = $app->moniker;
     while (pop @home) {
         return Mojo::Home->new->parts([@home])
-          if -s catfile(@home, 'bin', $moniker);    # bin/..
+          if -s catfile(@home, 'bin', $moniker);     # bin/..
     }
-    return $app->SUPER::home;                       #fallback to Mojo::Home
+    return $app->SUPER::home;                        #fallback to Mojo::Home
 };
+
+sub _initialise {
+    my $app  = shift;
+    my $home = $app->home;
+    my $mode = $app->mode;
+
+    $app->secrets([Mojo::Util::sha1_sum($mode . $home),]);
+    unshift @{$app->renderer->paths}, $home->rel_dir('site_templates');
+    $app->controller_class("${CLASS}::Control");
+    $app->routes->namespaces(["${CLASS}::Control"]);
+    $app->plugins->namespaces(['Mojolicious::Plugin', "${CLASS}::Plugin",]);
+    unshift @{$app->commands->namespaces}, "${CLASS}::Command";
+    return $app;
+}
 
 # This method will run once at server start
 sub startup {
     my $app = shift;
-    $app->load_config()->load_plugins()->load_routes()->define_mime_types();
+    $app->_initialise()->load_config()->load_plugins()->load_routes()->define_mime_types();
     return;
 }
 
 #load ado.conf
 sub load_config {
     my $app = shift;
-    $ENV{MOJO_CONFIG} //= catfile($app->home, 'etc', $app->moniker . '.conf');
+    $ENV{MOJO_CONFIG} //= catfile($app->ado_home, 'etc', $app->moniker . '.conf');
     $app->plugin('Config');
     return $app;
 }
@@ -137,6 +162,14 @@ For a more detailed description on what Ado is and how to get started with Ado s
 
 Ado inherits all attributes from Mojolicious and implements the following ones.
 
+=head2 ado_home
+
+Returns an instance of L<Mojo::Home> pointing to the
+base directory where Ado is installed.
+
+    ~$ ado eval 'say app->ado_home'
+    /home/berov/opt/public_dev/Ado
+
 =head2 CODENAME
 
 Returns the current C<CODENAME>.
@@ -152,8 +185,8 @@ The guessing order is the following:
 
 =item 1. If C<$ENV{MOJO_HOME}> is defined, it is honored.
 
-=item 2. The upper directory of the directory in which the starting executable C<$app-E<gt>>moniker>
-s found, eg C<bin/..>
+=item 2. The upper directory of the directory in which the starting executable C<$app-E<gt>moniker> is found, e.g. C<bin/..>.
+This may happen to be the same as L</ado_home>.
 
 =item 3. Fallback to L<Mojo/home>. This is the usual behavior of any L<Mojo> application.
 
@@ -236,7 +269,7 @@ L<http://www.thefreedictionary.com/ado>,
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the
