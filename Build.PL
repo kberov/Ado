@@ -40,10 +40,10 @@ my $author = {
     },
 };
 my $builder = Ado::Build->new(
-    module_name => 'Ado',
-    license     => 'lgpl_3_0',
-    $ENV{TEST_AUTHOR} ? (create_readme => 1) : (),
-    dist_author => q{Красимир Беров <berov@cpan.org>},
+    module_name   => 'Ado',
+    license       => 'lgpl_3_0',
+    create_readme => 1,
+    dist_author   => q{Красимир Беров <berov@cpan.org>},
 
     #release_status     => 'unstable',
     configure_requires => {
@@ -94,7 +94,7 @@ my $builder = Ado::Build->new(
         no_index => {namespace => ['Ado::Model'],}
     },
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 'public/doc/**/*.html'],
+    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 't/ado/etc/ado.sqlite'],
 );
 
 $builder->create_build_script();

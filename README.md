@@ -29,7 +29,7 @@ via [Mojolicious::Plugin::SemanticUI](https://metacpan.org/pod/Mojolicious::Plug
 
 In short, Ado can be used right away as a [CMS](http://en.wikipedia.org/wiki/Content_management_system)
 that can be extended with [plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [commands](https://metacpan.org/pod/Ado::Command) or as a
-<CMF|http://en.wikipedia.org/wiki/List\_of\_content\_management\_frameworks> on which to build a
+[CMF](http://en.wikipedia.org/wiki/List_of_content_management_frameworks) on which to build a
 specific application.
 
 # INSTALLATION
@@ -98,18 +98,7 @@ We expect that you know how Internet works, how to write Perl modules and
 are familiar with [Mojolicious](https://metacpan.org/pod/Mojolicious).
 
 To ease discusssions on Ado further development, a forum was created.
-[https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev)
-
-<div>
-    <iframe id="ado-dev_forum_embed" src="javascript:void(0)"
-     scrolling="no" frameborder="0" style="width:100%;height:500px"></iframe>
-    <script type="text/javascript">
-     document.getElementById("ado-dev_forum_embed").src =
-      "https://groups.google.com/forum/embed/?place=forum/ado-dev" +
-      "&showsearch=true&showtabs=true&showpopout=true&parenturl=" +
-      encodeURIComponent(window.location.href);
-    </script> 
-</div>
+[https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev).
 
 # REST API
 
@@ -167,10 +156,10 @@ Renee Baecker (module@renee-baecker.de)
 
 # COPYRIGHT AND LICENSE
 
-Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
 You may copy, distribute and modify the software provided that 
 modifications are open source. However, software that includes 

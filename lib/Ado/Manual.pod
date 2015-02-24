@@ -31,7 +31,7 @@ via L<Mojolicious::Plugin::SemanticUI> and is a good place to get acquainted.
 
 In short, Ado can be used right away as a L<CMS|http://en.wikipedia.org/wiki/Content_management_system>
 that can be extended with L<plugins|Ado::Manual::Plugins> and L<commands|Ado::Command> or as a
-<CMF|http://en.wikipedia.org/wiki/List_of_content_management_frameworks> on which to build a
+L<CMF|http://en.wikipedia.org/wiki/List_of_content_management_frameworks> on which to build a
 specific application.
 
 =head1 INSTALLATION
@@ -101,20 +101,7 @@ We expect that you know how Internet works, how to write Perl modules and
 are familiar with L<Mojolicious>.
 
 To ease discusssions on Ado further development, a forum was created.
-L<https://groups.google.com/d/forum/ado-dev>
-
-=begin html
-
-<iframe id="ado-dev_forum_embed" src="javascript:void(0)"
- scrolling="no" frameborder="0" style="width:100%;height:500px"></iframe>
-<script type="text/javascript">
- document.getElementById("ado-dev_forum_embed").src =
-  "https://groups.google.com/forum/embed/?place=forum/ado-dev" +
-  "&showsearch=true&showtabs=true&showpopout=true&parenturl=" +
-  encodeURIComponent(window.location.href);
-</script> 
-
-=end html
+L<https://groups.google.com/d/forum/ado-dev>.
 
 =head1 REST API
 
@@ -174,10 +161,10 @@ Renee Baecker (module@renee-baecker.de)
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
 You may copy, distribute and modify the software provided that 
 modifications are open source. However, software that includes 
