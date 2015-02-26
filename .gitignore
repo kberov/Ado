@@ -21,6 +21,8 @@ etc/ado.sqlite
 etc/ado.sqlite-journal
 etc/ado.sqlite-shm
 etc/ado.sqlite-wal
+t/ado/etc/ado.sqlite
+
 
 # Ignore mode specific configurations
 etc/ado.dev*.conf

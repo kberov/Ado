@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.83 2015-02-26
+  - Continued with cleanups. New changes are applyed as need raises
+    while working on Ado::Plugin::Admin.
+
+
 0.82 2015-02-24
 - Improved Ado::_initialise.
 - Adding paths to bundled files only in case Ado is used as a
