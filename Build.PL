@@ -40,10 +40,10 @@ my $author = {
     },
 };
 my $builder = Ado::Build->new(
-    module_name   => 'Ado',
-    license       => 'lgpl_3_0',
+    module_name => 'Ado',
+    license     => 'lgpl_3_0',
     $ENV{TEST_AUTHOR} ? (create_readme => 1) : (),
-    dist_author   => q{Красимир Беров <berov@cpan.org>},
+    dist_author => q{Красимир Беров <berov@cpan.org>},
 
     #release_status     => 'unstable',
     configure_requires => {
@@ -57,7 +57,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                            => '5.14.0',
-        'Mojolicious'                     => '5.81',
+        'Mojolicious'                     => '6.0',
         'Mojolicious::Plugin::DSC'        => '1.002',
         'Mojolicious::Plugin::SemanticUI' => '0.11',
         'DBIx::Simple::Class'             => '1.008',
