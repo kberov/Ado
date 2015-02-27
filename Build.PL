@@ -42,7 +42,7 @@ my $author = {
 my $builder = Ado::Build->new(
     module_name   => 'Ado',
     license       => 'lgpl_3_0',
-    create_readme => 1,
+    $ENV{TEST_AUTHOR} ? (create_readme => 1) : (),
     dist_author   => q{Красимир Беров <berov@cpan.org>},
 
     #release_status     => 'unstable',
