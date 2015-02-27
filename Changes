@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.83 2015-02-26
+0.83 2015-02-27
   - Continued with cleanups. New changes are applyed as need raises
     while working on Ado::Plugin::Admin.
   - Upgraded to Mojolicious 6.0!
