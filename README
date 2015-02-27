@@ -115,8 +115,8 @@ PLUGINS
   See Ado::Manual::Plugins and Ado::Plugin for more information.
 
 CONTINUOUS INTEGRATION
-  We would like to know that our software is always in good health so we
-  count on friendly developers and organizations to install and test it
+  We would like to know that our software is always in good health. We count
+  on friendly developers and organizations to install and test it
   continuously.
 
   CPAN Testers Reports for Ado

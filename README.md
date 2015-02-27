@@ -125,8 +125,8 @@ See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [A
 
 # CONTINUOUS INTEGRATION
 
-We would like to know that our software is always in good health so we count on
-friendly developers and organizations to install and test it continuously.
+We would like to know that our software is always in good health.
+We count on friendly developers and organizations to install and test it continuously.
 
 [CPAN Testers Reports for Ado](http://www.cpantesters.org/distro/A/Ado.html)
 
