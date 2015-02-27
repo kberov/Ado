@@ -16,10 +16,11 @@ $t->get_ok('/', {Cookie => Mojo::Cookie::Request->new(name => language => value 
     '/ Cookie: language=bg content'
   );
 
-$t->get_ok('/test', {Cookie => Mojo::Cookie::Request->new(name => language => value => 'bg')})
+$t->get_ok('/test')
   ->content_is('Здрасти, Guest!', '/:controller Cookie: language=bg content');
 my $jar = $t->ua->cookie_jar;
-my $cookie = first { $_->name eq 'language' } $jar->all;
+
+my $cookie = first { $_->name eq 'language' } @{$jar->all};
 $cookie->value('en');
 $t->get_ok('/test/l10n')
   ->content_is('Hello Guest,', '/:controller/:action Cookie: language=en content');
@@ -29,7 +30,7 @@ $t->get_ok('/test/l10n')
 $t->get_ok('/test/bgl10n')
   ->content_is('Здрасти, Guest!', 'language explicitly set in action');
 
-$cookie = first { $_->name eq 'language' } $jar->all;
+$cookie = first { $_->name eq 'language' } @{$jar->all};
 $cookie->value('is');
 $t->get_ok('/')->status_is(200)
   ->text_is('#login_form label[for="login_name"]', 'User', '/:language - fallback content');
