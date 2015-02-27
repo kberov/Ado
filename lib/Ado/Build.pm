@@ -10,7 +10,7 @@ use ExtUtils::Install;
 use parent 'Module::Build';
 use Exporter qw( import );    #export functionality to Ado::BuildPlugin etc..
 our @EXPORT_OK = qw(
-  create_build_script process_etc_files
+  create_build_script process_etc_files do_create_readme
   process_public_files process_templates_files
   ACTION_perltidy ACTION_submit PERL_DIRS);
 
