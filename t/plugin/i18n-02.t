@@ -18,8 +18,8 @@ $t->get_ok('/', {Cookie => Mojo::Cookie::Request->new(name => language => value 
 
 $t->get_ok('/test')
   ->content_is('Здрасти, Guest!', '/:controller Cookie: language=bg content');
-my $jar = $t->ua->cookie_jar;
 
+my $jar = $t->ua->cookie_jar;
 my $cookie = first { $_->name eq 'language' } @{$jar->all};
 $cookie->value('en');
 $t->get_ok('/test/l10n')
