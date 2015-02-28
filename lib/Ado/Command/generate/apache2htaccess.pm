@@ -9,14 +9,15 @@ has usage => sub { shift->extract_usage };
 my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 sub _which {
-    return $_[0]->{$_[1]} if $_[0]->{$_[1]};
+    my ($self, $basename) = @_;
+    return $self->{$basename} if $self->{$basename};
     my @pathext = ('');
     push @pathext, map {lc} split /;/, $ENV{PATHEXT} if $ENV{PATHEXT} && $IS_DOS;
     foreach my $path (File::Spec->path($ENV{PATH})) {
         foreach my $ext (@pathext) {
-            my $exe = File::Spec->catfile($path, ($ext ? "$_[1].$ext" : $_[1]));
+            my $exe = File::Spec->catfile($path, ($ext ? "$basename.$ext" : $basename));
             $exe =~ s|\\|/|g;
-            return $_[0]->{$_[1]} = $exe if -e $exe;
+            return $self->{$basename} = $exe if -e $exe;
         }
     }
     return '';

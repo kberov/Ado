@@ -28,11 +28,7 @@ sub dbix {
 sub select_range {
     my $class = shift;
     state $dbix = $class->dbix;
-
-    #Could use "state" instead of "my"
-    # if this method is in a specific table-class.
     my $SQL = $class->SQL('SELECT') . $class->SQL_LIMIT(@_);
-
     return $dbix->query($SQL)->objects($class);
 }
 

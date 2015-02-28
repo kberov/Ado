@@ -14,7 +14,7 @@ my $author = {
         #Modules for QA - while developping
         'Perl::Tidy'          => '20140711',
         'Test::Output'        => '1.03',
-        'Perl::Critic'        => '1.121',
+        'Perl::Critic'        => '1.124',
         'Test::Perl::Critic'  => '1.02',
         'Test::CheckManifest' => '1.28',
         'Test::Pod::Coverage' => '1.10',
