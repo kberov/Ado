@@ -6,8 +6,9 @@ sub show {
     my $c = shift;
     my $document = $c->md_to_html() || return;
 
-    #What will be the tag to wrap around produced HTML?
-    my $md_file = $c->stash('md_file');
+    # What will be the tag to wrap around produced HTML?
+    my $md_file = $c->stash->{language} . '/' . $c->stash('md_file');
+
     my ($tag, $class, $toc) = ('aside', 'ui large vertical inverted labeled icon sidebar', '');
 
     if ($md_file =~ /toc/) {

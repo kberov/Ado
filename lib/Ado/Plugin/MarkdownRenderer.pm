@@ -36,7 +36,7 @@ sub md_to_html {
     #remove anchors
     $file_path =~ s{[^#]#.+}{};
     unless ($file_path) { $c->reply->not_found() && return '' }
-    my $fullname = catfile($config->{md_root}, $file_path);
+    my $fullname = catfile($config->{md_root}, $c->stash->{language}, $file_path);
     $c->debug("md_file: $file_path;\$fullname: $fullname");
 
     my ($name, $path, $suffix) = fileparse($fullname, @{$config->{md_file_sufixes}});
