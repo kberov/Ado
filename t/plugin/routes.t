@@ -13,7 +13,7 @@ is($app->plugins()->namespaces->[1], 'Ado::Plugin', 'Ado::Plugin namespace is pr
 
 #etc/plugin/routes.conf file is loaded and routes described in the file are present
 my $rs = $app->routes;
-my $c  = Mojolicious::Controller->new;
+my $c  = Ado::Control->new;
 my $m  = Mojolicious::Routes::Match->new(root => $rs);
 $m->find($c => {method => 'GET', path => '/'});
 is $m->path_for->{path}, '/', 'right GET path: /';
