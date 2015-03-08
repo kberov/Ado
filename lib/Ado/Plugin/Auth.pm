@@ -642,31 +642,31 @@ __DATA__
 @@ partials/authbar.html.ep
 %# displayed as a menu item
 % my $providers = config('Ado::Plugin::Auth')->{providers};
-<div class="right compact menu" id="authbar">
-% if (user->login_name eq 'guest') {
-  <div class="ui simple dropdown item">
-    <i class="sign in icon"></i><%=l('Sign in') %>
-    <div class="menu">
-    % my $action ='login';
-    % for my $auth (@{app->config('auth_methods')}) {
-      % if ($auth ne 'ado') {$action ='authorize';}
-      <a href="<%=url_for("/$action/$auth")->to_abs %>"
-        class="item <%= $auth %>">
-        <i class="<%=$auth %> icon"></i> <%=ucfirst l($auth) %>
+    <div class="right compact menu" id="authbar">
+    % if (user->login_name eq 'guest') {
+      <div class="ui simple dropdown item">
+        <i class="sign in icon"></i><%=l('Sign in') %>
+        <div class="menu">
+        % my $action ='login';
+        % for my $auth (@{app->config('auth_methods')}) {
+          % if ($auth ne 'ado') {$action ='authorize';}
+          <a href="<%=url_for("/$action/$auth")->to_abs %>"
+            class="item <%= $auth %>">
+            <i class="<%=$auth %> icon"></i> <%=ucfirst l($auth) %>
+          </a>
+        % }
+        </div>
+      </div>
+      <div class="ui small modal" id="modal_login_form">
+        <i class="close icon"></i>
+        %=include 'partials/login_form'
+      </div><!-- end div id="modal_login_form" -->
+    % } else {
+      <a class="ui item" href="<%= url_for('logout') %>">
+        <i class="sign out icon"></i><%= l('Logout').' ('. user->name .')' %>
       </a>
     % }
-    </div>
-  </div>
-  <div class="ui small modal" id="modal_login_form">
-    <i class="close icon"></i>
-    %=include 'partials/login_form'
-  </div><!-- end modal dialog with login form in it -->
-% } else {
-  <a class="ui item" href="<%= url_for('logout') %>">
-    <i class="sign out icon"></i><%= l('Logout').' ('. user->name .')' %>
-  </a>
-% }
-</div>
+    </div><!-- end div id="authbar" -->
 
 
 
