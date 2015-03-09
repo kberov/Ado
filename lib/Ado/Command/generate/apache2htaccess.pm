@@ -78,12 +78,12 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
   Usage:
   #on the command-line
 
-  $ bin/ado generate apache2htaccess --module cgi,fcgid > .htaccess
+  $ bin/ado generate apache2htaccess --modules cgi,fcgid > .htaccess
 
   #programatically
   use Ado::Command::generate::apache2htaccess;
   my $v = Ado::Command::generate::apache2htaccess->new;
-  $v->run('--module' => 'cgi,fcgid');
+  $v->run('--modules' => 'cgi,fcgid');
 
 =head1 DESCRIPTION
 
