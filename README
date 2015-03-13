@@ -100,7 +100,7 @@ REST API
   resource(route) is accessible via a browser as "/path/to/resourse" an
   returns HTML or using "/path/to/resourse.json" and returns JSON. We follow
   closely and elaborate on the recommendations in "RESTful Service Best
-  Practices" at www.RestApiTutorial.com. See Ado::Manual::RESTAPI.
+  Practices" at <http://www.RestApiTutorial.com>. See Ado::Manual::RESTAPI.
 
 PLUGINS
   Business-specific applications for an Ado-based system are usually
