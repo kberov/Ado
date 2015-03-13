@@ -25,7 +25,9 @@ sub _which {
 
 sub run {
     my ($self, @args) = @_;
-    my $home = $self->app->home;
+    state $app      = $self->app;
+    state $home     = $app->home;
+    state $ado_home = $app->ado_home;
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'v|verbose'       => \$args->{verbose},
@@ -35,7 +37,7 @@ sub run {
     @{$args->{modules}} = split(/\,/, join(',', @{$args->{modules}}));
 
     Carp::croak $self->usage unless scalar @{$args->{modules}};
-    $args->{DocumentRoot} = $self->app->home;
+    $args->{DocumentRoot} = $home;
     $args->{perl}         = $^X;
 
     if ($IS_DOS) {
@@ -48,9 +50,13 @@ sub run {
         && eval { require FCGI::ProcManager }
         && eval { require Apache::LogFormat::Compiler });
 
-    say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
-
-    my $template_file = $self->rel_file('templates/partials/apache2htaccess.ep');
+    say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
+    state $rel_file      = 'templates/partials/apache2htaccess.ep';    #TODO:Make it configurable?
+    state $template_file = (
+        -s $home->rel_file($rel_file)
+        ? $home->rel_file($rel_file)
+        : $ado_home->rel_file($rel_file)
+    );
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
         say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};

@@ -14,7 +14,6 @@ use Ado::Sessions;
 my $CLASS = __PACKAGE__;
 
 has ado_home => sub {
-
     my @home = splitdir $INC{class_to_path $CLASS};
     while (pop @home) {
         return Mojo::Home->new->parts([@home])
