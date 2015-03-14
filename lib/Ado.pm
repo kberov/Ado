@@ -6,7 +6,7 @@ use Mojo::Util 'class_to_path';
 use List::Util 'first';
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.83';
+our $VERSION   = '0.84';
 our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
 
 use Ado::Control;
@@ -14,7 +14,6 @@ use Ado::Sessions;
 my $CLASS = __PACKAGE__;
 
 has ado_home => sub {
-
     my @home = splitdir $INC{class_to_path $CLASS};
     while (pop @home) {
         return Mojo::Home->new->parts([@home])
@@ -57,7 +56,7 @@ sub _initialise {
     push @$static_paths, $public_dir
       unless (first { $_ eq $public_dir } @$static_paths);
 
-    $app->secrets([Mojo::Util::sha1_sum($mode . $home),]);
+    $app->secrets([Mojo::Util::sha1_sum($app->moniker . $mode . $home),]);
     unshift @$renderer_paths, $site_templates if -d $site_templates;
     $app->controller_class("${CLASS}::Control");
     $app->routes->namespaces(["${CLASS}::Control"]);
@@ -178,7 +177,7 @@ Ado inherits all attributes from Mojolicious and implements the following ones.
 =head2 ado_home
 
 Returns an instance of L<Mojo::Home> pointing to the
-base directory where Ado is installed.
+base directory where L<Ado> is installed.
 
     ~$ ado eval 'say app->ado_home'
     /home/berov/opt/public_dev/Ado
@@ -189,8 +188,9 @@ Returns the current C<CODENAME>.
 
 =head2 home
 
-#/where/is/your_app/rootdir
-$app->home;
+    #/where/is/your_app/rootdir
+    $app->home;
+
 Returns the root directory into which $app is installed.
 The guessing order is the following:
 
@@ -222,7 +222,16 @@ the following new ones.
 
 =head2 startup
 
-Just calls the following methods in the order they are listed. Returns void.
+Sets various default paths like C<templates>, C<site_templates>,
+C<public>. Defines L<Mojolicious/secrets> as sha1_sum of C<$moniker.$mode. $home>. Sets L<Mojolicious/controller_class>
+and L<Mojolicious::Routes/namespaces> to L<${CLASS}::Control>.
+Sets L<Mojolicious::Plugins/namespaces> to C<['Mojolicious::Plugin', "${CLASS}::Plugin"]>.
+Sets L<Mojolicious::Commands/namespaces> to C<${CLASS}::Command>.
+C<$CLASS> is usually L<Ado>.
+Then calls the following methods in the order they are listed.
+Returns void.
+
+You can amend this behavior in the application configuration file.
 
 =head2 load_config
 

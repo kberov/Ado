@@ -111,7 +111,7 @@ Ado is ideally suited for the purpose thanks to
 L<Mojolicious>. Every resource(route) is accessible via a browser as C</path/to/resourse>
 an returns HTML or using C</path/to/resourse.json> and returns JSON.
 We follow closely and elaborate on the recommendations in
-"RESTful Service Best Practices" at L<www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
+"RESTful Service Best Practices" at L<http://www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
 =head1 PLUGINS
 

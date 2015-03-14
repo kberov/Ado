@@ -108,7 +108,7 @@ Ado is ideally suited for the purpose thanks to
 [Mojolicious](https://metacpan.org/pod/Mojolicious). Every resource(route) is accessible via a browser as `/path/to/resourse`
 an returns HTML or using `/path/to/resourse.json` and returns JSON.
 We follow closely and elaborate on the recommendations in
-"RESTful Service Best Practices" at [www.RestApiTutorial.com](https://metacpan.org/pod/www.RestApiTutorial.com). See [Ado::Manual::RESTAPI](https://metacpan.org/pod/Ado::Manual::RESTAPI).
+"RESTful Service Best Practices" at [http://www.RestApiTutorial.com](http://www.RestApiTutorial.com). See [Ado::Manual::RESTAPI](https://metacpan.org/pod/Ado::Manual::RESTAPI).
 
 # PLUGINS
 

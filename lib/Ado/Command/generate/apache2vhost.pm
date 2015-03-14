@@ -9,15 +9,16 @@ my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 sub run {
     my ($self, @args) = @_;
-    state $app  = $self->app;
-    state $home = $app->home;
+    state $app      = $self->app;
+    state $home     = $app->home;
+    state $ado_home = $app->ado_home;
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'n|ServerName=s'   => \$args->{ServerName},
-      'p|port=i'         => \($args->{port} = 80),
+      'p|port=i'         => \($args->{port} //= 80),
       'A|ServerAlias=s'  => \$args->{ServerAlias},
       'a|ServerAdmin=s'  => \$args->{ServerAdmin},
-      'D|DocumentRoot=s' => \($args->{DocumentRoot} = $home),
+      'D|DocumentRoot=s' => \($args->{DocumentRoot} //= $home),
       'c|config_file=s'  => \$args->{config_file},
       'v|verbose'        => \$args->{verbose},
       'u|user=s'         => \$args->{user},
@@ -34,8 +35,12 @@ sub run {
     $args->{DocumentRoot} =~ s|\\|/|g if $IS_DOS;
 
     say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
-
-    my $template_file = $self->rel_file('templates/partials/apache2vhost.ep');
+    state $rel_file      = 'templates/partials/apache2vhost.ep';    #TODO:Make it configurable?
+    state $template_file = (
+        -s $home->rel_file($rel_file)
+        ? $home->rel_file($rel_file)
+        : $ado_home->rel_file($rel_file)
+    );
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
         say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};
@@ -76,7 +81,7 @@ Create link to your generated configuration.
 Generate your C<.htaccess> file. Since you own the machine,
 you can put its content into the C<001-example.com.vhost.conf> file.
 
-  $ bin/ado generate apache2htaccess --module fcgi \
+  $ bin/ado generate apache2htaccess --modules fcgi \
    > $MOJO_HOME/.htaccess
 
 Programmatically:

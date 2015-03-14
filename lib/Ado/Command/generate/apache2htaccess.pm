@@ -9,14 +9,15 @@ has usage => sub { shift->extract_usage };
 my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 sub _which {
-    return $_[0]->{$_[1]} if $_[0]->{$_[1]};
+    my ($self, $basename) = @_;
+    return $self->{$basename} if $self->{$basename};
     my @pathext = ('');
     push @pathext, map {lc} split /;/, $ENV{PATHEXT} if $ENV{PATHEXT} && $IS_DOS;
     foreach my $path (File::Spec->path($ENV{PATH})) {
         foreach my $ext (@pathext) {
-            my $exe = File::Spec->catfile($path, ($ext ? "$_[1].$ext" : $_[1]));
+            my $exe = File::Spec->catfile($path, ($ext ? "$basename.$ext" : $basename));
             $exe =~ s|\\|/|g;
-            return $_[0]->{$_[1]} = $exe if -e $exe;
+            return $self->{$basename} = $exe if -e $exe;
         }
     }
     return '';
@@ -24,7 +25,9 @@ sub _which {
 
 sub run {
     my ($self, @args) = @_;
-    my $home = $self->app->home;
+    state $app      = $self->app;
+    state $home     = $app->home;
+    state $ado_home = $app->ado_home;
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'v|verbose'       => \$args->{verbose},
@@ -34,7 +37,7 @@ sub run {
     @{$args->{modules}} = split(/\,/, join(',', @{$args->{modules}}));
 
     Carp::croak $self->usage unless scalar @{$args->{modules}};
-    $args->{DocumentRoot} = $self->app->home;
+    $args->{DocumentRoot} = $home;
     $args->{perl}         = $^X;
 
     if ($IS_DOS) {
@@ -47,9 +50,13 @@ sub run {
         && eval { require FCGI::ProcManager }
         && eval { require Apache::LogFormat::Compiler });
 
-    say STDERR 'Using arguments:' . $self->app->dumper($args) if $args->{verbose};
-
-    my $template_file = $self->rel_file('templates/partials/apache2htaccess.ep');
+    say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
+    state $rel_file      = 'templates/partials/apache2htaccess.ep';    #TODO:Make it configurable?
+    state $template_file = (
+        -s $home->rel_file($rel_file)
+        ? $home->rel_file($rel_file)
+        : $ado_home->rel_file($rel_file)
+    );
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
         say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};
@@ -77,12 +84,12 @@ Ado::Command::generate::apache2htaccess - Generates Apache2 .htaccess file
   Usage:
   #on the command-line
 
-  $ bin/ado generate apache2htaccess --module cgi,fcgid > .htaccess
+  $ bin/ado generate apache2htaccess --modules cgi,fcgid > .htaccess
 
   #programatically
   use Ado::Command::generate::apache2htaccess;
   my $v = Ado::Command::generate::apache2htaccess->new;
-  $v->run('--module' => 'cgi,fcgid');
+  $v->run('--modules' => 'cgi,fcgid');
 
 =head1 DESCRIPTION
 
