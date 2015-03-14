@@ -4,7 +4,7 @@
       "ÐÑÐ°ÑÐ¸Ð¼Ð¸Ñ ÐÐµÑÐ¾Ð² <berov@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.421",
+   "generated_by" : "Module::Build version 0.4211",
    "keywords" : [
       "Ado",
       "Mojolicious",

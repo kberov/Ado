@@ -15,10 +15,10 @@ sub run {
     my $args = $self->args;
     GetOptionsFromArray \@args,
       'n|ServerName=s'   => \$args->{ServerName},
-      'p|port=i'         => \($args->{port} = 80),
+      'p|port=i'         => \($args->{port} //= 80),
       'A|ServerAlias=s'  => \$args->{ServerAlias},
       'a|ServerAdmin=s'  => \$args->{ServerAdmin},
-      'D|DocumentRoot=s' => \($args->{DocumentRoot} = $home),
+      'D|DocumentRoot=s' => \($args->{DocumentRoot} //= $home),
       'c|config_file=s'  => \$args->{config_file},
       'v|verbose'        => \$args->{verbose},
       'u|user=s'         => \$args->{user},
