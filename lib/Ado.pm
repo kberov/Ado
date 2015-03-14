@@ -231,7 +231,7 @@ C<$CLASS> is usually L<Ado>.
 Then calls the following methods in the order they are listed.
 Returns void.
 
-You can ammend this behavior in the application configuartion file.
+You can amend this behavior in the application configuration file.
 
 =head2 load_config
 
