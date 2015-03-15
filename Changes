@@ -1,5 +1,8 @@
 Revision history for Ado
 
+0.85 2015-03-15
+  - Aded 'query' - hash reference - containing the parameters in Ado::Control::list_for_json().
+
 0.84 2015-03-13
   - Requiring Mojolicious 6.0 explicitly.
   - Using Perl::Critic 1.124. Simplified t/.perlcriticrc.
