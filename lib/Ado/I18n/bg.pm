@@ -52,6 +52,8 @@ our %Lexicon = (    ##no critic(ProhibitPackageVars)
     changed_by_help => 'Кой за последно е променял записа?,',
     tstamp          => 'Последна промяна',
     disabled        => 'Заключен',
+    reg_date        => 'Дата на регистрация',
+    description     => 'Описание',
 );
 
 1;

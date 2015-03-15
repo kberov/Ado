@@ -21,11 +21,16 @@ our %Lexicon = (    ##no critic(ProhibitPackageVars)
     en                => I18N::LangTags::List::name('en'),
     ru                => I18N::LangTags::List::name('ru'),
     de                => I18N::LangTags::List::name('de'),
+    ASC               => 'Ascending',
+    DESC              => 'Descending',
+    created_by        => 'Created by',
+    created_by_help   => 'Who created this user?',
+    changed_by_help   => 'Who modified this user the last time?',
+    changed_by        => 'Changed by',
+    reg_date          => 'Date of registration',
+    disabled          => 'Locked',
+    description       => 'Description',
 
-    ASC        => 'Ascending',
-    DESC       => 'Descending',
-    created_by => 'Created by',
-    disabled   => 'Locked',
 );
 
 1;

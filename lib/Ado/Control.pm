@@ -66,6 +66,7 @@ sub list_for_json {
 
             #TODO: Strive to implement linking using this reference:
             # http://www.iana.org/assignments/link-relations/link-relations.xhtml
+            query => {offset => $$range[1], limit => $$range[0]},
             links => [
                 {   rel  => 'self',
                     href => "" . $url->query([offset => $$range[1]])
