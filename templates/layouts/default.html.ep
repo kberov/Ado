@@ -6,11 +6,13 @@
   lang="<%= $language %>">
   <head><%= include 'partials/head'; %></head>
   <body><%= include 'partials/adobar' %><%= content %></body>
-  <!-- Produced by
-% if(stash->{controller}){
-%=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
-% }else{ 
-%=  (stash->{'mojo.captures'}{template}?'Template:'.stash->{'mojo.captures'}{template}:'');
-% }
+% if($Ado::Control::DEV_MODE){
+  <!--
+  % if(stash->{controller}){
+  %=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
+  % }else{ 
+  %=  (stash->{'mojo.captures'}{template}?'Template:'.stash->{'mojo.captures'}{template}:'');
+  % }
   -->
+% }
 </html>
