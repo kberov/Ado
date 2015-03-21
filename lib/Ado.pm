@@ -7,7 +7,7 @@ use List::Util 'first';
 
 our $AUTHORITY = 'cpan:BEROV';
 our $VERSION   = '0.85';
-our $CODENAME  = 'U+2C07 GLAGOLITIC CAPITAL LETTER DZELO (Ⰷ)';
+our $CODENAME  = 'U+2C08 GLAGOLITIC CAPITAL LETTER ZEMLJA (Ⰸ)';
 
 use Ado::Control;
 use Ado::Sessions;
