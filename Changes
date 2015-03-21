@@ -1,6 +1,12 @@
 Revision history for Ado
 
-0.85 2015-03-15
+0.85 2015-03-21
+  - Showing current controller and action only when in development mode
+    (templates/layouts/default.html.ep).
+  - Upgraded to Mojolicious::Plugin::SemanticUI 0.15!
+  - Upgraded to DBIx::Simple::Class 1.009!
+  - Upgraded to Mojolicious::Plugin::DSC 1.005!
+  - Upgraded to Mojolicious 6.03!
   - Aded 'query' - hash reference - containing the parameters in Ado::Control::list_for_json().
 
 0.84 2015-03-13

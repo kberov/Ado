@@ -6,7 +6,9 @@
   lang="<%= $language %>">
   <head><%= include 'partials/head'; %></head>
   <body><%= include 'partials/adobar' %><%= content %></body>
-% if($Ado::Control::DEV_MODE){
+
+% state $is_dev = (index(app->mode ,'dev') != -1);#dev
+% if($is_dev){
   <!--
   % if(stash->{controller}){
   %=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
