@@ -168,7 +168,7 @@ Ado - a rapid active commotion (framework for web-projects on Mojolicious)
 L<Ado> is a framework for web-projects based on L<Mojolicious>,
 written in the L<Perl programming language|http://www.perl.org/>.
 This is the base application class. Ado C<ISA> L<Mojolicious>.
-For a more detailed description on what Ado is and how to get started with Ado see L<Ado::Manual>.
+For a more detailed description on what Ado is and how to get started with Ado see B<L<Ado::Manual>>.
 
 =head1 ATTRIBUTES
 
@@ -223,7 +223,8 @@ the following new ones.
 =head2 startup
 
 Sets various default paths like C<templates>, C<site_templates>,
-C<public>. Defines L<Mojolicious/secrets> as sha1_sum of C<$moniker.$mode. $home>. Sets L<Mojolicious/controller_class>
+C<public>. Defines L<Mojolicious/secrets> as sha1_sum of C<$moniker.$mode. $home>.
+Sets L<Mojolicious/controller_class>
 and L<Mojolicious::Routes/namespaces> to L<${CLASS}::Control>.
 Sets L<Mojolicious::Plugins/namespaces> to C<['Mojolicious::Plugin', "${CLASS}::Plugin"]>.
 Sets L<Mojolicious::Commands/namespaces> to C<${CLASS}::Command>.
