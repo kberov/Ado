@@ -29,7 +29,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.84'
+    version: '0.85'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -105,19 +105,18 @@ recommends:
   FCGI: '0.74'
   FCGI::ProcManager: '0.24'
   Mojo::Server::FastCGI: '0.41'
-  Mojolicious::Plugin::OAuth2: '1.3'
   Plack: '1.0030'
   SQL::Abstract: '1.78'
 requires:
-  DBIx::Simple::Class: '1.008'
+  DBIx::Simple::Class: '1.009'
   Email::Address: '1.905'
   Locale::Maketext: '1.25'
-  Mojolicious: '6.0'
-  Mojolicious::Plugin::DSC: '1.002'
-  Mojolicious::Plugin::SemanticUI: '0.11'
+  Mojolicious: '6.03'
+  Mojolicious::Plugin::DSC: '1.005'
+  Mojolicious::Plugin::SemanticUI: '0.15'
   Text::MultiMarkdown: '1.000035'
   perl: v5.14.0
 resources:
   bugtracker: https://github.com/kberov/Ado/issues
   repository: https://github.com/kberov/Ado
-version: '0.84'
+version: '0.85'

@@ -17,18 +17,18 @@ $t->get_ok('/', {Cookie => Mojo::Cookie::Request->new(name => language => value 
   );
 
 $t->get_ok('/test')
-  ->content_is('Здрасти, Guest!', '/:controller Cookie: language=bg content');
+  ->content_like(qr'Здрасти, Guest!', '/:controller Cookie: language=bg content');
 
 my $jar = $t->ua->cookie_jar;
 my $cookie = first { $_->name eq 'language' } @{$jar->all};
 $cookie->value('en');
 $t->get_ok('/test/l10n')
-  ->content_is('Hello Guest,', '/:controller/:action Cookie: language=en content');
+  ->content_like(qr'Hello Guest,', '/:controller/:action Cookie: language=en content');
 
 #$cookie = first {$_->name eq 'language'} $jar->all;
 #$cookie->value('bg');
 $t->get_ok('/test/bgl10n')
-  ->content_is('Здрасти, Guest!', 'language explicitly set in action');
+  ->content_like(qr'Здрасти, Guest!', 'language explicitly set in action');
 
 $cookie = first { $_->name eq 'language' } @{$jar->all};
 $cookie->value('is');
@@ -40,10 +40,10 @@ $t = Test::Mojo->new($app);
 
 #$config->{language_from_headers}
 $t->get_ok('/test/l10n', {'Accept-Language' => 'bg'})
-  ->content_is('Здрасти, Guest!', '/:controller Accept-Language: bg content');
+  ->content_like(qr'Здрасти, Guest!', '/:controller Accept-Language: bg content');
 
 $t->get_ok('/test/l10n', {'Accept-Language' => 'en,fr;q=0.8,en-us;q=0.5,en;q=0.3'})
-  ->content_is('Hello Guest,', '/:controller/:action Accept-Language: en content');
+  ->content_like(qr'Hello Guest,', '/:controller/:action Accept-Language: en content');
 
 =pod
 =cut

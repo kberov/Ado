@@ -51,11 +51,13 @@ $t->post_ok(
 
 # after authentication
 $t->get_ok('/test/authenticateduser')->status_is(200)
-  ->content_is('hello authenticated Test 1', 'hello test1 ok');
+  ->content_like(qr'hello authenticated Test 1', 'hello test1 ok')
+  ->content_like(qr'with adobar_links',          'adobar_links ok');
 
 #user is Test 1
 $t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello Test 1,')
   ->element_exists('#adobar #authbar a.item .sign.out.icon', 'Sign Out link is present!');
+
 
 #authorization
 $t->get_ok('/test/ingroup')->status_is(200)->json_is('/0/login_name' => 'test1');

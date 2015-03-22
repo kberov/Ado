@@ -3,14 +3,12 @@ use Mojo::Base 'Ado::Control';
 
 ##no critic (ProhibitBuiltinHomonyms)
 sub index {
-    my $c = shift;
-    $c->render(layout => 'default');
-    return;
+    return shift->render();
 }
 
 sub form {
     my $c = shift;
-    $c->render(text => __PACKAGE__ . '::form', layout => 'default');
+    $c->render(text => __PACKAGE__ . '::form');
     return;
 }
 

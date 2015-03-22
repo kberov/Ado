@@ -1,8 +1,12 @@
 package Ado::Control::Test;
 use Mojo::Base 'Ado::Control';
 
-sub authenticateduser { return $_[0]->render(text => 'hello authenticated ' . $_[0]->user->name) }
-sub mark_down         { return $_[0]->render(text => $_[0]->markdown('* some text')) }
+sub authenticateduser {
+    return $_[0]->render(text => 'hello authenticated '
+          . $_[0]->user->name
+          . (ref($_[0]->session->{adobar_links}) eq 'ARRAY' ? ' with adobar_links' : ''));
+}
+sub mark_down { return $_[0]->render(text => $_[0]->markdown('* some text')) }
 
 sub l10n {
     $_[0]->debug('already set language:' . $_[0]->language);
