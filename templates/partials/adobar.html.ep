@@ -13,6 +13,13 @@
     <a class="popup icon item" href="https://metacpan.org/release/Ado"
     data-content="CPAN"><b>:&nbsp;:</b></a>
 
+    %# Some plugins may include adobar in layouts and push items to the adobar
+    % foreach my $link ( @{session->{adobar_links}} ) {
+    <a class="popup item" data-content="<%= $link->{text} ? l($link->{text}) : '' %>" 
+      href="<%= $link->{href} ? $link->{href}:'' %>" target="<%= $link->{target} ? $link->{target} : '' %>">
+      <i class="icon <%= $link->{icon} %>"></i>
+    </a>
+    % }
     %= include 'partials/authbar' unless current_route =~ m'login'
     %= include 'partials/language_menu'
   </nav>

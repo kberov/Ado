@@ -49,6 +49,15 @@ sub register {
               if $Ado::Control::DEV_MODE;
         }
     );
+    $app->hook(
+        after_login => sub {
+            my ($c) = @_;
+            $c->session(adobar_links => []);
+
+            # Store a friendly message for the next page in flash
+            $c->flash(login_message => 'Thanks for logging in! Welcome!');
+        }
+    );
 
     #Add this package to classes searched for templates in DATA sections
     push @{$app->renderer->classes}, __PACKAGE__;
@@ -77,7 +86,7 @@ sub logout {
     return;
 }
 
-#authenticate a user
+#authenticate a user /login route implementation is here
 sub login {
     my ($c) = @_;
 
@@ -101,9 +110,7 @@ sub login {
     my $authnticated = 0;
     if (eval { $authnticated = $c->$login_helper(); 1 }) {
         if ($authnticated) {
-
-            # Store a friendly message for the next page in flash
-            $c->flash(login_message => 'Thanks for logging in! Welcome!');
+            $c->app->plugins->emit_hook(after_login => $c);
 
             # Redirect to referrer page with a 302 response
             $c->debug('redirecting to ' . $c->session('over_route'))
@@ -525,6 +532,21 @@ Returns true on success, false otherwise.
 
 Ado::Plugin::Auth emits the following hooks.
 
+=head2 after_login
+
+In your plugin you can define some functionality to be executed right after
+a user has logged in. For example add some links to the adobar template,
+available only to logged-in users. Only the controller C<$c> is passed to this hook.
+
+    #example from Ado::Plugin::Admin
+    $app->hook(
+        after_login => sub {
+            push @{shift->session->{adobar_links} //= []},
+              {icon => 'dashboard', href => '/ado', text => 'Dashboard'};
+        }
+    );
+
+
 =head2 after_user_add
 
   $app->hook(after_user_add => sub {
@@ -552,7 +574,8 @@ Currently L<Ado> supports Facebook and Google.
   /login/ado
 
 If accessed using a C<GET> request displays a login form.
-If accessed via C<POST> performs authentication using C<ado> system database.
+If accessed via C<POST> performs authentication using C<ado> system database,
+and emits the hook L</after_login> .
 
   /login/facebook
 

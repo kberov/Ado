@@ -1,6 +1,8 @@
 Revision history for Ado
 
 0.85 2015-03-21
+  - Added possibilty to add items to the adobar menu
+    via session->{adobar_links}.
   - $CODENAME changed to
     "земля" - U+2C08 GLAGOLITIC CAPITAL LETTER ZEMLJA (Ⰸ)
   - Showing current controller and action only when in development mode
