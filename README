@@ -2,8 +2,8 @@ NAME
   Ado::Manual - Getting started with Ado
 
 SYNOPSIS
-    ado daemon
-    Server available at http://127.0.0.1:3000
+          ado daemon
+          Server available at http://127.0.0.1:3000
 
 DESCRIPTION
   Ado is a framework and application for web-projects, based on Mojolicious,
@@ -44,13 +44,13 @@ INSTALLATION
 
   To install manually Ado after downloading, run the following commands:
 
-    tar -zxf Ado-X.XX.tar.gz
-    cd Ado-X.XX/
-    perl Build.PL --install_base $HOME/opt/ado
-    ./Build installdeps
-    ./Build
-    ./Build test #optional
-    ./Build install
+          tar -zxf Ado-X.XX.tar.gz
+          cd Ado-X.XX/
+          perl Build.PL --install_base $HOME/opt/ado
+          ./Build installdeps
+          ./Build
+          ./Build test #optional
+          ./Build install
 
   To see more installation methods and details, go to
   Ado::Manual::Installation.
@@ -58,17 +58,17 @@ INSTALLATION
 SUPPORT AND DOCUMENTATION
   After installing, you can find documentation with the perldoc command.
 
-      perldoc Ado
-      perldoc Ado::Manual #this page
+          perldoc Ado
+          perldoc Ado::Manual #this page
 
   For better experience run the "ado" application and read the documentation
   from your browser.
 
-    /path/to/yourAdo/bin/ado daemon
+          /path/to/yourAdo/bin/ado daemon
 
   If you installed "ado" in your Perl distro, you can simply type:
 
-    ado daemon
+          ado daemon
 
   Go to http:/localhost:3000/perldoc
 

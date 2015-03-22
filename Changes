@@ -1,6 +1,7 @@
 Revision history for Ado
 
 0.85 2015-03-21
+  - Added hook 'after_login', emited by Ado::Plugin::Auth.
   - Added possibilty to add items to the adobar menu
     via session->{adobar_links}.
   - $CODENAME changed to
