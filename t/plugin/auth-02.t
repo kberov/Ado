@@ -51,7 +51,7 @@ $t->post_ok(
 
 # after authentication
 $t->get_ok('/test/authenticateduser')->status_is(200)
-  ->content_is('hello authenticated Test 1', 'hello test1 ok');
+  ->content_like(qr'hello authenticated Test 1', 'hello test1 ok');
 
 #user is Test 1
 $t->get_ok('/')->status_is(200)->text_is('article.ui.main.container h1' => 'Hello Test 1,')
