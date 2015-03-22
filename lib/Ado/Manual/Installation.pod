@@ -2,11 +2,13 @@
 
 =head1 NAME
 
-Ado::Manual::Installation - Various ways to install Ado 
+Ado::Manual::Installation - Various ways to install and deploy Ado 
 
 =head1 DESCRIPTION
 
-We strongly recommend using Ado with your own Perl (not the system-wide)!
+We strongly recommend using Ado with L<your own
+Perl|https://metacpan.org/pod/distribution/App-perlbrew/bin/perlbrew>
+(not the system-wide)!
 This will give you freedom to install modules from CPAN etc.
 
 Get a precompiled Perl distro like "Citrus Perl" 
@@ -16,15 +18,14 @@ Get a precompiled Perl distro like "Citrus Perl"
 or build your own using L<App::perlbrew>.
 
 Ado can be downloaded from L<CPAN|http://search.cpan.org/dist/Ado/>
-and installed manually or installed directly from CPAN using C<cpan> or
-C<cpanm> commandline tools. 
+and installed manually or installed into any folder of your choice.
+By default it goes into the
+C<siteprefix> folder of the perl distribution used for installation.
 
 
 =head1 INSTALLATION METHODS
 
-Ado is meant to be I<installed into a folder of your choice>.
-It can go into the C<siteprefix> folder of your B<I<non-system Perl distro>> 
-or in its own folder. When installing Ado in its own folder, you may want to
+When installing Ado in its own folder, you may want to
 add the C</path/to/ado/bin> to your C<$PATH> environment variable.
 
 =head2 MANUAL
@@ -34,7 +35,7 @@ To install manually Ado after downloading, run the following commands:
   tar -zxf Ado-X.XX.tar.gz
   cd Ado-X.XX/
   perl Build.PL --install_base $HOME/opt/ado
-  #or simply
+  #or if you want it in your Perl file tree
   perl Build.PL
   ./Build installdeps
   ./Build
@@ -47,10 +48,10 @@ To install manually Ado after downloading, run the following commands:
   #or
   cpan[1]> install Ado
   Running install for module 'Ado'
-  Running make for B/BE/BEROV/Ado-0.26.tar.gz
+  Running make for B/BE/BEROV/Ado-0.85.tar.gz
   ...  
   ...
-    BEROV/Ado-0.26.tar.gz
+    BEROV/Ado-0.85.tar.gz
   ./Build install install  -- OK
 
 =head2 PERLBREW
@@ -91,10 +92,11 @@ Ado is available as L<PPM> package too.
 =head1 SEE ALSO
 
 L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>, 
+L<Module::Build::Cookbook/prefix_vs_install_base>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 
