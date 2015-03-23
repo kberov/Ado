@@ -15,7 +15,7 @@ L<Ado> is a light on dependencies framework and application for web-projects,
 based on L<Mojolicious>, written in the L<Perl programming
 language|http://www.perl.org/>. Ado is a typical well structured,
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
-L<Mojolicious> application. Ado is a base application for building on it a CMS,
+L<Mojolicious> application. It aims to allow teams to build on it a CMS,
 ERP, CRM or all of them integrated together.
 
 Please note that the project is still a work-in-progres. Parts of it work,
