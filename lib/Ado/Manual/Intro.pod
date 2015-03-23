@@ -59,7 +59,7 @@ Ado::Controlller. We did this for brievety.
   │       └── Sessions        # Server side session implementations - e.g. Ado::Sessions::Database
   ├── log                     # Log directory
   ├── public                  # Static file directory (served automatically)
-  │   │                       # Goot for storing generated static pages served by e.g. Hypnotoad,Apache or Nginx
+  │   │                       # Good for generated static pages served by e.g. Hypnotoad, Apache or Nginx
   │   ├── css
   │   │   └── flags
   │   ├── doc
