@@ -45,18 +45,21 @@ Ado::Controlller. We did this for brievety.
   ├── etc                     # Configuration files directory
   │   ├── commands            # Commands configuration files directory (Nothing here yet)
   │   └── plugins             # Plugins configuration files directory
-  ├── lib                     # Library directory
-  │   └── Ado
-  │       ├── Command
-  │       │   └── generate
-  │       ├── Control
-  │       ├── I18n
-  │       ├── Manual
-  │       ├── Model
-  │       ├── Plugin
-  │       └── Sessions
-  ├── log
-  ├── public
+  ├── lib                     # Library directory where Ado.pm resides
+  │   └── Ado                 # Application namespace
+  │       ├── Command         # Commands namespace where are commands such as Ado::Command::adduser
+  │       │   └── generate    # Generators such as Ado::Command::generate::apache2vhost are here
+  │       ├── Control         # Controller namespace where controller classes 
+  │       │                   # like Ado::Control::Users reside
+  │       ├── I18n            # Namespace for lexicon packages such as Ado::I18n::bg
+  │       ├── Manual          # Namespace for developer manuals like this very file
+  │       ├── Model           # Controller namespace where controller classes 
+  │       │                   # like Ado::Model::Users reside
+  │       ├── Plugin          # Ado plugins namespace, e.g. Ado::Plugin::Auth
+  │       └── Sessions        # Server side session implementations - e.g. Ado::Sessions::Database
+  ├── log                     # Log directory
+  ├── public                  # Static file directory (served automatically)
+  │   │                       # Goot for storing generated static pages served by e.g. Hypnotoad,Apache or Nginx
   │   ├── css
   │   │   └── flags
   │   ├── doc
@@ -66,12 +69,13 @@ Ado::Controlller. We did this for brievety.
   │   ├── fonts
   │   ├── img
   │   ├── js
-  │   └── vendor
+  │   └── vendor              # Directory for putting vendor specific JavaScript libraries
   │       ├── crypto-js
   │       │   └── rollups
   │       └── pagedown
-  ├── site_templates
-  ├── t
+  ├── site_templates          # Template directory for site specific templates which will be used
+  │                           # instead those with the same name found in templates directory
+  ├── t                       # Test directory
   │   ├── ado
   │   │   ├── etc
   │   │   │   └── plugins
@@ -81,7 +85,8 @@ Ado::Controlller. We did this for brievety.
   │   ├── command
   │   ├── plugin
   │   └── sessions
-  └── templates
+  └── templates               # Template directory. Copy from here to "site_templates" and modify
+      │                       #  if you want to override some of the system templates
       ├── default
       ├── doc
       ├── layouts
