@@ -51,7 +51,7 @@ next upgrade your changes may be lost.
   │   └── plugins           # Plugins configuration files directory
   ├── lib                   # Library directory where Ado.pm resides
   │   └── Ado               # Application namespace
-  │       ├── Command       # Commands namespace where are commands such as Ado::Command::adduser
+  │       ├── Command       # Commands namespace for commands such as Ado::Command::adduser
   │       │   └── generate  # Generators such as Ado::Command::generate::apache2vhost are here
   │       ├── Control       # Controller namespace where controller classes 
   │       │                 # like Ado::Control::Users reside
@@ -60,10 +60,10 @@ next upgrade your changes may be lost.
   │       ├── Model         # Controller namespace where controller classes 
   │       │                 # like Ado::Model::Users reside
   │       ├── Plugin        # Ado plugins namespace, e.g. Ado::Plugin::Auth
-  │       └── Sessions      # Server side session implementations - e.g. Ado::Sessions::Database
+  │       └── Sessions      # Server side sessions - e.g. Ado::Sessions::Database
   ├── log                   # Log directory
   ├── public                # Static file directory (served automatically)
-  │   │                     # Good for generated static pages served by e.g. Hypnotoad, Apache or Nginx
+  │   │                     # Good for generated static pages served by e.g. Apache or Nginx
   │   ├── css
   │   │   └── flags
   │   ├── doc
@@ -77,8 +77,8 @@ next upgrade your changes may be lost.
   │       ├── crypto-js
   │       │   └── rollups
   │       └── pagedown
-  ├── site_templates        # Template directory for site specific templates which will be used
-  │                         # instead those with the same name found in templates directory
+  ├── site_templates        # Template directory for site specific templates, used instead
+  │                         # of those with the same name found in templates directory
   ├── t                     # Test directory
   │   ├── ado
   │   │   ├── etc
@@ -89,8 +89,8 @@ next upgrade your changes may be lost.
   │   ├── command
   │   ├── plugin
   │   └── sessions
-  └── templates             # Template directory. Copy from here to "site_templates" and modify
-      │                     #  if you want to override some of the system templates
+  └── templates             # Template directory. Copy from here to "site_templates" and
+      │                     # modify if you want to override some of the system templates
       ├── default
       ├── doc
       ├── layouts
