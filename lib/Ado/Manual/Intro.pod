@@ -98,7 +98,9 @@ next upgrade your changes may be lost.
       └── test
 
 
+And here is how Ado looks as building blocks:
 
+=for HTML <img src="https://raw.githubusercontent.com/kberov/Ado/master/public/img/Ado-Building-Blocks.png" />
 
 
 

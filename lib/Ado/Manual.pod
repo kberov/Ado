@@ -15,8 +15,8 @@ L<Ado> is a light on dependencies framework and application for web-projects,
 based on L<Mojolicious>, written in the L<Perl programming
 language|http://www.perl.org/>. Ado is a typical well structured,
 L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
-L<Mojolicious> application. It aims to allow teams to build on it a CMS,
-ERP, CRM or all of them integrated together.
+L<Mojolicious> application. It aims to allow teams to build on it a CMS, ERP,
+CRM or all of them integrated together.
 
 Please note that the project is still a work-in-progres. Parts of it work,
 others are simply missing.
@@ -59,14 +59,14 @@ questions at L<https://groups.google.com/d/forum/ado-dev>.
 
 =head1 CONTRIBUTING
 
-Anybody can contribute by reporting issues via github or fixing typos in
-the documentation. To be able to contribute with code, some rules need to
-be kept. This is mandatory for any community project. Generally the rules
-outlined in L<Mojolicious::Guides::Contributing> apply for L<Ado> too. For
-specific to Ado rules see L<Ado::Manual::Contributing>.
+Anybody can contribute by reporting issues via github or fixing typos in the
+documentation. To be able to contribute with code, some rules need to be kept.
+This is mandatory for any community project. Generally the rules outlined in
+L<Mojolicious::Guides::Contributing> apply for L<Ado> too. For specific to Ado
+rules see L<Ado::Manual::Contributing>.
 
-We expect that you know how Internet works, how to write Perl modules and
-are familiar with L<Mojolicious>.
+We expect that you know how Internet works, how to write Perl modules and are
+familiar with L<Mojolicious>.
 
 To ease discusssions on Ado further development, a forum was created.
 L<https://groups.google.com/d/forum/ado-dev>.
@@ -83,14 +83,13 @@ L<http://www.RestApiTutorial.com>. See L<Ado::Manual::RESTAPI>.
 
 =head1 PLUGINS
 
-Business-specific applications for an Ado-based system are usually
-implemented as plugins. One way to contribute to L<Ado> is by writing
-plugins.
+Business-specific applications for an Ado-based system are usually implemented
+as plugins. One way to contribute to L<Ado> is by writing plugins.
 
 Ado plugins work the same way as L<Mojolicious::Plugins> and share the same
-common base trough L<Ado::Plugin> which ISA L<Mojolicious::Plugins>. Ado
-plugins have one small additional feature. They can load their own
-configuration from C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
+common base trough L<Ado::Plugin> which ISA L<Mojolicious::Plugins>. Ado plugins
+have one small additional feature. They can load their own configuration from
+C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
 
 See L<Ado::Manual::Plugins> and L<Ado::Plugin> for more information.
 
@@ -130,10 +129,10 @@ Renee Baecker (module@renee-baecker.de)
 
 Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
-This program is free software, you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You
-may copy, distribute and modify the software provided that modifications
-are open source. However, software that includes the license may release
-under a different license.
+This program is free software, you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may copy,
+distribute and modify the software provided that modifications are open source.
+However, software that includes the license may release under a different
+license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
