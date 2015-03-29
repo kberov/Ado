@@ -33,12 +33,12 @@ extended with L<plugins|Ado::Manual::Plugins> and L<commands|Ado::Command> or as
 a L<CMF|http://en.wikipedia.org/wiki/List_of_content_management_frameworks> on
 which to build many different specific applications.
 
-Here is the directory structure. It does not contain the files for brievity.
+Here is the directory structure. It does not contain the files for brevity.
 It looks much the same as a full Mojolicious application would look and as described in
 L<Mojolicious::Guides::Growing/Differences>. One noticeable difference is that Ado
 has it's starter script in C<bin> instead of in C<script> and this is only to ease the
 deployment. Another one is the L<Ado::Control> namespace instead of
-Ado::Controlller. We did this for brievety. The third difference is C<site_templates>,
+Ado::Controlller. We did this for brevity. The third difference is C<site_templates>,
 used for putting  Ado system-templates which you want to override, e.g put our own
 copy of C<templates/partials/head.html.ep> in C<site_templates/partials/head.html.ep>
 and modify it. This way you can create your own themes without fearing that on the 
