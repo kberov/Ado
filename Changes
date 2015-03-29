@@ -1,6 +1,10 @@
 Revision history for Ado
 
-0.85 2015-03-21
+0.86 2015-03-30
+  - Writing Ado::Manual::Intro.
+  - Upgraded to Mojolicious 6.05!
+
+0.85 2015-03-22
   - Added hook 'after_login', emited by Ado::Plugin::Auth.
   - Added possibilty to add items to the adobar menu
     via session->{adobar_links}.
