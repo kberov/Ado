@@ -47,10 +47,21 @@ sub process_public_files {
 }
 
 sub process_etc_files {
-    my $self = shift;
+    my $self   = shift;
+    my $prefix = $self->install_base || $self->config('siteprefix');
+    my $mode   = $ENV{MOJO_MODE} ||= 'development';
+
     for my $asset (@{$self->rscan_dir('etc')}) {
         if (-d $asset) {
             make_path(catdir('blib', $asset));
+            next;
+        }
+
+        # skip SQLite automatically created files
+        next if ($asset =~ m/ado\-(shm|wal)/);
+
+        if ($asset =~ m/ado\.sqlite/ && -s catfile($prefix, $asset)) {
+            $self->log_info("Skipping $asset. We are upgrading from a previous version! $/");
             next;
         }
         copy($asset, catfile('blib', $asset))
@@ -169,7 +180,9 @@ sub _process_custom_files {
     #make some files writable and/or readable only by the user that runs the application
     my $ro = oct('0400');
     my $rw = oct('0600');
-    for my $asset (qw(ado.conf plugins/routes.conf)) {
+    for my $asset (
+        qw(ado.conf plugins/routes.conf plugins/auth.conf plugins/markdown_renderer.conf))
+    {
         _chmod($ro, catfile($etc_dir, $asset));
     }
     _chmod($rw, catfile($etc_dir, 'ado.sqlite'));
@@ -284,7 +297,7 @@ Ado::Build - Custom routines for Ado installation
 
 =head1 SYNOPSIS
 
-  #See Build.PL
+  #Build.PL
   use 5.014000;
   use strict;
   use warnings FATAL => 'all';
@@ -310,13 +323,11 @@ Ado::Build - Custom routines for Ado installation
 =head1 DESCRIPTION
 
 This is a subclass of L<Module::Build>. We use L<Module::Build::API> to add
-custom functionality so we can install Ado in a location chosen by the user.
-
-
-This module and L<Ado::BuildPlugin> exist just because of the additional install paths
-that we use beside C<lib> and C<bin>. These modules also can serve as examples 
-for your own builders if you have some custom things to do during 
-build, test, install and even if you need to add a new C<ACTION_*> to your setup.
+custom functionality. This module and L<Ado::BuildPlugin> exist just because of
+the additional install paths that we use beside C<lib> and C<bin> and processing
+the files in those paths. These modules also can serve as examples  for your own
+builders if you have some custom things to do during  build, test, install and
+even if you need to add a new C<ACTION_*> to your setup.
 
 =head1 ATTRIBUTES
 
