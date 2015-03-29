@@ -1,6 +1,13 @@
 Revision history for Ado
 
-0.85 2015-03-21
+0.86 2015-03-30
+  - Started work in Ado::Build to handle upgrades beside installations
+    so the sqlite database is not replaced with the newly installed version
+    and thus destroing content of unconscious users - Alpha.
+  - Writing Ado::Manual::Intro.
+  - Upgraded to Mojolicious 6.05!
+
+0.85 2015-03-22
   - Added hook 'after_login', emited by Ado::Plugin::Auth.
   - Added possibilty to add items to the adobar menu
     via session->{adobar_links}.

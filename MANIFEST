@@ -34,6 +34,7 @@ lib/Ado/I18n/en.pm
 lib/Ado/Manual.pod
 lib/Ado/Manual/Contributing.pod
 lib/Ado/Manual/Installation.pod
+lib/Ado/Manual/Intro.pod
 lib/Ado/Manual/Plugins.pod
 lib/Ado/Manual/RESTAPI.pod
 lib/Ado/Model.pm

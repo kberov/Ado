@@ -26,7 +26,7 @@ By default the following plugins are enabled:
   3. Mojolicious::Plugin::DSC – a plugin which integrates DBIx::Simple::Class in the application.  DBIx::Simple::Class is a very lightweight object-relational mapper based on  DBIx::Simple. It abstracts the SQL from the programmer still allowing to construct very complex SQL queries. There are plans to add support for asynchronous queries which will be transparent for the programmer.
   4. Ado::Plugin::Auth is a plugin that authenticates users to an Ado system. Users can be authenticated locally or using (TODO!) Facebook, Google, Twitter and other authentication service-providers. A pre-made login form can be used directly or as an example for custom forms for the specific application.
   5. Ado::Plugin::MarkdownRenderer - Render static files in markdown format. One can create a personal blog or enterprise wiki using static files in markdown format.
-3. The following libraries for user-interface development are bundled with the distribution:
+3. The following libraries for user-interface development are used:
   1. Semantic UI – a CSS and JS framework for development of mobile-ready layouts. Its usage also results in more clean HTML than other popular frameworks.
   2. PageDown is the version of Attacklab's Showdown and WMD as used on Stack Overflow and the other Stack Exchange sites. It includes a converter that turns Markdown into HTML, a Markdown editor with realtime preview of the generated HTML, and a few useful plugins, e.g. for sanitizing the generated HTML according to a whitelist of allowed tags.
 4. The following Ado specific commands are available:
