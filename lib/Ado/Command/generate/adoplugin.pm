@@ -64,7 +64,8 @@ sub run {
     }
 
     # Test
-    $self->render_to_rel_file('test', "$dir/t/plugin/$decamelized-00.t", $class, $$args{name});
+    $self->render_to_rel_file('test', "$dir/t/plugin/$decamelized-00.t",
+        $class, $$args{name}, $decamelized);
 
     # Build.PL
     $self->render_to_rel_file('build_file', "$dir/Build.PL", $class, $path, $dir);
@@ -281,12 +282,14 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 <% %>=cut
 
 @@ test
-% my ($class, $name) = @_;
+% my ($class, $name, $decamelized) = @_;
 use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 
 my $t = Test::Mojo->new('Ado');
+my $app = $t->app;
+ok($app->plugin('<%= $decamelized %>'),'<%= $decamelized %> plugin loaded.');
 
 my $class = '<%= $class %>';
 isa_ok($class, 'Ado::Plugin');

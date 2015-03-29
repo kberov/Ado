@@ -65,9 +65,9 @@
 
 # Avoid some SQLite files
 \betc/ado_\d+\.sqlite
-\betc/ado\.sqlite-journal
-\betc/ado\.sqlite-shm
-\betc/ado\.sqlite-wal
+.+\.sqlite-journal$
+.+\.sqlite-shm$
+.+\.sqlite-wal$
 \bt/ado/etc/ado\.sqlite
 
 
