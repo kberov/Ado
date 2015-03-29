@@ -2,12 +2,7 @@
 
 =head1 NAME
 
-Ado::Manual - Getting started with Ado 
-
-=head1 SYNOPSIS
-
-	ado daemon
-	Server available at http://127.0.0.1:3000
+Ado::Manual - Developers' manual
 
 =head1 DESCRIPTION
 
