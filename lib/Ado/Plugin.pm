@@ -226,7 +226,7 @@ The configuration which is for the currently registering plugin only.
 In L<Ado> every plugin can have its own configuration file.
 When calling this method for the first time it will parse and merge
 configuration files for the plugin. Options from mode specific 
-configuration file will overwrite options form the generic file.
+configuration file will overwrite options found in the generic file.
 You usually do not need to invoke this method directly since it is 
 invoked in L</initialise>.
 
