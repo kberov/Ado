@@ -26,7 +26,7 @@ sub session_id {
 sub get_instance {
     my $config  = shift;
     my $options = $config->{session}{options} || {};
-    my $type    = lc $config->{session}{type} || 'mojo';    #sane default
+    my $type    = lc($config->{session}{type} || 'mojo');    #sane default
 
     if ($type eq 'mojo') {
         return Mojolicious::Sessions->new(%$options);

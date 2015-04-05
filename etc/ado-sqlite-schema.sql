@@ -51,28 +51,6 @@ CREATE INDEX user_start_date ON users(start_date);
 CREATE INDEX user_stop_date ON users(stop_date);
 
 
--- 'Sites managed by this system'
-DROP TABLE IF EXISTS domains;
-CREATE TABLE IF NOT EXISTS domains (
---  'Id referenced by pages that belong to this domain.'
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
---  'Domain name as in $ENV{HTTP_HOST}.'
-  domain VARCHAR(63) UNIQUE NOT NULL, 
---  'The name of this site.'
-  site_name VARCHAR(63) NOT NULL,
---  'Site description'
-  description VARCHAR(255) NOT NULL DEFAULT '',
---   'User for which the permissions apply (owner).'
-  owner_id INTEGER REFERENCES users(id),
---  'Group for which the permissions apply.'
-  group_id INTEGER  REFERENCES groups(id),
---  'Domain permissions',
-  permissions VARCHAR(10) NOT NULL DEFAULT '-rwxr-xr-x' ,
---  '0=not published, 1=for review, 2=published'
-  published INT(1) NOT NULL DEFAULT 0
-);
-CREATE INDEX domains_published ON domains(published);
-
 -- 'Which user to which group belongs'
 DROP TABLE IF EXISTS user_group;
 CREATE TABLE IF NOT EXISTS user_group (

@@ -21,16 +21,15 @@ sub do_sql_file {
         $dbh->begin_work;
         for my $st (split /;/smx, $SQL) {
             $last_statement = $st;
-
-            #$app->app->log->debug('$statement:'.$statement);
-            $dbh->do($st) if $st =~ /\S+/smx;
+            $dbh->do($st) if ($st =~ /\S+/smx);
         }
         $dbh->commit;
     } || do {
-        $dbh->rollback;
         my $e = "\nError in statement:$last_statement\n$@";
-        $app->log->error($e);
-        Carp::croak($e);
+        my $e2;
+        eval { $dbh->rollback } || ($e2 = $/ . 'Additionally we have a rollback error:' . $@);
+        $app->log->error($e . ($e2 ? $e2 : ''));
+        Carp::croak($e . ($e2 ? $e2 : ''));
     };
 }
 

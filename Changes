@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.87 2015-03-30
+  - Moved table domains to Ado::Plugin::Site.
+  - Improved Error reporting in do_sql_file in Ado::Plugin::AdoHelpers.
+  - Fixed bug in Ado::Sessions. It was failing to set default session type.
+
 0.86 2015-03-30
   - Started work in Ado::Build to handle upgrades beside installations
     so the sqlite database is not replaced with the newly installed version
