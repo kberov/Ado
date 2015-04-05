@@ -314,7 +314,8 @@ my $builder = Ado::BuildPlugin->new(
     create_readme      => 1,
     dist_author        => q{Your Name <you@cpan.org>},
     release_status     => 'unstable',
-    build_requires     => {'Test::More' => 0,},
+    configure_requires   => {'Module::Build' => 0.42, Ado => 0},
+    build_requires       => {'Test::More' => 0},
     requires           => {Ado => '<%= Ado->VERSION %>',},
     add_to_cleanup     => ['<%= $dir %>-*', '*.bak'],
 );
