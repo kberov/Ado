@@ -27,7 +27,7 @@ sub do_sql_file {
     } || do {
         my $e = "\nError in statement:$last_statement\n$@";
         my $e2;
-        eval { $dbh->rollback } || ($e2 = $/ . 'Adttionally we have a rollback error:' . $@);
+        eval { $dbh->rollback } || ($e2 = $/ . 'Additionally we have a rollback error:' . $@);
         $app->log->error($e . ($e2 ? $e2 : ''));
         Carp::croak($e . ($e2 ? $e2 : ''));
     };
