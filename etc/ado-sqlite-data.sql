@@ -8,11 +8,6 @@
 */
 PRAGMA foreign_keys = OFF;
 -- BEGIN TRANSACTION;
-
-INSERT INTO `domains` 
-VALUES(1,'localhost','LocalHost',
-'Localhost - used only for testing purposes',1,1,'-rwxr-xr-x',1);
-
 INSERT INTO `groups` VALUES(0,'null','null group',1,1,1);
 INSERT INTO `users` VALUES(0,0,'null','9f1bd12057905cf4f61a14e3eeac06bf68a28e64',
 'Null','Null','null@localhost',
