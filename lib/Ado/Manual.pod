@@ -25,6 +25,8 @@ others are simply missing.
 =item * To see different installation methods, go to
 L<Ado::Manual::Installation>.
 
+=item * Start a personal blog in L<Ado::Manual::FiveMinutes>.
+
 =back
 
 =head1 SUPPORT AND DOCUMENTATION

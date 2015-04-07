@@ -1,5 +1,11 @@
 Revision history for Ado
 
+
+0.88 2015-04-07
+  - Updated Ado::Manual::Intro Ado::Manual::Plugins and Ado::Manual::Installation.
+    Created Ado::Manual::FiveMinutes.
+
+
 0.87 2015-03-30
   - Moved table domains to Ado::Plugin::Site.
   - Improved Error reporting in do_sql_file in Ado::Plugin::AdoHelpers.

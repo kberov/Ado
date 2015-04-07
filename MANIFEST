@@ -33,6 +33,7 @@ lib/Ado/I18n/de.pm
 lib/Ado/I18n/en.pm
 lib/Ado/Manual.pod
 lib/Ado/Manual/Contributing.pod
+lib/Ado/Manual/FiveMinutes.pod
 lib/Ado/Manual/Installation.pod
 lib/Ado/Manual/Intro.pod
 lib/Ado/Manual/Plugins.pod

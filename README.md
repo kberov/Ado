@@ -19,6 +19,7 @@ others are simply missing.
 - Read the [Ado::Manual::Intro](https://metacpan.org/pod/Ado::Manual::Intro) for a general overview.
 - To see different installation methods, go to
 [Ado::Manual::Installation](https://metacpan.org/pod/Ado::Manual::Installation).
+- Start a personal blog in [Ado::Manual::FiveMinutes](https://metacpan.org/pod/Ado::Manual::FiveMinutes).
 
 # SUPPORT AND DOCUMENTATION
 

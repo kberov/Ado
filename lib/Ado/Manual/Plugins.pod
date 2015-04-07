@@ -119,13 +119,15 @@ Ado comes with the following default plugins. They can be used as examples and f
 =back
 
 The following plugins are known to exist. You can install and use
-them in your application.
+them in your application. Please help make them better.
 
 =over
 
 =item * L<Ado::Plugin::Vest> - Messaging services for an Ado system!
 
-=item * L<Ado::Plugin::Admin> - system (site) administration user interface
+=item * L<Ado::Plugin::Admin> - system (site) administration user interface.
+
+=item * L<Ado::Plugin::Site> - Manage your Sites.
 
 =back
 
