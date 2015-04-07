@@ -4,6 +4,22 @@
 
 Ado::Manual::FiveMinutes - Start a personal blog in five minutes.
 
+=head1 FIVE MINUTES
+
+Create a directory for L<Ado> and install it in it.
+
+  mkdir ~/ado 
+  curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -l ~/ado -n Ado
+
+Check if it is running
+
+  ~/ado/bin/ado daemon
+
+You should see: 
+
+  Server available at http://127.0.0.1:3000
+
+
 
 
 =head1 SEE ALSO
