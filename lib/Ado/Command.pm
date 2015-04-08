@@ -162,7 +162,7 @@ Subcommands shared by all command classes inheriting this class.
 
 =head1 SEE ALSO
 
-
+L<Ado::Command::adduser>, L<Ado::Command::generate>, L<Ado::Command::version>
 
 =head1 AUTHOR
 

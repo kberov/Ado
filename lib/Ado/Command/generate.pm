@@ -67,6 +67,8 @@ L<Mojolicious::Command::generate>.
 
 =head1 SEE ALSO
 
+L<Ado::Command::generate::adoplugin>, L<Ado::Command::generate::apache2htaccess>,
+L<Ado::Command::generate::apache2vhost>, L<Ado::Command::generate::crud>, 
 L<Mojolicious>, L<Mojolicious::Guides>, L<http://mojolicio.us>.
 
 =cut
