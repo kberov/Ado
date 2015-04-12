@@ -26,6 +26,9 @@ sub register {
         );
 
     }
+
+    #make plugin configuration available for later in the app
+    $app->config(__PACKAGE__, $config);
     return $self;
 }
 

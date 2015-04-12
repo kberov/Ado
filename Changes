@@ -1,9 +1,11 @@
 Revision history for Ado
 
 
-0.88 2015-04-07
+0.88 2015-04-12
   - Updated Ado::Manual::Intro Ado::Manual::Plugins and Ado::Manual::Installation.
     Created Ado::Manual::FiveMinutes.
+  - Ado::Plugin::MarkdownRenderer also makes its configuration available for
+    usage at runtime by controller classes.
 
 
 0.87 2015-03-30
