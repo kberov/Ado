@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="<%= $language %>"
+  version="XHTML+RDFa 1.1"
+  lang="<%= $language %>">
+  <head><%= include 'partials/head'; %></head>
+  <body><%= include 'partials/adobar' %>
+    <main class="ui" style="margin-top:0em;">
+      <div class="ui right attached button" style="margin-top:2.5em;float:left"><i class="sidebar icon"></i></div>
+      <article class="ui main container">
+      <div class="pushable">
+        <aside class="ui left vertical sidebar menu" >
+            <h4 class="header item">Articles</h4>
+            <a href="/articles/hello.html" class="item">История</a>
+            <a href="/articles/not.html" class="item">Not Found</a>
+        </aside>
+        <div class="pusher"><%= content %></div>
+        </div><!-- end div class="pushable" -->
+      </article> 
+    </main>
+%=javascript begin
+$('.main.container .pushable .ui.sidebar')
+  .sidebar({
+    context: '.main.container .pushable'
+  })
+  .sidebar('attach events', 'main .ui.right.attached.button')
+;
+%= end
+  </body>
+</html>

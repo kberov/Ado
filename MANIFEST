@@ -24,6 +24,7 @@ lib/Ado/Command/generate/apache2vhost.pm
 lib/Ado/Command/generate/crud.pm
 lib/Ado/Command/version.pm
 lib/Ado/Control.pm
+lib/Ado/Control/Articles.pm
 lib/Ado/Control/Default.pm
 lib/Ado/Control/Doc.pm
 lib/Ado/Control/Test.pm
@@ -61,6 +62,7 @@ log/README
 MANIFEST			This list of files
 META.json
 META.yml
+public/articles/hello.md
 public/css/ado.css
 public/css/flags/bg.png
 public/css/flags/de.png
@@ -121,6 +123,8 @@ public/vendor/pagedown/README.txt
 public/vendor/pagedown/wmd-buttons.png
 README
 README.md
+site_templates/articles/show.html.ep
+site_templates/layouts/articles.html.ep
 t/.perlcriticrc
 t/00-load.t
 t/ado-build.t
