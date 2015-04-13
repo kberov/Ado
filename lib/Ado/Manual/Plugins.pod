@@ -10,9 +10,9 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 
 There is I<almost> nothing special about writing an L<Ado::Plugin>.
 The only difference between Ado and Mojolicious plugins is that Ado
-plugins can retrieve their settings from their own files.
+plugins can retrieve their settings from their own configuration files.
 
-The files must be named after the plugins for which they contain configuration.
+The configuration file must be named after the respective plugin.
 A plugin Ado::Plugin::Hello (when installed) will search its configuration in
 C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
 depending on the current mode ($ENV{MOJO_MODE}) the file 
