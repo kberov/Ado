@@ -102,13 +102,14 @@ And here is how Ado looks as building blocks:
 
 =for HTML <img src="https://raw.githubusercontent.com/kberov/Ado/master/public/img/Ado-Building-Blocks.png" />
 
+To learn more about Ado plugins, please look at L<Ado::Manual::Plugins>.
 Now that you know what additional features Ado provides, you can proceed to
 L<Ado::Manual::Installation>.
 
 
 =head1 SEE ALSO
 
-L<Ado::Manual>, L<Ado::Manual::Installation>, L<Mojolicious::Guides>
+L<Ado::Manual>, L<Ado::Manual::Installation>, L<Ado::Manual::Plugins>, L<Mojolicious::Guides>
 
 =head1 COPYRIGHT AND LICENSE
 
