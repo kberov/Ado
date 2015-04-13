@@ -8,10 +8,11 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 
 =head1 DESCRIPTION
 
-Ado it self consists of a simple core. It is distributed together with a few plugins to make it usable as
-a basic Mojolicious application. Theoretically all of the core plugins could be switched off so you can
-start only with a bare (I<but full>) L<Mojolicious> application if you wish. Later you can decide to
-switch on some of them and eventually add your own L<Mojolicious> or L<Ado> plugins. Here is how it looks.
+C<@Ado::ISA=qw(Mojolicious)>. It is distributed together with a few plugins to make it usable as
+a basic Mojolicious application. Theoretically all of the plugins, distributed with L<Ado> could be
+disabled so you can start your project only as a bare (I<but full>) L<Mojolicious> application, if you wish. 
+Later you can decide to enable some of them and eventually add (your own) L<Mojolicious> or L<Ado> plugins.
+Here is how it looks.
 
 =for HTML <img src="https://raw.githubusercontent.com/kberov/Ado/master/public/img/Ado-Building-Blocks.png" />
 
