@@ -25,6 +25,8 @@ others are simply missing.
 =item * To see different installation methods, go to
 L<Ado::Manual::Installation>.
 
+=item To learn about plugins and how to write your own plugin, see Ado::Manual::Plugins.
+
 =item * Start a personal blog in L<Ado::Manual::FiveMinutes>.
 
 =back
