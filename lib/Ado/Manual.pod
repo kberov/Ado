@@ -20,14 +20,14 @@ others are simply missing.
 
 =over
 
+=item * Start a personal blog with L<Ado::Manual::FiveMinutes> if you are impatient.
+
 =item * Read the L<Ado::Manual::Intro> for a general overview.
 
 =item * To see different installation methods, go to
 L<Ado::Manual::Installation>.
 
-=item To learn about plugins and how to write your own plugin, see Ado::Manual::Plugins.
-
-=item * Start a personal blog in L<Ado::Manual::FiveMinutes>.
+=item * To learn about plugins and how to write your own plugin, see L<Ado::Manual::Plugins>.
 
 =back
 
