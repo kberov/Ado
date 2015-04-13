@@ -8,6 +8,52 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 
 =head1 DESCRIPTION
 
+Ado it self consists of a simple core. It is distributed together with a few plugins to make it usable as
+a basic Mojolicious application. Theoretically all of the core plugins could be switched off so you can
+start only with a bare (I<but full>) L<Mojolicious> application if you wish. Later you can decide to
+switch on some of them and eventually add your own L<Mojolicious> or L<Ado> plugins. Here is how it looks.
+
+=for HTML <img src="https://raw.githubusercontent.com/kberov/Ado/master/public/img/Ado-Building-Blocks.png" />
+
+=head1 PLUGINS
+
+Ado comes with the following default plugins. They can be used as examples and for inspiration.
+
+=over
+
+=item * L<Ado::Plugin::AdoHelpers> - Default Ado helpers
+
+=item * L<Ado::Plugin::Auth> - Authenticate users
+
+=item * L<Ado::Plugin::I18n> - Internationalization and localization for Ado
+
+=item * L<Ado::Plugin::MarkDownRenderer> - Render markdown to HTML
+
+=item * L<Ado::Plugin::Routes> - Keep routes in their own configuration file separately
+
+=item * L<Ado::Control::Test> - A controller used for testing Ado
+(not a plugin by it self)
+
+=back
+
+The following plugins are written by me and are distributed separately. You can
+install and use them in your application. Please help make them better.
+
+=over
+
+=item * L<Ado::Plugin::Admin> - system (site) administration user interface.
+
+=item * L<Ado::Plugin::Site> - Manage your Sites.
+
+=item * L<Ado::Plugin::Vest> - Messaging services for an Ado system!
+
+=back
+
+Do not hesitate to contact the Ado team and request your plugin to be added
+to the above list.
+
+=head1 WRITING A PLUGIN
+
 There is I<almost> nothing special about writing an L<Ado::Plugin>.
 The only difference between Ado and Mojolicious plugins is that Ado
 plugins can retrieve their settings from their own configuration files.
@@ -96,43 +142,6 @@ plugins. And L<Ado> can be extended I<infinitely> just by adding helpers,
 conditions, routes, templates and injecting code into hooks from plugins.
 I<This is true for any Mojolicious application.>
 
-
-=head1 PLUGINS
-
-Ado comes with the following default plugins. They can be used as examples and for inspiration.
-
-=over
-
-=item * L<Ado::Plugin::AdoHelpers> - Default Ado helpers
-
-=item * L<Ado::Plugin::Auth> - Authenticate users
-
-=item * L<Ado::Plugin::I18n> - Internationalization and localization for Ado
-
-=item * L<Ado::Plugin::MarkDownRenderer> - Render markdown to HTML
-
-=item * L<Ado::Plugin::Routes> - Keep routes in their own configuration file separately
-
-=item * L<Ado::Control::Test> - A controller used for testing Ado
-(not a plugin by it self)
-
-=back
-
-The following plugins are written by me and are distributed separately. You can
-install and use them in your application. Please help make them better.
-
-=over
-
-=item * L<Ado::Plugin::Vest> - Messaging services for an Ado system!
-
-=item * L<Ado::Plugin::Admin> - system (site) administration user interface.
-
-=item * L<Ado::Plugin::Site> - Manage your Sites.
-
-=back
-
-Do not hesitate to contact the Ado team and request your plugin to be added
-to the above list.
 
 =head1 SPONSORS
 
