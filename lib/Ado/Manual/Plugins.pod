@@ -15,7 +15,7 @@ plugins can retrieve their settings from their own configuration files.
 The configuration file must be named after the respective plugin.
 A plugin Ado::Plugin::Hello (when installed) will search its configuration in
 C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
-depending on the current mode ($ENV{MOJO_MODE}) the file 
+depending on the current mode (C<$ENV{MOJO_MODE}>). The file 
 C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')>
 will also be loaded and will override all settings from 
 C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
