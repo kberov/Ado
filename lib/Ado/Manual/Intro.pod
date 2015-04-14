@@ -9,40 +9,43 @@ Ado::Manual::Intro - General overview
 
 Ado was started in November 2013 as a rewrite of a previous project
 (L<MYDLjE|https://github.com/kberov/MYDLjE>) based on Mojolicious 1.9x. MYDLjE
-was too monolithic. It was not possible to start with minimum features, disable
-some of them and re-enable them only if needed.  Ado is much more modular and
-flexible than MYDLjE and its name is not an acronym :).
+was too monolithic. It was not possible to start with minimum features,
+disable some of them and re-enable them only if needed.  Ado is much more
+modular and flexible than MYDLjE and its name is not an acronym :).
 
 Ado's purpose is the same as of MYDLjE – to quickly put together a lightweight
 web application and/or site based on Mojolicious with scalability, performance
-and growth in mind. An Ado system starts as a minimal application that can turn
-into an ERP, a CMS, a CRM or all in one by just adding plugins along the way as
-the organization which is using it grows.
+and growth in mind. An Ado system starts as a minimal application that can
+turn into an ERP, a CMS, a CRM or all in one by just adding plugins along the
+way as the organization which is using it grows.
 
-It comes with default configuration file C<etc/ado.conf> and a model L<Ado::Model>, 
-loaded at L<Ado/startup> by L<Mojolicious::Plugin::DSC>. An SQLite database is
-bundled with the distribution at C<etc/ado.sqlite> to get started quickly.
+It comes with default configuration file C<etc/ado.conf> and a model
+L<Ado::Model>,  loaded at L<Ado/startup> by L<Mojolicious::Plugin::DSC>. An
+SQLite database is bundled with the distribution at C<etc/ado.sqlite> to get
+started quickly.
 
 Ado provides additional L<plugins|Ado::Plugin> and L<commands|Ado::Command>,
-which promote L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>,
-good practices, and team-work. The default Ado page uses L<Semantic UI|http
-://semantic-ui.com/> via L<Mojolicious::Plugin::SemanticUI> and is a good place
-to get acquainted. In short, Ado can be used right away as a
+which promote
+L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>, good
+practices, and team-work. The default Ado page uses L<Semantic UI|http
+://semantic-ui.com/> via L<Mojolicious::Plugin::SemanticUI> and is a good
+place to get acquainted. In short, Ado can be used right away as a
 L<CMS|http://en.wikipedia.org/wiki/Content_management_system> that can be
-extended with L<plugins|Ado::Manual::Plugins> and L<commands|Ado::Command> or as
-a L<CMF|http://en.wikipedia.org/wiki/List_of_content_management_frameworks> on
-which to build many different specific applications.
+extended with L<plugins|Ado::Manual::Plugins> and L<commands|Ado::Command> or
+as a L<CMF|http://en.wikipedia.org/wiki/List_of_content_management_frameworks>
+on which to build many different specific applications.
 
-Here is the directory structure. It does not contain the files for brevity.
-It looks much the same as a full Mojolicious application would look and as described in
-L<Mojolicious::Guides::Growing/Differences>. One noticeable difference is that Ado
-has it's starter script in C<bin> instead of in C<script> and this is only to ease the
-deployment. Another one is the L<Ado::Control> namespace instead of
-Ado::Controlller. We did this for brevity. The third difference is C<site_templates>,
-used for putting  Ado system-templates which you want to override, e.g put our own
-copy of C<templates/partials/head.html.ep> in C<site_templates/partials/head.html.ep>
-and modify it. This way you can create your own themes without fearing that on the 
-next upgrade your changes may be lost.
+Here is the directory structure. It does not contain the files for brevity. It
+looks much the same as a full Mojolicious application would look and as
+described in L<Mojolicious::Guides::Growing/Differences>. One noticeable
+difference is that Ado has it's starter script in C<bin> instead of in
+C<script> and this is only to ease the deployment. Another one is the
+L<Ado::Control> namespace instead of Ado::Controlller. We did this for
+brevity. The third difference is C<site_templates>, used for putting  Ado
+system-templates which you want to override, e.g put our own copy of
+C<templates/partials/head.html.ep> in C<site_templates/partials/head.html.ep>
+and modify it. This way you can create your own themes without fearing that on
+the  next upgrade your changes may be lost.
 
   Ado                       # Application directory
   ├── bin                   # Script directory
@@ -118,4 +121,3 @@ Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 
 GNU Lesser General Public License v3 (LGPL-3.0).
-

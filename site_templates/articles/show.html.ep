@@ -1,5 +1,5 @@
 %#site_templates/articles/index.html.ep
-% layout 'articles';
+%layout 'articles';
 %if(stash->{html}){
   % title(eval{Mojo::DOM->new(stash->{html})->find('h1,h2,h3')->[0]->text}||'No title');
   %== stash->{html}

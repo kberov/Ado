@@ -7,7 +7,7 @@
   <head><%= include 'partials/head'; %></head>
   <body><%= include 'partials/adobar' %>
     <main class="ui" style="margin-top:0em;">
-      <div class="ui right attached button" style="margin-top:2.5em;float:left"><i class="sidebar icon"></i></div>
+      <div class="ui black right attached fixed button" style="margin-top:2.5em;float:left"><i class="sidebar icon"></i></div>
       <article class="ui main container">
       <div class="pushable">
         <aside class="ui left vertical sidebar menu" >

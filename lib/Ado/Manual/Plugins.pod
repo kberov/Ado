@@ -8,17 +8,19 @@ Ado::Manual::Plugins - Ado plugins and how to write an Ado::Plugin
 
 =head1 DESCRIPTION
 
-C<@Ado::ISA=qw(Mojolicious)>. It is distributed together with a few plugins to make it usable as
-a basic Mojolicious application. Theoretically all of the plugins, distributed with L<Ado> could be
-disabled so you can start your project only as a bare (I<but full>) L<Mojolicious> application, if you wish. 
-Later you can decide to enable some of them and eventually add (your own) L<Mojolicious> or L<Ado> plugins.
-Here is how it looks.
+C<@Ado::ISA=qw(Mojolicious)>. It is distributed together with a few plugins to
+make it usable as a basic Mojolicious application. Theoretically all of the
+plugins, distributed with L<Ado> could be disabled so you can start your project
+only as a bare (I<but full>) L<Mojolicious> application, if you wish.  Later you
+can decide to enable some of them and eventually add (your own) L<Mojolicious>
+or L<Ado> plugins. Here is how it looks.
 
 =for HTML <img src="https://raw.githubusercontent.com/kberov/Ado/master/public/img/Ado-Building-Blocks.png" />
 
 =head1 PLUGINS
 
-Ado comes with the following default plugins. They can be used as examples and for inspiration.
+Ado comes with the following default plugins. They can be used as examples and
+for inspiration.
 
 =over
 
@@ -55,19 +57,19 @@ to the above list.
 
 =head1 WRITING A PLUGIN
 
-There is I<almost> nothing special about writing an L<Ado::Plugin>.
-The only difference between Ado and Mojolicious plugins is that Ado
-plugins can retrieve their settings from their own configuration files.
+There is I<almost> nothing special about writing an L<Ado::Plugin>. The only
+difference between Ado and Mojolicious plugins is that Ado plugins can
+retrieve their settings from their own configuration files.
 
-The configuration file must be named after the respective plugin.
-A plugin Ado::Plugin::Hello (when installed) will search its configuration in
-C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
-depending on the current mode (C<$ENV{MOJO_MODE}>). The file 
-C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')>
-will also be loaded and will override all settings from 
-C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>.
-The file must return a HASHREF. See the code of the listed plugins below for
-examples of how and what can be done in a plugin.
+The configuration file must be named after the respective plugin. A plugin
+Ado::Plugin::Hello (when installed) will search its configuration in
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>. depending on the
+current mode (C<$ENV{MOJO_MODE}>). The file
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.$ENV{MOJO_MODE}.conf')> will
+also be loaded and will override all settings from
+C<app-E<gt>home-E<gt>rel_dir('etc/plugins/hello.conf')>. The file must return
+a HASHREF. See the code of the listed plugins below for examples of how and
+what can be done in a plugin.
 
 To create your own plugin do the following (Example):
 
@@ -100,10 +102,11 @@ To create your own plugin do the following (Example):
   $ cd ~/opt/public_dev
   $ ado generate adoplugin -n Blog --crud -t blog
 
-The above command will generate the needed files for an ado plugin
-which can even be uploaded to and subsequently downloaded from
+The above command will generate the needed files for an ado plugin which can
+even be uploaded to and subsequently downloaded from
 L<CPAN|http://www.cpan.org/>. L<CPAN> is the best open source dependency
-management system. You can also use L<Stratopan|https://stratopan.com/> if you wish.
+management system. You can also use L<Stratopan|https://stratopan.com/> if you
+wish.
 
 =back
 
@@ -138,8 +141,8 @@ The file tree looks like the following:
 No worries, your plugin has everything needed to be installed from CPAN.
 L<Ado::Plugin::Vest> was started using this command.
 
-L<Ado> can be stripped down to a bare Mojolicious application by not loading any
-plugins. And L<Ado> can be extended I<infinitely> just by adding helpers,
+L<Ado> can be stripped down to a bare Mojolicious application by not loading
+any plugins. And L<Ado> can be extended I<infinitely> just by adding helpers,
 conditions, routes, templates and injecting code into hooks from plugins.
 I<This is true for any Mojolicious application.>
 

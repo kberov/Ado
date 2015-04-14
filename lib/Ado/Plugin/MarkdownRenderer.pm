@@ -8,11 +8,13 @@ sub register {
     my ($self, $app, $config) = shift->initialise(@_);
 
     #Make sure we have all we need from config files.
-    $config->{md_renderer}     ||= 'Text::MultiMarkdown';
-    $config->{md_method}       ||= 'markdown';
-    $config->{md_options}      ||= {use_wikilinks => 1,};
-    $config->{md_helper}       ||= 'md_to_html';
-    $config->{md_root}         ||= $app->home->rel_dir('public/doc');
+    $config->{md_renderer}      ||= 'Text::MultiMarkdown';
+    $config->{md_method}        ||= 'markdown';
+    $config->{md_options}       ||= {use_wikilinks => 1,};
+    $config->{md_helper}        ||= 'md_to_html';
+    $config->{md_root}          ||= $app->home->rel_dir('public/doc');
+    $config->{md_articles_root} ||= $app->home->rel_dir('public/articles');
+
     $config->{md_file_sufixes} ||= ['.md'];
 
     if ($config->{md_renderer} eq 'Text::MultiMarkdown') {
@@ -131,9 +133,10 @@ you're welcome to fork it.
 
 =head1 OPTIONS
 
-The following options can be set in C<etc/ado.conf>.
-You can find default options in C<etc/plugins/markdown_renderer.conf>.
-C<md_> prefix is short for "markup document" or "markdown".
+The following options can be set in C<etc/plugins/markdown_renderer.$mode.conf>
+or C<etc/ado.conf>. You can find default options in
+C<etc/plugins/markdown_renderer.conf>. C<md_> prefix is short for "markup
+document" or "markdown".
 
 =head2 md_renderer
 
@@ -175,6 +178,14 @@ Default helper name is L</md_to_html>.
   md_root         => app->home->rel_dir('public/doc'),
 
 Directory where the raw files reside.
+
+=head2 md_articles_root
+
+  md_articles_root         => app->home->rel_dir('public/articles'),
+
+Directory used by L<Ado::Control::Articles> where the raw markdown files reside
+and where the static HTML files are generated.
+
 
 =head2 md_file_sufixes
 
@@ -241,7 +252,7 @@ Become a sponsor and help make L<Ado> the ERP for the enterprise!
 
 =head1 SEE ALSO
 
-L<Ado::Control::Doc>, 
+L<Ado::Control::Doc>, L<Ado::Control::Articles>,
 L<Text::MultiMarkdown>, L<http://fletcherpenney.net/multimarkdown/>,
 L<MultiMarkdown Guide|https://rawgit.com/fletcher/human-markdown-reference/master/index.html>
 L<Ado::Plugin>, L<Ado::Manual>.
