@@ -13,7 +13,7 @@
         <aside class="ui left vertical sidebar menu" >
             <h4 class="header item">Articles</h4>
             <a href="/articles/hello.html" class="item">История</a>
-            <a href="/articles/not.html" class="item">Not Found</a>
+            <a href="/articles/ala/bala.html" class="item">FooBar</a>
         </aside>
         <div class="pusher"><%= content %></div>
         </div><!-- end div class="pushable" -->
