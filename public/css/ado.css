@@ -115,3 +115,16 @@ section.login_form {
   width: 80%;
   max-width: 600px;
 }
+
+/* articles */
+.right.attached.fixed.launch.button {
+  position: fixed !important;
+  top:2.5em;
+  left:-1px;
+}
+aside.left.vertical.sidebar.menu{
+  padding-top:2.5em !important;  
+}
+/* end articles */
+
+

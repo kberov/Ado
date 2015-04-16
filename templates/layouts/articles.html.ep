@@ -6,25 +6,21 @@
   lang="<%= $language %>">
   <head><%= include 'partials/head'; %></head>
   <body><%= include 'partials/adobar' %>
-    <main class="ui" style="margin-top:0em;">
-      <div class="ui black right attached fixed button" style="margin-top:2.5em;float:left"><i class="sidebar icon"></i></div>
-      <article class="ui main container">
-      <div class="pushable">
-        <aside class="ui left vertical sidebar menu" >
-            <h4 class="header item">Articles</h4>
-            <a href="/articles/hello.html" class="item">История</a>
-            <a href="/articles/ala/bala.html" class="item">FooBar</a>
-        </aside>
-        <div class="pusher"><%= content %></div>
-        </div><!-- end div class="pushable" -->
+    <main class="ui pushable">
+      <%= include 'articles/menu' %>
+      <div class="ui black right attached fixed launch button"><i class="sidebar icon"></i></div>
+      <article class="ui main container pusher">
+      
+        <%= content %>
+      
       </article> 
     </main>
 %=javascript begin
-$('.main.container .pushable .ui.sidebar')
+$('.ui.sidebar.menu')
   .sidebar({
-    context: '.main.container .pushable'
+    context: '.ui.pushable'
   })
-  .sidebar('attach events', 'main .ui.right.attached.button')
+  .sidebar('attach events', '.ui.right.attached.fixed.launch.button')
 ;
 %= end
   </body>
