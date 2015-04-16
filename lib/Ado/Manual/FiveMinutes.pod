@@ -11,7 +11,7 @@ Create a directory for L<Ado> and install it in it.
   mkdir ~/ado 
   curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -l ~/ado -n Ado
 
-Check if it is running
+Start Ado.
 
   ~/ado/bin/ado daemon
 
@@ -19,25 +19,52 @@ You should see:
 
   Server available at http://127.0.0.1:3000
 
-Choose a folder under C<public/> to keep your articles written in markdown
-and generated as static html files. Let it be C<public/articles>.
+Create a file that will contain your first article.
+Or edit one of the already existing sample files there.
 
-  mkdir -p ~/ado/public/articles
+  touch ~/ado/public/articles/my_article.md
+  vim ~/ado/public/articles/hello.md
+
+Eventually add a link to the newly created file (but with .html extension) to
+the menu containing links to the articles which are "published". Copy the menu
+template so it is not overwritten when you upgrade Ado.
 
 
-Create a template for listing and displaying your articles and save it in
-C<site_templates>.
+  mkdir -p ~/ado/site_templates/articles
+  cp ~/ado/templates/articles/menu.html.ep ~/ado/site_templates/articles/
 
-  mkdir site_templates
+  #edit ~/ado/site_templates/articles/menu.html.ep
 
-  %#site_templates/article.html.ep
-  % state $articles_folder = app->home->rel_dir('public/articles')
+  <a href="/articles/hello.html" class="item">История</a>
+  <a href="/articles/ala/bala.html" class="item">FooBar</a>
+  <a href="/articles/my_article.html" class="item">My Article</a>
 
+Go to L<http://127.0.0.1:3000/articles/my_article.html>. Nice!
+
+Enable caching of articles. The generated HTML will be stored as plain static
+files which will be served automatically.
+
+  touch ~/ado/etc/plugins/markdown_renderer.development.conf
+
+Add the following code to C<markdown_renderer.development.conf>:
+
+  {   
+      #Do not convert files to HTML on every request
+      #but reuse already produced html files.
+      md_reuse_produced_html => 1,
+  };
+
+Refresh L<http://127.0.0.1:3000/articles/my_article.html>. In C<~/ado/public/articles> You will find C<my_article.html>.
+Congratulations! You created your first article with L<Ado> without much ado.
+
+Now you can fork the project on L<Github|https://github.com/kberov/Ado>,
+improve C<menu.html.ep> to automatically traverse the articles directory and
+generate the list of articles  and make a merge request.
 
 =head1 SEE ALSO
 
 L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>, 
-L<Module::Build::Cookbook/prefix_vs_install_base>
+L<Mojolicious::Guides::Cookbook/DEPLOYMENT>, L<Ado::Command::generate::apache2htaccess>
 
 =head1 COPYRIGHT AND LICENSE
 
