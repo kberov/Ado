@@ -1,0 +1,11 @@
+%#site_templates/articles/index.html.ep
+%layout 'articles';
+%if(stash->{html}){
+  % title(eval{Mojo::DOM->new(stash->{html})->find('h1,h2,h3')->[0]->text}||'No title');
+  %== stash->{html}
+%}else {
+<div class="ui error message">
+  <h1 class="header">Not Found</h1>
+  <p>The file "<%= $html_file %>" could not be found!</p>
+</div>
+%}

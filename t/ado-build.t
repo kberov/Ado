@@ -38,7 +38,7 @@ unlike($mymeta, qr/IO::Socket::SSL/, 'ok - no $AUTHOR_TEST  requires');
 isa_ok(
     my $build = Ado::Build->new(
         module_name        => 'Ado',
-        configure_requires => {'Module::Build' => '0.38'}
+        configure_requires => {'Module::Build' => '0.42'}
     ),
     'Module::Build'
 );
@@ -81,7 +81,7 @@ subtest 'install_paths and build elements' => sub {
     done_testing();
 };
 
-stdout_is(sub { $build->dispatch('build') }, "Building Ado\n", 'ACTION_build output ok');
+stdout_like(sub { $build->dispatch('build') }, qr"Building Ado\n"sm, 'ACTION_build output ok');
 for my $be (@$build_elements) {
     ok(-d catdir('blib', $be), "'$be' was copied to blib");
 }

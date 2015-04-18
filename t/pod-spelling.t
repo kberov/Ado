@@ -27,14 +27,14 @@ add_stopwords(
       kumcho vulcho com Вълчо Неделчев Nedelchev Valcho
       http html org metacpan url urls
       Mojolicious Mojo app apps Foo SQLite ActivePerl
-      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT
+      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT PLUGIN
       CMS CMF SQL CRM WMD JS UI MVC FCGI CGI JavaScript MYDLjE
       precompiled perldoc RESTful tstamp linkedin wikipedia
       accessor accessors seq distro bashrc perltidy perltidyrc
       cpan cpanm perl perlbrew auth eg authbar ep wiki conf
       plugin plugins yourpluginroute htaccess suexec env
       ServerName ServerAlias ServerAdmin DocumentRoot UserAgent
-      initialisation camelized
+      initialisation camelized blog
       )
 );
 all_pod_files_spelling_ok();

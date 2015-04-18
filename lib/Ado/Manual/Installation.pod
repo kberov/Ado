@@ -42,9 +42,17 @@ To install manually Ado after downloading, run the following commands:
 
 =head2 CPAN
 
-  cpanm Ado
+  cpanm -n -l Ado
+  --> Working on Ado
+  Fetching http://www.cpan.org/authors/id/B/BE/BEROV/Ado-0.87.tar.gz ... OK
+  Configuring Ado-0.87 ... OK
+  Building Ado-0.87 ... OK
+  Successfully installed Ado-0.87 (upgraded from 0.86)
+  1 distribution installed
+  
   #or
-  cpan[1]> install Ado
+  
+  cpan Ado
   Running install for module 'Ado'
   Running make for B/BE/BEROV/Ado-0.85.tar.gz
   ...  
@@ -85,6 +93,25 @@ available as L<PPM> package too.
   #your own perl is already in $PATH and dependencies are installed
   perl Build.PL
   ./Build install
+
+=head2 DUMMY
+
+May be you want to just unwrap and run it...
+
+  mkdir ~/ado && cd ~/ado && wget https://github.com/kberov/Ado/archive/v0.87.zip
+  unzip v0.87.zip
+  Ado-0.87/bin/ado daemon
+  #Server available at http://127.0.0.1:3000
+
+=head2 SUMMARY
+
+Ado can be installed and deployed in many different ways. At the end it is
+simply a Perl module which happen to be a Mojolicious application. For
+inspiration, please read  L<Mojolicious::Guides::Cookbook/DEPLOYMENT> and maybe
+try L<Ado::Command::generate::apache2htaccess>. Now you can follow the
+instructions, found on the home-page
+L<http://127.0.0.1:3000|http://127.0.0.1:3000>. But to grow with Ado, you should
+install and create some plugins. See L<Ado::Manual::Plugins>.
 
 =head1 SEE ALSO
 

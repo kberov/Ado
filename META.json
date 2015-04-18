@@ -65,7 +65,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.87"
+         "version" : "0.88"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -99,6 +99,9 @@
       },
       "Ado::Control" : {
          "file" : "lib/Ado/Control.pm"
+      },
+      "Ado::Control::Articles" : {
+         "file" : "lib/Ado/Control/Articles.pm"
       },
       "Ado::Control::Default" : {
          "file" : "lib/Ado/Control/Default.pm"
@@ -180,5 +183,5 @@
          "url" : "https://github.com/kberov/Ado"
       }
    },
-   "version" : "0.87"
+   "version" : "0.88"
 }

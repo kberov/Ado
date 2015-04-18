@@ -24,6 +24,7 @@ lib/Ado/Command/generate/apache2vhost.pm
 lib/Ado/Command/generate/crud.pm
 lib/Ado/Command/version.pm
 lib/Ado/Control.pm
+lib/Ado/Control/Articles.pm
 lib/Ado/Control/Default.pm
 lib/Ado/Control/Doc.pm
 lib/Ado/Control/Test.pm
@@ -33,6 +34,7 @@ lib/Ado/I18n/de.pm
 lib/Ado/I18n/en.pm
 lib/Ado/Manual.pod
 lib/Ado/Manual/Contributing.pod
+lib/Ado/Manual/FiveMinutes.pod
 lib/Ado/Manual/Installation.pod
 lib/Ado/Manual/Intro.pod
 lib/Ado/Manual/Plugins.pod
@@ -60,6 +62,8 @@ log/README
 MANIFEST			This list of files
 META.json
 META.yml
+public/articles/ala/bala.md
+public/articles/hello.md
 public/css/ado.css
 public/css/flags/bg.png
 public/css/flags/de.png
@@ -156,6 +160,7 @@ t/plugin/i18n-00.t
 t/plugin/i18n-01.t
 t/plugin/i18n-02.t
 t/plugin/i18n-03.t
+t/plugin/markdown_renderer-01.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t
 t/pod-coverage.t
@@ -165,12 +170,15 @@ t/sessions/00-load.t
 t/sessions/database.t
 t/sessions/file.t
 t/sessions/mojolicious.t
+templates/articles/menu.html.ep
+templates/articles/show.html.ep
 templates/default/index.html.ep
 templates/default/index_text.html+bg.ep
 templates/default/index_text.html+de.ep
 templates/default/index_text.html.ep
 templates/doc/show.html.ep
 templates/exception.html.ep
+templates/layouts/articles.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/not_found.html.ep

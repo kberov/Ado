@@ -93,7 +93,7 @@ my $builder = Ado::Build->new(
         no_index => {namespace => ['Ado::Model'],}
     },
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 't/ado/etc/ado.sqlite'],
+    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 'public/articles/*.html', 't/ado/etc/ado.sqlite'],
 );
 
 $builder->create_build_script();

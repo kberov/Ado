@@ -1,0 +1,85 @@
+=encoding utf8
+
+=head1 NAME
+
+Ado::Manual::FiveMinutes - Start a personal blog in five minutes.
+
+=head1 FIVE MINUTES
+
+Within five minutes we will use L<Ado::Plugin::MarkdownRenderer> and
+L<Ado::Control::Articles> to create a personal blog.
+
+Create a directory for L<Ado> and install it in it.
+
+  mkdir ~/ado 
+  curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -l ~/ado -n Ado
+
+Start Ado in development mode.
+
+  cd ~/ado
+  morbo -w ./lib -w ./site_templates -w templates  bin/ado
+
+You should see: 
+
+  Server available at http://127.0.0.1:3000
+
+Open a new terminal window and create a markdown file that will contain your first
+article. Or edit one of the already existing sample files there.
+
+  touch ~/ado/public/articles/my_article.md
+  vim ~/ado/public/articles/my_article.md
+
+Eventually add a link to the newly created file (but with .html extension) to
+the menu containing links to the articles which are "published". Copy the menu
+template so it is not overwritten when you upgrade Ado.
+
+
+  mkdir -p ~/ado/site_templates/articles
+  cp ~/ado/templates/articles/menu.html.ep ~/ado/site_templates/articles/
+
+  #edit ~/ado/site_templates/articles/menu.html.ep
+
+  <a href="/articles/hello.html" class="item">История</a>
+  <a href="/articles/ala/bala.html" class="item">FooBar</a>
+  <!-- Add the next line to the templte. -->
+  <a href="/articles/my_article.html" class="item">My Article</a>
+
+Go to L<http://127.0.0.1:3000/articles/my_article.html>. Nice!
+
+Enable caching of articles. The generated HTML will be stored as plain static
+files which will be served automatically on every next request.
+
+  touch ~/ado/etc/plugins/markdown_renderer.development.conf
+
+Add the following code to C<markdown_renderer.development.conf>:
+
+  {   
+      #Do not convert files to HTML on every request
+      #but reuse already produced html files.
+      md_reuse_produced_html => 1,
+  };
+
+Refresh L<http://127.0.0.1:3000/articles/my_article.html>. In C<~/ado/public/articles> You will find C<my_article.html>.
+Congratulations! You created your first article with L<Ado> without much ado.
+
+=head1 WHAT'S NEXT
+
+Look at the source of L<Ado::Control::Articles> to see how it works. Go to
+L<http://127.0.0.1:3000/> and play more or visit the links in the L</SEE ALSO>
+section. Now you can fork the project on
+L<Github|https://github.com/kberov/Ado>, improve C<menu.html.ep> to
+automatically traverse the articles directory and generate the list of
+articles, then make a merge request. You just contributed to the project.
+
+=head1 SEE ALSO
+
+L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>, 
+L<Mojolicious::Guides::Cookbook/DEPLOYMENT>, L<Ado::Command::generate::apache2htaccess>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
+
+This program is free software, you can redistribute it and/or
+modify it under the terms of the 
+GNU Lesser General Public License v3 (LGPL-3.0).

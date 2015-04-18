@@ -3,6 +3,8 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 use File::Find;
+File::Spec::Functions->import(qw(catfile));
+
 eval "use Text::MultiMarkdown;";
 plan skip_all => "Text::MultiMarkdown required for this test" if $@;
 
@@ -66,6 +68,26 @@ $t->get_ok('/help/bg/alabala.md')->status_is(404);
 # Fails on https://travis-ci.org/kberov/Ado/builds/34763956 Why?
 #->text_is('h1' => 'Page not found... yet!');
 
+#test Ado::Control::Articles
+my $config = $app->config('Ado::Plugin::MarkdownRenderer');
+note $app->dumper($config);
+is($config->{md_reuse_produced_html}, 1);
+my $static_file = catfile($app->home->rel_dir('public/articles'), 'hello.html');
+unlink($static_file);
+
+#file is generated and the user is redirected to it.
+$t->get_ok('/articles/hello.html')->status_is(302);
+$t->get_ok('/articles/not_found.html')->status_is(404)->text_like('h1' => qr'Not Found');
+ok(-e $static_file, 'file /articles/hello.html really exists');
+
+#static file
+$t->get_ok('/articles/hello.html')->status_is(200)
+  ->text_like('h1' => qr'Ползата от историята');
+
+#cached static file: Check If-Modified-Since
+my $mtime = Mojo::Date->new(Mojo::Asset::File->new(path => $static_file)->mtime)->to_string;
+$t->head_ok('/articles/hello.html' => {'If-Modified-Since' => $mtime})->status_is(304);
+
 #test missing/default configuration
 $plugin->{config} = {};
 isa_ok($plugin->register($app) => $class);
@@ -91,5 +113,6 @@ find(
 
 #test the helper markdown
 $t->get_ok('/test/mark_down')->status_is(200)->text_is('li' => 'some text');
+
 
 done_testing();

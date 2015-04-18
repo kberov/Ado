@@ -83,7 +83,7 @@ sub config {
 # one place for initialising plugins in register()
 sub initialise {
     my ($self, $app, $conf) = @_;
-    return if $self->{_initialised};
+
     $self->app($app);    #!Needed in $self->config!
     state $mode = $app->mode;
 
@@ -115,8 +115,6 @@ sub initialise {
         push @{$app->static->paths}, $public_dir;
     }
 
-
-    $self->{_initialised} = 1;
     return ($self, $app, $conf);
 }
 

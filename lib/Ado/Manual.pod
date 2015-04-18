@@ -20,10 +20,14 @@ others are simply missing.
 
 =over
 
+=item * Start a personal blog with L<Ado::Manual::FiveMinutes> if you are impatient.
+
 =item * Read the L<Ado::Manual::Intro> for a general overview.
 
 =item * To see different installation methods, go to
 L<Ado::Manual::Installation>.
+
+=item * To learn about plugins and how to write your own plugin, see L<Ado::Manual::Plugins>.
 
 =back
 
@@ -46,11 +50,11 @@ If you installed C<ado> in your Perl distro, you can simply type:
 Go to http:/localhost:3000/perldoc
 
 You can report bugs and suggest features at
-L<http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed
-as time permits. Feel invited to make pull requests for your contributions.
+L<http://github.com/kberov/Ado/issues>. Bugs will be considered and fixed as
+time permits. Feel invited to make pull requests for your contributions.
 
-If you are simply looking for help with using Ado, please ask your
-questions at L<https://groups.google.com/d/forum/ado-dev>.
+If you are simply looking for help with using Ado, please ask your questions
+at L<https://groups.google.com/d/forum/ado-dev>.
 
 =head1 CONTRIBUTING
 
@@ -82,9 +86,9 @@ Business-specific applications for an Ado-based system are usually implemented
 as plugins. One way to contribute to L<Ado> is by writing plugins.
 
 Ado plugins work the same way as L<Mojolicious::Plugins> and share the same
-common base trough L<Ado::Plugin> which ISA L<Mojolicious::Plugins>. Ado plugins
-have one small additional feature. They can load their own configuration from
-C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
+common base trough L<Ado::Plugin> which ISA L<Mojolicious::Plugins>. Ado
+plugins have one small additional feature. They can load their own
+configuration from C<$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf>.
 
 See L<Ado::Manual::Plugins> and L<Ado::Plugin> for more information.
 
