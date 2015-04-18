@@ -62,7 +62,7 @@ Add the following code to C<markdown_renderer.development.conf>:
 Refresh L<http://127.0.0.1:3000/articles/my_article.html>. In C<~/ado/public/articles> You will find C<my_article.html>.
 Congratulations! You created your first article with L<Ado> without much ado.
 
-=head WHAT'S NEXT
+=head1 WHAT'S NEXT
 
 Look at the sourse of L<Ado::Control::Articles> to see how it works. Go to
 L<http://127.0.0.1:3000/> and play more or visit the links in the L</SEE ALSO>

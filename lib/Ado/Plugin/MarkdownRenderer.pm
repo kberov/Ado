@@ -14,8 +14,7 @@ sub register {
     $config->{md_helper}        ||= 'md_to_html';
     $config->{md_root}          ||= $app->home->rel_dir('public/doc');
     $config->{md_articles_root} ||= $app->home->rel_dir('public/articles');
-
-    $config->{md_file_sufixes} ||= ['.md'];
+    $config->{md_file_sufixes}  ||= ['.md'];
 
     if ($config->{md_renderer} eq 'Text::MultiMarkdown') {
         require Text::MultiMarkdown;

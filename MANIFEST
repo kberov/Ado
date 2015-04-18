@@ -62,6 +62,7 @@ log/README
 MANIFEST			This list of files
 META.json
 META.yml
+public/articles/ala/bala.md
 public/articles/hello.md
 public/css/ado.css
 public/css/flags/bg.png
@@ -123,8 +124,6 @@ public/vendor/pagedown/README.txt
 public/vendor/pagedown/wmd-buttons.png
 README
 README.md
-site_templates/articles/show.html.ep
-site_templates/layouts/articles.html.ep
 t/.perlcriticrc
 t/00-load.t
 t/ado-build.t
@@ -161,6 +160,7 @@ t/plugin/i18n-00.t
 t/plugin/i18n-01.t
 t/plugin/i18n-02.t
 t/plugin/i18n-03.t
+t/plugin/markdown_renderer-01.t
 t/plugin/markdown_renderer.t
 t/plugin/routes.t
 t/pod-coverage.t
@@ -170,12 +170,15 @@ t/sessions/00-load.t
 t/sessions/database.t
 t/sessions/file.t
 t/sessions/mojolicious.t
+templates/articles/menu.html.ep
+templates/articles/show.html.ep
 templates/default/index.html.ep
 templates/default/index_text.html+bg.ep
 templates/default/index_text.html+de.ep
 templates/default/index_text.html.ep
 templates/doc/show.html.ep
 templates/exception.html.ep
+templates/layouts/articles.html.ep
 templates/layouts/default.html.ep
 templates/layouts/doc.html.ep
 templates/not_found.html.ep
