@@ -100,6 +100,9 @@
       "Ado::Control" : {
          "file" : "lib/Ado/Control.pm"
       },
+      "Ado::Control::Articles" : {
+         "file" : "lib/Ado/Control/Articles.pm"
+      },
       "Ado::Control::Default" : {
          "file" : "lib/Ado/Control/Default.pm"
       },
