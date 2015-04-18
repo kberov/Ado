@@ -84,6 +84,10 @@ ok(-e $static_file, 'file /articles/hello.html really exists');
 $t->get_ok('/articles/hello.html')->status_is(200)
   ->text_like('h1' => qr'Ползата от историята');
 
+#cached static file: Check If-Modified-Since
+my $mtime = Mojo::Date->new(Mojo::Asset::File->new(path => $static_file)->mtime)->to_string;
+$t->head_ok('/articles/hello.html' => {'If-Modified-Since' => $mtime})->status_is(304);
+
 #test missing/default configuration
 $plugin->{config} = {};
 isa_ok($plugin->register($app) => $class);
