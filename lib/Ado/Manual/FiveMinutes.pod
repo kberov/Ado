@@ -64,7 +64,7 @@ Congratulations! You created your first article with L<Ado> without much ado.
 
 =head1 WHAT'S NEXT
 
-Look at the sourse of L<Ado::Control::Articles> to see how it works. Go to
+Look at the source of L<Ado::Control::Articles> to see how it works. Go to
 L<http://127.0.0.1:3000/> and play more or visit the links in the L</SEE ALSO>
 section. Now you can fork the project on
 L<Github|https://github.com/kberov/Ado>, improve C<menu.html.ep> to

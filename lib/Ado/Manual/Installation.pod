@@ -106,7 +106,7 @@ May be you want to just unwrap and run it...
 =head2 SUMMARY
 
 Ado can be installed and deployed in many different ways. At the end it is
-simply a Perl module which happen to be a Mojolicous application. For
+simply a Perl module which happen to be a Mojolicious application. For
 inspiration, please read  L<Mojolicious::Guides::Cookbook/DEPLOYMENT> and maybe
 try L<Ado::Command::generate::apache2htaccess>. Now you can follow the
 instructions, found on the home-page
