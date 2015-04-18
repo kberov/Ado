@@ -16,10 +16,11 @@ others are simply missing.
 
 # GETTING STARTED
 
+- Start a personal blog with [Ado::Manual::FiveMinutes](https://metacpan.org/pod/Ado::Manual::FiveMinutes) if you are impatient.
 - Read the [Ado::Manual::Intro](https://metacpan.org/pod/Ado::Manual::Intro) for a general overview.
 - To see different installation methods, go to
 [Ado::Manual::Installation](https://metacpan.org/pod/Ado::Manual::Installation).
-- Start a personal blog in [Ado::Manual::FiveMinutes](https://metacpan.org/pod/Ado::Manual::FiveMinutes).
+- To learn about plugins and how to write your own plugin, see [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins).
 
 # SUPPORT AND DOCUMENTATION
 
@@ -40,11 +41,11 @@ If you installed `ado` in your Perl distro, you can simply type:
 Go to http:/localhost:3000/perldoc
 
 You can report bugs and suggest features at
-[http://github.com/kberov/Ado/issues](http://github.com/kberov/Ado/issues). Bugs will be considered and fixed
-as time permits. Feel invited to make pull requests for your contributions.
+[http://github.com/kberov/Ado/issues](http://github.com/kberov/Ado/issues). Bugs will be considered and fixed as
+time permits. Feel invited to make pull requests for your contributions.
 
-If you are simply looking for help with using Ado, please ask your
-questions at [https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev).
+If you are simply looking for help with using Ado, please ask your questions
+at [https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev).
 
 # CONTRIBUTING
 
@@ -76,9 +77,9 @@ Business-specific applications for an Ado-based system are usually implemented
 as plugins. One way to contribute to [Ado](https://metacpan.org/pod/Ado) is by writing plugins.
 
 Ado plugins work the same way as [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins) and share the same
-common base trough [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) which ISA [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins). Ado plugins
-have one small additional feature. They can load their own configuration from
-`$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`.
+common base trough [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) which ISA [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins). Ado
+plugins have one small additional feature. They can load their own
+configuration from `$ENV{MOJO_HOME}/etc/plugins/plugin_name.conf`.
 
 See [Ado::Manual::Plugins](https://metacpan.org/pod/Ado::Manual::Plugins) and [Ado::Plugin](https://metacpan.org/pod/Ado::Plugin) for more information.
 

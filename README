@@ -13,12 +13,16 @@ DESCRIPTION
   others are simply missing.
 
 GETTING STARTED
+  *   Start a personal blog with Ado::Manual::FiveMinutes if you are
+      impatient.
+
   *   Read the Ado::Manual::Intro for a general overview.
 
   *   To see different installation methods, go to
       Ado::Manual::Installation.
 
-  *   Start a personal blog in Ado::Manual::FiveMinutes.
+  *   To learn about plugins and how to write your own plugin, see
+      Ado::Manual::Plugins.
 
 SUPPORT AND DOCUMENTATION
   After installing, you can find documentation with the perldoc command.
