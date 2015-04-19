@@ -22,7 +22,7 @@ sub register {
                   . "are not enough!. Please add them.")
               if (keys %{$conf->{providers}{$m}} < 2);
         }
-        $app->plugin('OAuth2', $conf->{providers});
+        $app->plugin('OAuth2', {%{$conf->{providers}}, fix_get_token => 1});
     }
 
     # Add helpers
@@ -107,6 +107,8 @@ sub login {
 
     #derive a helper name for login the user
     my $login_helper = 'login_' . $auth_method;
+    $c->debug('Chosen $login_helper: ' . $login_helper) if $Ado::Control::DEV_MODE;
+
     my $authnticated = 0;
     if (eval { $authnticated = $c->$login_helper(); 1 }) {
         if ($authnticated) {
@@ -127,7 +129,7 @@ sub login {
         }
     }
     else {
-        $c->app->log->error("Unknown \$login_helper:[$login_helper][$@]");
+        $c->app->log->error("Error calling \$login_helper:[$login_helper][$@]");
         $c->stash(error_login => 'Please choose one of the supported login methods.');
         $c->render(status => 401, template => 'login');
         return;
@@ -187,22 +189,25 @@ sub _login_google {
     state $app = $c->app;
     my $provider  = $c->param('auth_method');
     my $providers = $app->config('Ado::Plugin::Auth')->{providers};
-    $providers->{$provider}{redirect_uri} = '' . $c->url_for("/")->to_abs;
 
     #second call should get the token it self
-    my $access_token = $c->get_token($provider, %{$providers->{$provider}});
-    $c->debug("in _login_google \$acc_token: " . ($access_token || 'no'));
-    $c->debug("in _login_google error from provider: " . ($c->param('error') || 'no error'));
-
-    #When we have an 'access_denied' from provider we get a reference to $c and not a false value!
-    if ($access_token && !ref($access_token)) {    #Athenticate, create and login the user.
-        return _create_or_authenticate_google_user($c, $access_token, $providers->{$provider});
+    my $response = $c->oauth2->get_token($provider, $providers->{$provider});
+    do {
+        $c->debug("in _login_google \$response: " . $c->dumper($response));
+        $c->debug("in _login_google error from provider: " . ($c->param('error') || 'no error'));
+    } if $Ado::Control::DEV_MODE;
+    if ($response->{access_token}) {    #Athenticate, create and login the user.
+        return _create_or_authenticate_google_user(
+            $c,
+            $response->{access_token},
+            $providers->{$provider}
+        );
     }
     else {
         #Redirect to front-page and say sorry
         # We are very sorry but we need to know you are a reasonable human being.
         $c->flash(error_login => $c->l('oauth2_sorry') . ($c->param('error') || ''));
-        $c->debug('no token sorry');
+        $c->app->log->error('error_response:' . $c->dumper($response));
         $c->res->code(307);    #307 Temporary Redirect
         $c->redirect_to('/');
     }
@@ -217,19 +222,26 @@ sub _login_facebook {
     state $app = $c->app;
     my $provider  = $c->param('auth_method');
     my $providers = $app->config('Ado::Plugin::Auth')->{providers};
-    $providers->{$provider}{redirect_uri} = '' . $c->url_for("/")->to_abs;
 
     #second call should get the token it self
-    my $access_token = $c->get_token($provider, %{$providers->{$provider}});
-    $c->debug("in _login_facebook \$acc_token: " . ($access_token || 'no'));
-    if ($access_token && !ref($access_token)) {    #Athenticate, create and login the user.
-        return _create_or_authenticate_facebook_user($c, $access_token, $providers->{$provider});
+    my $response = $c->oauth2->get_token($provider, $providers->{$provider});
+    do {
+        $c->debug("in _login_facebook \$response: " . $c->dumper($response));
+        $c->debug(
+            "in _login_facebook error from provider: " . ($c->param('error') || 'no error'));
+    } if $Ado::Control::DEV_MODE;
+    if ($response->{access_token}) {    #Athenticate, create and login the user.
+        return _create_or_authenticate_facebook_user(
+            $c,
+            $response->{access_token},
+            $providers->{$provider}
+        );
     }
     else {
         #Redirect to front-page and say sorry
         # We are very sorry but we need to know you are a reasonable human being.
         $c->flash(error_login => $c->l('oauth2_sorry') . ($c->param('error') || ''));
-        $c->debug('no token sorry');
+        $c->app->log->error('error_response:' . $c->dumper($response));
         $c->res->code(307);    #307 Temporary Redirect
         $c->redirect_to('/');
     }
@@ -270,6 +282,13 @@ sub _create_oauth2_user {
     return;
 }
 
+#next two methods
+#(_create_or_authenticate_facebook_user and _create_or_authenticate_google_user)
+# exist only because we pass different parameters in the form
+# which are specific to the provider.
+# TODO: think of a way to map the generation of the form arguments to the
+# specific provider so we can dramatically reduce the number of provider
+# specific subroutines
 sub _create_or_authenticate_facebook_user {
     my ($c, $access_token, $provider) = @_;
     my $ua = Mojo::UserAgent->new;
@@ -278,10 +297,9 @@ sub _create_or_authenticate_facebook_user {
     my $user_info =
       $ua->get($provider->{info_url},
         form => {access_token => $access_token, appsecret_proof => $appsecret_proof})->res->json;
-    $c->debug('Response from info_url:' . $c->dumper($user_info));
-    my $U = 'Ado::Model::Users';
-    state $sql = $U->SQL('SELECT') . ' WHERE email=?';
-    my $user = $U->query($sql, $user_info->{email});
+    $c->debug('Response from info_url:' . $c->dumper($user_info)) if $Ado::Control::DEV_MODE;
+
+    my $user = Ado::Model::Users->by_email($user_info->{email});
     my $time = time;
 
     if ($user->id) {
@@ -301,9 +319,8 @@ sub _create_or_authenticate_google_user {
     my $user_info =
       $ua->get($provider->{info_url} => {Authorization => "$token_type $access_token"})
       ->res->json;
-    my $U = 'Ado::Model::Users';
-    state $sql = $U->SQL('SELECT') . ' WHERE email=?';
-    my $user = $U->query($sql, $user_info->{email});
+
+    my $user = Ado::Model::Users->by_email($user_info->{email});
     my $time = time;
 
     if ($user->id) {
@@ -322,7 +339,7 @@ sub authorize {
     $params->{redirect_uri} = '' . $c->url_for("/login/$m")->to_abs;
 
     #This call will redirect the user to the provider Consent screen.
-    $c->redirect_to($c->get_authorize_url($m, %$params));
+    $c->redirect_to($c->oauth2->auth_url($m, %$params));
     return;
 }
 
@@ -339,6 +356,8 @@ sub _user_info_to_args {
         $args{first_name} = $ui->{first_name};
         $args{last_name}  = $ui->{last_name};
     }
+
+    #Add another elsif to map different %args to $ui from a new provider
     else {
         Carp::croak('Unknown provider info_url:' . $provider->{info_url});
     }

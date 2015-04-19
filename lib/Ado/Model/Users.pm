@@ -81,7 +81,13 @@ __PACKAGE__->QUOTE_IDENTIFIERS(0);
 
 #__PACKAGE__->BUILD;#build accessors during load
 
-#find and instantiate a user object by login name
+#find and instantiate a user object by email
+sub by_email {
+    state $sql = $_[0]->SQL('SELECT') . ' WHERE email=?';
+    return $_[0]->query($sql, $_[1]);
+}
+
+#find and instantiate a user object by login_name
 sub by_login_name {
     state $sql = $_[0]->SQL('SELECT') . ' WHERE login_name=?';
     return $_[0]->query($sql, $_[1]);
@@ -304,16 +310,15 @@ none
 
 =head1 METHODS
 
-Ado::Model::Users inherits all methods from Ado::Model and provides the following
-additional methods:
+Ado::Model::Users inherits all methods from Ado::Model and provides the
+following additional methods:
 
 =head2 add
 
-Given enough parameters creates a new user object and inserts it 
-into the table C<users>.
-Creates a primary group for the user with the same group C<name>.
-Throws an exception if any of the above fails.
-Returns (the eventually newly created) user object.
+Given enough parameters creates a new user object and inserts it  into the
+table C<users>. Creates a primary group for the user with the same group
+C<name>. Throws an exception if any of the above fails. Returns (the
+eventually newly created) user object.
 
     my $user = Ado::Model::Users->add(
         login_name     => $login_name,
@@ -328,18 +333,23 @@ Returns the group.
 
     $ingroup = $user->add_to_group(ingroup=>'admin');
 
+=head2 by_email
+
+Selects a user by email column.
+
+    my $user = Ado::Model::Users->by_email('user@example.com');
+    say $user->email if $user->id;
+
 =head2 by_group_name
 
-Selects active users 
-(C<WHERE (disabled=0 AND (stop_date>$now OR stop_date=0) AND start_date<$now )>)
-belonging to a given group only
-and within a given range, ordered by
-C<first_name, last_name> alphabetically.
-C<$limit> defaults to 500 and C<$offset> to 0.
-Only the following fields are retrieved: C<id, login_name, first_name, last_name, email>.
+Selects active users (C<WHERE (disabled=0 AND (stop_date>$now OR stop_date=0)
+AND start_date<$now )>) belonging to a given group only and within a given
+range, ordered by C<first_name, last_name> alphabetically. C<$limit> defaults
+to 500 and C<$offset> to 0. Only the following fields are retrieved: C<id,
+login_name, first_name, last_name, email>.
 
-Returns an array of hashes. The L</name> method is executed for each 
-row in the resultset and the evaluation is available via key 'name'.
+Returns an array of hashes. The L</name> method is executed for each  row in
+the resultset and the evaluation is available via key 'name'.
 
   #get contacts of the user 'berov'
   my @users = Ado::Model::Users->by_group_name('vest_contacts_for_berov', $limit, $offset);

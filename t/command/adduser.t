@@ -148,6 +148,9 @@ OO
     $uid = $user->id;
     is($user->login_password, Mojo::Util::sha1_hex('test3--------'), '$user->login_password');
     is($user->email, $opt->{'--email'}, '$user->email');
+    my $user_by_email = Ado::Model::Users->by_email($user->email);
+    is($user_by_email->id, $uid, 'by_email returns the same user as by_login_name');
+
 }    #end direct_usage
 $app->dbix->query('DELETE FROM user_group WHERE user_id=?', $uid);
 $app->dbix->query('DELETE FROM users WHERE id=?',           $uid);

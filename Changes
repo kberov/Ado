@@ -1,5 +1,11 @@
 Revision history for Ado
 
+0.89 2015-04-19
+  - Added hard dependency to Mojolicious::Plugin::OAuth2.
+  - Upgraded to Mojolicious::Plugin::OAuth2 1.52.
+  - Upgraded to Mojolicious 6.08.
+  - Added method by_email to Ado::Model::Users.
+
 0.88 2015-04-18
   - Updated Ado::Manual::Intro Ado::Manual::Plugins and Ado::Manual::Installation.
     Created Ado::Manual::FiveMinutes.
