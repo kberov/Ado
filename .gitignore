@@ -27,7 +27,8 @@ t/ado/etc/ado.sqlite
 # Ignore mode specific configurations
 etc/ado.dev*.conf
 etc/plugins/**/*.*.conf
-
+public/articles/**/*.html
+public/articles/*.html
 *.swp
 /*.komodoproject
 /tags
