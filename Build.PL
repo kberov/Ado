@@ -57,9 +57,10 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                            => '5.14.0',
-        'Mojolicious'                     => '6.03',
+        'Mojolicious'                     => '6.08',
         'Mojolicious::Plugin::DSC'        => '1.005',
         'Mojolicious::Plugin::SemanticUI' => '0.15',
+        'Mojolicious::Plugin::OAuth2'     => '1.52',
         'DBIx::Simple::Class'             => '1.009',
         'Email::Address'                  => '1.905',
         'Locale::Maketext'                => '1.25',
@@ -93,7 +94,11 @@ my $builder = Ado::Build->new(
         no_index => {namespace => ['Ado::Model'],}
     },
     script_files   => 'bin',
-    add_to_cleanup => ['Ado-*', '*.bak', 'public/doc/**/*.html', 'public/articles/*.html', 't/ado/etc/ado.sqlite'],
+    add_to_cleanup => [
+        'Ado-*',                     '*.bak',
+        'public/doc/**/*.html',      'public/articles/*.html',
+        'public/articles/**/*.html', 't/ado/etc/ado.sqlite'
+    ],
 );
 
 $builder->create_build_script();

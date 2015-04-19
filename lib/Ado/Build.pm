@@ -59,13 +59,12 @@ sub process_etc_files {
 
         # skip SQLite automatically created files
         next if ($asset =~ m/ado\-(shm|wal)/);
-
-        if ($asset =~ m/ado\.sqlite/ && -s catfile($prefix, $asset)) {
-            $self->log_info("Skipping $asset. We are upgrading from a previous version! $/");
+        my $asset_path = catfile($prefix, $asset);
+        if ($asset =~ m/ado\.sqlite/ && -s $asset_path) {
+            $self->log_info("Skipping $asset because it already exists at $asset_path! $/");
             next;
         }
-        copy($asset, catfile('blib', $asset))
-          unless $asset =~ /\d+\.sql/;
+        copy($asset, catfile('blib', $asset));
     }
     return;
 }
