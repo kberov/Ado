@@ -36,10 +36,10 @@ has config_classes => sub {
 
 sub _get_plugin_config {
     my ($self) = @_;
-    state $app  = $self->app;
-    state $mode = $app->mode;
-    state $home = $app->home;
-
+    state $app              = $self->app;
+    state $mode             = $app->mode;
+    state $home             = $app->home;
+    state $local_config_dir = catdir($home, 'etc', 'plugins');
     my $config_dir   = $self->config_dir;
     my $ext          = $self->ext;
     my $name         = decamelize($self->name);
@@ -48,21 +48,17 @@ sub _get_plugin_config {
     if (my $e = Mojo::Loader::load_class($config_class)) {
         Carp::croak ref $e ? "Exception: $e" : $config_class . ' - Not found!';
     }
+    my @config_paths = ("$config_dir/$name.$ext", "$config_dir/$name.$mode.$ext");
+    push @config_paths, "$local_config_dir/$name.$ext", "$local_config_dir/$name.$mode.$ext"
+      if $local_config_dir ne $config_dir;
 
-    # Try plugin specific configuration file.
-    if (-f (my $f = catfile($config_dir, "$name.$ext"))) {
-        $config = eval { $config_class->new->load($f, {}, $app) };
-        Carp::croak($@) unless $config;
-    }
-
-    # Mode specific plugin config file
-    if (-f (my $mf = catfile($config_dir, "$name.$mode.$ext"))) {
-        my $cmode = eval { $config_class->new->load($mf, {}, $app) };
-        Carp::croak($@) unless $cmode;
-        return {%$config, %$cmode};    #merge
-    }
-    else {
-        return $config;
+    #Try global, global.mode, local, local.mode
+    foreach my $f (@config_paths) {
+        if (-f $f) {
+            my $specific =
+              eval { $config_class->new->load($f, {}, $app) } || Carp::croak($@);
+            $config = {%$config, %$specific};
+        }
     }
     return $config;
 }
