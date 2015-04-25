@@ -5,7 +5,7 @@ Revision history for Ado
     Ado::Command::generate::apache2htaccess.
   - Allow when Ado is installed globally application specific plugin 
     configuration to override the global plugin configuration.
-  - Improved test coverage of Ado::Plugin.
+  - Improved test coverage of Ado::Plugin and Ado::Command::generate::adoplugin.
 
 0.89 2015-04-19
   - Added hard dependency to Mojolicious::Plugin::OAuth2.
