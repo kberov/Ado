@@ -6,6 +6,7 @@
 % my $args = shift;
 % my $root = $args->{DocumentRoot};
 % my $plackup = $args->{plackup};
+% my $moniker = $args->{moniker};
 
 
 # Directives, comments and ideas in this file are taken from Drupal .htaccess,
@@ -52,7 +53,7 @@ Options +FollowSymLinks
   <IfModule mod_headers.c>
     Header append Cache-Control "public"
   </IfModule>
-  <FilesMatch ado$>
+  <FilesMatch <%=$moniker%>$>
     # Do not allow Ado responses to be cached unless they explicitly send cache
     # headers themselves.
     ExpiresActive Off
@@ -83,7 +84,7 @@ FileETag None
 
   # This is the fallback mode in case no Plack with FCGI and FCGI::ProcManager 
   # neither Mojo::Server::FastCGI are installed.
-  <Files ~ "^(ado)$">
+  <Files ~ "^(<%=$moniker%>)$">
     SetHandler  cgi-script
   </Files>
 </IfModule>
@@ -94,19 +95,19 @@ FileETag None
   # See http://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html
   % if(!$plackup && !$has_msfcgi) {
     # Sorry! no Plack with FCGI and FCGI::ProcManager neither Mojo::Server::FastCGI are installed.
-    # Install at least one of them and rerun 'ado apache2htaccess'.
+    # Install at least one of them and rerun '<%=$moniker%> apache2htaccess'.
   % }
   % else {
-  <Files ~ "^(ado)$">
+  <Files ~ "^(<%=$moniker%>)$">
     SetHandler  fcgid-script
   </Files>
   % }
   % if($plackup){
-    # plackup must be run with the same perl as ado
-    % my $sock = File::Spec->catfile(File::Spec->tmpdir(), 'ado'.time().$$.'.sock');
+    # plackup must be run with the same perl as <%=$moniker%>
+    % my $sock = File::Spec->catfile(File::Spec->tmpdir(), $moniker.time().$$.'.sock');
     % $sock =~ s|\\|/|g;
     # Using Plack with FCGI and FCGI::ProcManager
-    FcgidWrapper "<%= "$plackup $root/bin/ado -s FCGI -l $sock" %>"
+    FcgidWrapper "<%= "$plackup $root/bin/$moniker -s FCGI -l $sock" %>"
   % }
 
   % if($has_msfcgi){
@@ -114,13 +115,13 @@ FileETag None
     # Using Mojo::Server::FastCGI. 
     # Uncomment the following (and comment any previous "FcgidWrapper")
     # if you prefer Mojo::Server::FastCGI.
-    <%= $plackup? '#':''%> FcgidWrapper "<%= "$args->{perl} $root/bin/ado" %> fastcgi"
+    <%= $plackup? '#':''%> FcgidWrapper "<%= "$args->{perl} $root/bin/$moniker" %> fastcgi"
   % }
 </IfModule>
 % }
 # Make Ado handle any 404 errors.
-ErrorDocument 404 /bin/ado
-DirectoryIndex /bin/ado
+ErrorDocument 404 /bin/<%=$moniker%>
+DirectoryIndex /bin/<%=$moniker%>
 
 #Some more security. Redefine the mime type for the most common types of scripts
 AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
@@ -159,8 +160,8 @@ AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
   # If your site is running in a VirtualDocumentRoot at http://example.com/,
   # use the following line:
   # RewriteBase /
-  # Otherwise set RewriteBase to the subdirectory where your site is, e.g. /ado.
-  # RewriteBase /ado
+  # Otherwise set RewriteBase to the subdirectory where your site is, e.g. /<%=$moniker%>.
+  # RewriteBase /<%=$moniker%>
 
   # Redirect all requests for Ado static files to public/ directory.
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -170,6 +171,6 @@ AddType text/plain .shtml .php .php3 .phtml .phtm .pl .py .cgi
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule (.*) /bin/ado/$1 [L]
+  RewriteRule (.*) /bin/<%=$moniker%>/$1 [L]
 
 </IfModule>
