@@ -142,7 +142,7 @@ sub ACTION_test {
 
     #Custom functionality before test
     $self->_process_custom_files(catdir('blib', 'etc'), catdir('blib', 'log'))
-      if -e 'blib';
+      if -d 'blib';
     $self->_process_custom_files('etc', 'log');
     $self->SUPER::ACTION_test;
     return;
@@ -209,7 +209,6 @@ sub ACTION_perltidy {
     };
     my @files;
     for my $dir ($self->PERL_DIRS) {
-        next unless -d $dir;
         my $dir_files = $self->rscan_dir($dir);
         for my $file (@$dir_files) {
             push @files, $file

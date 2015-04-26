@@ -70,9 +70,9 @@ $t->get_ok('/help/bg/alabala.md')->status_is(404);
 
 #test Ado::Control::Articles
 my $config = $app->config('Ado::Plugin::MarkdownRenderer');
-note $app->dumper($config);
+
 is($config->{md_reuse_produced_html}, 1);
-my $static_file = catfile($app->home->rel_dir('public/articles'), 'hello.html');
+my $static_file = $app->home->rel_file('public/articles/hello.html');
 unlink($static_file);
 
 #file is generated and the user is redirected to it.

@@ -28,4 +28,11 @@ is_deeply(
     'No mode specific file - ok!'
 );
 
+#dying plugin
+like(
+    ((eval { $app->plugin('bar') }) || $@),
+    qr/Can't load configuration from.+bar.alabala.dummy/,
+    'mode specific with syntax error'
+);
+
 done_testing;

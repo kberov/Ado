@@ -48,5 +48,26 @@ chdir "Ado-Plugin-$name";
     require_ok("Build.PL");
 }
 
+#not CamelCase name
+$name  = 'blog';
+$class = "Ado::Plugin::$name";
+
+ok($c = $app->start("generate", "adoplugin", '-n' => $name), 'run() ok');
+
+#failing --crud
+like(
+    (eval { $app->start("generate", "adoplugin", '-n' => $name, '-c' => 1) } || $@),
+    qr/--tables is mandatory when/,
+    '--tables is mandatory when option --crud is passed!'
+);
+
+#failin without --name
+like(
+    (eval { $app->start("generate", "adoplugin") } || $@),
+    qr/On the command-line:/,
+    '--name is mandatory'
+);
+
 chdir $dir;
+
 done_testing();

@@ -57,6 +57,7 @@ sub run {
         ? $home->rel_file($rel_file)
         : $ado_home->rel_file($rel_file)
     );
+    $args->{moniker} = $app->moniker;
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
         say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};

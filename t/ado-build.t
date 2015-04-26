@@ -22,6 +22,7 @@ plan skip_all => "Test::Output required for this test" if $@;
 my $perl = Ado::Build->find_perl_interpreter;
 my $tempdir = tempdir(CLEANUP => 1);
 
+
 #Build script
 like(
     my $out = qx(TEST_AUTHOR=0 $perl Build.PL --install_base=$tempdir),
@@ -42,6 +43,7 @@ isa_ok(
     ),
     'Module::Build'
 );
+stdout_like(sub { $build->dispatch('fakeuninstall') }, qr{unlink|rmdir}, "fakeuninstall ok");
 
 subtest 'missing build element' => sub {
     ok(rename('log', 'log_'), 'no "log" dir');
@@ -114,7 +116,7 @@ my $directories_rx = join $/, map { $_ . '.+?' } $build->PERL_DIRS;
 stdout_like(
     sub { $build->dispatch('perltidy', verbose => 1) },
     qr/$directories_rx\d+\sfiles\.\.\.\nperltidy-ed\sdistribution.\n/msx,
-    "perltidy ok"
+    "perltidy --verbose ok"
 );
 
 ok(!(grep { $_ =~ /\.bak$/ } @{$build->rscan_dir($build->base_dir)}), 'no .bak files ok');

@@ -1,5 +1,13 @@
 Revision history for Ado
 
+0.90 2015-04-26
+  - Using $app->moniker instead of hardcodded 'ado' in
+    Ado::Command::generate::apache2htaccess.
+  - Allow when Ado is installed globally application specific plugin 
+    configuration to override the global plugin configuration.
+  - Improved test coverage of Ado, Ado::Plugin and 
+    Ado::Command::generate::adoplugin. Total: 81.7% with TEST_AUTHOR set.
+
 0.89 2015-04-19
   - Added hard dependency to Mojolicious::Plugin::OAuth2.
   - Upgraded to Mojolicious::Plugin::OAuth2 1.52.
