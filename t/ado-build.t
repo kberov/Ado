@@ -43,7 +43,6 @@ isa_ok(
     ),
     'Module::Build'
 );
-stdout_like(sub { $build->dispatch('fakeuninstall') }, qr{unlink|rmdir}, "fakeuninstall ok");
 
 subtest 'missing build element' => sub {
     ok(rename('log', 'log_'), 'no "log" dir');
