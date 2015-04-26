@@ -127,6 +127,8 @@ README.md
 t/.perlcriticrc
 t/00-load.t
 t/ado-build.t
+t/ado/etc/bare.conf
+t/ado/etc/empty.conf
 t/ado/etc/plugins/bar.alabala.dummy
 t/ado/etc/plugins/example.conf
 t/ado/etc/plugins/example.development.conf
