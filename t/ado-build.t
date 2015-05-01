@@ -106,8 +106,8 @@ stdout_is(sub { $build->dispatch('distmeta') }, "Created META.yml and META.json\
     "distmeta ok");
 
 my $dist_out = qr/
-Creating\sAdo-\d+\.\d{2}\n
-Creating\sAdo-\d+\.\d{2}\.tar.gz\n/x;
+Creating\sAdo-\d+\.\d{2,}\n
+Creating\sAdo-\d+\.\d{2,}\.tar.gz\n/x;
 
 stdout_like(sub { $build->dispatch('dist') }, $dist_out, 'ACTION_dist output ok');
 my $directories_rx = join $/, map { $_ . '.+?' } $build->PERL_DIRS;

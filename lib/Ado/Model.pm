@@ -56,7 +56,6 @@ sub table_to_class {
     );
     Carp::croak($@) unless (eval "{$perl_code}");    ## no critic (ProhibitStringyEval)
 
-    #TODO: Expose the package name from DBIx::Simple::Class::Schema.
     $tables->{$table} = $class_name;
     return $tables->{$table};
 }

@@ -54,6 +54,7 @@ our %Lexicon = (    ##no critic(ProhibitPackageVars)
     disabled        => 'Заключен',
     reg_date        => 'Дата на регистрация',
     description     => 'Описание',
+    'Sign in'       => 'Вход',
 );
 
 1;

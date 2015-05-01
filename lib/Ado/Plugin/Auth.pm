@@ -14,10 +14,11 @@ sub register {
 
 
     #OAuth2 providers
-    my @auth_methods = @{$conf->{auth_methods}}[1 .. $#{$conf->{auth_methods}}];
+    my @auth_methods = @{$conf->{auth_methods}};
 
-    if (@auth_methods) {
+    if (@auth_methods > 1) {
         for my $m (@auth_methods) {
+            next if $m eq 'ado';
             Carp::croak("Configuration options for authentication method \"$m\" "
                   . "are not enough!. Please add them.")
               if (keys %{$conf->{providers}{$m}} < 2);
@@ -683,7 +684,7 @@ __DATA__
 
 @@ partials/authbar.html.ep
 %# displayed as a menu item
-% my $providers = config('Ado::Plugin::Auth')->{providers};
+% state $providers = config('Ado::Plugin::Auth')->{providers};
     <div class="right compact menu" id="authbar">
     % if (user->login_name eq 'guest') {
       <div class="ui simple dropdown item">
@@ -709,7 +710,6 @@ __DATA__
       </a>
     % }
     </div><!-- end div id="authbar" -->
-
 
 
 @@ partials/login_form.html.ep
