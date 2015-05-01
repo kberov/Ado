@@ -51,7 +51,7 @@ sub run {
         && eval { require Apache::LogFormat::Compiler });
 
     say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
-    state $rel_file      = 'templates/partials/apache2htaccess.ep';    #TODO:Make it configurable?
+    state $rel_file      = 'templates/partials/apache2htaccess.ep';
     state $template_file = (
         -s $home->rel_file($rel_file)
         ? $home->rel_file($rel_file)

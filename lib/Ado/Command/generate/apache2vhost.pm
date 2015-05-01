@@ -35,7 +35,7 @@ sub run {
     $args->{DocumentRoot} =~ s|\\|/|g if $IS_DOS;
 
     say STDERR 'Using arguments:' . $app->dumper($args) if $args->{verbose};
-    state $rel_file      = 'templates/partials/apache2vhost.ep';    #TODO:Make it configurable?
+    state $rel_file      = 'templates/partials/apache2vhost.ep';
     state $template_file = (
         -s $home->rel_file($rel_file)
         ? $home->rel_file($rel_file)

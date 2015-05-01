@@ -1,5 +1,11 @@
 Revision history for Ado
 
+0.901 2015-05-01
+  - Fixed bug in Ado::Plugin::Auth. Now you can disable local authentication
+    and use only OAuth2 authentication methods.
+  - Tested and works with Mojolicious 6.10.
+  - Cleaned up some (now seeming meaningless) TODOs.
+
 0.90 2015-04-26
   - Using $app->moniker instead of hardcodded 'ado' in
     Ado::Command::generate::apache2htaccess.
