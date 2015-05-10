@@ -4,8 +4,10 @@
   xml:lang="<%= $language %>"
   version="XHTML+RDFa 1.1"
   lang="<%= $language %>">
+  % # 'partials/adobar' needs to be executed before 'partials/head'
+  %my $adobar = include 'partials/adobar';
   <head><%= include 'partials/head'; %></head>
-  <body><%= include 'partials/adobar' %><%= content %></body>
+  <body><%== $adobar %><%= content %></body>
 
 % state $is_dev = (index(app->mode ,'dev') != -1);
 % if($is_dev){

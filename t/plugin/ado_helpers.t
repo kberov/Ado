@@ -13,7 +13,17 @@ like(
 );
 $t->get_ok('/test/ado_helpers')->content_like(qr/\["guest"/i, 'user helper')
   ->content_like(qr/\:"Петър"/,   'to_json helper')
-  ->content_like(qr/updated rows\: 1/, 'do_sql_file app monkey_patch');
+  ->content_like(qr/updated rows\: 1/, 'do_sql_file app monkey_patch')
 
+#head_css and head_javascript
+  ->content_like(qr|/\* content for head_css \*/|,                  'content for head_css')
+  ->content_like(qr|<link href=".+/reset.min.css"|,                 'reset.min.css')
+  ->content_like(qr|<link href=".+/transition.min.css"|,            'transition.min.css')
+  ->content_like(qr|<link href=".+/site.min.css|,                   'site.min.css')
+  ->content_like(qr|//content for head_javascript|,                 'content for head_javascript')
+  ->content_like(qr|<script src=".+transition.min.js"></script>|,   'transition.min.js')
+  ->content_like(qr|<script src="mojo/jquery/jquery.js"></script>|, 'jquery.js');
+
+$t->get_ok('/mojo/jquery/jquery.js')->status_is(200);
 
 done_testing;

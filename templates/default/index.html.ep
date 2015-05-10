@@ -1,4 +1,12 @@
 % title('Ado');
+<%
+head_css([
+    $sui_path.'/header.min.css',
+    $sui_path.'/icon.min.css', $sui_path.'/image.min.css',
+    $sui_path.'/divider.min.css',
+]);
+head_javascript([$sui_path.'/popup.min.js']);
+%>
 <main class="ui">
 <article class="ui main container">
 % if(flash 'error'){

@@ -1,6 +1,7 @@
 package Ado::Plugin::AdoHelpers;
 use Mojo::Base 'Ado::Plugin';
 use Mojo::Util qw(slurp decode);
+use List::Util qw(first);
 
 # allow plugins to process SQL scripts while loading
 sub do_sql_file {
@@ -43,10 +44,76 @@ sub register {
     $app->helper(to_json => sub { Mojo::JSON::to_json($_[1]) });
     Mojo::Util::monkey_patch(ref($app), do_sql_file => \&Ado::Plugin::AdoHelpers::do_sql_file);
 
+    $app->helper('head_css'        => \&_head_css);
+    $app->helper('head_javascript' => \&_head_javascript);
 
     return $self;
+}    #end of register
+
+my $file_re = qr/\w+\.\w+(\?.*)?$/;
+
+sub _head_css {
+    my ($c, $assets) = @_;
+    my $assets_list = $c->stash('head_css');
+
+    #append
+    if ($assets) {
+        $assets = [$assets] unless ref($assets) eq 'ARRAY';
+        foreach my $a (@$assets) {
+            push @$assets_list, $a unless first { $_ eq $a } @$assets_list;
+        }
+        return;
+    }
+
+    # render
+    my $css = '';
+
+    #everything in separate stylesheet begin end block or <link>
+    foreach my $a (@$assets_list) {
+        if ($a =~ $file_re) {    # a file
+            $css .= qq|<link href="$a" rel='stylesheet' type='text/css' />\n|;
+        }
+        elsif (ref $a eq 'CODE') {    # a code
+            $css .= $c->stylesheet($a) . $/;
+        }
+        else {                        # a string
+            $css .= $c->stylesheet(sub {$a}) . $/;
+        }
+    }
+    return $css;
 }
 
+sub _head_javascript {
+    my ($c, $assets) = @_;
+    my $assets_list = $c->stash('head_javascript');
+
+    #append
+    if ($assets) {
+        $assets = [$assets] unless ref($assets) eq 'ARRAY';
+        foreach my $a (@$assets) {
+            push @$assets_list, $a unless first { $_ eq $a } @$assets_list;
+        }
+        return;
+    }
+
+    # render
+    my $js = '';
+
+    #everything in separate javascript begin/end block or <script>
+    foreach my $a (@$assets_list) {
+        if ($a =~ $file_re) {    # a file
+            $js .= qq|<script src="$a"></script>\n|;
+        }
+        elsif (ref $a eq 'CODE') {    # a code
+            $js .= $c->javascript($a) . $/;
+        }
+        else {                        # a string
+            $js .= $c->javascript(sub {$a}) . $/;
+        }
+    }
+    return $js;
+
+}
 
 1;
 
@@ -98,16 +165,50 @@ using L<DBI/do>.
   # elsewhere in an application
   $app->do_sql_file($sql_file)
 
+=head2 head_css, head_javascript
+
+Minimalistic asset management for the C<E<lt>headE<gt>> section. Appends and
+later renders assets (links to files and code-snippets) to
+C<$c-E<gt>stash('head_css')> and C<app-E<gt>stash('head_javascript')>. The new
+assets are only appended if they are not already present in the corresponding
+list of assets. The defaults are populated in C<etc/ado.conf>. See also:
+L<Mojolicious/defaults>; L<Mojolicious::Plugin::AssetPack>.
+
+  #in a template:
+  #append
+  <%
+    head_css([
+      'vendor/SemanticUI/components/popup.min.css'
+      '#myid { font-size:xx-small }'
+    ]);
+    head_javascript([
+      'vendor/SemanticUI/components/popup.min.js'
+      'jQuery( function($){ $('#ado-img').popup() })'
+    ]);
+  %>
+  <!-- or -->
+      # or
+  % head_javascript begin
+      jQuery( function($){ $('#ado-img').popup() });
+  % end;
+
+  # render in templates/partials/head.html.ep
+  %== head_css; 
+  <link href="css/ado.css" rel='stylesheet' type='text/css' />
+  <link href='//fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic'
+    rel='stylesheet' type='text/css' />
+  %== head_javascript;
+
 =head2 to_json
+
+Suitable for preparing JavaScript
+objects from Perl references that will be used from stash and in templates.
 
   my $chars = $c->to_json({name =>'Петър',id=>2});
   $c->stash(user_as_js => $chars);
   # in a javascript chunk of a template
   var user = <%== $user_as_js %>;
   var user_group_names = <%== to_json([user->ingroup]) %>;
-
-Suitable for preparing JavaScript
-objects from Perl references that will be used from stash and in templates.
 
 =head2 user
 
@@ -131,9 +232,6 @@ L<Ado::Plugin> and implements the following new ones.
 
 Register helpers in L<Ado> application.
 
-
-
-
 =head1 SEE ALSO
 
 L<Ado::Plugin>, L<Mojolicious::Plugins>, L<Mojolicious::Plugin>, 
@@ -145,7 +243,7 @@ L<Ado::Plugin>, L<Mojolicious::Plugins>, L<Mojolicious::Plugin>,
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 

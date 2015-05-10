@@ -1,2 +1,5 @@
+% head_css([
+%    $sui_path.'/popup.min.css',$sui_path.'/icon.min.css',$sui_path.'/item.min.css']);
+% head_javascript($sui_path.'/popup.min.js');
 <a class="popup icon ado item" data-content="<%= $self->generator %>"
   href="<%=url_for('/')%>"><i class="icon ado"></i></a>
