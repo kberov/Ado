@@ -685,6 +685,14 @@ __DATA__
 @@ partials/authbar.html.ep
 %# displayed as a menu item
 % state $providers = config('Ado::Plugin::Auth')->{providers};
+<%
+head_css([
+    $sui_path.'/icon.min.css', $sui_path.'/item.min.css',
+    $sui_path.'/menu.min.css', $sui_path.'/dropdown.min.css',
+    $sui_path.'/modal.min.css'
+]);
+head_javascript([$sui_path.'/dropdown.min.js',$sui_path.'/modal.min.js']);
+%>
     <div class="right compact menu" id="authbar">
     % if (user->login_name eq 'guest') {
       <div class="ui simple dropdown item">
@@ -713,6 +721,19 @@ __DATA__
 
 
 @@ partials/login_form.html.ep
+<% 
+head_css([
+    $sui_path.'/form.min.css', $sui_path.'/segment.min.css',
+    $sui_path.'/header.min.css', $sui_path.'/message.min.css',
+    $sui_path.'/label.min.css', $sui_path.'/icon.min.css',
+    $sui_path.'/button.min.css', $sui_path.'/input.min.css'
+]);
+head_javascript([
+    $sui_path.'/form.min.js', 'vendor/crypto-js/rollups/sha1.js',
+    'js/auth.js',
+    ]);
+%>
+
   <form class="ui form segment" method="POST" 
     action="<%=url_for('login/ado') %>" id="login_form">
     <div class="ui header">
@@ -750,8 +771,7 @@ __DATA__
         type="submit"><%=l('Login')%></button>
     </div>
   </form>
-%= javascript '/vendor/crypto-js/rollups/sha1.js'
-%= javascript '/js/auth.js'
+
 
 @@ login.html.ep
 % layout 'default';

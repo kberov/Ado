@@ -1,4 +1,10 @@
 %# templates/articles/menu.html.ep
+   <% head_css([
+    $sui_path.'/menu.min.css', $sui_path.'/sidebar.min.css'
+    ]);
+   head_javascript($sui_path.'/sidebar.min.js');
+   %>
+
       <aside class="ui left vertical sidebar menu" >
           <h4 class="header item"><%= l('Articles') %></h4>
           <a href="/articles/hello.html" class="item">История</a>

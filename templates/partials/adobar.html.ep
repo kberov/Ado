@@ -1,7 +1,17 @@
 %# adobar.html.ep
-
   <nav id="adobar" class="ui borderless inverted fixed menu">
     <%= include 'partials/logo' %>
+  % # 'popup' related js and css strings are just for test coverage
+  % head_css([$sui_path.'/menu.min.css']);
+  % head_css begin
+  /* content for head_css */
+  % end;
+  % head_javascript begin
+  //content for head_javascript
+  $(function(){
+    $('#adobar a.popup').popup({position : 'bottom left'})
+  });
+  % end ;
     <a class="popup icon book item" href="<%=url_for('/perldoc')%>"
       data-content="Manual"><i class="book icon"></i></a>
     <a class="popup icon help item" data-content="About"
@@ -23,7 +33,5 @@
     %= include 'partials/authbar' unless current_route =~ m'login'
     %= include 'partials/language_menu'
   </nav>
-  <script type="text/javascript">
-    $('#adobar a.popup').popup({position : 'bottom left'});
-  </script>
-%#$self->debug(dumper(stash));
+
+ #$self->debug(dumper(stash));

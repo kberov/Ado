@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+   <% 
+   head_css([
+    $sui_path.'/menu.min.css', $sui_path.'/sidebar.min.css'
+    ]);
+   head_javascript($sui_path.'/sidebar.min.js');
+   %>
+
   <head>
     <%= include 'partials/head'; %>
   </head>
