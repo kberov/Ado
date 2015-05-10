@@ -3,6 +3,8 @@ use Mojo::Base 'Ado::Control';
 
 #Renders the page found in md_file
 sub show {
+    Mojo::Util::deprecated('whole /help section is deprecated');
+
     my $c = shift;
     my $document = $c->md_to_html() || return;
 
