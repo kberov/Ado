@@ -8,7 +8,7 @@ Revision history for Ado
     management. Used to refer specific Semantic UI components from templates
     and render links to them in the <head> section of the default layout.
   - The /help section is deprecated and will be removed in the next release.
-  - Other cleanups..
+  - Other cleanups...
 
 0.901 2015-05-01
   - Fixed bug in Ado::Plugin::Auth. Now you can disable local authentication
