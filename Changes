@@ -1,5 +1,15 @@
 Revision history for Ado
 
+0.91 2015-05-10   
+  - Upgraded to Mojolicious::Plugin::SemanticUI 0.17 to use only some of
+    Semantic UI components. This way the first rendering of the default
+    page is faster on the browser side.
+  - Implemented header_css and header_javascript helpers to add minimalistic asset
+    management. Used to refer specific Semantic UI components from templates
+    and render links to them in the <head> section of the default layout.
+  - The /help section is deprecated and will be removed in the next release.
+  - Other cleanups..
+
 0.901 2015-05-01
   - Fixed bug in Ado::Plugin::Auth. Now you can disable local authentication
     and use only OAuth2 authentication methods.
