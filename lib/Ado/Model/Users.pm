@@ -216,6 +216,7 @@ $CLASS->SQL('by_group_name' => <<"SQL");
 SQL
 
 #Selects users belonging to a group only.
+#returns a list of hashes
 sub by_group_name {
     my ($class, $group, $limit, $offset) = @_;
 

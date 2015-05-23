@@ -7,15 +7,15 @@ use List::Util qw(first);
 sub do_sql_file {
     my ($app, $sql_file) = @_;
     my $dbh = $app->dbix->dbh;
-    $app->log->debug('do_sql_file:' . $sql_file)
-      if $Ado::Control::DEV_MODE;
+
+    #$app->log->debug('do_sql_file:' . $sql_file) if $Ado::Control::DEV_MODE;
 
     my $SQL = decode('UTF-8', slurp($sql_file));
 
     #Remove multi-line comments
     $SQL =~ s|/\*+.+?\*/\s+?||gsmx;
-    $app->log->debug('$SQL:' . $SQL)
-      if $Ado::Control::DEV_MODE;
+
+    #$app->log->debug('$SQL:' . $SQL) if $Ado::Control::DEV_MODE;
     local $dbh->{RaiseError} = 1;
     my $last_statement = '';
     return eval {

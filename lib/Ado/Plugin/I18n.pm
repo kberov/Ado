@@ -488,7 +488,7 @@ __DATA__
 % my $conf = config('Ado::Plugin::I18n');
 % my @languages = @{$conf->{languages}};
 % $language_from ||= 'route';
-% $c->debug('$language_from:' . $language_from);
+% #$c->debug('$language_from:' . $language_from);
 % $language ||= $conf->{default_language};
 
 <!-- language_menu start -->

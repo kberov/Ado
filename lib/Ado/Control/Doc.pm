@@ -17,7 +17,6 @@ sub show {
     }
     else {
         my ($lang) = $md_file =~ m|([^/]{2})/[^/]+$|;
-        $c->debug("\$lang: $lang");
         $toc = qq|<$tag id="toc" class="$class">| . $c->md_to_html("$lang/toc.md") . qq|</$tag>|;
         ($tag, $class) = ('article', 'main container');
     }

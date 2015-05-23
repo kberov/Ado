@@ -84,8 +84,7 @@ sub load_plugins {
 
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
-        $app->log->debug(
-            'Loading Plugin:' . (ref $plugin ? $app->dumper($plugin) : "$plugin..."));
+        $app->log->debug('Loading Plugin ' . (ref $plugin ? $plugin->{name} : $plugin));
         if (ref $plugin eq 'HASH') {
             $app->plugin($plugin->{name} => $plugin->{config});
         }
@@ -126,7 +125,6 @@ sub load_routes {
             $r->via(@$via);
         }
         $r->to(ref $to eq 'HASH' ? %$to : $to);
-        $app->log->debug('load_routes: name:' . $r->name . '; pattern: "' . $r->to_string . '"');
     }
 
     # Default "/perldoc" page is Ado/Manual
