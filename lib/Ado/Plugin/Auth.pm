@@ -68,7 +68,7 @@ sub register {
 
 # general condition for authenticating users - redirects to /login
 sub authenticated {
-    my ($route, $c, $captures, $patterns) = @_;
+    my ($route, $c) = @_;
     $c->debug('in condition "authenticated"') if $Ado::Control::DEV_MODE;
     if ($c->user->login_name eq 'guest') {
         $c->session(over_route => $c->url_for($route->name));
