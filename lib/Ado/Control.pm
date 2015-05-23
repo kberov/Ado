@@ -19,9 +19,11 @@ sub debug;
 if ($DEV_MODE) {
 
     sub debug {
-        my ($package, $filename, $line, $subroutine) = caller(1);
-        state $log = shift->app->log;
-        return $log->debug(@_, "$package:$filename:$line in $subroutine");
+        my ($package, $filename, $line, $subroutine) = caller(0);
+        state $log = $_[0]->app->log;
+        return $log->debug(
+            @_[1 .. $#_]    #, "    at $filename:$line"
+        );
     }
 }
 
@@ -167,8 +169,8 @@ Ado::Control - The base class for all controllers!
 
 =head1 SYNOPSIS
 
-It must be inherited by all controllers.
-Put code here only to be shared by it's subclasses or used in hooks.
+It must be inherited by all controllers. Put code here only to be shared by
+it's subclasses or used in hooks.
 
   package Ado::Control::Hello;
   use Mojo::Base 'Ado::Control';
@@ -197,8 +199,8 @@ Methods shared among subclasses and in hooks
 =head2 config
 
 Overwrites the default helper L<Mojolicious::Plugin::DefaultHelpers/config>
-which is actually an alias for L<Mojo/config>.
-Returns configuration specific to the I<current controller> package only.
+which is actually an alias for L<Mojo/config>. Returns configuration specific
+to the I<current controller> package only.
 
   #in Ado::Control::List or Ado::Control::Foo or...
   my $myvalue = $c->config('mykey');
@@ -206,7 +208,8 @@ Returns configuration specific to the I<current controller> package only.
   my $myvalue = $app->config(__PACKAGE__)->{mykey}
   ...
 
-To access the application-wide configuration use C<$c-E<gt>app-E<gt>config('key')>.
+To access the application-wide configuration use
+C<$c-E<gt>app-E<gt>config('key')>.
 
 =head2 debug
 
@@ -244,12 +247,13 @@ output and L<Ado::Control::Ado::Users/list> for the example source.
     json => $c->list_for_json(\@range, [$dbix->query($SQL,@range)->hashes])
   );
 
+
 =head2 require_formats
 
-Checks for a list of accepted formats or renders "415 - Unsupported Media Type"
-with a text/html type and links to the preferred formats, and returns false.
-If the URL is in the required format, returns true.
-Adds a header C<Content-Location> pointing to the first URL of the required formats.
+Checks for a list of accepted formats or renders "415 - Unsupported Media
+Type" with a text/html type and links to the preferred formats, and returns
+false. If the URL is in the required format, returns true. Adds a header C
+<Content-Location> pointing to the first URL of the required formats.
 
   #in an action serving only json
   sub list {
@@ -260,22 +264,22 @@ Adds a header C<Content-Location> pointing to the first URL of the required form
       return;
   }
 
-This method exists only to show more descriptive message with available formats
-to the end user and to give a chance to user agents to go to the preferred resource URL.
+This method exists only to show more descriptive message with available
+formats to the end user and to give a chance to user agents to go to the
+preferred resource URL.
 
 =head2 validate_input
 
-Uses L<Mojolicious::Controller/validation> to validate all input parameters at once
-given a validation template.
-The template consists of keys matching the input parameters to be validated.
-The values are HASH references describing the rules. Each rule name corresponds 
-to a method/check in L<Mojolicious::Validator/CHECKS>. You can use your own
-checks if you add them using L<Mojolicious::Validator/add_check>.
+Uses L<Mojolicious::Controller/validation> to validate all input parameters at
+once given a validation template. The template consists of keys matching the
+input parameters to be validated. The values are HASH references describing
+the rules. Each rule name corresponds  to a method/check in
+L<Mojolicious::Validator/CHECKS>. You can use your own checks if you add them
+using L<Mojolicious::Validator/add_check>.
 
-Returns a HASH reference. 
-In case of errors it contains C<errors> and C<json> HASH references.
-In case of success contains only C<output> HASH reference from 
-L<Mojolicious::Validator::Validation/output>.
+Returns a HASH reference. In case of errors it contains C<errors> and C<json>
+HASH references. In case of success contains only C<output> HASH reference
+from  L<Mojolicious::Validator::Validation/output>.
 
     my $rules = {
         to_uid => {
@@ -296,11 +300,11 @@ L<Mojolicious::Validator::Validation/output>.
 
 =head2 user
 
-Returns the current user. This is the user C<guest> for not authenticated users.
-Note that this instance is not meant for manipulation and some fields are not available
-for security reasons. The fields are:
-C<login_password created_by changed_by disabled start_date>.
-TODO: move as much as possible checks and fields retrieval in SQL, not in Perl.
+Returns the current user. This is the user C<guest> for not authenticated
+users. Note that this instance is not meant for manipulation and some fields
+are not available for security reasons. The fields are: C<login_password
+created_by changed_by disabled start_date>. TODO: move as much as possible
+checks and fields retrieval in SQL, not in Perl.
 
 
   $c->user(Ado::Model::Users->by_login_name($login_name));
@@ -320,12 +324,11 @@ L<Ado::Manual::RESTAPI>, L<DBIx::Simple>
 
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
-This program is free software, you can redistribute it and/or
-modify it under the terms of the
-GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that
-modifications are open source. However, software that includes
-the license may release under a different license.
+This program is free software, you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License v3 (LGPL-3.0). You may
+copy, distribute and modify the software provided that modifications are open
+source. However, software that includes the license may release under a
+different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 

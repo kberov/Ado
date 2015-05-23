@@ -1,6 +1,12 @@
 Revision history for Ado
 
-0.91 2015-05-10   
+0.911 2015-05-23
+  - Ado::Control::list_for_json() accepts a new argument $meta for abitrary
+  content, specific to the served resource.
+  - Removed a lot of debug messages.
+
+
+0.91 2015-05-10
   - Upgraded to Mojolicious::Plugin::SemanticUI 0.17 to use only some of
     Semantic UI components. This way the first rendering of the default
     page is faster on the browser side.
