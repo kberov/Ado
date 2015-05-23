@@ -51,7 +51,7 @@ sub require_formats {
 }
 
 sub list_for_json {
-    my ($c, $range, $dsc_objects) = @_;
+    my ($c, $range, $dsc_objects, $meta) = @_;
     my $url = $c->url_with(format => $c->stash->{format})->query('limit' => $$range[0]);
     my $prev = $$range[1] - $$range[0];
     $prev = $prev > 0 ? $prev : 0;
@@ -84,7 +84,8 @@ sub list_for_json {
                     : ()
                 ),
             ],
-            data => $data
+            data => $data,
+            ($meta ? (meta => $meta) : ())
         },
     };
 }    # end sub list_for_json
@@ -215,22 +216,29 @@ A shortcut to:
 
 =head2 list_for_json
 
-Prepares a structure suitable for rendering as JSON for 
-listing  an ARRAYref of HASHES or L<Ado::Model>* objects,
-returned by L<Ado::Model/select_range> and returns it.
-Accepts two C<ARRAYREF>s as parameters:
+Prepares a structure suitable for rendering as JSON for  listing  an ARRAYref
+of HASHES or L<Ado::Model>* objects, returned by L<Ado::Model/select_range>
+and returns it. Accepts two C<ARRAY> references  and one arbitrary C<HASH>
+reference as parameters:
 
-  my $res = $c->list_for_json([$limit, $offset], \@list_of_AMobjects_or_hashes);
+  my $res = $c->list_for_json([$limit, $offset], \@list_of_AMobjects_or_hashes, $meta);
 
-Use this method to ensure uniform and predictable representation
-across all listing resources.
-See L<http://127.0.0.1:3000/ado-users/list.json> for example output
-and L<Ado::Control::Ado::Users/list> for the example source.
+Use this method to ensure uniform and predictable representation across all
+listing resources. Use the C<$meta> key for arbitrary metadata, specific to
+your resourse. See L<http://127.0.0.1:3000/ado-users/list.json> for example
+output and L<Ado::Control::Ado::Users/list> for the example source.
 
   my @range = ($c->param('limit') || 10, $c->param('offset') || 0);
   return $c->respond_to(
-    json => $c->list_for_json(\@range, [Ado::Model::Users->select_range(@range)])
+    json => $c->list_for_json(\@range, [Ado::Model::Users->select_range(@range)],{foo=>bar})
   );
+  Outputs:
+  {
+    links => [{href=>$url, rel=>'self'},{...}],
+    data=>[..],
+    query=>{limit=>10, offset=>0},
+    meta=> {foo=>'bar'}
+  }
 
   return $c->respond_to(
     json => $c->list_for_json(\@range, [$dbix->query($SQL,@range)->hashes])
