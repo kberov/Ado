@@ -3,24 +3,8 @@ use Mojo::Base 'Ado::Command';
 use Getopt::Long qw(GetOptionsFromArray);
 use Time::Piece qw();
 use Time::Seconds;
-has description => "Adds a user to an Ado application.\n";
-has usage       => <<"USAGE";
-USAGE:
-
-# Minimal required options to add a user
-$0 adduser --login_name USERNAME --email user\@example.com \
-    --first_name John --last_name Smith 
-
-# Add a user to an additional group
-$0 adduser --login_name USERNAME --ingroup GROUPNAME
-
-# Change password / disable a user
-$0 adduser --login_name USERNAME --ingroup GROUPNAME --disabled \
---login_password !@#\$\%^&
-
-See perldoc Ado::Command::adduser for full set of options.
-
-USAGE
+has description => 'Add and edit users';
+has usage => sub { shift->extract_usage };
 
 #define some defaults
 has args => sub {
@@ -125,10 +109,6 @@ Ado::Command::adduser - adduser command
 
 =head1 SYNOPSIS
 
-  # Programatically
-  use Ado::Command::adduser;
-  Ado::Command::adduser->run('--login_name'=>'test1',...);
-
   # On the command line
   # Minimal required options to add a user
   ado adduser --login_name USERNAME --email user\@example.com \
@@ -138,9 +118,14 @@ Ado::Command::adduser - adduser command
   ado adduser --login_name USERNAME --ingroup GROUPNAME
 
   # Change password / disable a user
-  ado adduser --login_name USERNAME --ingroup GROUPNAME --disabled \
-    --login_password !@#\$\%^&
+  ado adduser --login_name USERNAME  --login_password N3W$36RE7P1$5W
 
+  # Disable a user
+  ado adduser --login_name USERNAME --disabled 
+
+  # Programatically
+  use Ado::Command::adduser;
+  Ado::Command::adduser->run('--login_name'=>'test1',...);
 
 
 =head1 DESCRIPTION
