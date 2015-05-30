@@ -87,6 +87,19 @@ CREATE TABLE IF NOT EXISTS sessions_old (
   sessiondata BLOB NOT NULL
 );
 
+-- Here we store Intrenationalized messages and labels
+DROP TABLE IF EXISTS i18n;
+CREATE TABLE i18n (
+  lang VARCHAR(5) DEFAULT 'en',
+  msgid VARCHAR(255),
+  -- files where this message is used
+  locations TEXT DEFAULT '',
+  msgstr TEXT NOT NULL DEFAULT '',
+  -- Set to 1 when the msgstr in the default language changes
+  fuzzy INT(1)  NOT NULL DEFAULT 0,
+  PRIMARY KEY (lang, msgid)
+);
+
 PRAGMA foreign_keys = ON;
 /*
 PRAGMA foreign_keys = OFF;
