@@ -493,7 +493,10 @@ __DATA__
 
 <!-- language_menu start -->
 <!-- language_from: <%=$language_from%> -->
-
+<% head_css([$sui_path.'/menu.min.css', $sui_path.'/dropdown.min.css',
+    $sui_path.'/item.min.css',$sui_path.'/icon.min.css',
+    $sui_path.'/button.min.css']);
+ head_javascript($sui_path.'/dropdown.min.js'); %>
 <div class="right compact menu" id="language_menu">
 <div class="ui simple dropdown item">
   <i class="translate icon"></i><%=l('Translate') %>
