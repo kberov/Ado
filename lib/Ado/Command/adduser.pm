@@ -109,6 +109,7 @@ Ado::Command::adduser - adduser command
 
 =head1 SYNOPSIS
 
+  USAGE
   # On the command line
   # Minimal required options to add a user
   ado adduser --login_name USERNAME --email user\@example.com \
