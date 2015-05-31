@@ -4,17 +4,14 @@
   xml:lang="<%= $language %>"
   version="XHTML+RDFa 1.1"
   lang="<%= $language %>">
-  <head><%= include 'partials/head'; %></head>
-  <body><%= include 'partials/adobar' %>
-    <main class="ui pushable">
-      <%= include 'articles/menu' %>
-      <div class="ui black right attached fixed launch button"><i class="sidebar icon"></i></div>
-      <article class="ui main container pusher">
-      
-        <%= content %>
-      
-      </article> 
-    </main>
+  <head><%= include 'partials/head' %></head>
+  <body class="ui pushable">
+    <%= include 'articles/menu' %>
+    <article class="ui main container pusher">
+      <%= include 'partials/adobar' %>
+      <div class="ui black right attached launch fixed button"><i class="sidebar icon"></i></div>
+      <%= content %>
+    </article> 
 %=javascript begin
 $('.ui.sidebar.menu')
   .sidebar({

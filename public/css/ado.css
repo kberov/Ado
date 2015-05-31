@@ -5,7 +5,7 @@
   font-family: FreeSerif;
   src: url(../fonts/FreeSerif-Glagolitic-UC.woff);
 }
-body{
+body, body.ui.pushable{
   font-family: 'Ubuntu', sans-serif;
   margin: 0;
   color: #46400D;
@@ -117,14 +117,13 @@ section.login_form {
 }
 
 /* articles */
-.right.attached.fixed.launch.button {
+.right.attached.launch.fixed.button {
   position: fixed !important;
+  z-index: 1900;
   top:2.5em;
   left:-1px;
 }
-aside.left.vertical.sidebar.menu{
-  padding-top:2.5em !important;  
-}
+
 /* end articles */
 
 

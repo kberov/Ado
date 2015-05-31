@@ -5,7 +5,7 @@
    head_javascript($sui_path.'/sidebar.min.js');
    %>
 
-      <aside class="ui left vertical sidebar menu" >
+      <aside id="articles_menu" class="ui left vertical sidebar menu" >
           <h4 class="header item"><%= l('Articles') %></h4>
           <a href="/articles/hello.html" class="item">История</a>
           <a href="/articles/ala/bala.html" class="item">FooBar</a>
