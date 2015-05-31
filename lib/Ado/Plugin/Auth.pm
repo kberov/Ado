@@ -56,7 +56,7 @@ sub register {
             $c->session(adobar_links => []);
 
             # Store a friendly message for the next page in flash
-            $c->flash(login_message => 'Thanks for logging in! Welcome!');
+            $c->flash(login_message => $c->l('LoginThanks'));
         }
     );
 
@@ -207,7 +207,8 @@ sub _login_google {
     else {
         #Redirect to front-page and say sorry
         # We are very sorry but we need to know you are a reasonable human being.
-        $c->flash(error_login => $c->l('oauth2_sorry') . ($c->param('error') || ''));
+        $c->flash(error_login => $c->l('oauth2_sorry[_1]', ucfirst($provider))
+              . ($c->param('error') || ''));
         $c->app->log->error('error_response:' . $c->dumper($response));
         $c->res->code(307);    #307 Temporary Redirect
         $c->redirect_to('/');
@@ -241,7 +242,8 @@ sub _login_facebook {
     else {
         #Redirect to front-page and say sorry
         # We are very sorry but we need to know you are a reasonable human being.
-        $c->flash(error_login => $c->l('oauth2_sorry') . ($c->param('error') || ''));
+        $c->flash(error_login => $c->l('oauth2_sorry[_1]', ucfirst($provider))
+              . ($c->param('error') || ''));
         $c->app->log->error('error_response:' . $c->dumper($response));
         $c->res->code(307);    #307 Temporary Redirect
         $c->redirect_to('/');
@@ -275,7 +277,7 @@ sub _create_oauth2_user {
         $c->user($user);
         $c->session(login_name => $user->login_name);
         $app->log->info($user->description . ' New $user ' . $user->login_name . ' logged in!');
-        $c->flash(login_message => $c->l('oauth2_wellcome'));
+        $c->flash(login_message => $c->l('oauth2_wellcome[_1]', $user->name));
         $c->redirect_to('/');
         return 1;
     }

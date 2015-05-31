@@ -1,10 +1,13 @@
 Revision history for Ado
 
-0.911 2015-05-31
+0.92 2015-05-31
   - Ado::Control::list_for_json() accepts a new argument $meta for abitrary
   content, specific to the served resource.
   - Removed a lot of debug messages.
   - Refactored and improved /articles section.
+  - Added database storage for lexicons to Ado::I18n.
+    Now plugins can store their translated messages in i18n table.
+    See Ado::Plugin::Vest as example.
 
 0.91 2015-05-10
   - Upgraded to Mojolicious::Plugin::SemanticUI 0.17 to use only some of

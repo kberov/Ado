@@ -42,6 +42,12 @@ INSERT INTO `users` VALUES(4,4,'test2','272a11a0206b949355be4b0bda9a8918609f1ac6
 1,1,54022241011303270,0,0,0,0);
 INSERT INTO `user_group` VALUES(4,4);
 
+INSERT INTO i18n VALUES('en','oauth2_sorry[_1]','lib/Ado/Plugin/Auth.pm:210,lib/Ado/Plugin/Auth.pm:244','Signing in via [_1] failed! Sorry! Please try again later!',0);
+INSERT INTO i18n VALUES('bg','oauth2_sorry[_1]','lib/Ado/Plugin/Auth.pm:210,lib/Ado/Plugin/Auth.pm:244','Влизането чрез [_1] се провали! Съжаляваме! Опитайте пак по-късно!',0);
+INSERT INTO i18n VALUES('de','oauth2_sorry[_1]','lib/Ado/Plugin/Auth.pm:210,lib/Ado/Plugin/Auth.pm:244','',0);
+INSERT INTO i18n VALUES('en','oauth2_wellcome[_1]','lib/Ado/Plugin/Auth.pm:278','Wellcome [_1]!',0);
+INSERT INTO i18n VALUES('bg','oauth2_wellcome[_1]','lib/Ado/Plugin/Auth.pm:278','Добре дошли, [_1]!',0);
+INSERT INTO i18n VALUES('de','oauth2_wellcome[_1]','lib/Ado/Plugin/Auth.pm:278','Willkommen, [_1]!',0);
 INSERT INTO i18n VALUES('en','Articles','templates/articles/menu.html.ep:9','Articles',0);
 INSERT INTO i18n VALUES('bg','Articles','templates/articles/menu.html.ep:9','Статии',0);
 INSERT INTO i18n VALUES('de','Articles','templates/articles/menu.html.ep:9','Artikel',0);

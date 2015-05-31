@@ -94,7 +94,7 @@ CREATE TABLE i18n (
   msgid VARCHAR(255),
   -- files where this message is used
   locations TEXT DEFAULT '',
-  msgstr TEXT NOT NULL DEFAULT '',
+  msgstr TEXT DEFAULT '',
   -- Set to 1 when the msgstr in the default language changes
   fuzzy INT(1)  NOT NULL DEFAULT 0,
   PRIMARY KEY (lang, msgid)

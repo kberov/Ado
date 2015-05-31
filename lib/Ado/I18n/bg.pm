@@ -55,6 +55,10 @@ our %Lexicon = (    ##no critic(ProhibitPackageVars)
     reg_date        => 'Дата на регистрация',
     description     => 'Описание',
     'Sign in'       => 'Вход',
+    Translate       => 'Превод',
+    LoginThanks => 'Благодарим, че ни посетихте! Добре дошли!',
+
+
 );
 
 1;

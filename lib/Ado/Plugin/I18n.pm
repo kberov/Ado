@@ -127,17 +127,16 @@ sub language {
     #rare cases since it is called in around_action
     if ($language) {
         $stash->{i18n} =
-          $$config{namespace}->get_handle($language, @{$$config{languages}});
-        $c->debug("language('$language') explicitly set by developer");
-
+          $$config{namespace}->get_handle($language, $c, $config);
+        $Ado::Control::DEV_MODE && $c->debug("explicitly set by developer.");
         return $stash->{$l_param} = $language;
     }
 
     #already set from route or called in an action as: $c->language()
     if ($stash->{$l_param}) {
         $stash->{i18n}
-          ||= $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
-        $c->debug("already set in \$stash->{$l_param}:" . $stash->{$l_param});
+          ||= $$config{namespace}->get_handle($stash->{$l_param}, $c, $config);
+        $Ado::Control::DEV_MODE && $c->debug("already set in \$stash->{$l_param}:");
         return $stash->{$l_param};
     }
 
@@ -146,9 +145,8 @@ sub language {
         && (my ($l) = $c->req->headers->host =~ /^(\w{2})\./))
     {
         $stash->{i18n} =
-          $$config{namespace}->get_handle($l, @{$$config{languages}});
+          $$config{namespace}->get_handle($l, $c, $config);
         $stash->{language_from} = 'host';
-        $c->debug("language_from_host:$l");
         return $stash->{$l_param} = $l;
     }
 
@@ -158,18 +156,15 @@ sub language {
     {
         $stash->{$l_param} = $l;
         $stash->{language_from} = 'param';
-        $c->debug("language_from_param:$l_param:$stash->{$l_param}");
     }
 
-
-    if (  !$stash->{language}
+    if (  !$stash->{$l_param}
         && $$config{language_from_cookie}
-        && ($language = $c->cookie($$config{language_param})))
+        && ($language = $c->cookie($l_param)))
     {
-        $c->cookie($$config{language_param} => $language, {expires => time + ONE_MONTH});
+        $c->cookie($l_param => $language, {expires => time + ONE_MONTH});
         $stash->{$l_param} = $language;
         $stash->{language_from} = 'cookie';
-        $c->debug("language_from_cookie:$stash->{$l_param}");
     }
 
     #Accept-Language:"bg,fr;q=0.8,en-us;q=0.5,en;q=0.3"
@@ -186,10 +181,8 @@ sub language {
 
     #default
     $stash->{$l_param} = $$config{default_language} unless $stash->{$l_param};
-
-
     $stash->{i18n} =
-      $$config{namespace}->get_handle($stash->{$l_param}, @{$$config{languages}});
+      $$config{namespace}->get_handle($stash->{$l_param}, $c, $config);
     return $stash->{$l_param};
 }
 

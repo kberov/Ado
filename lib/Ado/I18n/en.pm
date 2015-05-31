@@ -30,6 +30,9 @@ our %Lexicon = (    ##no critic(ProhibitPackageVars)
     reg_date          => 'Date of registration',
     disabled          => 'Locked',
     description       => 'Description',
+    'Sign in'         => 'Sign in',
+    Translate         => 'Translate',
+    LoginThanks       => 'Thanks for logging in! Welcome!',
 
 );
 
