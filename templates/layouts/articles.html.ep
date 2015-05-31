@@ -6,19 +6,6 @@
   lang="<%= $language %>">
   <head><%= include 'partials/head' %></head>
   <body class="ui pushable">
-    <%= include 'articles/menu' %>
-    <article class="ui main container pusher">
-      <%= include 'partials/adobar' %>
-      <div class="ui black right attached launch fixed button"><i class="sidebar icon"></i></div>
       <%= content %>
-    </article> 
-%=javascript begin
-$('.ui.sidebar.menu')
-  .sidebar({
-    context: '.ui.pushable'
-  })
-  .sidebar('attach events', '.ui.right.attached.fixed.launch.button')
-;
-%= end
   </body>
 </html>

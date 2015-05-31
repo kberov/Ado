@@ -1,5 +1,12 @@
 %#site_templates/articles/index.html.ep
 %layout 'articles';
+% head_css([$sui_path.'/menu.min.css', $sui_path.'/sidebar.min.css']);
+% head_javascript($sui_path.'/sidebar.min.js');
+    <%= include 'articles/menu' %>
+    <article class="ui main container pusher">
+      <%= include 'partials/adobar' %>
+      <div class="ui black right attached launch fixed button"><i class="sidebar icon"></i></div>
+
 %if(stash->{html}){
   % title(eval{Mojo::DOM->new(stash->{html})->find('h1,h2,h3')->[0]->text}||'No title');
   %== stash->{html}
@@ -9,3 +16,12 @@
   <p>The file "<%= $html_file %>" could not be found!</p>
 </div>
 %}
+    </article> 
+%=javascript begin
+$('.ui.sidebar.menu')
+  .sidebar({
+    context: '.ui.pushable'
+  })
+  .sidebar('attach events', '.ui.right.attached.fixed.launch.button')
+;
+%= end
