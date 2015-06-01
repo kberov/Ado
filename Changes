@@ -1,6 +1,6 @@
 Revision history for Ado
 
-0.92 2015-05-31
+0.92 2015-06-01
   - Ado::Control::list_for_json() accepts a new argument $meta for abitrary
   content, specific to the served resource.
   - Removed a lot of debug messages.
@@ -8,6 +8,9 @@ Revision history for Ado
     Now plugins can store their translated messages in i18n table.
     See Ado::Plugin::Vest as example.
   - Refactored and improved /articles section.
+  - Decided not to remove documents from public/doc. They will be used as
+    end-user documentation and written when time permits.
+  - $CODENAME changed to "иже" U+2C09 GLAGOLITIC CAPITAL LETTER IZHE (Ⰹ)
 
 0.91 2015-05-10
   - Upgraded to Mojolicious::Plugin::SemanticUI 0.17 to use only some of
