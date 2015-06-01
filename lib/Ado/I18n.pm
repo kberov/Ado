@@ -44,7 +44,7 @@ Ado::I18n - Languages' lexicons and handle namespace
 
 =head1 DESCRIPTION
 
-This class is is uded to instantiate the language handle used in L<Ado>.
+This class is used to instantiate the language handle in L<Ado>.
 
 =head1 METHODS
 

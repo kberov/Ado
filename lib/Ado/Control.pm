@@ -228,7 +228,7 @@ reference as parameters:
 
 Use this method to ensure uniform and predictable representation across all
 listing resources. Use the C<$meta> key for arbitrary metadata, specific to
-your resourse. See L<http://127.0.0.1:3000/ado-users/list.json> for example
+your resource. See L<http://127.0.0.1:3000/ado-users/list.json> for example
 output and L<Ado::Control::Ado::Users/list> for the example source.
 
   my @range = ($c->param('limit') || 10, $c->param('offset') || 0);
