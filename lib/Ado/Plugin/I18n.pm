@@ -128,7 +128,7 @@ sub language {
     if ($language) {
         $stash->{i18n} =
           $$config{namespace}->get_handle($language, $c, $config);
-        $Ado::Control::DEV_MODE && $c->debug("explicitly set by developer.");
+        $c->debug("explicitly set by developer.");
         return $stash->{$l_param} = $language;
     }
 
@@ -136,7 +136,7 @@ sub language {
     if ($stash->{$l_param}) {
         $stash->{i18n}
           ||= $$config{namespace}->get_handle($stash->{$l_param}, $c, $config);
-        $Ado::Control::DEV_MODE && $c->debug("already set in \$stash->{$l_param}:");
+        $c->debug("already set in \$stash->{$l_param}:");
         return $stash->{$l_param};
     }
 
