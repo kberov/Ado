@@ -9,7 +9,6 @@ sub get_handle {
     my $self = $class->SUPER::get_handle($language, @{$$config{languages}});
     $self->_load_messages_from_db($c->dbix, $$config{default_language})
       unless $loaded->{$language};
-    $Ado::Control::DEV_MODE && $c->debug('loaded language:' . ref($self));
     $loaded->{$language} = 1;
     return $self;
 }
@@ -31,11 +30,11 @@ ON (cl.msgid=d.msgid)
 SQL
 
     #get messages from database
-    my $lex = $dbix->query($SQL, $default, $self->language_tag)->map;
+    my %lex = $dbix->query($SQL, $default, $self->language_tag)->map;
     {
         no strict 'refs';    ## no critic (ProhibitNoStrict)
         my $class_lex = ref($self) . '::Lexicon';
-        %{$class_lex} = (%{$class_lex}, $lex);
+        %{$class_lex} = (%{$class_lex}, %lex);
     };
     return;
 }
