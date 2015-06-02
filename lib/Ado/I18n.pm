@@ -17,18 +17,26 @@ sub get_handle {
 sub _load_messages_from_db {
     my ($self, $dbix, $default) = @_;
     my $SQL = <<'SQL';
-SELECT msgid, msgstr FROM (
-  SELECT msgid, msgstr FROM i18n WHERE lang=? -- current language
-  UNION
-  SELECT msgid, msgstr FROM i18n WHERE lang=?-- default language
-) as i18n --merge the resultset prefering the first occurence of the same msgid
-GROUP BY msgid 
+SELECT d.msgid AS msgid,(
+  CASE 
+    WHEN cl.msgstr IS NULL OR cl.msgstr=''
+    THEN d.msgstr
+    ELSE cl.msgstr
+  END) AS msgstr
+-- default language
+FROM (SELECT msgid, msgstr FROM i18n WHERE lang=?) d
+-- current language
+LEFT JOIN (SELECT msgid, msgstr FROM i18n WHERE lang=?) cl
+ON (cl.msgid=d.msgid)
 SQL
 
     #get messages from database
-    no strict 'refs';    ## no critic (ProhibitNoStrict)
-    my $class_lex = ref($self) . '::Lexicon';
-    %{$class_lex} = (%{$class_lex}, $dbix->query($SQL, $self->language_tag, $default)->map);
+    my $lex = $dbix->query($SQL, $default, $self->language_tag)->map;
+    {
+        no strict 'refs';    ## no critic (ProhibitNoStrict)
+        my $class_lex = ref($self) . '::Lexicon';
+        %{$class_lex} = (%{$class_lex}, $lex);
+    };
     return;
 }
 
