@@ -118,7 +118,7 @@ my $form_hash  = {
     digest         => Mojo::Util::sha1_hex($csrf_token . Mojo::Util::sha1_hex('test1test1')),
 };
 $t->post_ok($login_url => {} => form => $form_hash)->status_is(302)
-  ->header_is('Location' => '/testatii/create', 'redirected back to /testatii/create');
+  ->header_is('Location' => '/testatii/create.html', 'redirected back to /testatii/create');
 my $create_url = $t->tx->res->headers->header('Location');
 
 #now we can create a new resouce after authenticating

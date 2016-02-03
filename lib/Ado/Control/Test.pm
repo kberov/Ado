@@ -31,7 +31,7 @@ sub language_menu {
     $c->debug('$$stash{language_from}:' . $$stash{language_from});
     $$stash{language_from} ||= $c->param('from');
     $c->debug('$$stash{language_from}:' . $$stash{language_from});
-    return;
+    return $c->render();
 }
 
 # Test Ado::Model::Users->by_group_name
@@ -44,6 +44,15 @@ sub ingroup {
     return $c->render(json => [@users]);
 
 }
+
+sub guest {
+    my $c = shift;
+
+    #get users from group with the same name as the user login_name
+    state $guest = Ado::Model::Users->by_login_name('guest')->data;
+    return $c->render(json => $guest);
+}
+
 1;
 
 =pod
@@ -64,21 +73,13 @@ Below is the list of defined actions.
 
 Used to test  the L<Ado::Plugin::Auth/authenticated> condition.
 
-=head2 mark_down
-
-Used to test theC<markdown> helper defined in L<Ado::Plugin::MarkdownRenderer/markdown>. 
-
-=head2 l10n
-
-Used to test the C<l> controller helper L<Ado::Plugin::I18n/l>.
-
 =head2 bgl10n
 
 Used to test the C<language> helper L<Ado::Plugin::I18n/language>.
 
-=head2 language_menu
+=head2 guest
 
-Used to test the produced HTML by C<partials/language_menu.html.ep>.
+Renders the user C<guest> as JSON.
 
 =head2 index
 
@@ -87,6 +88,18 @@ Alias for C<l10n> action.
 =head2 ingroup
 
 Used to test the C<ingroup> condition and  L<Ado::Model::Users/by_group_name>.
+
+=head2 l10n
+
+Used to test the C<l> controller helper L<Ado::Plugin::I18n/l>.
+
+=head2 language_menu
+
+Used to test the produced HTML by C<partials/language_menu.html.ep>.
+
+=head2 mark_down
+
+Used to test theC<markdown> helper defined in L<Ado::Plugin::MarkdownRenderer/markdown>. 
 
 =head1 AUTHOR
 

@@ -496,10 +496,9 @@ __DATA__
   <div class="menu">
 
 % if($language_from eq 'route') {
-%   my $route = $$stash{id} ? 'languagecontrolleractionid' : 'languagecontrolleraction';
 %   foreach my $l(@languages) {
 %     my $active = $l eq $language ? 'active ' : '';
-%     my $url = url_for($route, language => $l);
+%     my $url = url_for(language => $l, ($$stash{id}?(id => $$stash{id}):()));
 %=    link_to $url,(class => "${active}button item", title => l($l) ), begin
 %=      l($l)
 %=    end

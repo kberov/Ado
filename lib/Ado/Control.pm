@@ -9,10 +9,9 @@ has keywords => 'SSOT, CRM, ERP, CMS, Perl, SQL';
 sub generator { return 'Ado ' . $Ado::VERSION . ' - ' . $Ado::CODENAME }
 
 sub config {
-    my ($c, $key) = @_;
-    state $app = $c->app;
-    return $app->config(ref $c)->{$key} if $key;
-    return $app->config(ref $c);
+    state $app = $_[0]->app;
+    return $app->config(ref $_[0])->{$_[1]} if $_[1];    #if key
+    return $app->config(ref $_[0]);
 }
 
 sub debug;
@@ -22,7 +21,7 @@ if ($DEV_MODE) {
         my ($package, $filename, $line, $subroutine) = caller(0);
         state $log = $_[0]->app->log;
         return $log->debug(
-            @_[1 .. $#_]    #, "    at $filename:$line"
+            @_[1 .. $#_]                                 #, "    at $filename:$line"
         );
     }
 }

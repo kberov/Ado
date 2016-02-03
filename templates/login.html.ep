@@ -1,0 +1,6 @@
+<!-- login.html.ep -->
+% layout 'default';
+<section class="ui login_form">
+%= include 'partials/login_form'
+</section>
+<!-- end login.html.ep -->

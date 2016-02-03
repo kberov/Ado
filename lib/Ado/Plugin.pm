@@ -76,7 +76,7 @@ sub config {
       : $self->{config};
 }
 
-# one place for initialising plugins in register()
+# one place for initializing plugins in register()
 sub initialise {
     my ($self, $app, $conf) = @_;
 
@@ -235,7 +235,7 @@ invoked in L</initialise>.
 
 =head2 initialise
 
-Used to initialise you plugin and reduce boilerplate code. 
+Used to initialize you plugin and reduce boilerplate code. 
 
   sub register {
     my ($self, $app, $config) = shift->initialise(@_);

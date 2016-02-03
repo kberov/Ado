@@ -8,7 +8,7 @@ build_requires:
 configure_requires:
   Module::Build: '0.42'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4211, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Module::Build version 0.4216, CPAN::Meta::Converter version 2.150001'
 keywords:
   - Ado
   - Mojolicious
@@ -29,7 +29,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.921'
+    version: '0.930'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -103,7 +103,7 @@ provides:
     file: lib/Ado/Sessions/File.pm
 recommends:
   Apache::LogFormat::Compiler: '0'
-  DBD::SQLite: '1.44'
+  DBD::SQLite: '1.48'
   FCGI: '0.74'
   FCGI::ProcManager: '0.24'
   Mojo::Server::FastCGI: '0.41'
@@ -113,7 +113,7 @@ requires:
   DBIx::Simple::Class: '1.009'
   Email::Address: '1.905'
   Locale::Maketext: '1.25'
-  Mojolicious: '6.08'
+  Mojolicious: '6.58'
   Mojolicious::Plugin::DSC: '1.005'
   Mojolicious::Plugin::OAuth2: '1.52'
   Mojolicious::Plugin::SemanticUI: '0.17'
@@ -122,4 +122,4 @@ requires:
 resources:
   bugtracker: https://github.com/kberov/Ado/issues
   repository: https://github.com/kberov/Ado
-version: '0.921'
+version: '0.930'
