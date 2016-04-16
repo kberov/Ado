@@ -21,8 +21,8 @@
 --nohanging-side-comments             # Troublesome for commented out code
 
 -isbc   # Block comments may only be indented if they have some space characters before the #
-# We use version control, so just rewrite the file
--b 
+# We use version control, so just rewrite the file and do not keep backup if there are no errors
+-b -bext='/'
 
 # For the up-tight folk :)
 -pt=2    # High parenthesis tightness

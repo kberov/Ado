@@ -23,18 +23,16 @@ if (!$ENV{TEST_AUTHOR}) {
 #or find another way to shut up "Wide character in print" warnings
 add_stopwords(
     qw(
-      Krasimir Berov Красимир Беров berov Joachim Astel Renee Baecker
-      kumcho vulcho com Вълчо Неделчев Nedelchev Valcho
-      http html org metacpan url urls
-      Mojolicious Mojo app apps Foo SQLite ActivePerl
-      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT PLUGIN
-      CMS CMF SQL CRM WMD JS UI MVC FCGI CGI JavaScript MYDLjE
-      precompiled perldoc RESTful tstamp linkedin wikipedia
-      accessor accessors seq distro bashrc perltidy perltidyrc
-      cpan cpanm perl perlbrew auth eg authbar ep wiki conf
-      plugin plugins yourpluginroute htaccess suexec env
-      ServerName ServerAlias ServerAdmin DocumentRoot UserAgent
-      initialisation camelized blog
+      Krasimir Berov Красимир Беров berov Joachim Astel Renee Baecker kumcho
+      vulcho com Вълчо Неделчев Nedelchev Valcho http html org metacpan url
+      urls de ingroup absfile Mojolicious Mojo app apps Foo SQLite ActivePerl
+      URI OM ORM CPAN ENV CORS REST JSON ERP TODO API STDOUT PLUGIN CMS CMF
+      SQL CRM WMD JS UI MVC FCGI CGI ISA JavaScript MYDLjE precompiled perldoc
+      RESTful tstamp linkedin wikipedia accessor accessors seq distro bashrc
+      perltidy perltidyrc cpan cpanm perl perlbrew auth eg authbar ep wiki
+      conf plugin plugins yourpluginroute htaccess suexec env ServerName ln
+      ServerAlias ServerAdmin DocumentRoot UserAgent initialisation camelized
+      blog uninstall initialise args init bgln dstdir dstfile OAuth2 OAuth ext
       )
 );
 all_pod_files_spelling_ok();

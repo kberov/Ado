@@ -59,9 +59,6 @@ sub register {
             $c->flash(login_message => $c->l('LoginThanks'));
         }
     );
-
-    #Add this package to classes searched for templates in DATA sections
-    push @{$app->renderer->classes}, __PACKAGE__;
     return $self;
 }
 
@@ -71,7 +68,9 @@ sub authenticated {
     my ($route, $c) = @_;
     $c->debug('in condition "authenticated"') if $Ado::Control::DEV_MODE;
     if ($c->user->login_name eq 'guest') {
-        $c->session(over_route => $c->url_for($route->name));
+        $c->session(over_route => $c->req->url);
+        $c->debug('session(over_route => $c->req->url):' . $c->session('over_route'))
+          if $Ado::Control::DEV_MODE;
         $c->redirect_to('/login');
         return;
     }
@@ -419,28 +418,28 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Auth> is a plugin that authenticates users to an L<Ado> system.
-Users can be authenticated via Google, Facebook, locally
-and in the future other authentication service-providers.
+Users can be authenticated via Google, Facebook, locally and in the future
+other authentication service-providers.
 
-B<Note that the user's pasword is never sent over the network>. When using the local
-authentication method (ado) a digest is prepared in the browser using JavaScript.
-The digest is sent and compared on the server side. The digest is different in
-every POST request. The other authentication methods use the services provided by
-well known service providers like Google, Facebook etc. To use external
-authentication providers the module L<Mojolicious::Plugin::OAuth2> needs to be
-installed.
+B<Note that the user's pasword is never sent over the network>. When using the
+local authentication method (ado) a digest is prepared in the browser using
+JavaScript. The digest is sent and compared on the server side. The digest is
+different in every POST request. The other authentication methods use the
+services provided by well known service providers like Google, Facebook etc.
+To use external authentication providers the module
+L<Mojolicious::Plugin::OAuth2> needs to be installed.
 
 =head1 CONFIGURATION
 
-The following options can be set in C<etc/plugins/auth.$mode.conf>.
-You can find default options in C<etc/plugins/auth.conf>.
+The following options can be set in C<etc/plugins/auth.$mode.conf>. You can
+find default options in C<etc/plugins/auth.conf>.
 
 =head2 auth_methods
 
-This option will enable the listed methods (services) which will be used to 
-authenticate a user. The services will be listed in the specified order
-in the partial template C<authbar.html.ep> that can be included
-in any other template on your site.
+This option will enable the listed methods (services) which will be used to
+authenticate a user. The services will be listed in the specified order in the
+partial template C<authbar.html.ep> that can be included in any other template
+on your site.
 
   #in etc/plugins/auth.$mode.conf
   {
@@ -450,13 +449,12 @@ in any other template on your site.
 
 =head2 providers
 
-A Hash reference with keys representing names of providers (same as auth_methods)
-and values, containing the configurations for the specific providers.
-This option will be merged with already defined providers by
-L<Mojolicious::Plugin::OAuth2>.
-Add the rest of the needed configuration options to auth.development.conf or
-auth.production.conf only because this is highly sensitive and application
-specific information.
+A Hash reference with keys representing names of providers (same as
+auth_methods) and values, containing the configurations for the specific
+providers. This option will be merged with already defined providers by
+L<Mojolicious::Plugin::OAuth2>. Add the rest of the needed configuration
+options to auth.development.conf or auth.production.conf only because this is
+highly sensitive and application specific information.
 
   #Example for google:
   google =>{
@@ -511,13 +509,13 @@ Condition for routes used to check if a user is authenticated.
 
 =head2 ingroup
 
-Checks if a user is in the given group. Returns true or false
-  
+Checks if a user is in the given group. Returns true or false.
+
   # in etc/plugins/routes.conf or etc/plugins/foo.conf
   {
-    route => '/vest', 
-    via => ['GET'], 
-    to => 'vest#screen', 
+    route => '/vest',
+    via => ['GET'],
+    to => 'vest#screen',
     over => [authenticated => 1, ingroup => 'foo'],
   }
   # programatically
@@ -525,7 +523,7 @@ Checks if a user is in the given group. Returns true or false
 
 =head1 HELPERS
 
-L<Ado::Plugin::Auth> provides the following helpers for use in  
+L<Ado::Plugin::Auth> provides the following helpers for use in
 L<Ado::Control> methods and templates.
 
 =head2 login_ado
@@ -535,20 +533,20 @@ Finds and logs in a user locally. Returns true on success, false otherwise.
 =head2 login_google
 
 Called via C</login/google>. Finds an existing user and logs it in via Google.
-Creates a new user if it does not exist and logs it in via Google.
-The new user can login via any supported Oauth2 provider as long as it
-has the same email. The user can not login using Ado local authentication
-because he does not know his password, which is randomly generated.
-Returns true on success, false otherwise.
+Creates a new user if it does not exist and logs it in via Google. The new
+user can login via any supported OAuth2 provider as long as it has the same
+email. The user can not login using Ado local authentication because he does
+not know his password, which is randomly generated. Returns true on success,
+false otherwise.
 
 =head2 login_facebook
 
-Called via C</login/facebook>. Finds an existing user and logs it in via Facebook.
-Creates a new user if it does not exist and logs it in via Facebook.
-The new user can login via any supported Oauth2 provider as long as it
-has the same email. The user can not login using Ado local authentication
-because he does not know his password, which is randomly generated.
-Returns true on success, false otherwise.
+Called via C</login/facebook>. Finds an existing user and logs it in via
+Facebook. Creates a new user if it does not exist and logs it in via Facebook.
+The new user can login via any supported Oauth2 provider as long as it has the
+same email. The user can not login using Ado local authentication because he
+does not know his password, which is randomly generated. Returns true on
+success, false otherwise.
 
 =head1 HOOKS
 
@@ -556,9 +554,10 @@ Ado::Plugin::Auth emits the following hooks.
 
 =head2 after_login
 
-In your plugin you can define some functionality to be executed right after
-a user has logged in. For example add some links to the adobar template,
-available only to logged-in users. Only the controller C<$c> is passed to this hook.
+In your plugin you can define some functionality to be executed right after a
+user has logged in. For example add some links to the adobar template,
+available only to logged-in users. Only the controller C<$c> is passed to this
+hook.
 
     #example from Ado::Plugin::Admin
     $app->hook(
@@ -577,9 +576,10 @@ available only to logged-in users. Only the controller C<$c> is passed to this h
     ...
   });
 
-In your plugin you can define some functionality to be executed right after a user
-is added. For example add a user to a group after registration. Passed the controller,
-the newly created C<$user> and the $raw_data used to create the user.
+In your plugin you can define some functionality to be executed right after a
+user is added. For example add a user to a group after registration. Passed
+the controller, the newly created C<$user> and the $raw_data used to create
+the user.
 
 =head1 ROUTES
 
@@ -587,28 +587,28 @@ L<Ado::Plugin::Auth> provides the following routes (actions):
 
 =head2 /authorize/:auth_method
 
-Redirects to an OAuth2 provider consent screen where the user can authorize L<Ado>
-to use his information or not.
-Currently L<Ado> supports Facebook and Google.
+Redirects to an OAuth2 provider consent screen where the user can authorize
+L<Ado> to use his information or not. Currently L<Ado> supports Facebook and
+Google.
 
 =head2 /login
 
   /login/ado
 
-If accessed using a C<GET> request displays a login form.
-If accessed via C<POST> performs authentication using C<ado> system database,
-and emits the hook L</after_login> .
+If accessed using a C<GET> request displays a login form. If accessed via
+C<POST> performs authentication using C<ado> system database, and emits the
+hook L</after_login>.
 
   /login/facebook
 
-Facebook consent screen redirects to this action.
-This action is handled by L</login_facebook>.
+Facebook consent screen redirects to this action. This action is handled by
+L</login_facebook>.
 
 
   /login/google
 
-Google consent screen redirects to this action.
-This action is handled by L</login_google>.
+Google consent screen redirects to this action. This action is handled by
+L</login_google>.
 
 
 =head2 /logout
@@ -619,9 +619,9 @@ Expires the session and redirects to the base URL.
 
 =head1 TEMPLATES
 
-L<Ado::Plugin::Auth> embeds the following templates.
-You can run C<ado inflate> and modify the inflated files.
-Usage examples can be found at L<http://localhost:3000> after starting ado.
+L<Ado::Plugin::Auth> uses the following templates. The paths are in the
+C</templates> folder. Feel free to move them to the site_templates folder and
+modify them for your needs.
 
 =head2 partials/authbar.html.ep
 
@@ -631,31 +631,31 @@ Renders a menu dropdown for choosing methods for signing in.
 
 Renders a Login form to authenticate locally.
 
-
 =head2 login.html.ep
 
 Renders a page containing the login form above.
 
 =head1 METHODS
 
-L<Ado::Plugin::Auth> inherits all methods from
-L<Ado::Plugin> and implements the following new ones.
+L<Ado::Plugin::Auth> inherits all methods from L<Ado::Plugin> and implements
+the following new ones.
 
 
 =head2 register
 
-This method is called by C<$app-E<gt>plugin>.
-Registers the plugin in L<Ado> application and merges authentication 
-configuration from C<$MOJO_HOME/etc/ado.conf> with settings defined in
+This method is called by C<$app-E<gt>plugin>. Registers the plugin in L<Ado>
+application and merges authentication  configuration from
+C<$MOJO_HOME/etc/ado.conf> with settings defined in
 C<$MOJO_HOME/etc/plugins/auth.conf>. Authentication settings defined in
-C<plugins/auth.$mode.conf> will override those defined in C<plugins/auth.conf>.
-Authentication settings defined in C<ado.conf> will override both.
+C<plugins/auth.$mode.conf> will override those defined in
+C<plugins/auth.conf>. Authentication settings defined in C<ado.conf> will
+override both.
 
 =head1 TODO
 
-The following authentication methods are in the TODO list:
-linkedin, github. Others may be added later.
-Please help by implementing authentication via more providers.
+The following authentication methods are in the TODO list: linkedin, github.
+Others may be added later. Please help by implementing authentication via more
+providers.
 
 =head1 SEE ALSO
 
@@ -669,114 +669,14 @@ L<Mojolicious::Plugin>, L<Mojolicious::Guides::Routing/Conditions>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2014 Красимир Беров (Krasimir Berov).
+Copyright 2014-2016 Красимир Беров (Krasimir Berov).
 
-This program is free software, you can redistribute it and/or
-modify it under the terms of the 
-GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
-the license may release under a different license.
+This program is free software, you can redistribute it and/or modify it under
+the terms of the  GNU Lesser General Public License v3 (LGPL-3.0). You may
+copy, distribute and modify the software provided that  modifications are open
+source. However, software that includes  the license may release under a
+different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
 
 =cut
-
-__DATA__
-
-@@ partials/authbar.html.ep
-%# displayed as a menu item
-% state $providers = config('Ado::Plugin::Auth')->{providers};
-<%
-head_css([
-    $sui_path.'/icon.min.css', $sui_path.'/item.min.css',
-    $sui_path.'/menu.min.css', $sui_path.'/dropdown.min.css',
-    $sui_path.'/modal.min.css'
-]);
-head_javascript([$sui_path.'/dropdown.min.js',$sui_path.'/modal.min.js']);
-%>
-    <div class="right compact menu" id="authbar">
-    % if (user->login_name eq 'guest') {
-      <div class="ui simple dropdown item">
-        <i class="sign in icon"></i><%=l('Sign in') %>
-        <div class="menu">
-        % my $action ='login';
-        % for my $auth (@{app->config('auth_methods')}) {
-          % if ($auth ne 'ado') {$action ='authorize';}
-          <a href="<%=url_for("/$action/$auth")->to_abs %>"
-            class="item <%= $auth %>">
-            <i class="<%=$auth %> icon"></i> <%=ucfirst l($auth) %>
-          </a>
-        % }
-        </div>
-      </div>
-      <div class="ui small modal" id="modal_login_form">
-        <i class="close icon"></i>
-        %=include 'partials/login_form'
-      </div><!-- end div id="modal_login_form" -->
-    % } else {
-      <a class="ui item" href="<%= url_for('logout') %>">
-        <i class="sign out icon"></i><%= l('Logout').' ('. user->name .')' %>
-      </a>
-    % }
-    </div><!-- end div id="authbar" -->
-
-
-@@ partials/login_form.html.ep
-<% 
-head_css([
-    $sui_path.'/form.min.css', $sui_path.'/segment.min.css',
-    $sui_path.'/header.min.css', $sui_path.'/message.min.css',
-    $sui_path.'/label.min.css', $sui_path.'/icon.min.css',
-    $sui_path.'/button.min.css', $sui_path.'/input.min.css'
-]);
-head_javascript([
-    $sui_path.'/form.min.js', 'vendor/crypto-js/rollups/sha1.js',
-    'js/auth.js',
-    ]);
-%>
-
-  <form class="ui form segment" method="POST" 
-    action="<%=url_for('login/ado') %>" id="login_form">
-    <div class="ui header">
-    %=  l('Sign in') 
-    </div>
-    % if(stash->{error_login}) {
-    <div id="error_login" class="ui error message" style="display:block">
-      <%= stash->{error_login} %></div>
-    % }
-    <div class="field">
-      <label for="login_name"><%=ucfirst l('login_name')%></label>
-      <div class="ui left labeled icon input">
-        %= text_field 'login_name', placeholder => l('login_name'), id => 'login_name', required => ''
-        <i class="user icon"></i>
-        <div class="ui corner label"><i class="icon asterisk"></i></div>
-        % if(stash->{error_login_name}) {
-        <div id="error_login_name" class="ui error message" style="display:block">
-          <%= stash->{error_login_name} %>
-        </div>
-        % }
-      </div>
-    </div>
-    <div class="field">
-      <label for="login_password"><%=l('login_password')%></label>
-      <div class="ui left labeled icon input">
-        <input type="password" name="login_password" id="login_password" required="" />
-        <i class="lock icon"></i>
-        <div class="ui corner label"><i class="icon asterisk"></i></div>
-      </div>
-    </div>
-    %= csrf_field
-    %= hidden_field 'digest'
-    <div class="ui center">
-      <button class="ui small green submit button" 
-        type="submit"><%=l('Login')%></button>
-    </div>
-  </form>
-
-
-@@ login.html.ep
-% layout 'default';
-<section class="ui login_form">
-%= include 'partials/login_form'
-</section>

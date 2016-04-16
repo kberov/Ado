@@ -90,7 +90,7 @@ i.icon.ado{
   font-weight: bolder;
 }
 i.icon.ado:before {
-  content: "Ⰹ";
+  content: "Ⰺ";
 }
 
 .тц,.ne,.ъ,.ь {display: none; visibility: hidden;}

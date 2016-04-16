@@ -57,7 +57,7 @@ my $builder = Ado::Build->new(
     },
     requires => {
         'perl'                            => '5.14.0',
-        'Mojolicious'                     => '6.08',
+        'Mojolicious'                     => '6.58',
         'Mojolicious::Plugin::DSC'        => '1.005',
         'Mojolicious::Plugin::SemanticUI' => '0.17',
         'Mojolicious::Plugin::OAuth2'     => '1.52',
@@ -72,7 +72,7 @@ my $builder = Ado::Build->new(
     },
     recommends => {
 
-        'DBD::SQLite'   => '1.44',
+        'DBD::SQLite'   => '1.48',
         'SQL::Abstract' => '1.78',
 
         # Either

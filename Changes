@@ -1,8 +1,15 @@
 Revision history for Ado
 
+0.930 2016-04-15
+  - Upgraded to Mojolicious 6.58.
+  - Expanded templates from Ado::Plugin::Auth.
+  - Fixed bugs related to improper dynamic routes names usage.
+  - $CODENAME changed to "ИЖЕ" U+2C0A GLAGOLITIC CAPITAL LETTER INITIAL IZHE (Ⰺ)
+
+
 0.921 2015-06-03
   - Fixed query from i18n table to retrieve translated messages.
-  - Rearanged Plugin::MarkdounRender tests to avoid potential failures.
+  - Rearranged Plugin::MarkdounRender tests to avoid potential failures.
 
 0.92 2015-06-01
   - Ado::Control::list_for_json() accepts a new argument $meta for abitrary

@@ -1,4 +1,5 @@
 package Ado;
+use Mojo::Base -strict;
 
 use Mojo::Base 'Mojolicious';
 use File::Spec::Functions qw(splitdir catdir catfile);
@@ -6,8 +7,8 @@ use Mojo::Util 'class_to_path';
 use List::Util 'first';
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.921';
-our $CODENAME  = 'U+2C09 GLAGOLITIC CAPITAL LETTER IZHE (Ⰹ)';
+our $VERSION   = '0.930';
+our $CODENAME  = 'U+2C0A GLAGOLITIC CAPITAL LETTER INITIAL IZHE (Ⰺ)';
 
 use Ado::Control;
 use Ado::Sessions;

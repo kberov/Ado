@@ -167,7 +167,7 @@ using L<DBI/do>.
 
 =head2 head_css, head_javascript
 
-Minimalistic asset management for the C<E<lt>headE<gt>> section. Appends and
+Minimalist asset management for the C<E<lt>headE<gt>> section. Appends and
 later renders assets (links to files and code-snippets) to
 C<$c-E<gt>stash('head_css')> and C<app-E<gt>stash('head_javascript')>. The new
 assets are only appended if they are not already present in the corresponding

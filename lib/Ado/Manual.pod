@@ -13,7 +13,7 @@ L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
 L<Mojolicious> application. It aims to allow teams to build on it a CMS, ERP,
 CRM or all of them integrated together.
 
-Please note that the project is still a work-in-progres. Parts of it work,
+Please note that the project is still a work-in-progress. Parts of it work,
 others are simply missing.
 
 =head1 GETTING STARTED
@@ -67,7 +67,7 @@ rules see L<Ado::Manual::Contributing>.
 We expect that you know how Internet works, how to write Perl modules and are
 familiar with L<Mojolicious>.
 
-To ease discusssions on Ado further development, a forum was created.
+To ease discussions on Ado further development, a forum was created.
 L<https://groups.google.com/d/forum/ado-dev>.
 
 =head1 REST API
