@@ -84,9 +84,10 @@ public/articles/\w+/.+.html
 # Avoid files created by some IDEs and editors
 \.komodoproject$
 \.swp$
-^tags$
+tags$
 \.tags
-
+.idea
+.iml
 # Avoid CI tools files
 \.travis.yml
 

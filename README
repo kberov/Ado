@@ -9,8 +9,8 @@ DESCRIPTION
   Mojolicious application. It aims to allow teams to build on it a CMS, ERP,
   CRM or all of them integrated together.
 
-  Please note that the project is still a work-in-progres. Parts of it work,
-  others are simply missing.
+  Please note that the project is still a work-in-progress. Parts of it
+  work, others are simply missing.
 
 GETTING STARTED
   *   Start a personal blog with Ado::Manual::FiveMinutes if you are
@@ -59,7 +59,7 @@ CONTRIBUTING
   We expect that you know how Internet works, how to write Perl modules and
   are familiar with Mojolicious.
 
-  To ease discusssions on Ado further development, a forum was created.
+  To ease discussions on Ado further development, a forum was created.
   <https://groups.google.com/d/forum/ado-dev>.
 
 REST API

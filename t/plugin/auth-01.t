@@ -8,11 +8,11 @@ my $t = Test::Mojo->new('Ado');
 
 #Plugins are loaded already.
 #list of authentication methods in main menu
-$t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => 'Sign in')
-  ->text_is('#authbar .simple.dropdown a.item:nth-child(1)', 'Ado')
+$t->get_ok('/')->status_is(200)->text_like('#authbar .item:nth-child(1)' => qr'Sign in')
+  ->text_like('#authbar .simple.dropdown a.item:nth-child(1)', qr'Ado')
 
 #login form in a modal box hidden also there
-  ->text_is('#authbar .modal form#login_form .ui.header:nth-child(1)' => 'Sign in')
+  ->text_like('#authbar .modal form#login_form .ui.header:nth-child(1)' => qr'Sign in')
 
 #user is Guest
   ->text_is('article.ui.main.container h1' => 'Hello Guest,');
@@ -21,7 +21,7 @@ $t->get_ok('/')->status_is(200)->text_is('#authbar .item:nth-child(1)' => 'Sign 
 my $test_auth_url = $t->ua->server->url->path('/test/authenticateduser');
 $t->get_ok('/login/ado', {Referer => $test_auth_url})->status_is(200)
   ->element_exists('section.ui.login_form form#login_form')
-  ->text_is('form#login_form .ui.header:nth-child(1)' => 'Sign in')
+  ->text_like('form#login_form .ui.header:nth-child(1)' => qr'Sign in')
   ->element_exists('#login_name')->element_exists('#login_password');
 
 #try unexisting login method
@@ -73,7 +73,7 @@ $form_hash->{csrf_token} = $t->tx->res->dom->at('#login_form [name="csrf_token"]
 $form_hash->{digest} =
   Mojo::Util::sha1_hex($form_hash->{csrf_token} . Mojo::Util::sha1_hex('' . 'wrong_pass'));
 $t->post_ok($login_url => {} => form => $form_hash)->status_is(401, 'No such user $login_name')
-  ->text_is('#error_login',      'Wrong credentials! Please try again!')
-  ->text_is('#error_login_name', "No such user '$form_hash->{login_name}'!");
+  ->text_like('#error_login',      qr'Wrong credentials! Please try again!')
+  ->text_like('#error_login_name', qr"No such user '$form_hash->{login_name}'!");
 
 done_testing;

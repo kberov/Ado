@@ -95,7 +95,7 @@ sub initialise {
     # Load routes if defined.
     $app->load_routes($conf->{routes}) if (@{$conf->{routes} || []});
 
-    # Add templates folder if differs from app templates
+    # Add templates folder if the plugin is not in the same folder
     my $templates_dir = catdir($self->home_dir, 'templates');
     if ((!List::Util::first { $templates_dir eq $_ // '' } @{$app->renderer->paths})
         && -d $templates_dir)

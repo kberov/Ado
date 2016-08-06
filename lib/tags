@@ -1,0 +1,864 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+-- $OUTPUT_ENCODING	Test/AdoPlugin.pm	/^=head2 $OUTPUT_ENCODING$/;"	p
+-- $T	Test/AdoPlugin.pm	/^=head2 $T$/;"	p
+-- /login	Ado/Plugin/Auth.pm	/^=head2 \/login$/;"	p
+-- /logout	Ado/Plugin/Auth.pm	/^=head2 \/logout$/;"	p
+-- ACTION_build	Ado/Build.pm	/^=head2 ACTION_build$/;"	p
+-- ACTION_dist	Ado/Build.pm	/^=head2 ACTION_dist$/;"	p
+-- ACTION_fakeuninstall	Ado/Build.pm	/^=head2 ACTION_fakeuninstall$/;"	p
+-- ACTION_install	Ado/Build.pm	/^=head2 ACTION_install$/;"	p
+-- ACTION_perltidy	Ado/Build.pm	/^=head2 ACTION_perltidy$/;"	p
+-- ACTION_submit	Ado/Build.pm	/^=head2 ACTION_submit$/;"	p
+-- ACTION_test	Ado/Build.pm	/^=head2 ACTION_test$/;"	p
+-- ACTION_uninstall	Ado/Build.pm	/^=head2 ACTION_uninstall$/;"	p
+-- A|ServerAlias=s	Ado/Command/generate/apache2vhost.pm	/^=head2 A|ServerAlias=s$/;"	p
+-- CODENAME	Ado.pm	/^=head2 CODENAME$/;"	p
+-- CPAN	Ado/Manual/Installation.pod	/^=head2 CPAN$/;"	p
+-- Carton	Ado/Manual/Installation.pod	/^=head2 Carton$/;"	p
+-- C|controller_namespace=s	Ado/Command/generate/crud.pm	/^=head2 C|controller_namespace=s$/;"	p
+-- DOCUMENTATION	Ado/Manual/Contributing.pod	/^=head2 DOCUMENTATION$/;"	p
+-- D|DocumentRoot=s	Ado/Command/generate/apache2vhost.pm	/^=head2 D|DocumentRoot=s$/;"	p
+-- IMPOSING PERL BEST PRACTICES	Ado/Manual/Contributing.pod	/^=head2 IMPOSING PERL BEST PRACTICES$/;"	p
+-- L|lib_root=s	Ado/Command/generate/crud.pm	/^=head2 L|lib_root=s$/;"	p
+-- MANUAL	Ado/Manual/Installation.pod	/^=head2 MANUAL$/;"	p
+-- MODEL	Ado/Manual/Contributing.pod	/^=head2 MODEL$/;"	p
+-- M|model_namespace=s	Ado/Command/generate/crud.pm	/^=head2 M|model_namespace=s$/;"	p
+-- N|no_dsc_code	Ado/Command/generate/crud.pm	/^=head2 N|no_dsc_code$/;"	p
+-- O|overwrite	Ado/Command/generate/crud.pm	/^=head2 O|overwrite$/;"	p
+-- PERL STYLE	Ado/Manual/Contributing.pod	/^=head2 PERL STYLE$/;"	p
+-- PERLBREW	Ado/Manual/Installation.pod	/^=head2 PERLBREW$/;"	p
+-- PERL_FILES	Ado/Build.pm	/^=head2 PERL_FILES$/;"	p
+-- PLUGINS	Ado/Manual/Contributing.pod	/^=head2 PLUGINS$/;"	p
+-- REST AND CORS	Ado/Manual/Contributing.pod	/^=head2 REST AND CORS$/;"	p
+-- TEMPLATES	Ado/Manual/Contributing.pod	/^=head2 TEMPLATES$/;"	p
+-- TESTS	Ado/Manual/Contributing.pod	/^=head2 TESTS$/;"	p
+-- T|templates_root=s	Ado/Command/generate/crud.pm	/^=head2 T|templates_root=s$/;"	p
+-- absfile	Ado/Sessions/File.pm	/^=head2 absfile$/;"	p
+-- add	Ado/Control/Ado/Users.pm	/^=head2 add$/;"	p
+-- add	Ado/Model/Users.pm	/^=head2 add$/;"	p
+-- add_to_group	Ado/Model/Users.pm	/^=head2 add_to_group$/;"	p
+-- adduser	Ado/Command/adduser.pm	/^=head2 adduser$/;"	p
+-- app	Ado/Plugin.pm	/^=head2 app$/;"	p
+-- args	Ado/Command.pm	/^=head2 args$/;"	p
+-- args	Ado/Command/adduser.pm	/^=head2 args$/;"	p
+-- args	Ado/Command/generate.pm	/^=head2 args$/;"	p
+-- args	Ado/Command/generate/apache2vhost.pm	/^=head2 args$/;"	p
+-- around_action	Ado/Plugin/I18n.pm	/^=head2 around_action$/;"	p
+-- auth_methods	Ado/Plugin/Auth.pm	/^=head2 auth_methods$/;"	p
+-- authenticated	Ado/Plugin/Auth.pm	/^=head2 authenticated$/;"	p
+-- authenticateduser	Ado/Control/Test.pm	/^=head2 authenticateduser $/;"	p
+-- a|ServerAdmin=s	Ado/Command/generate/apache2vhost.pm	/^=head2 a|ServerAdmin=s$/;"	p
+-- base_url_path	Ado/Plugin/Routes.pm	/^=head2 base_url_path$/;"	p
+-- before_dispatch	Ado/Plugin/Routes.pm	/^=head2 before_dispatch$/;"	p
+-- bgl10n	Ado/Control/Test.pm	/^=head2 bgl10n$/;"	p
+-- by_login_name	Ado/Model/Users.pm	/^=head2 by_login_name$/;"	p
+-- changed_by	Ado/Model/Users.pm	/^=head2 changed_by$/;"	p
+-- cleanup	Ado/Sessions/File.pm	/^=head2 cleanup$/;"	p
+-- config	Ado/Command.pm	/^=head2 config$/;"	p
+-- config	Ado/Control.pm	/^=head2 config$/;"	p
+-- config	Ado/Plugin.pm	/^=head2 config$/;"	p
+-- config_classes	Ado/Plugin.pm	/^=head2 config_classes$/;"	p
+-- config_dir	Ado/Plugin.pm	/^=head2 config_dir$/;"	p
+-- cookie_domain	Ado/Sessions.pm	/^=head2 cookie_domain$/;"	p
+-- cookie_name	Ado/Sessions.pm	/^=head2 cookie_name$/;"	p
+-- cookie_path	Ado/Sessions.pm	/^=head2 cookie_path$/;"	p
+-- create_build_script	Ado/Build.pm	/^=head2 create_build_script$/;"	p
+-- created_by	Ado/Model/Users.pm	/^=head2 created_by$/;"	p
+-- c|config_file=s	Ado/Command/generate/apache2htaccess.pm	/^=head2 c|config_file=s$/;"	p
+-- c|config_file=s	Ado/Command/generate/apache2vhost.pm	/^=head2 c|config_file=s$/;"	p
+-- debug	Ado/Control.pm	/^=head2 debug$/;"	p
+-- default_expiration	Ado/Sessions.pm	/^=head2 default_expiration$/;"	p
+-- default_language	Ado/Plugin/I18n.pm	/^=head2 default_language$/;"	p
+-- define_hooks	Ado.pm	/^=head2 define_hooks$/;"	p
+-- define_mime_types	Ado.pm	/^=head2 define_mime_types$/;"	p
+-- description	Ado/Command/adduser.pm	/^=head2 description$/;"	p
+-- description	Ado/Command/generate/adoplugin.pm	/^=head2 description$/;"	p
+-- description	Ado/Command/generate/apache2htaccess.pm	/^=head2 description$/;"	p
+-- description	Ado/Command/generate/apache2vhost.pm	/^=head2 description$/;"	p
+-- description	Ado/Command/generate/crud.pm	/^=head2 description$/;"	p
+-- description	Ado/Command/version.pm	/^=head2 description$/;"	p
+-- description	Ado/Control.pm	/^=head2 description$/;"	p
+-- description	Ado/Model/Users.pm	/^=head2 description$/;"	p
+-- disable	Ado/Control/Ado/Users.pm	/^=head2 disable$/;"	p
+-- disabled	Ado/Model/Users.pm	/^=head2 disabled$/;"	p
+-- do_create_readme	Ado/Build.pm	/^=head2 do_create_readme$/;"	p
+-- dstdir	Ado/Sessions/File.pm	/^=head2 dstdir$/;"	p
+-- dstfile	Ado/Sessions/File.pm	/^=head2 dstfile$/;"	p
+-- d|dsn=s	Ado/Command/generate/crud.pm	/^=head2 d|dsn=s$/;"	p
+-- email	Ado/Model/Users.pm	/^=head2 email$/;"	p
+-- env	Ado/Command/generate/apache2vhost.pm	/^=head2 env$/;"	p
+-- ext	Ado/Plugin.pm	/^=head2 ext$/;"	p
+-- first_name	Ado/Model/Users.pm	/^=head2 first_name$/;"	p
+-- form	Ado/Control/Ado/Default.pm	/^=head2 form$/;"	p
+-- form	Ado/Control/Default.pm	/^=head2 form$/;"	p
+-- generate_id	Ado/Sessions.pm	/^=head2 generate_id$/;"	p
+-- generator	Ado/Control.pm	/^=head2 generator$/;"	p
+-- get_instance	Ado/Sessions.pm	/^=head2 get_instance$/;"	p
+-- group_id	Ado/Model/Users.pm	/^=head2 group_id$/;"	p
+-- groups	Ado/Control/Ado/Default.pm	/^=head2 groups$/;"	p
+-- home	Ado/Command.pm	/^=head2 home$/;"	p
+-- id	Ado/Model/Users.pm	/^=head2 id$/;"	p
+-- index	Ado/Control/Ado/Default.pm	/^=head2 index$/;"	p
+-- index	Ado/Control/Default.pm	/^=head2 index$/;"	p
+-- index	Ado/Control/Test.pm	/^=head2 index$/;"	p
+-- ingroup	Ado/Model/Users.pm	/^=head2 ingroup$/;"	p
+-- init	Ado/Command.pm	/^=head2 init$/;"	p
+-- init	Ado/Command/adduser.pm	/^=head2 init$/;"	p
+-- init	Ado/Command/version.pm	/^=head2 init$/;"	p
+-- initialise	Ado/Plugin.pm	/^=head2 initialise$/;"	p
+-- keywords	Ado/Control.pm	/^=head2 keywords$/;"	p
+-- l	Ado/Plugin/I18n.pm	/^=head2 l$/;"	p
+-- l10n	Ado/Control/Test.pm	/^=head2 l10n$/;"	p
+-- language	Ado/Plugin/I18n.pm	/^=head2 language$/;"	p
+-- language_from_cookie	Ado/Plugin/I18n.pm	/^=head2 language_from_cookie$/;"	p
+-- language_from_headers	Ado/Plugin/I18n.pm	/^=head2 language_from_headers$/;"	p
+-- language_from_host	Ado/Plugin/I18n.pm	/^=head2 language_from_host$/;"	p
+-- language_from_param	Ado/Plugin/I18n.pm	/^=head2 language_from_param$/;"	p
+-- language_from_route	Ado/Plugin/I18n.pm	/^=head2 language_from_route$/;"	p
+-- language_menu	Ado/Control/Test.pm	/^=head2 language_menu$/;"	p
+-- language_param	Ado/Plugin/I18n.pm	/^=head2 language_param$/;"	p
+-- last_name	Ado/Model/Users.pm	/^=head2 last_name$/;"	p
+-- latest	Ado/Command/version.pm	/^=head2 latest$/;"	p
+-- list	Ado/Control/Ado/Users.pm	/^=head2 list$/;"	p
+-- list_for_json	Ado/Control.pm	/^=head2 list_for_json$/;"	p
+-- load	Ado/Sessions/Database.pm	/^=head2 load$/;"	p
+-- load	Ado/Sessions/File.pm	/^=head2 load$/;"	p
+-- load_config	Ado.pm	/^=head2 load_config$/;"	p
+-- load_plugins	Ado.pm	/^=head2 load_plugins$/;"	p
+-- load_routes	Ado.pm	/^=head2 load_routes$/;"	p
+-- local::lib	Ado/Manual/Installation.pod	/^=head2 local::lib$/;"	p
+-- login.html.ep	Ado/Plugin/Auth.pm	/^=head2 login.html.ep$/;"	p
+-- login_name	Ado/Model/Users.pm	/^=head2 login_name$/;"	p
+-- login_password	Ado/Model/Users.pm	/^=head2 login_password$/;"	p
+-- mark_down	Ado/Control/Test.pm	/^=head2 mark_down$/;"	p
+-- markdown	Ado/Plugin/MarkdownRenderer.pm	/^=head2 markdown$/;"	p
+-- md_file_sufixes	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_file_sufixes$/;"	p
+-- md_helper	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_helper$/;"	p
+-- md_method	Ado/Plugin/MarkdownRenderer.pm	/^=head2  md_method$/;"	p
+-- md_options	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_options$/;"	p
+-- md_renderer	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_renderer$/;"	p
+-- md_reuse_produced_html	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_reuse_produced_html$/;"	p
+-- md_root	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_root$/;"	p
+-- md_to_html	Ado/Plugin/MarkdownRenderer.pm	/^=head2 md_to_html$/;"	p
+-- m|module=s@	Ado/Command/generate/apache2htaccess.pm	/^=head2 m|module=s@$/;"	p
+-- name	Ado/Command.pm	/^=head2 name$/;"	p
+-- name	Ado/Model/Users.pm	/^=head2 name$/;"	p
+-- name	Ado/Plugin.pm	/^=head2 name$/;"	p
+-- namespace	Ado/Plugin/I18n.pm	/^=head2 namespace$/;"	p
+-- namespaces	Ado/Command/generate.pm	/^=head2 namespaces$/;"	p
+-- n|ServerName=s	Ado/Command/generate/apache2vhost.pm	/^=head2 n|ServerName=s$/;"	p
+-- partials/authbar.html.ep	Ado/Plugin/Auth.pm	/^=head2 partials\/authbar.html.ep$/;"	p
+-- partials/language_menu.html.ep	Ado/Plugin/I18n.pm	/^=head2 partials\/language_menu.html.ep$/;"	p
+-- partials/login_form.html.ep	Ado/Plugin/Auth.pm	/^=head2 partials\/login_form.html.ep$/;"	p
+-- prepare_load	Ado/Sessions.pm	/^=head2 prepare_load$/;"	p
+-- prepare_store	Ado/Sessions.pm	/^=head2 prepare_store$/;"	p
+-- process_etc_files	Ado/Build.pm	/^=head2 process_etc_files$/;"	p
+-- process_log_files	Ado/Build.pm	/^=head2 process_log_files$/;"	p
+-- process_public_files	Ado/Build.pm	/^=head2 process_public_files$/;"	p
+-- process_templates_files	Ado/Build.pm	/^=head2 process_templates_files$/;"	p
+-- p|port=i	Ado/Command/generate/apache2vhost.pm	/^=head2 p|port=i$/;"	p
+-- reg_date	Ado/Model/Users.pm	/^=head2 reg_date$/;"	p
+-- register	Ado/Plugin/AdoHelpers.pm	/^=head2 register$/;"	p
+-- register	Ado/Plugin/Auth.pm	/^=head2 register$/;"	p
+-- register	Ado/Plugin/I18n.pm	/^=head2 register$/;"	p
+-- register	Ado/Plugin/MarkdownRenderer.pm	/^=head2 register$/;"	p
+-- register	Ado/Plugin/Routes.pm	/^=head2 register$/;"	p
+-- require_formats	Ado/Control.pm	/^=head2 require_formats$/;"	p
+-- routes	Ado/Plugin/I18n.pm	/^=head2 routes$/;"	p
+-- routes	Ado/Plugin/Routes.pm	/^=head2 routes$/;"	p
+-- run	Ado/Command.pm	/^=head2 run$/;"	p
+-- run	Ado/Command/generate/adoplugin.pm	/^=head2 run$/;"	p
+-- run	Ado/Command/generate/apache2htaccess.pm	/^=head2 run$/;"	p
+-- run	Ado/Command/generate/apache2vhost.pm	/^=head2 run$/;"	p
+-- run	Ado/Command/generate/crud.pm	/^=head2 run$/;"	p
+-- secure	Ado/Sessions.pm	/^=head2 secure$/;"	p
+-- session_id	Ado/Sessions.pm	/^=head2 session_id$/;"	p
+-- sessions	Ado.pm	/^=head2 sessions$/;"	p
+-- setup	Test/AdoPlugin.pm	/^=head2 setup$/;"	p
+-- show	Ado/Control/Ado/Users.pm	/^=head2 show$/;"	p
+-- show	Ado/Control/Doc.pm	/^=head2 show$/;"	p
+-- start_date	Ado/Model/Users.pm	/^=head2 start_date$/;"	p
+-- startup	Ado.pm	/^=head2 startup$/;"	p
+-- stop_date	Ado/Model/Users.pm	/^=head2 stop_date$/;"	p
+-- store	Ado/Sessions/Database.pm	/^=head2 store$/;"	p
+-- store	Ado/Sessions/File.pm	/^=head2 store$/;"	p
+-- s|with_suexec	Ado/Command/generate/apache2vhost.pm	/^=head2 s|with_suexec$/;"	p
+-- tstamp	Ado/Model/Users.pm	/^=head2 tstamp$/;"	p
+-- t|tables=s@	Ado/Command/generate/crud.pm	/^=head2 t|tables=s@$/;"	p
+-- update	Ado/Control/Ado/Users.pm	/^=head2 update$/;"	p
+-- usage	Ado/Command/adduser.pm	/^=head2 usage$/;"	p
+-- usage	Ado/Command/generate/adoplugin.pm	/^=head2 usage$/;"	p
+-- usage	Ado/Command/generate/apache2htaccess.pm	/^=head2 usage$/;"	p
+-- usage	Ado/Command/generate/apache2vhost.pm	/^=head2 usage$/;"	p
+-- usage	Ado/Command/generate/crud.pm	/^=head2 usage$/;"	p
+-- usage	Ado/Command/version.pm	/^=head2 usage$/;"	p
+-- user	Ado/Plugin/AdoHelpers.pm	/^=head2 user$/;"	p
+-- validate_input	Ado/Control.pm	/^=head2 validate_input$/;"	p
+-- version	Ado/Command/version.pm	/^=head2 version$/;"	p
+---- g|group=s	Ado/Command/generate/apache2vhost.pm	/^=head3 g|group=s$/;"	p
+---- u|user=s	Ado/Command/generate/apache2vhost.pm	/^=head3 u|user=s$/;"	p
+---- v|verbose	Ado/Command/generate/apache2htaccess.pm	/^=head3 v|verbose$/;"	p
+---- v|verbose	Ado/Command/generate/apache2vhost.pm	/^=head3 v|verbose$/;"	p
+5.010001	Ado/Model.pm	/^use 5.010001;$/;"	u
+5.010001	Ado/Model/Domains.pm	/^use 5.010001;$/;"	u
+5.010001	Ado/Model/Groups.pm	/^use 5.010001;$/;"	u
+5.010001	Ado/Model/Sessions.pm	/^use 5.010001;$/;"	u
+5.010001	Ado/Model/SessionsOld.pm	/^use 5.010001;$/;"	u
+5.010001	Ado/Model/UserGroup.pm	/^use 5.010001;$/;"	u
+5.010001	Ado/Model/Users.pm	/^use 5.010001;$/;"	u
+5.014	Ado/Build.pm	/^use 5.014;$/;"	u
+5.014	Ado/BuildPlugin.pm	/^use 5.014;$/;"	u
+5.014000	Ado/Build.pm	/^  use 5.014000;$/;"	u
+ACTION_build	Ado/Build.pm	/^sub ACTION_build {$/;"	s
+ACTION_dist	Ado/Build.pm	/^sub ACTION_dist {$/;"	s
+ACTION_fakeuninstall	Ado/Build.pm	/^sub ACTION_fakeuninstall {$/;"	s
+ACTION_install	Ado/Build.pm	/^sub ACTION_install {$/;"	s
+ACTION_perltidy	Ado/Build.pm	/^sub ACTION_perltidy {$/;"	s
+ACTION_submit	Ado/Build.pm	/^sub ACTION_submit {$/;"	s
+ACTION_test	Ado/Build.pm	/^sub ACTION_test {$/;"	s
+ACTION_uninstall	Ado/Build.pm	/^sub ACTION_uninstall {$/;"	s
+ALIASES	Ado/Model/Domains.pm	/^sub ALIASES { return $ALIASES }$/;"	s
+ALIASES	Ado/Model/Groups.pm	/^sub ALIASES { return $ALIASES }$/;"	s
+ALIASES	Ado/Model/Sessions.pm	/^sub ALIASES { return $ALIASES }$/;"	s
+ALIASES	Ado/Model/SessionsOld.pm	/^sub ALIASES { return $ALIASES }$/;"	s
+ALIASES	Ado/Model/UserGroup.pm	/^sub ALIASES { return $ALIASES }$/;"	s
+ALIASES	Ado/Model/Users.pm	/^=head1 ALIASES$/;"	p
+ALIASES	Ado/Model/Users.pm	/^sub ALIASES { return $ALIASES }$/;"	s
+ATTRIBUTES	Ado.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Build.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/adduser.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/generate.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/generate/adoplugin.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/generate/apache2htaccess.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/generate/apache2vhost.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/generate/crud.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Command/version.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Control.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Control/Ado.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Control/Ado/Default.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Control/Ado/Users.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Control/Default.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Model/Users.pm	/^=head1 ATTRIBUTES$/;"	p
+ATTRIBUTES	Ado/Plugin.pm	/^=head1 ATTRIBUTES$/;"	p
+AUTHOR	Ado.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Build.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/BuildPlugin.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Command.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Command/generate/adoplugin.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Command/generate/crud.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control/Ado.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control/Ado/Default.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control/Ado/Users.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control/Default.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control/Doc.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Control/Test.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Manual/Contributing.pod	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Manual/Plugins.pod	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Plugin.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Plugin/AdoHelpers.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Plugin/Auth.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Plugin/I18n.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Plugin/MarkdownRenderer.pm	/^=head1 AUTHOR$/;"	p
+AUTHOR	Ado/Plugin/Routes.pm	/^=head1 AUTHOR$/;"	p
+AUTHORITY	Ado.pm	/^our $AUTHORITY = 'cpan:BEROV';$/;"	o
+AUTHORS	Ado/Manual.pod	/^=head1 AUTHORS$/;"	p
+Ado	Ado.pm	/^package Ado;$/;"	p
+Ado	Ado/Command/generate.pm	/^use Ado;$/;"	u
+Ado::Build	Ado/Build.pm	/^  use Ado::Build;$/;"	u
+Ado::Build	Ado/Build.pm	/^package Ado::Build;$/;"	p
+Ado::BuildPlugin	Ado/BuildPlugin.pm	/^    use Ado::BuildPlugin;$/;"	u
+Ado::BuildPlugin	Ado/BuildPlugin.pm	/^package Ado::BuildPlugin;$/;"	p
+Ado::Command	Ado/Command.pm	/^package Ado::Command;$/;"	p
+Ado::Command	Ado/Command/adduser.pm	/^use Mojo::Base 'Ado::Command';$/;"	e
+Ado::Command	Ado/Command/generate/apache2vhost.pm	/^use Mojo::Base 'Ado::Command';$/;"	e
+Ado::Command	Ado/Command/version.pm	/^use Mojo::Base 'Ado::Command';$/;"	e
+Ado::Command::adduser	Ado/Command/adduser.pm	/^  use Ado::Command::adduser;$/;"	u
+Ado::Command::adduser	Ado/Command/adduser.pm	/^package Ado::Command::adduser;$/;"	p
+Ado::Command::generate	Ado/Command/generate.pm	/^package Ado::Command::generate;$/;"	p
+Ado::Command::generate	Ado/Command/generate/adoplugin.pm	/^use Mojo::Base 'Ado::Command::generate';$/;"	e
+Ado::Command::generate	Ado/Command/generate/apache2htaccess.pm	/^use Mojo::Base 'Ado::Command::generate';$/;"	e
+Ado::Command::generate	Ado/Command/generate/crud.pm	/^use Mojo::Base 'Ado::Command::generate';$/;"	e
+Ado::Command::generate::adoplugin	Ado/Command/generate/adoplugin.pm	/^  use Ado::Command::generate::adoplugin;$/;"	u
+Ado::Command::generate::adoplugin	Ado/Command/generate/adoplugin.pm	/^package Ado::Command::generate::adoplugin;$/;"	p
+Ado::Command::generate::apache2htaccess	Ado/Command/generate/apache2htaccess.pm	/^  use Ado::Command::generate::apache2htaccess;$/;"	u
+Ado::Command::generate::apache2htaccess	Ado/Command/generate/apache2htaccess.pm	/^package Ado::Command::generate::apache2htaccess;$/;"	p
+Ado::Command::generate::apache2vhost	Ado/Command/generate/apache2vhost.pm	/^  use Ado::Command::generate::apache2vhost;$/;"	u
+Ado::Command::generate::apache2vhost	Ado/Command/generate/apache2vhost.pm	/^package Ado::Command::generate::apache2vhost;$/;"	p
+Ado::Command::generate::crud	Ado/Command/generate/crud.pm	/^  use Ado::Command::generate::crud;$/;"	u
+Ado::Command::generate::crud	Ado/Command/generate/crud.pm	/^package Ado::Command::generate::crud;$/;"	p
+Ado::Command::version	Ado/Command/version.pm	/^  use Ado::Command::version;$/;"	u
+Ado::Command::version	Ado/Command/version.pm	/^package Ado::Command::version;$/;"	p
+Ado::Control	Ado.pm	/^use Ado::Control;$/;"	u
+Ado::Control	Ado/Control.pm	/^  use Mojo::Base 'Ado::Control';$/;"	e
+Ado::Control	Ado/Control.pm	/^package Ado::Control;$/;"	p
+Ado::Control	Ado/Control/Ado.pm	/^use Mojo::Base 'Ado::Control';$/;"	e
+Ado::Control	Ado/Control/Default.pm	/^use Mojo::Base 'Ado::Control';$/;"	e
+Ado::Control	Ado/Control/Doc.pm	/^use Mojo::Base 'Ado::Control';$/;"	e
+Ado::Control	Ado/Control/Test.pm	/^use Mojo::Base 'Ado::Control';$/;"	e
+Ado::Control	Ado/Plugin/MarkdownRenderer.pm	/^  use Mojo::Base 'Ado::Control';$/;"	e
+Ado::Control::Ado	Ado/Control/Ado.pm	/^package Ado::Control::Ado;$/;"	p
+Ado::Control::Ado	Ado/Control/Ado.pm	/^use Mojo::Base 'Ado::Control::Ado';$/;"	e
+Ado::Control::Ado	Ado/Control/Ado/Default.pm	/^use Mojo::Base 'Ado::Control::Ado';$/;"	e
+Ado::Control::Ado	Ado/Control/Ado/Users.pm	/^use Mojo::Base 'Ado::Control::Ado';$/;"	e
+Ado::Control::Ado::Default	Ado/Control/Ado/Default.pm	/^package Ado::Control::Ado::Default;$/;"	p
+Ado::Control::Ado::Users	Ado/Control/Ado/Users.pm	/^package Ado::Control::Ado::Users;$/;"	p
+Ado::Control::Default	Ado/Control/Default.pm	/^package Ado::Control::Default;$/;"	p
+Ado::Control::Doc	Ado/Control/Doc.pm	/^package Ado::Control::Doc;$/;"	p
+Ado::Control::Test	Ado/Control/Test.pm	/^package Ado::Control::Test;$/;"	p
+Ado::I18n	Ado/I18n.pm	/^package Ado::I18n;$/;"	p
+Ado::I18n	Ado/I18n/bg.pm	/^use Mojo::Base 'Ado::I18n';$/;"	e
+Ado::I18n	Ado/I18n/en.pm	/^use Mojo::Base 'Ado::I18n';$/;"	e
+Ado::I18n::bg	Ado/I18n/bg.pm	/^package Ado::I18n::bg;$/;"	p
+Ado::I18n::en	Ado/I18n/en.pm	/^package Ado::I18n::en;$/;"	p
+Ado::Model	Ado/Model.pm	/^package Ado::Model;    #The schema\/base class$/;"	p
+Ado::Model::Domains	Ado/Model/Domains.pm	/^package Ado::Model::Domains;    #A table\/row class$/;"	p
+Ado::Model::Groups	Ado/Model/Groups.pm	/^package Ado::Model::Groups;    #A table\/row class$/;"	p
+Ado::Model::Sessions	Ado/Model/Sessions.pm	/^package Ado::Model::Sessions;    #A table\/row class$/;"	p
+Ado::Model::Sessions	Ado/Sessions/Database.pm	/^use Ado::Model::Sessions;$/;"	u
+Ado::Model::SessionsOld	Ado/Model/SessionsOld.pm	/^package Ado::Model::SessionsOld;    #A table\/row class$/;"	p
+Ado::Model::UserGroup	Ado/Model/UserGroup.pm	/^package Ado::Model::UserGroup;    #A table\/row class$/;"	p
+Ado::Model::Users	Ado/Model/Users.pm	/^package Ado::Model::Users;    #A table\/row class$/;"	p
+Ado::Plugin	Ado/Plugin.pm	/^  use Mojo::Base 'Ado::Plugin';$/;"	e
+Ado::Plugin	Ado/Plugin.pm	/^package Ado::Plugin;$/;"	p
+Ado::Plugin	Ado/Plugin/AdoHelpers.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	e
+Ado::Plugin	Ado/Plugin/Auth.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	e
+Ado::Plugin	Ado/Plugin/I18n.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	e
+Ado::Plugin	Ado/Plugin/MarkdownRenderer.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	e
+Ado::Plugin	Ado/Plugin/Routes.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	e
+Ado::Plugin::AdoHelpers	Ado/Plugin/AdoHelpers.pm	/^package Ado::Plugin::AdoHelpers;$/;"	p
+Ado::Plugin::Auth	Ado/Plugin/Auth.pm	/^package Ado::Plugin::Auth;$/;"	p
+Ado::Plugin::I18n	Ado/Plugin/I18n.pm	/^package Ado::Plugin::I18n;$/;"	p
+Ado::Plugin::MarkdownRenderer	Ado/Plugin/MarkdownRenderer.pm	/^package Ado::Plugin::MarkdownRenderer;$/;"	p
+Ado::Plugin::Routes	Ado/Plugin/Routes.pm	/^package Ado::Plugin::Routes;$/;"	p
+Ado::Sessions	Ado.pm	/^use Ado::Sessions;$/;"	u
+Ado::Sessions	Ado/Sessions.pm	/^package Ado::Sessions;$/;"	p
+Ado::Sessions	Ado/Sessions/Database.pm	/^use Mojo::Base 'Ado::Sessions';$/;"	e
+Ado::Sessions	Ado/Sessions/File.pm	/^use Mojo::Base 'Ado::Sessions';$/;"	e
+Ado::Sessions::Database	Ado/Sessions.pm	/^        require Ado::Sessions::Database;$/;"	r
+Ado::Sessions::Database	Ado/Sessions/Database.pm	/^package Ado::Sessions::Database;$/;"	p
+Ado::Sessions::File	Ado/Sessions.pm	/^        require Ado::Sessions::File;$/;"	r
+Ado::Sessions::File	Ado/Sessions/File.pm	/^package Ado::Sessions::File;$/;"	p
+CHECKS	Ado/Model/Domains.pm	/^sub CHECKS { return $CHECKS }$/;"	s
+CHECKS	Ado/Model/Groups.pm	/^sub CHECKS { return $CHECKS }$/;"	s
+CHECKS	Ado/Model/Sessions.pm	/^sub CHECKS { return $CHECKS }$/;"	s
+CHECKS	Ado/Model/SessionsOld.pm	/^sub CHECKS { return $CHECKS }$/;"	s
+CHECKS	Ado/Model/UserGroup.pm	/^sub CHECKS { return $CHECKS }$/;"	s
+CHECKS	Ado/Model/Users.pm	/^sub CHECKS { return $CHECKS }$/;"	s
+CODENAME	Ado.pm	/^our $CODENAME  = 'U+2C04 GLAGOLITIC CAPITAL LETTER DOBRO (Ⰴ)';$/;"	o
+CODENAME	Ado.pm	/^sub CODENAME { return $CODENAME }$/;"	s
+COLUMNS	Ado/Model/Domains.pm	/^sub COLUMNS { return $COLUMNS }$/;"	s
+COLUMNS	Ado/Model/Groups.pm	/^sub COLUMNS { return $COLUMNS }$/;"	s
+COLUMNS	Ado/Model/Sessions.pm	/^sub COLUMNS { return $COLUMNS }$/;"	s
+COLUMNS	Ado/Model/SessionsOld.pm	/^sub COLUMNS { return $COLUMNS }$/;"	s
+COLUMNS	Ado/Model/UserGroup.pm	/^sub COLUMNS { return $COLUMNS }$/;"	s
+COLUMNS	Ado/Model/Users.pm	/^=head1 COLUMNS$/;"	p
+COLUMNS	Ado/Model/Users.pm	/^sub COLUMNS { return $COLUMNS }$/;"	s
+CONDITIONS	Ado/Plugin/Auth.pm	/^=head1 CONDITIONS$/;"	p
+CONDITIONS	Ado/Plugin/Routes.pm	/^=head1 CONDITIONS$/;"	p
+CONTINUOUS INTEGRATION	Ado/Manual.pod	/^=head1 CONTINUOUS INTEGRATION$/;"	p
+CONTRIBUTING	Ado/Manual.pod	/^=head1 CONTRIBUTING$/;"	p
+COPYRIGHT AND LICENSE	Ado.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Build.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/BuildPlugin.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Command.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Command/generate/adoplugin.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Command/generate/crud.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control/Ado.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control/Ado/Default.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control/Ado/Users.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control/Default.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control/Doc.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Control/Test.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Manual.pod	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Manual/Contributing.pod	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Manual/Installation.pod	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Manual/Plugins.pod	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Plugin.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Plugin/AdoHelpers.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Plugin/Auth.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Plugin/I18n.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Plugin/MarkdownRenderer.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+COPYRIGHT AND LICENSE	Ado/Plugin/Routes.pm	/^=head1 COPYRIGHT AND LICENSE$/;"	p
+Carp	Ado/Model.pm	/^use Carp;$/;"	u
+Carp	Ado/Model/Users.pm	/^use Carp;$/;"	u
+Cwd qw(abs_path)	Ado/Build.pm	/^use Cwd qw(abs_path);$/;"	u
+Cwd qw(abs_path)	Test/AdoPlugin.pm	/^use Cwd qw(abs_path);$/;"	u
+DBI::Const::GetInfoType	Ado/Manual/Contributing.pod	/^  use DBI::Const::GetInfoType;$/;"	u
+DESCRIPTION	Ado.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Build.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/BuildPlugin.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/adduser.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/generate.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/generate/adoplugin.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/generate/apache2htaccess.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/generate/apache2vhost.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/generate/crud.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Command/version.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Control/Ado.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Control/Ado/Default.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Control/Ado/Users.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Control/Default.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Control/Doc.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Control/Test.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Manual.pod	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Manual/Contributing.pod	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Manual/Installation.pod	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Manual/Plugins.pod	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Model/Users.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Plugin.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Plugin/AdoHelpers.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Plugin/Auth.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Plugin/I18n.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Plugin/MarkdownRenderer.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Plugin/Routes.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Sessions.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Sessions/Database.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Ado/Sessions/File.pm	/^=head1 DESCRIPTION$/;"	p
+DESCRIPTION	Test/AdoPlugin.pm	/^=head1 DESCRIPTION$/;"	p
+DEV_MODE	Ado/Control.pm	/^our $DEV_MODE = ($ENV{MOJO_MODE} || '' =~ \/dev\/);$/;"	o
+EXPORT_OK	Ado/Build.pm	/^our @EXPORT_OK = qw($/;"	o
+EXPORT_OK	Test/AdoPlugin.pm	/^our @EXPORT_OK = qw(abs_path catdir catfile $T);$/;"	o
+Email::Address	Ado/Model/Users.pm	/^use Email::Address;$/;"	u
+Exporter qw( import )	Ado/Build.pm	/^use Exporter qw( import );    #export functionality to Ado::BuildPlugin etc..$/;"	u
+Exporter qw(import)	Test/AdoPlugin.pm	/^use Exporter qw(import);$/;"	u
+ExtUtils::Install	Ado/Build.pm	/^use ExtUtils::Install;$/;"	u
+ExtUtils::Installed	Ado/Build.pm	/^use ExtUtils::Installed;$/;"	u
+File::Copy qw(copy)	Ado/Build.pm	/^use File::Copy qw(copy);$/;"	u
+File::Copy qw(copy)	Ado/BuildPlugin.pm	/^use File::Copy qw(copy);$/;"	u
+File::Path qw(make_path)	Ado/Build.pm	/^use File::Path qw(make_path);$/;"	u
+File::Path qw(make_path)	Ado/BuildPlugin.pm	/^use File::Path qw(make_path);$/;"	u
+File::Spec::Functions qw(catdir catfile catpath)	Ado/Build.pm	/^use File::Spec::Functions qw(catdir catfile catpath);$/;"	u
+File::Spec::Functions qw(catdir catfile catpath)	Ado/BuildPlugin.pm	/^use File::Spec::Functions qw(catdir catfile catpath);$/;"	u
+File::Spec::Functions qw(catdir catfile)	Test/AdoPlugin.pm	/^use File::Spec::Functions qw(catdir catfile);$/;"	u
+File::Spec::Functions qw(splitdir catdir catfile)	Ado.pm	/^use File::Spec::Functions qw(splitdir catdir catfile);$/;"	u
+FindBin	Ado/Build.pm	/^  use FindBin;$/;"	u
+GENERATOR	Ado/Model/Users.pm	/^=head1 GENERATOR$/;"	p
+GLOBAL VARIABLES	Test/AdoPlugin.pm	/^=head1 GLOBAL VARIABLES$/;"	p
+Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case)	Ado/Command/generate/adoplugin.pm	/^use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);$/;"	u
+Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case)	Ado/Command/generate/apache2htaccess.pm	/^use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);$/;"	u
+Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case)	Ado/Command/generate/apache2vhost.pm	/^use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);$/;"	u
+Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case)	Ado/Command/generate/crud.pm	/^use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);$/;"	u
+Getopt::Long qw(GetOptionsFromArray)	Ado/Command/adduser.pm	/^use Getopt::Long qw(GetOptionsFromArray);$/;"	u
+HELPERS	Ado/Plugin/AdoHelpers.pm	/^=head1 HELPERS$/;"	p
+HELPERS	Ado/Plugin/Auth.pm	/^=head1 HELPERS$/;"	p
+HELPERS	Ado/Plugin/I18n.pm	/^=head1 HELPERS$/;"	p
+HELPERS	Ado/Plugin/MarkdownRenderer.pm	/^=head1 HELPERS$/;"	p
+HOOKS	Ado/Plugin/Routes.pm	/^=head1 HOOKS$/;"	p
+I18N::LangTags qw(implicate_supers)	Ado/Plugin/I18n.pm	/^use I18N::LangTags qw(implicate_supers);$/;"	u
+I18N::LangTags::Detect	Ado/Plugin/I18n.pm	/^use I18N::LangTags::Detect;$/;"	u
+I18N::LangTags::List	Ado/I18n/bg.pm	/^use I18N::LangTags::List;$/;"	u
+I18N::LangTags::List	Ado/I18n/en.pm	/^use I18N::LangTags::List;$/;"	u
+INSTALLATION	Ado/Manual.pod	/^=head1 INSTALLATION$/;"	p
+INSTALLATION METHODS	Ado/Manual/Installation.pod	/^=head1 INSTALLATION METHODS$/;"	p
+Lexicon	Ado/I18n.pm	/^our %Lexicon = (_AUTO => 1);    ##no critic(ProhibitPackageVars)$/;"	o
+Lexicon	Ado/I18n/bg.pm	/^our %Lexicon = (    ##no critic(ProhibitPackageVars)$/;"	o
+Lexicon	Ado/I18n/en.pm	/^our %Lexicon = (    ##no critic(ProhibitPackageVars)$/;"	o
+Locale::Maketext	Ado/I18n.pm	/^use Mojo::Base 'Locale::Maketext';$/;"	e
+METHODS	Ado.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Build.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/BuildPlugin.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/adduser.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/generate.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/generate/adoplugin.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/generate/apache2htaccess.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/generate/apache2vhost.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/generate/crud.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Command/version.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Control/Ado.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Model/Users.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Plugin.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Plugin/AdoHelpers.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Plugin/Auth.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Plugin/I18n.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Plugin/MarkdownRenderer.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Plugin/Routes.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Sessions/Database.pm	/^=head1 METHODS$/;"	p
+METHODS	Ado/Sessions/File.pm	/^=head1 METHODS$/;"	p
+METHODS	Test/AdoPlugin.pm	/^=head1 METHODS$/;"	p
+METHODS/ACTIONS	Ado/Control/Ado/Default.pm	/^=head1 METHODS\/ACTIONS$/;"	p
+METHODS/ACTIONS	Ado/Control/Ado/Users.pm	/^=head1 METHODS\/ACTIONS$/;"	p
+METHODS/ACTIONS	Ado/Control/Default.pm	/^=head1 METHODS\/ACTIONS$/;"	p
+METHODS/ACTIONS	Ado/Control/Doc.pm	/^=head1 METHODS\/ACTIONS$/;"	p
+Module::Build	Ado/Build.pm	/^use parent 'Module::Build';$/;"	e
+Module::Build	Ado/BuildPlugin.pm	/^use parent 'Module::Build';$/;"	e
+Mojo::Base 'Ado::Command'	Ado/Command/adduser.pm	/^use Mojo::Base 'Ado::Command';$/;"	u
+Mojo::Base 'Ado::Command'	Ado/Command/generate/apache2vhost.pm	/^use Mojo::Base 'Ado::Command';$/;"	u
+Mojo::Base 'Ado::Command'	Ado/Command/version.pm	/^use Mojo::Base 'Ado::Command';$/;"	u
+Mojo::Base 'Ado::Command::generate'	Ado/Command/generate/adoplugin.pm	/^use Mojo::Base 'Ado::Command::generate';$/;"	u
+Mojo::Base 'Ado::Command::generate'	Ado/Command/generate/apache2htaccess.pm	/^use Mojo::Base 'Ado::Command::generate';$/;"	u
+Mojo::Base 'Ado::Command::generate'	Ado/Command/generate/crud.pm	/^use Mojo::Base 'Ado::Command::generate';$/;"	u
+Mojo::Base 'Ado::Control'	Ado/Control.pm	/^  use Mojo::Base 'Ado::Control';$/;"	u
+Mojo::Base 'Ado::Control'	Ado/Control/Ado.pm	/^use Mojo::Base 'Ado::Control';$/;"	u
+Mojo::Base 'Ado::Control'	Ado/Control/Default.pm	/^use Mojo::Base 'Ado::Control';$/;"	u
+Mojo::Base 'Ado::Control'	Ado/Control/Doc.pm	/^use Mojo::Base 'Ado::Control';$/;"	u
+Mojo::Base 'Ado::Control'	Ado/Control/Test.pm	/^use Mojo::Base 'Ado::Control';$/;"	u
+Mojo::Base 'Ado::Control'	Ado/Plugin/MarkdownRenderer.pm	/^  use Mojo::Base 'Ado::Control';$/;"	u
+Mojo::Base 'Ado::Control::Ado'	Ado/Control/Ado.pm	/^use Mojo::Base 'Ado::Control::Ado';$/;"	u
+Mojo::Base 'Ado::Control::Ado'	Ado/Control/Ado/Default.pm	/^use Mojo::Base 'Ado::Control::Ado';$/;"	u
+Mojo::Base 'Ado::Control::Ado'	Ado/Control/Ado/Users.pm	/^use Mojo::Base 'Ado::Control::Ado';$/;"	u
+Mojo::Base 'Ado::I18n'	Ado/I18n/bg.pm	/^use Mojo::Base 'Ado::I18n';$/;"	u
+Mojo::Base 'Ado::I18n'	Ado/I18n/en.pm	/^use Mojo::Base 'Ado::I18n';$/;"	u
+Mojo::Base 'Ado::Plugin'	Ado/Plugin.pm	/^  use Mojo::Base 'Ado::Plugin';$/;"	u
+Mojo::Base 'Ado::Plugin'	Ado/Plugin/AdoHelpers.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	u
+Mojo::Base 'Ado::Plugin'	Ado/Plugin/Auth.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	u
+Mojo::Base 'Ado::Plugin'	Ado/Plugin/I18n.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	u
+Mojo::Base 'Ado::Plugin'	Ado/Plugin/MarkdownRenderer.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	u
+Mojo::Base 'Ado::Plugin'	Ado/Plugin/Routes.pm	/^use Mojo::Base 'Ado::Plugin';$/;"	u
+Mojo::Base 'Ado::Sessions'	Ado/Sessions/Database.pm	/^use Mojo::Base 'Ado::Sessions';$/;"	u
+Mojo::Base 'Ado::Sessions'	Ado/Sessions/File.pm	/^use Mojo::Base 'Ado::Sessions';$/;"	u
+Mojo::Base 'Locale::Maketext'	Ado/I18n.pm	/^use Mojo::Base 'Locale::Maketext';$/;"	u
+Mojo::Base 'Mojolicious'	Ado.pm	/^use Mojo::Base 'Mojolicious';$/;"	u
+Mojo::Base 'Mojolicious::Command'	Ado/Command.pm	/^use Mojo::Base 'Mojolicious::Command';$/;"	u
+Mojo::Base 'Mojolicious::Command::generate'	Ado/Command/generate.pm	/^use Mojo::Base 'Mojolicious::Command::generate';$/;"	u
+Mojo::Base 'Mojolicious::Controller'	Ado/Control.pm	/^use Mojo::Base 'Mojolicious::Controller';$/;"	u
+Mojo::Base 'Mojolicious::Plugin'	Ado/Plugin.pm	/^use Mojo::Base 'Mojolicious::Plugin';$/;"	u
+Mojo::Base -base	Ado/Sessions.pm	/^use Mojo::Base -base;$/;"	u
+Mojo::Base -strict	Test/AdoPlugin.pm	/^use Mojo::Base -strict;$/;"	u
+Mojo::JSON	Ado/Sessions.pm	/^use Mojo::JSON;$/;"	u
+Mojo::JSON	Ado/Sessions/Database.pm	/^use Mojo::JSON;$/;"	u
+Mojo::Util qw(b64_decode b64_encode)	Ado/Sessions/Database.pm	/^use Mojo::Util qw(b64_decode b64_encode);$/;"	u
+Mojo::Util qw(camelize class_to_path decamelize)	Ado/Command/generate/adoplugin.pm	/^use Mojo::Util qw(camelize class_to_path decamelize);$/;"	u
+Mojo::Util qw(camelize class_to_path decamelize)	Ado/Command/generate/crud.pm	/^use Mojo::Util qw(camelize class_to_path decamelize);$/;"	u
+Mojo::Util qw(decamelize decode)	Ado/Command.pm	/^use Mojo::Util qw(decamelize decode);$/;"	u
+Mojo::Util qw(decamelize decode)	Ado/Plugin.pm	/^use Mojo::Util qw(decamelize decode);$/;"	u
+Mojo::Util qw(slurp spurt)	Ado/Sessions/File.pm	/^use Mojo::Util qw(slurp spurt);$/;"	u
+Mojolicious	Ado.pm	/^use Mojo::Base 'Mojolicious';$/;"	e
+Mojolicious::Command	Ado/Command.pm	/^use Mojo::Base 'Mojolicious::Command';$/;"	e
+Mojolicious::Command::generate	Ado/Command/generate.pm	/^use Mojo::Base 'Mojolicious::Command::generate';$/;"	e
+Mojolicious::Command::version	Ado/Command/version.pm	/^use Mojolicious::Command::version;$/;"	u
+Mojolicious::Commands	Ado.pm	/^  require Mojolicious::Commands;$/;"	r
+Mojolicious::Controller	Ado/Control.pm	/^use Mojo::Base 'Mojolicious::Controller';$/;"	e
+Mojolicious::Plugin	Ado/Plugin.pm	/^use Mojo::Base 'Mojolicious::Plugin';$/;"	e
+NAME	Ado.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Build.pm	/^=head1 NAME$/;"	p
+NAME	Ado/BuildPlugin.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/adduser.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/generate.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/generate/adoplugin.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/generate/apache2htaccess.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/generate/apache2vhost.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/generate/crud.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Command/version.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control/Ado.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control/Ado/Default.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control/Ado/Users.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control/Default.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control/Doc.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Control/Test.pm	/^=head1 NAME$/;"	p
+NAME	Ado/I18n.pm	/^=head1 NAME$/;"	p
+NAME	Ado/I18n/bg.pm	/^=head1 NAME$/;"	p
+NAME	Ado/I18n/en.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Manual.pod	/^=head1 NAME$/;"	p
+NAME	Ado/Manual/Contributing.pod	/^=head1 NAME$/;"	p
+NAME	Ado/Manual/Installation.pod	/^=head1 NAME$/;"	p
+NAME	Ado/Manual/Plugins.pod	/^=head1 NAME$/;"	p
+NAME	Ado/Manual/RESTAPI.pod	/^=head1 NAME$/;"	p
+NAME	Ado/Model/Users.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Plugin.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Plugin/AdoHelpers.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Plugin/Auth.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Plugin/I18n.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Plugin/MarkdownRenderer.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Plugin/Routes.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Sessions.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Sessions/Database.pm	/^=head1 NAME$/;"	p
+NAME	Ado/Sessions/File.pm	/^=head1 NAME$/;"	p
+NAME	Test/AdoPlugin.pm	/^=head1 NAME$/;"	p
+OPTIONS	Ado/Command/adduser.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Command/generate/apache2htaccess.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Command/generate/apache2vhost.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Command/generate/crud.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Plugin/Auth.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Plugin/I18n.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Plugin/MarkdownRenderer.pm	/^=head1 OPTIONS$/;"	p
+OPTIONS	Ado/Plugin/Routes.pm	/^=head1 OPTIONS$/;"	p
+OUTPUT_ENCODING	Test/AdoPlugin.pm	/^our $OUTPUT_ENCODING = $^O =~ \/win\/i ? 'cp866' : 'utf8';$/;"	o
+PERL_FILES	Ado/Build.pm	/^sub PERL_FILES {$/;"	s
+PLUGINS	Ado/Manual.pod	/^=head1 PLUGINS$/;"	p
+PLUGINS	Ado/Manual/Plugins.pod	/^=head1 PLUGINS$/;"	p
+PRIMARY_KEY	Ado/Model/Domains.pm	/^sub PRIMARY_KEY { return 'id' }$/;"	s
+PRIMARY_KEY	Ado/Model/Groups.pm	/^sub PRIMARY_KEY { return 'id' }$/;"	s
+PRIMARY_KEY	Ado/Model/Sessions.pm	/^sub PRIMARY_KEY { return 'id' }$/;"	s
+PRIMARY_KEY	Ado/Model/SessionsOld.pm	/^sub PRIMARY_KEY { return 'id' }$/;"	s
+PRIMARY_KEY	Ado/Model/UserGroup.pm	/^sub PRIMARY_KEY { return 'user_id' }$/;"	s
+PRIMARY_KEY	Ado/Model/Users.pm	/^sub PRIMARY_KEY { return 'id' }$/;"	s
+Pod::Text	Ado/Build.pm	/^        require Pod::Text;$/;"	r
+RESOURCES	Ado/Manual/RESTAPI.pod	/^=head1 RESOURCES$/;"	p
+REST API	Ado/Manual.pod	/^=head1 REST API$/;"	p
+ROUTES	Ado/Plugin/Auth.pm	/^=head1 ROUTES$/;"	p
+RULES	Ado/Manual/Contributing.pod	/^=head1 RULES$/;"	p
+SEE ALSO	Ado.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Build.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/adduser.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/generate.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/generate/adoplugin.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/generate/apache2htaccess.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/generate/apache2vhost.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/generate/crud.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Command/version.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Control.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Control/Ado.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Control/Ado/Default.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Control/Ado/Users.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Control/Default.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Control/Doc.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Manual.pod	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Manual/Installation.pod	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Manual/Plugins.pod	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Model/Users.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Plugin.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Plugin/AdoHelpers.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Plugin/Auth.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Plugin/I18n.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Plugin/MarkdownRenderer.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Plugin/Routes.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Sessions.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Sessions/Database.pm	/^=head1 SEE ALSO$/;"	p
+SEE ALSO	Ado/Sessions/File.pm	/^=head1 SEE ALSO$/;"	p
+SPONSORS	Ado.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Control/Ado.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Control/Ado/Default.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Control/Ado/Users.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Control/Default.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Control/Doc.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Manual/Plugins.pod	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Plugin/Auth.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Plugin/I18n.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Plugin/MarkdownRenderer.pm	/^=head1 SPONSORS$/;"	p
+SPONSORS	Ado/Plugin/Routes.pm	/^=head1 SPONSORS$/;"	p
+SUBCOMANDS	Ado/Command.pm	/^=head1 SUBCOMANDS$/;"	p
+SUBROUTINES/METHODS	Ado/Control.pm	/^=head1 SUBROUTINES\/METHODS$/;"	p
+SUPPORT AND DOCUMENTATION	Ado/Manual.pod	/^=head1 SUPPORT AND DOCUMENTATION$/;"	p
+SYNOPSIS	Ado.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Build.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/BuildPlugin.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/adduser.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/generate.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/generate/adoplugin.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/generate/apache2htaccess.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/generate/apache2vhost.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/generate/crud.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Command/version.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Control.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Control/Ado.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Control/Ado/Default.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Control/Ado/Users.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Control/Default.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Control/Doc.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Manual.pod	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Model/Users.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Plugin.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Plugin/AdoHelpers.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Plugin/Auth.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Plugin/I18n.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Plugin/MarkdownRenderer.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Plugin/Routes.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Ado/Sessions.pm	/^=head1 SYNOPSIS$/;"	p
+SYNOPSIS	Test/AdoPlugin.pm	/^=head1 SYNOPSIS$/;"	p
+T	Test/AdoPlugin.pm	/^our $T;$/;"	o
+TABLE	Ado/Model/Domains.pm	/^sub TABLE       { return $TABLE_NAME }$/;"	s
+TABLE	Ado/Model/Groups.pm	/^sub TABLE       { return $TABLE_NAME }$/;"	s
+TABLE	Ado/Model/Sessions.pm	/^sub TABLE       { return $TABLE_NAME }$/;"	s
+TABLE	Ado/Model/SessionsOld.pm	/^sub TABLE       { return $TABLE_NAME }$/;"	s
+TABLE	Ado/Model/UserGroup.pm	/^sub TABLE       { return $TABLE_NAME }$/;"	s
+TABLE	Ado/Model/Users.pm	/^sub TABLE       { return $TABLE_NAME }$/;"	s
+TEMPLATES	Ado/Plugin/Auth.pm	/^=head1 TEMPLATES$/;"	p
+TEMPLATES	Ado/Plugin/I18n.pm	/^=head1 TEMPLATES$/;"	p
+TODO	Ado/Command/generate/crud.pm	/^=head1 TODO$/;"	p
+TODO	Ado/Plugin/Auth.pm	/^=head1 TODO$/;"	p
+TODO	Ado/Plugin/I18n.pm	/^=head1 TODO$/;"	p
+Test::AdoPlugin	Test/AdoPlugin.pm	/^package Test::AdoPlugin;$/;"	p
+Test::Mojo	Test/AdoPlugin.pm	/^use Test::Mojo;$/;"	u
+Test::More	Test/AdoPlugin.pm	/^use Test::More;$/;"	u
+Text::MultiMarkdown	Ado/Plugin/MarkdownRenderer.pm	/^        require Text::MultiMarkdown;$/;"	r
+Time::Piece ()	Ado/Command/generate/adoplugin.pm	/^use Time::Piece ();$/;"	u
+Time::Piece ()	Ado/Command/generate/crud.pm	/^use Time::Piece ();$/;"	u
+Time::Piece qw()	Ado/Command/adduser.pm	/^use Time::Piece qw();$/;"	u
+Time::Seconds	Ado/Command/adduser.pm	/^use Time::Seconds;$/;"	u
+Time::Seconds	Ado/Plugin/I18n.pm	/^use Time::Seconds;$/;"	u
+USAGE	Ado/Command/adduser.pm	/^USAGE:$/;"	l
+VERSION	Ado.pm	/^our $VERSION   = '0.55';$/;"	o
+VERSION	Ado/Model.pm	/^our $VERSION = '0.01';$/;"	o
+_chmod	Ado/Build.pm	/^sub _chmod {$/;"	s
+_empty_log_files	Ado/Build.pm	/^sub _empty_log_files {$/;"	s
+_get_command_config	Ado/Command.pm	/^sub _get_command_config {$/;"	s
+_get_plugin_config	Ado/Plugin.pm	/^sub _get_plugin_config {$/;"	s
+_login_ado	Ado/Plugin/Auth.pm	/^sub _login_ado {$/;"	s
+_maketext	Ado/Plugin/I18n.pm	/^sub _maketext {$/;"	s
+_process_custom_files	Ado/Build.pm	/^sub _process_custom_files {$/;"	s
+_set_title	Ado/Control/Doc.pm	/^sub _set_title {$/;"	s
+_uninstall	Ado/Build.pm	/^sub _uninstall {$/;"	s
+_which	Ado/Command/generate/apache2htaccess.pm	/^sub _which {$/;"	s
+absfile	Ado/Sessions/File.pm	/^sub absfile {$/;"	s
+add	Ado/Control/Ado/Users.pm	/^sub add {$/;"	s
+add	Ado/Model/Users.pm	/^sub add {$/;"	s
+add_to_group	Ado/Model/Users.pm	/^sub add_to_group {$/;"	s
+adduser	Ado/Command/adduser.pm	/^sub adduser {$/;"	s
+app	Ado/Plugin.pm	/^has app => sub { Mojo::Server->new->build_app('Ado') };$/;"	a
+args	Ado/Command.pm	/^has args => sub { {} };$/;"	a
+args	Ado/Command/adduser.pm	/^has args => sub {$/;"	a
+args	Ado/Command/generate.pm	/^has args => sub { {} };$/;"	a
+around_action	Ado/Plugin/I18n.pm	/^sub around_action {$/;"	s
+authenticated	Ado/Plugin/Auth.pm	/^sub authenticated {$/;"	s
+authenticateduser	Ado/Control/Test.pm	/^sub authenticateduser { return $_[0]->render(text => 'hello authenticated ' . $_[0]->user->name) }$/;"	s
+bgl10n	Ado/Control/Test.pm	/^sub bgl10n {$/;"	s
+by_login_name	Ado/Model/Users.pm	/^sub by_login_name {$/;"	s
+by_name	Ado/Model/Groups.pm	/^sub by_name {$/;"	s
+cleanup	Ado/Sessions/File.pm	/^sub cleanup {$/;"	s
+config	Ado/Command.pm	/^sub config {$/;"	s
+config	Ado/Control.pm	/^sub config {$/;"	s
+config	Ado/Plugin.pm	/^sub config {$/;"	s
+config_classes	Ado/Plugin.pm	/^has config_classes => sub {$/;"	a
+config_dir	Ado/Plugin.pm	/^has config_dir => sub { $_[0]->app->home->rel_dir('etc\/plugins') };$/;"	a
+cookie_name	Ado/Sessions.pm	/^has cookie_name        => 'ado';$/;"	a
+cookie_path	Ado/Sessions.pm	/^has cookie_path        => '\/';$/;"	a
+create_build_script	Ado/Build.pm	/^sub create_build_script {$/;"	s
+dbix	Ado/Model.pm	/^sub dbix {$/;"	s
+debug	Ado/Control.pm	/^    sub debug {$/;"	s
+default_expiration	Ado/Sessions.pm	/^has default_expiration => 3600;$/;"	a
+define_hooks	Ado.pm	/^sub define_hooks {$/;"	s
+define_mime_types	Ado.pm	/^sub define_mime_types {$/;"	s
+description	Ado/Command/adduser.pm	/^has description => "Adds a user to an Ado application.\\n";$/;"	a
+description	Ado/Command/generate/adoplugin.pm	/^has description => "Generates directory structures for Ado-specific plugins..\\n";$/;"	a
+description	Ado/Command/generate/apache2htaccess.pm	/^has description => "Generates Apache2 .htaccess file.\\n";$/;"	a
+description	Ado/Command/generate/apache2vhost.pm	/^has description => "Generates minimal Apache2 Virtual Host configuration file.\\n";$/;"	a
+description	Ado/Command/generate/crud.pm	/^has description => "Generates directory structures for Ado-specific CRUD..\\n";$/;"	a
+description	Ado/Command/version.pm	/^has description => "Show versions of installed modules.\\n";$/;"	a
+description	Ado/Control.pm	/^has description => 'Ado is a framework for web projects based on Mojolicious,'$/;"	a
+disable	Ado/Control/Ado/Users.pm	/^sub disable {$/;"	s
+do_create_readme	Ado/Build.pm	/^sub do_create_readme {$/;"	s
+dstdir	Ado/Sessions/File.pm	/^sub dstdir {$/;"	s
+dstfile	Ado/Sessions/File.pm	/^sub dstfile {$/;"	s
+ext	Ado/Plugin.pm	/^has ext => 'conf';$/;"	a
+form	Ado/Control/Ado/Default.pm	/^sub form {$/;"	s
+form	Ado/Control/Default.pm	/^sub form {$/;"	s
+generate_id	Ado/Sessions.pm	/^sub generate_id {$/;"	s
+generator	Ado/Control.pm	/^sub generator { return 'Ado ' . $Ado::VERSION . ' - ' . $Ado::CODENAME }$/;"	s
+get_instance	Ado/Sessions.pm	/^sub get_instance {$/;"	s
+groups	Ado/Control/Ado/Default.pm	/^sub groups {$/;"	s
+home	Ado/Command.pm	/^has home => sub {$/;"	a
+index	Ado/Control/Ado/Default.pm	/^sub index {$/;"	s
+index	Ado/Control/Default.pm	/^sub index {$/;"	s
+index	Ado/Control/Test.pm	/^*index = \\&l10n;$/;"	a
+ingroup	Ado/Model/Users.pm	/^sub ingroup {$/;"	s
+init	Ado/Command.pm	/^sub init {$/;"	s
+init	Ado/Command/adduser.pm	/^sub init {$/;"	s
+initialise	Ado/Plugin.pm	/^sub initialise {$/;"	s
+is_base_class	Ado/Model.pm	/^sub is_base_class { return 1 }$/;"	s
+is_base_class	Ado/Model/Domains.pm	/^sub is_base_class { return 0 }$/;"	s
+is_base_class	Ado/Model/Groups.pm	/^sub is_base_class { return 0 }$/;"	s
+is_base_class	Ado/Model/Sessions.pm	/^sub is_base_class { return 0 }$/;"	s
+is_base_class	Ado/Model/SessionsOld.pm	/^sub is_base_class { return 0 }$/;"	s
+is_base_class	Ado/Model/UserGroup.pm	/^sub is_base_class { return 0 }$/;"	s
+is_base_class	Ado/Model/Users.pm	/^sub is_base_class { return 0 }$/;"	s
+keywords	Ado/Control.pm	/^has keywords => 'SSOT, CRM, ERP, CMS, Perl, SQL';$/;"	a
+l	Ado/Plugin/I18n.pm	/^    $app->helper(l        => \\&_maketext);$/;"	h
+l10n	Ado/Control/Test.pm	/^sub l10n {$/;"	s
+language	Ado/Plugin/I18n.pm	/^    $app->helper(language => \\&language);$/;"	h
+language	Ado/Plugin/I18n.pm	/^sub language {$/;"	s
+language_menu	Ado/Control/Test.pm	/^sub language_menu {$/;"	s
+latest	Ado/Command/version.pm	/^has latest => sub {$/;"	a
+lib("$FindBin::Bin/lib")	Ado/Build.pm	/^  use lib("$FindBin::Bin\/lib");$/;"	u
+list	Ado/Control/Ado/Users.pm	/^sub list {$/;"	s
+list_for_json	Ado/Control.pm	/^sub list_for_json {$/;"	s
+load	Ado/Sessions/Database.pm	/^sub load {$/;"	s
+load	Ado/Sessions/File.pm	/^sub load {$/;"	s
+load_config	Ado.pm	/^sub load_config {$/;"	s
+load_plugins	Ado.pm	/^sub load_plugins {$/;"	s
+load_routes	Ado.pm	/^sub load_routes {$/;"	s
+login	Ado/Plugin/Auth.pm	/^sub login {$/;"	s
+login_ado	Ado/Plugin/Auth.pm	/^    $app->helper(login_ado => \\&_login_ado);$/;"	h
+logout	Ado/Plugin/Auth.pm	/^sub logout {$/;"	s
+mark_down	Ado/Control/Test.pm	/^sub mark_down         { return $_[0]->render(text => $_[0]->markdown('* some text')) }$/;"	s
+md_to_html	Ado/Plugin/MarkdownRenderer.pm	/^sub md_to_html {$/;"	s
+name	Ado/Command.pm	/^has name => sub { (ref $_[0]) =~ \/(\\w+)$\/ && return $1 };$/;"	a
+name	Ado/Model/Users.pm	/^sub name {$/;"	s
+name	Ado/Plugin.pm	/^has name => sub {$/;"	a
+namespaces	Ado/Command/generate.pm	/^has namespaces => sub { ['Ado::Command::generate', 'Mojolicious::Command::generate'] };$/;"	a
+parent 'Module::Build'	Ado/Build.pm	/^use parent 'Module::Build';$/;"	u
+parent 'Module::Build'	Ado/BuildPlugin.pm	/^use parent 'Module::Build';$/;"	u
+parent qw(Ado::Model)	Ado/Model/Domains.pm	/^use parent qw(Ado::Model);$/;"	u
+parent qw(Ado::Model)	Ado/Model/Groups.pm	/^use parent qw(Ado::Model);$/;"	u
+parent qw(Ado::Model)	Ado/Model/Sessions.pm	/^use parent qw(Ado::Model);$/;"	u
+parent qw(Ado::Model)	Ado/Model/SessionsOld.pm	/^use parent qw(Ado::Model);$/;"	u
+parent qw(Ado::Model)	Ado/Model/UserGroup.pm	/^use parent qw(Ado::Model);$/;"	u
+parent qw(Ado::Model)	Ado/Model/Users.pm	/^use parent qw(Ado::Model);$/;"	u
+parent qw(DBIx::Simple::Class)	Ado/Model.pm	/^use parent qw(DBIx::Simple::Class);$/;"	u
+prepare_load	Ado/Sessions.pm	/^sub prepare_load {$/;"	s
+prepare_store	Ado/Sessions.pm	/^sub prepare_store {$/;"	s
+primary group '$args->{login_name}'."	Ado/Command/adduser.pm	/^        say "User '$args->{login_name}' was created with primary group '$args->{login_name}'.";$/;"	w
+process_etc_files	Ado/Build.pm	/^sub process_etc_files {$/;"	s
+process_log_files	Ado/Build.pm	/^sub process_log_files {$/;"	s
+process_public_files	Ado/Build.pm	/^sub process_public_files {$/;"	s
+process_templates_files	Ado/Build.pm	/^sub process_templates_files {$/;"	s
+register	Ado/Plugin/AdoHelpers.pm	/^sub register {$/;"	s
+register	Ado/Plugin/Auth.pm	/^sub register {$/;"	s
+register	Ado/Plugin/I18n.pm	/^sub register {$/;"	s
+register	Ado/Plugin/MarkdownRenderer.pm	/^sub register {$/;"	s
+register	Ado/Plugin/Routes.pm	/^sub register {$/;"	s
+require_formats	Ado/Control.pm	/^sub require_formats {$/;"	s
+routes	Ado/Plugin/I18n.pm	/^sub routes {$/;"	s
+run	Ado/Command.pm	/^sub run {$/;"	s
+run	Ado/Command/generate/adoplugin.pm	/^sub run {$/;"	s
+run	Ado/Command/generate/apache2htaccess.pm	/^sub run {$/;"	s
+run	Ado/Command/generate/apache2vhost.pm	/^sub run {$/;"	s
+run	Ado/Command/generate/crud.pm	/^sub run {$/;"	s
+select_range	Ado/Model.pm	/^sub select_range {$/;"	s
+session_id	Ado/Sessions.pm	/^sub session_id {$/;"	s
+sessions	Ado.pm	/^has sessions => sub { Ado::Sessions::get_instance(shift->config) };$/;"	a
+sessions	Ado/Sessions.pm	/^  has sessions => sub { Ado::Sessions::get_instance(shift->config) };$/;"	a
+setup	Test/AdoPlugin.pm	/^sub setup {$/;"	s
+show	Ado/Control/Ado/Users.pm	/^sub show {$/;"	s
+show	Ado/Control/Doc.pm	/^sub show {$/;"	s
+startup	Ado.pm	/^sub startup {$/;"	s
+store	Ado/Sessions/Database.pm	/^sub store {$/;"	s
+store	Ado/Sessions/File.pm	/^sub store {$/;"	s
+strict	Ado/Build.pm	/^  use strict;$/;"	u
+strict	Ado/Build.pm	/^use strict;$/;"	u
+strict	Ado/BuildPlugin.pm	/^use strict;$/;"	u
+strict	Ado/Model.pm	/^use strict;$/;"	u
+strict	Ado/Model/Domains.pm	/^use strict;$/;"	u
+strict	Ado/Model/Groups.pm	/^use strict;$/;"	u
+strict	Ado/Model/Sessions.pm	/^use strict;$/;"	u
+strict	Ado/Model/SessionsOld.pm	/^use strict;$/;"	u
+strict	Ado/Model/UserGroup.pm	/^use strict;$/;"	u
+strict	Ado/Model/Users.pm	/^use strict;$/;"	u
+update	Ado/Control/Ado/Users.pm	/^sub update {$/;"	s
+usage	Ado/Command/adduser.pm	/^has usage       => <<"USAGE";$/;"	a
+usage	Ado/Command/generate/adoplugin.pm	/^has usage => sub { shift->extract_usage };$/;"	a
+usage	Ado/Command/generate/apache2htaccess.pm	/^has usage => sub { shift->extract_usage };$/;"	a
+usage	Ado/Command/generate/apache2vhost.pm	/^has usage => sub { shift->extract_usage };$/;"	a
+usage	Ado/Command/generate/crud.pm	/^has usage => sub { shift->extract_usage };$/;"	a
+usage	Ado/Command/version.pm	/^has usage       => "usage: $0 version\\n";$/;"	a
+utf8	Ado/Model.pm	/^use utf8;$/;"	u
+utf8	Ado/Model/Domains.pm	/^use utf8;$/;"	u
+utf8	Ado/Model/Groups.pm	/^use utf8;$/;"	u
+utf8	Ado/Model/Sessions.pm	/^use utf8;$/;"	u
+utf8	Ado/Model/SessionsOld.pm	/^use utf8;$/;"	u
+utf8	Ado/Model/UserGroup.pm	/^use utf8;$/;"	u
+utf8	Ado/Model/Users.pm	/^use utf8;$/;"	u
+validate_input	Ado/Control.pm	/^sub validate_input {$/;"	s
+version	Ado/Command/version.pm	/^sub version {$/;"	s
+warnings	Ado/Model.pm	/^use warnings;$/;"	u
+warnings	Ado/Model/Domains.pm	/^use warnings;$/;"	u
+warnings	Ado/Model/Groups.pm	/^use warnings;$/;"	u
+warnings	Ado/Model/Sessions.pm	/^use warnings;$/;"	u
+warnings	Ado/Model/SessionsOld.pm	/^use warnings;$/;"	u
+warnings	Ado/Model/UserGroup.pm	/^use warnings;$/;"	u
+warnings	Ado/Model/Users.pm	/^use warnings;$/;"	u
+warnings FATAL => 'all'	Ado/Build.pm	/^  use warnings FATAL => 'all';$/;"	u
+warnings FATAL => 'all'	Ado/Build.pm	/^use warnings FATAL => 'all';$/;"	u
+warnings FATAL => 'all'	Ado/BuildPlugin.pm	/^use warnings FATAL => 'all';$/;"	u

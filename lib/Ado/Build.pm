@@ -290,7 +290,7 @@ sub do_create_readme {
 
 =head1 NAME
 
-Ado::Build - Custom routines for Ado installation 
+Ado::Build - Custom routines for Ado installation
 
 =head1 SYNOPSIS
 
@@ -303,7 +303,7 @@ Ado::Build - Custom routines for Ado installation
   use Ado::Build;
   my $builder = Ado::Build->new(..);
   $builder->create_build_script();
-  
+
   #on the command line
   cd /path/to/cloned/Ado
   perl Build.PL
@@ -321,10 +321,10 @@ Ado::Build - Custom routines for Ado installation
 
 This is a subclass of L<Module::Build>. We use L<Module::Build::API> to add
 custom functionality. This module and L<Ado::BuildPlugin> exist just because of
-the additional install paths that we use beside C<lib> and C<bin> and processing
-the files in those paths. These modules also can serve as examples  for your own
-builders if you have some custom things to do during  build, test, install and
-even if you need to add a new C<ACTION_*> to your setup.
+the additional install paths that we use beside C<lib> and C<bin> and
+processing the files in those paths. These modules also can serve as examples
+for your own builders if you have some custom things to do during  build, test,
+install and even if you need to add a new C<ACTION_*> to your setup.
 
 =head1 ATTRIBUTES
 
@@ -332,12 +332,11 @@ Ado::Build defines some attributes, used across different actions.
 
 =head2 PERL_DIRS
 
-Returns the list of absolute paths to directories in the project 
-containing Perl files.
-Read-only.
+Returns the list of absolute paths to directories in the project containing
+Perl files. Read-only.
 
   $self->PERL_DIRS;
-  #(/base/dir/bin, /base/dir/lib, /base/dir/t, /base/dir/etc) 
+  #(/base/dir/bin, /base/dir/lib, /base/dir/t, /base/dir/etc)
 
 
 

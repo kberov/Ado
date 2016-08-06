@@ -33,6 +33,8 @@ public/articles/*.html
 /*.komodoproject
 /tags
 .tags*
+*.iml
+.idea
 log/development.log
 log/production.log
 

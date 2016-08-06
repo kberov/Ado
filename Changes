@@ -1,5 +1,10 @@
 Revision history for Ado
 
+0.931 2016-07-06
+  - Upgraded to Mojolicious 7.01.
+  - Fixed some failing tests with the new Mojo.
+  - Unnoticable pod reformating.
+
 0.930 2016-04-15
   - Upgraded to Mojolicious 6.58.
   - Expanded templates from Ado::Plugin::Auth.
