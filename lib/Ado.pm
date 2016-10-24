@@ -27,7 +27,7 @@ sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 has home => sub {
-    my $app   = shift;
+    my ($app) = @_;
     my $class = ref $app;
     return $app->SUPER::home if $ENV{MOJO_HOME};     # MOJO_HOME was forced
     my @home    = splitdir $INC{class_to_path $class};
@@ -41,7 +41,7 @@ has home => sub {
 
 
 sub _initialise {
-    my $app      = shift;
+    my ($app)    = @_;
     my $home     = $app->home;
     my $mode     = $app->mode;
     my $ado_home = $app->ado_home;
@@ -74,14 +74,14 @@ sub startup {
 
 #load ado.conf
 sub load_config {
-    my $app = shift;
+    my ($app) = @_;
     $ENV{MOJO_CONFIG} //= catfile($app->home, 'etc', $app->moniker . '.conf');
     $app->plugin('Config');
     return $app;
 }
 
 sub load_plugins {
-    my $app = shift;
+    my ($app) = @_;
 
     my $plugins = $app->config('plugins') || [];
     foreach my $plugin (@$plugins) {
@@ -136,7 +136,7 @@ sub load_routes {
 }
 
 sub define_mime_types {
-    my $app = shift;
+    my ($app) = @_;
     my $mimes = $app->config('types') || {};    #HASHREF
     foreach my $mime (keys %$mimes) {
 
