@@ -21,7 +21,7 @@ sub form {
 
 =head1 NAME
 
-Ado::Control::Ado::Default - The default controller for the site. 
+Ado::Control::Ado::Default - The default controller for the site.
 
 =head1 SYNOPSIS
 
@@ -38,12 +38,12 @@ Ado::Control::Default is the default controller class.
 
 =head1 ATTRIBUTES
 
-Ado::Control::Default inherits all the attributes from 
+Ado::Control::Default inherits all the attributes from
 <Ado::Control> and defines the following ones.
 
 =head1 METHODS/ACTIONS
 
-L<Ado::Control::Default> inherits all the methods from 
+L<Ado::Control::Default> inherits all the methods from
 L<Ado::Control> and defines the following ones.
 
 =head2 index
@@ -74,10 +74,10 @@ L<Mojolicious::Guides::Growing/Controller_class>
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

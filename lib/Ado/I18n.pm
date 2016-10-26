@@ -17,7 +17,7 @@ sub _load_messages_from_db {
     my ($self, $dbix, $default) = @_;
     my $SQL = <<'SQL';
 SELECT d.msgid AS msgid,(
-  CASE 
+  CASE
     WHEN cl.msgstr IS NULL OR cl.msgstr=''
     THEN d.msgstr
     ELSE cl.msgstr
@@ -68,7 +68,7 @@ Constructor
 
 =head1 SEE ALSO
 
-L<Locale::Maketext>, L<Ado::Plugin::I18n>, L<Ado::Manual::Plugins>, 
+L<Locale::Maketext>, L<Ado::Plugin::I18n>, L<Ado::Manual::Plugins>,
 
 =head1 SPONSORS
 
@@ -83,10 +83,10 @@ The original author
 Copyright 2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

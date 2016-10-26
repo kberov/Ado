@@ -113,7 +113,7 @@ Ado::Command::adduser - adduser command
   # On the command line
   # Minimal required options to add a user
   ado adduser --login_name USERNAME --email user\@example.com \
-    --first_name John --last_name Smith 
+    --first_name John --last_name Smith
 
   # Add a user to an additional group
   ado adduser --login_name USERNAME --ingroup GROUPNAME
@@ -122,7 +122,7 @@ Ado::Command::adduser - adduser command
   ado adduser --login_name USERNAME  --login_password N3W$36RE7P1$5W
 
   # Disable a user
-  ado adduser --login_name USERNAME --disabled 
+  ado adduser --login_name USERNAME --disabled
 
   # Programatically
   use Ado::Command::adduser;
@@ -184,14 +184,14 @@ L<Ado::Command> and implements the following new ones.
 =head2 init
 
 Calls the default parent L<Ado::Command/init> and parses the arguments
-passed on the command-line. Returns true on success. 
+passed on the command-line. Returns true on success.
 Croaks with L</usage> message on failure.
 
 
 =head2 adduser
 
 The default and only action this command implements.
-Makes logical checks for existing user and group and calls 
+Makes logical checks for existing user and group and calls
 L<Ado::Model::Users/adduser> and L<Ado::Model::Users/add_to_group>
 depending on parsed arguments.
 See L<Ado::Command/run>.
@@ -199,7 +199,7 @@ See L<Ado::Command/run>.
 =head1 SEE ALSO
 
 L<Ado::Model::Users>,
-L<Ado::Command> L<Ado::Manual>, L<Mojolicious::Command>, 
+L<Ado::Command> L<Ado::Manual>, L<Mojolicious::Command>,
 L<Mojolicious>, L<Mojolicious::Guides>.
 
 =cut

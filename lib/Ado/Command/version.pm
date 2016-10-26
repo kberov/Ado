@@ -83,7 +83,7 @@ Usage information for this command, used for the help screen.
 
 =head2 latest
 
-Checks for the latest version on metacpan.org and returns it 
+Checks for the latest version on metacpan.org and returns it
 if successfully connected
 
 =head1 METHODS
@@ -99,7 +99,7 @@ Default initialization.
 
   #set in init().
   $self->args->{do} ='version';
-  
+
 The default and only action this command implements.
 See L<Ado::Command/run>.
 

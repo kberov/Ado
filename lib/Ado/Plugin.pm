@@ -123,7 +123,7 @@ sub initialise {
 
 =head1 NAME
 
-Ado::Plugin - base class for Ado specific plugins. 
+Ado::Plugin - base class for Ado specific plugins.
 
 
 =head1 SYNOPSIS
@@ -136,18 +136,18 @@ Create your plugin like this:
 
   sub register {
     my ($self, $app, $conf) = shift->initialise(@_);
-    
-    # Your magic here!.. 
-    
+
+    # Your magic here!..
+
     return $self;
   }
 
-but better use L<Ado::Command::generate::adoplugin> to 
+but better use L<Ado::Command::generate::adoplugin> to
 generate all the files for you.
 
 =head1 DESCRIPTION
 
-Ado::Plugin is a base class for Ado specific plugins. 
+Ado::Plugin is a base class for Ado specific plugins.
 It provides some methods specific to L<Ado> only.
 
 =head1 ATTRIBUTES
@@ -219,15 +219,15 @@ and provides the following for use by subclasses.
 The configuration which is for the currently registering plugin only.
 In L<Ado> every plugin can have its own configuration file.
 When calling this method for the first time it will parse and merge
-configuration files for the plugin. Options from mode specific 
+configuration files for the plugin. Options from mode specific
 configuration file will overwrite options found in the generic file.
-You usually do not need to invoke this method directly since it is 
+You usually do not need to invoke this method directly since it is
 invoked in L</initialise>.
 
   # everything in $self->config_dir.'/$my_plugin.conf'
   # and/or   $self->config_dir.'/$my_plugin.$mode.conf'
-  my $config = $self->config; 
-  
+  my $config = $self->config;
+
   #get a config value
   my $value = $self->config('key');
   #set
@@ -235,14 +235,14 @@ invoked in L</initialise>.
 
 =head2 initialise
 
-Used to initialize you plugin and reduce boilerplate code. 
+Used to initialize you plugin and reduce boilerplate code.
 
   sub register {
     my ($self, $app, $config) = shift->initialise(@_);
     # ...
-  
-This method 
-should be the first invoked in your L<Mojolicious::Plugin/register> method. 
+
+This method
+should be the first invoked in your L<Mojolicious::Plugin/register> method.
 If you need to do some very custom stuff, you are free to implement the
 initialisation yourself.
 
@@ -252,7 +252,7 @@ Currently this method does the following:
 
 =item * Merges configurations (invokes L</config>).
 
-=item * Pushes C<@{$conf-E<gt>{namespaces}}> to C<$app-E<gt>routes-E<gt>namespaces> 
+=item * Pushes C<@{$conf-E<gt>{namespaces}}> to C<$app-E<gt>routes-E<gt>namespaces>
 if additional namespaces are defined in configuration file.
 
 =item * Loads routes if defined in configuration file.
@@ -276,7 +276,7 @@ Look at some of the configuration files of the plugins that come with L<Ado>.
 
 L<Ado::Manual::Plugins>, L<Mojolicious::Plugin>,
 L<Ado::Plugin::AdoHelpers>, L<Ado::Plugin::Auth>, L<Ado::Plugin::I18n>,
-L<Ado::Plugin::MarkdownRenderer>, L<Ado::Plugin::Routes>, 
+L<Ado::Plugin::MarkdownRenderer>, L<Ado::Plugin::Routes>,
 L<Ado::Command::generate::adoplugin>.
 
 =head1 AUTHOR
@@ -288,10 +288,10 @@ L<Ado::Command::generate::adoplugin>.
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

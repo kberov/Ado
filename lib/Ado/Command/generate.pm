@@ -46,7 +46,7 @@ L<Ado::Command::generate::crud> and possibly others.
 =head2 args
 
 Used for storing arguments from the commandline and then passing them to the
-template 
+template
 
   my $args = $self->args;
 
@@ -68,7 +68,7 @@ L<Mojolicious::Command::generate>.
 =head1 SEE ALSO
 
 L<Ado::Command::generate::adoplugin>, L<Ado::Command::generate::apache2htaccess>,
-L<Ado::Command::generate::apache2vhost>, L<Ado::Command::generate::crud>, 
+L<Ado::Command::generate::apache2vhost>, L<Ado::Command::generate::crud>,
 L<Mojolicious>, L<Mojolicious::Guides>, L<http://mojolicio.us>.
 
 =cut

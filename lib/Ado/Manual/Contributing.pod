@@ -7,9 +7,9 @@ Ado::Manual::Contributing - Making Ado the ERP solution for the enterprise
 =head1 DESCRIPTION
 
 Ado is a community project.
-Changes and improvements need to be 
-discussed and well understood by the pumpkin-holder and at least 
-two other members of the core development team before proceeding 
+Changes and improvements need to be
+discussed and well understood by the pumpkin-holder and at least
+two other members of the core development team before proceeding
 to implementation. We follow
 L<Lean principles|https://en.wikipedia.org/wiki/Lean_software_development>
 of software development.
@@ -27,7 +27,7 @@ For specific to L<Ado> rules see below.
 The code must look uniformly as if it is written by one person.
 No matter if you write code for the L<Ado> core or you write a plugin,
 your code must be passed through perltidy using the C<./Build perltidy>
-action in the Ado distribution. Feel free to propose more rules 
+action in the Ado distribution. Feel free to propose more rules
 to C<.perltidyrc>. Be ready to explain well your proposal.
 
 =cut
@@ -37,9 +37,9 @@ to C<.perltidyrc>. Be ready to explain well your proposal.
 =head2 IMPOSING PERL BEST PRACTICES
 
 The code must behave uniformly as if it is written by one person.
-It is mandatory to have the same C<.perlcriticrc> and C<t/perl-critic.t> 
+It is mandatory to have the same C<.perlcriticrc> and C<t/perl-critic.t>
 in your L<Ado::Plugin>s as the C<t/.perlcriticrc> found in the Ado
-distribution. This saves us a lot of headaches beforehand and makes 
+distribution. This saves us a lot of headaches beforehand and makes
 the code easier to understand by more people.
 Feel free to propose more rules to C<t/.perlcriticrc>. Be ready to explain
 well your proposal.
@@ -47,20 +47,20 @@ well your proposal.
 =head2 DOCUMENTATION
 
 Your code must be covered by documentation.
-Every subroutine should have small one-line comment before it, stating what 
+Every subroutine should have small one-line comment before it, stating what
 it does. More explanations are to be placed in POD for the respective package.
 The C<t/pod-coverage.t>, C<t/pod.t> and C<t/pod-spelling.t> must always PASS.
 
 =head2 TESTS
 
-Your code I<B<must at least>> prove that it behaves as expected. 
-This is achieved by writing tests. By Imposing Perl Best Practices 
-we also decrease the amount and complexity of needed test code. 
+Your code I<B<must at least>> prove that it behaves as expected.
+This is achieved by writing tests. By Imposing Perl Best Practices
+we also decrease the amount and complexity of needed test code.
 Use C<./Build testcover> to measure the amount of test coverage for your
 code. It is up to you how much coverage is enough but B<I<coverage under 70%
 is not acceptable>> (TODO).
 
-When writing code for the end user it can be also easily automatically 
+When writing code for the end user it can be also easily automatically
 tested with tools such as L<PhantomJS|http://phantomjs.org/> and
 L<QUnit|http://qunitjs.com/>. Use exclusively L<Test::Mojo> for REST API tests.
 Looking at your tests, one should easily conclude how your code should be used.
@@ -68,11 +68,11 @@ Looking at your tests, one should easily conclude how your code should be used.
 =head2 REST AND CORS
 
 Ado is a system that will provide REST services out of the box.
-Separation of concerns must be to its maximum. Your REST API must be 
+Separation of concerns must be to its maximum. Your REST API must be
 self describing. Elaborate on the recommendations in
-"RESTful Service Best Practices" at L<www.RestApiTutorial.com>. 
-You must have a reference implementation of a browser-based user-agent(yourpluginroute.html) residing in 
-C<Ado/public/>. It would be best if your code is CORS-ready this 
+"RESTful Service Best Practices" at L<www.RestApiTutorial.com>.
+You must have a reference implementation of a browser-based user-agent(yourpluginroute.html) residing in
+C<Ado/public/>. It would be best if your code is CORS-ready this
 should be easy if your code depends on Ado::Plugin::CORS(TODO).
 See L<Ado::Manual::RESTAPI>(TODO). Feel free to propose additional best
 practices. Be ready to explain well your proposal.
@@ -85,14 +85,14 @@ your templates if you have such.
 
 =head2 MODEL
 
-Put your database related code under the L<Model> namespace. 
-Use L<DBIx::Simple::Class>. 
+Put your database related code under the L<Model> namespace.
+Use L<DBIx::Simple::Class>.
 Generate your classes from tables using C<dsc_dump_schema.pl> utility
 that comes with DBIx::Simple::Class.
 Feel free to contribute to L<DBIx::Simple::Class>.
-Minimize SQL complexity. Write ANSI SQL if you need to write SQL. 
-Write your SQL in a way to be compatible with 
-L<SQLite|http://sqlite.org/>, L<MySQL|http://dev.mysql.com/> 
+Minimize SQL complexity. Write ANSI SQL if you need to write SQL.
+Write your SQL in a way to be compatible with
+L<SQLite|http://sqlite.org/>, L<MySQL|http://dev.mysql.com/>
 and L<PostgreSQL|http://www.postgresql.org/>.
 Use the L<DBIx::Simple::Class/SQL> feature to achieve this.
 See L<DBIx::Simple::Class/SQL> and its source to figure out how to do it.
@@ -107,8 +107,8 @@ To guess the current driver:
 
 =head2 PLUGINS
 
-Feel free to write L<Ado::Plugin>s but first see if there isn't already 
-a L<Mojolicious::Plugin>::* that meets your needs. 
+Feel free to write L<Ado::Plugin>s but first see if there isn't already
+a L<Mojolicious::Plugin>::* that meets your needs.
 Try first to contribute to the respective plugin.
 Feel free to suggest Mojolicious plugins to be added as dependencies to Ado.
 Be ready to explain well your proposal.
@@ -122,10 +122,10 @@ Be ready to explain well your proposal.
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Ado::Manual::Installation - Various ways to install and deploy Ado 
+Ado::Manual::Installation - Various ways to install and deploy Ado
 
 =head1 DESCRIPTION
 
@@ -49,13 +49,13 @@ To install manually Ado after downloading, run the following commands:
   Building Ado-0.87 ... OK
   Successfully installed Ado-0.87 (upgraded from 0.86)
   1 distribution installed
-  
+
   #or
-  
+
   cpan Ado
   Running install for module 'Ado'
   Running make for B/BE/BEROV/Ado-0.85.tar.gz
-  ...  
+  ...
   ...
     BEROV/Ado-0.85.tar.gz
   ./Build install install  -- OK
@@ -115,7 +115,7 @@ install and create some plugins. See L<Ado::Manual::Plugins>.
 
 =head1 SEE ALSO
 
-L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>, 
+L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>,
 L<Module::Build::Cookbook/prefix_vs_install_base>
 
 =head1 COPYRIGHT AND LICENSE
@@ -123,5 +123,5 @@ L<Module::Build::Cookbook/prefix_vs_install_base>
 Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).

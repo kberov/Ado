@@ -65,7 +65,7 @@ have a personal blog.
 
 =head1 METHODS/ACTIONS
 
-L<Ado::Control::Articles> inherits all the methods from 
+L<Ado::Control::Articles> inherits all the methods from
 L<Ado::Control> and defines the following.
 
 =head2 show

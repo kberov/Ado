@@ -342,14 +342,14 @@ Perl files. Read-only.
 
 =head1 METHODS
 
-Ado::Build inherits all methods from L<Module::Build> and implements 
+Ado::Build inherits all methods from L<Module::Build> and implements
 the following ones.
 
 =head2 create_build_script
 
 This method is called in C<Build.PL>.
 In this method we also call C<add_build_element> for C<etc> C<public>,
-C<templates> and C<log> folders. 
+C<templates> and C<log> folders.
 Finally we set all the C<install_path>s for the distro
 and we call C<$self-E<gt>SUPER::create_build_script>.
 
@@ -391,7 +391,7 @@ C<$self-E<gt>SUPER::ACTION_dist>. See the sources for details.
 
 =head2 ACTION_install
 
-Changes file permissions to C<0600> of some files 
+Changes file permissions to C<0600> of some files
 like C<etc/ado.sqlite> and to C<0400> of some files like C<etc/ado.conf>.
 You can put additional custom functionality here.
 
@@ -405,11 +405,11 @@ Perform uninstall operation against Ado module.
 
 =head2 ACTION_perltidy
 
-Tidies all C<*.conf, *.pm, *.pl, *.t> files found in project 
-directories C<bin, lib, t, etc> in the distribution. 
+Tidies all C<*.conf, *.pm, *.pl, *.t> files found in project
+directories C<bin, lib, t, etc> in the distribution.
 Uses the C<./pertidyrc> found in the project root directory.
 Cleans up all C<.bak> files.
-This action does not tidies C<Build.PL>. 
+This action does not tidies C<Build.PL>.
 Use C<perltidy Build.PL> for that.
 
   perl Build.PL
@@ -427,7 +427,7 @@ TODO: commit and push after testing tidying and who knows what..
 
 =head2 do_create_readme
 
-Creates the README file from C<lib/Ado/Manual.pod>. 
+Creates the README file from C<lib/Ado/Manual.pod>.
 
 =head1 SEE ALSO
 
@@ -446,10 +446,10 @@ Build.PL in Ado distribution directory.
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

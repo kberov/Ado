@@ -122,8 +122,8 @@ sections and Apache will use C<mod_fcgid> if loaded or C<mod_cgi>
 (almost always enabled).
 The generated configuration for mod_fcgid will use L<Plack> (C<plackup>) or
 L<Mojo::Server::FastCGI>. So make sure you have at least one of them installed.
-L<Plack> is recommended. 
-To use L<Plack> with C<mod_fcgid> you will need to install 
+L<Plack> is recommended.
+To use L<Plack> with C<mod_fcgid> you will need to install
 L<FCGI>, L<FCGI::ProcManager> and L<Apache::LogFormat::Compiler>.
 
 =head1 ATTRIBUTES
@@ -154,7 +154,7 @@ L<Ado::Command::generate> and implements the following new ones.
 =head2 run
 
   my $htaccess = Ado::Command::generate::apache2htaccess->run(@ARGV);
-  my $htaccess = $app->commands->run("generate", "apache2htaccess", 
+  my $htaccess = $app->commands->run("generate", "apache2htaccess",
     '-m' => 'cgi,fcgid', '-c' => $config_file);
 Run this command. Returns C<$self>.
 
