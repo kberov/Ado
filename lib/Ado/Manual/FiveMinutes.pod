@@ -11,7 +11,7 @@ L<Ado::Control::Articles> to create a personal blog.
 
 Create a directory for L<Ado> and install it in it.
 
-  mkdir ~/ado 
+  mkdir ~/ado
   curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -l ~/ado -n Ado
 
 Start Ado in development mode.
@@ -19,7 +19,7 @@ Start Ado in development mode.
   cd ~/ado
   morbo -w ./lib -w ./site_templates -w templates  bin/ado
 
-You should see: 
+You should see:
 
   Server available at http://127.0.0.1:3000
 
@@ -53,7 +53,7 @@ files which will be served automatically on every next request.
 
 Add the following code to C<markdown_renderer.development.conf>:
 
-  {   
+  {
       #Do not convert files to HTML on every request
       #but reuse already produced html files.
       md_reuse_produced_html => 1,
@@ -73,7 +73,7 @@ articles, then make a merge request. You just contributed to the project.
 
 =head1 SEE ALSO
 
-L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>, 
+L<Ado::Manual>, L<Ado>, L<Mojolicious::Guides>,
 L<Mojolicious::Guides::Cookbook/DEPLOYMENT>, L<Ado::Command::generate::apache2htaccess>
 
 =head1 COPYRIGHT AND LICENSE
@@ -81,5 +81,5 @@ L<Mojolicious::Guides::Cookbook/DEPLOYMENT>, L<Ado::Command::generate::apache2ht
 Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).

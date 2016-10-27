@@ -58,7 +58,7 @@ sub _set_title {
 
 =head1 NAME
 
-Ado::Control::Doc - The controller for the end-user documentation 
+Ado::Control::Doc - The controller for the end-user documentation
 
 =head1 SYNOPSIS
 
@@ -72,7 +72,7 @@ written in markdown format.
 
 =head1 METHODS/ACTIONS
 
-L<Ado::Control::Doc> inherits all the methods from 
+L<Ado::Control::Doc> inherits all the methods from
 L<Ado::Control> and defines the following ones.
 
 =head2 show
@@ -88,7 +88,7 @@ Become a sponsor and help make L<Ado> the ERP for the enterprise!
 =head1 SEE ALSO
 
 L<Ado::Plugin::MarkdownRenderer>,
-L<Ado::Control>, L<Mojolicious::Controller>, 
+L<Ado::Control>, L<Mojolicious::Controller>,
 L<Mojolicious::Guides::Growing/Model_View_Controller>,
 L<Mojolicious::Guides::Growing/Controller_class>
 
@@ -102,10 +102,10 @@ L<Mojolicious::Guides::Growing/Controller_class>
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

@@ -235,7 +235,7 @@ language are as follows:
   5. language_from_headers, eg. Accept-Language: bg,fr;q=0.8,en-us;q=0.5,en;q=0.3
 
 Just be careful not to try to set the language in one request using two different
-methods eg. C</bg/controller/action?language=de>. 
+methods eg. C</bg/controller/action?language=de>.
 
 
 =head2 default_language
@@ -253,7 +253,7 @@ in your languages namespace. See also L</namespace>.
     }
 
 This is the first option that will be checked if enabled.
-The plugin prepares a default set of routes containing information 
+The plugin prepares a default set of routes containing information
 about the language.
 
   /:language                          GET,OPTIONS
@@ -280,7 +280,7 @@ Default value is 1.
 =head2 language_from_param
 
     {
-        
+
         language_from_param => 1,
         language_from_host =>  0,
         language_from_route => 0,
@@ -296,7 +296,7 @@ Default value is 1.
 =head2 language_from_cookie
 
     {
-        
+
         language_from_cookie => 1,
         language_from_param =>  1,
         language_from_host =>   0,
@@ -313,7 +313,7 @@ Default value is 1.
 =head2 language_from_headers
 
     {
-        
+
         language_from_headers => 1
         language_from_cookie  => 1,
         language_from_param   => 1,
@@ -348,7 +348,7 @@ You rarely will want to change this.
 
 =head1 HELPERS
 
-L<Ado::Plugin::I18n> exports the following helpers for use in  
+L<Ado::Plugin::I18n> exports the following helpers for use in
 L<Ado::Control> methods and templates.
 
 =head2 l
@@ -373,7 +373,7 @@ L<Ado::Plugin::I18n> contains one embedded template.
 
 =head2 partials/language_menu.html.ep
 
-Generates HTML for a language menu. 
+Generates HTML for a language menu.
 If you want to modify the template you can inflate all templates and do that.
 A usage example can be found at L<http://localhost:3000> after starting ado.
 
@@ -381,7 +381,7 @@ A usage example can be found at L<http://localhost:3000> after starting ado.
         ...
       [exist] /home/berov/opt/public_dev/Ado/templates/partials
       [write] /home/berov/opt/public_dev/Ado/templates/partials/language_menu.html.ep
-    
+
     #then choose the preferred way to switch languages...
     %= include 'partials/language_menu'; # use default language_from => 'route'
     %= include 'partials/language_menu', language_from => 'route';
@@ -400,8 +400,8 @@ L<Ado::Plugin> and implements the following new ones.
 
 This method is called by C<$app-E<gt>plugin>.
 Registers the plugin in L<Ado> application and merges internationalization
-and localization configuration from C<$MOJO_HOME/etc/ado.conf> with settings 
-defined in C<$MOJO_HOME/etc/plugins/i18n.conf>. Authentication settings 
+and localization configuration from C<$MOJO_HOME/etc/ado.conf> with settings
+defined in C<$MOJO_HOME/etc/plugins/i18n.conf>. Authentication settings
 defined in C<ado.conf> will overwrite those defined in C<plugins/i18n.conf>.
 Returns C<$self>.
 
@@ -443,8 +443,8 @@ Create user interface to add/edit entries.
 
 =head1 SEE ALSO
 
-L<Locale::Maketext>, L<Ado::Plugin>, L<Ado::Manual::Plugins>, 
-L<Mojolicious::Plugins>, 
+L<Locale::Maketext>, L<Ado::Plugin>, L<Ado::Manual::Plugins>,
+L<Mojolicious::Plugins>,
 L<Mojolicious::Plugin>, L<Mojolicious::Guides::Routing/Conditions>
 
 =head1 SPONSORS
@@ -460,10 +460,10 @@ The original author
 Copyright 2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
@@ -473,8 +473,8 @@ See http://opensource.org/licenses/lgpl-3.0.html for more information.
 __DATA__
 
 @@ partials/language_menu.html.ep
-%# This template is inflated from Ado::Plugin::I18n. 
-%# It Displays menu items with flags. 
+%# This template is inflated from Ado::Plugin::I18n.
+%# It Displays menu items with flags.
 %# You can experiment and make it as one dropdown menu item.
 %# See http://localhost:3000/perldoc/Ado/Plugin/I18n#partialslanguage_menuhtmlep
 % my $stash = $self->stash;
@@ -529,7 +529,7 @@ __DATA__
 %   foreach my $l(@languages){
 %   my $active = $l eq $language ? 'active ' : '';
   <a class="<%="$l $active" %>button item"
-    href="<%= url_for; %>" data-content="<%= l($l) %>" 
+    href="<%= url_for; %>" data-content="<%= l($l) %>"
     data-language="<%= $l %>"><%=l($l)%></a>
 %   }
 %   my $languages_css_selectors = join(', ', map("#language_menu a.$_", @languages));

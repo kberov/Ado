@@ -118,7 +118,7 @@ Ado::Sessions chooses the desired type of session storage and loads it.
     options => {
         cookie_name        => 'ado',
         default_expiration => 86400,
-    }         
+    }
   }
 
   #In Ado.pm:
@@ -173,7 +173,7 @@ and base 64 encoded.
 
 =head2 session_id
 
-Retrieves the session id from a parameter or cookie defaulting to L<cookie_name>. 
+Retrieves the session id from a parameter or cookie defaulting to L<cookie_name>.
 The C<cookie_name> can be set in C<ado.conf> section C<session>.
 
   my $id = $self->session_id($c);

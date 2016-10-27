@@ -193,7 +193,7 @@ L<Mojolicious/defaults>; L<Mojolicious::Plugin::AssetPack>.
   % end;
 
   # render in templates/partials/head.html.ep
-  %== head_css; 
+  %== head_css;
   <link href="css/ado.css" rel='stylesheet' type='text/css' />
   <link href='//fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin,cyrillic'
     rel='stylesheet' type='text/css' />
@@ -234,7 +234,7 @@ Register helpers in L<Ado> application.
 
 =head1 SEE ALSO
 
-L<Ado::Plugin>, L<Mojolicious::Plugins>, L<Mojolicious::Plugin>, 
+L<Ado::Plugin>, L<Mojolicious::Plugins>, L<Mojolicious::Plugin>,
 
 
 =head1 AUTHOR
@@ -246,10 +246,10 @@ L<Ado::Plugin>, L<Mojolicious::Plugins>, L<Mojolicious::Plugin>,
 Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

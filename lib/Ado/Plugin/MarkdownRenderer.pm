@@ -104,13 +104,13 @@ Ado::Plugin::MarkDownRenderer - Render markdown to HTML
   routes     => [
         #markdown_renderer route is already configured
         #in etc/plugins/markdown_renderer.conf.
-        
+
         #Your own great enterprise wiki
-        {route => '/wiki/*md_file', via => ['GET'], 
+        {route => '/wiki/*md_file', via => ['GET'],
           to => 'wiki#show',},
         #...
         ],
-  
+
   #3. Write your controller
   package Ado::Control::Wiki;
   use Mojo::Base 'Ado::Control';
@@ -121,10 +121,10 @@ Ado::Plugin::MarkDownRenderer - Render markdown to HTML
 L<Ado::Plugin::MarkdownRenderer> is a markdown renderer (маани, маани!)
 
 You only need to create a controller for your enterprise wiki and use
-the L</md_to_html> helper provided by this plugin. 
+the L</md_to_html> helper provided by this plugin.
 See L<Ado::Control::Doc> for an example.
 
-You may use this plugin to load and use other markup languages parsers 
+You may use this plugin to load and use other markup languages parsers
 and converters to HTML.
 
 The code of this plugin is a good example for learning to build new plugins,
@@ -150,7 +150,7 @@ L<Text::Markdown> or L<Text::Markup> instead.
 
 Method that will be used internally to produce the C<$HTML>.
 Can also be a code reference.
-First parameter is the md_renderer instance and the 
+First parameter is the md_renderer instance and the
 second is the markdown text.
 
 =head2 md_options
@@ -160,7 +160,7 @@ second is the markdown text.
       base_url      => '/docs',
   },
 
-These options will be passed to the md_renderer constructor. 
+These options will be passed to the md_renderer constructor.
 They are specific for each markup parser so look at it's documentation.
 
 =head2 md_helper
@@ -201,7 +201,7 @@ Do not convert files on every request but reuse already produced html files.
 
 =head1 HELPERS
 
-L<Ado::Plugin::MarkdownRenderer> exports the following helpers for use in  
+L<Ado::Plugin::MarkdownRenderer> exports the following helpers for use in
 L<Ado::Control> methods and templates.
 
 =head2 markdown
@@ -218,15 +218,15 @@ Accepts the same parameters as L<Text::MulltiMarkdown/markdown>
 =head2 md_to_html
 
 Given a Markdown string returns C<E<lt>articleE<gt>$htmlE<lt>/articleE<gt>>
-produced by the converter - L<Text::MultiMarkdown> by default. 
+produced by the converter - L<Text::MultiMarkdown> by default.
 You may want to use your own helper name. See L</md_helper>.
 
   #Markdown from $MOJO_HOME/public/doc/bg/intro.md
   #http://example.com/doc/bg/intro.md
-  my $html = $c->md_to_html(); 
-  
+  my $html = $c->md_to_html();
+
   #Markdown from arbitrary file
-  my $html_string = $c->md_to_html($some_filepath); 
+  my $html_string = $c->md_to_html($some_filepath);
 
   % #in a template
   <%= md_to_html();%>
@@ -265,10 +265,10 @@ L<Ado::Plugin>, L<Ado::Manual>.
 Copyright 2013-2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.

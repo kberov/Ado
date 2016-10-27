@@ -64,7 +64,7 @@ sub run {
 Ado::Command::generate::apache2vhost - Generates minimal Apache2 Virtual Host configuration file
 
 =head1 SYNOPSIS
-  
+
 On the command-line:
 
   $ bin/ado generate apache2vhost --ServerName example.com -s \
@@ -75,7 +75,7 @@ Create link to your generated configuration.
 
   # ln -siv /home/you/dev/Ado/etc/001-example.com.vhost.conf \
   /etc/apache2/sites-enabled/001-example.com.vhost.conf
-  
+
   # service apache2 reload
 
 Generate your C<.htaccess> file. Since you own the machine,
@@ -92,7 +92,7 @@ Programmatically:
 
 =head1 DESCRIPTION
 
-L<Ado::Command::generate::apache2vhost> 
+L<Ado::Command::generate::apache2vhost>
 generates a minimal Apache2 Virtual Host configuration file for your L<Ado> application.
 
 This is a core command, that means it is always enabled and its code a good
@@ -136,8 +136,8 @@ If not provided the configuration is printed to the screen.
 
 =head2 s|with_suexec
 
-Adds C<SuexecUserGroup> directive which is effective only 
-if C<mod_suexec> is loaded. The user and the group are guessed from the 
+Adds C<SuexecUserGroup> directive which is effective only
+if C<mod_suexec> is loaded. The user and the group are guessed from the
 user running the command.
 
 =head3 u|user=s
@@ -145,7 +145,7 @@ user running the command.
 User to be used with suexec.
 
 =head3 g|group=s
-      
+
 Group to be used with suexec.
 
 =head3 v|verbose
@@ -160,7 +160,7 @@ L<Ado::Command::generate> and implements the following new ones.
 =head2 args
 
 Used for storing arguments from the commandline and then passing them to the
-template 
+template
 
   my $args = $self->args;
 
@@ -186,7 +186,7 @@ Usage information for this command, used for the help screen.
 =head1 METHODS
 
 
-L<Ado::Command::generate::apache2vhost> inherits all methods from 
+L<Ado::Command::generate::apache2vhost> inherits all methods from
 L<Ado::Command::generate> and implements the following new ones.
 
 =head2 run

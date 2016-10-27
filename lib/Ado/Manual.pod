@@ -101,7 +101,7 @@ continuously.
 L<CPAN Testers Reports for
 Ado|http://www.cpantesters.org/distro/A/Ado.html>
 
-L<Travis-CI|https://travis-ci.org/kberov/Ado> 
+L<Travis-CI|https://travis-ci.org/kberov/Ado>
 
 =for HTML <a href="https://travis-ci.org/kberov/Ado"><img
 src="https://travis-ci.org/kberov/Ado.svg?branch=master"></a><br /><br />

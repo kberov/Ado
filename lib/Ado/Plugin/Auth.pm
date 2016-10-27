@@ -398,7 +398,7 @@ Ado::Plugin::Auth - Passwordless user authentication for Ado
     {
       #methods which will be displayed in the "Sign in" menu
       auth_methods => ['ado', 'facebook', 'google'],
-      
+
       providers => {
         google => {
             key =>'123456789....apps.googleusercontent.com',
@@ -489,7 +489,7 @@ Condition for routes used to check if a user is authenticated.
 
   # add the condition programatically
   $app->routes->route('/ado-users/:action', over => {authenticated=>1});
-  $app->routes->route('/ado-users/:action', 
+  $app->routes->route('/ado-users/:action',
     over => [authenticated => 1, ingroup => 'admin']
   );
 
@@ -499,7 +499,7 @@ Condition for routes used to check if a user is authenticated.
     {
       route => '/ado-users/:action:id',
       via   => [qw(PUT DELETE)],
-      
+
       # only authenticated users can edit and delete users,
       # and only if they are authorized to do so
       over => [authenticated => 1, ingroup => 'admin'],
@@ -660,7 +660,7 @@ providers.
 =head1 SEE ALSO
 
 L<Mojolicious::Plugin::OAuth2>,
-L<Ado::Plugin>, L<Ado::Manual::Plugins>, L<Mojolicious::Plugins>, 
+L<Ado::Plugin>, L<Ado::Manual::Plugins>, L<Mojolicious::Plugins>,
 L<Mojolicious::Plugin>, L<Mojolicious::Guides::Routing/Conditions>
 
 =head1 AUTHOR

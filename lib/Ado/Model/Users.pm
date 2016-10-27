@@ -202,7 +202,7 @@ sub ingroup {
 }
 
 $CLASS->SQL('user_id_by_group_name' => <<"UG");
-    SELECT user_id FROM user_group WHERE group_id = 
+    SELECT user_id FROM user_group WHERE group_id =
         (SELECT id FROM groups  WHERE name = ?)
 UG
 
@@ -210,7 +210,7 @@ $CLASS->SQL('by_group_name' => <<"SQL");
     SELECT id, login_name, first_name, last_name, email
     FROM ${\ $CLASS->TABLE }
     WHERE id IN(${\ $CLASS->SQL('user_id_by_group_name') })
-        AND (disabled=0 AND (stop_date>? OR stop_date=0) AND start_date<?) 
+        AND (disabled=0 AND (stop_date>? OR stop_date=0) AND start_date<?)
     ORDER BY first_name, last_name ASC
 
 SQL
@@ -256,7 +256,7 @@ A class for TABLE users in schema main
 
 =head1 DESCRIPTION
 
-This class maps to rows in table C<users>. 
+This class maps to rows in table C<users>.
 
 =head1 ATTRIBUTES
 
@@ -265,7 +265,7 @@ and provides the following.
 
 =head2 name
 
-Readonly. Returns concatenated L</first_name> and L</last_name> of the user 
+Readonly. Returns concatenated L</first_name> and L</last_name> of the user
 or the username (in case the first two are not available).
 
     # Hello, Guest
@@ -369,7 +369,7 @@ Returns false otherwise.
 Returns a list of all group names a user belongs to if no group name passed.
 
     say $user->name . ' is admin!' if $user->ingroup('admin');
-    say $user->name .' is member of the following groups:' 
+    say $user->name .' is member of the following groups:'
     . join(', ', $user->ingroup);
 
 =head1 GENERATOR

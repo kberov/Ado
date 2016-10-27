@@ -69,7 +69,7 @@ In this package we put actions which are used only for testing Ado functionality
 Below is the list of defined actions.
 
 
-=head2 authenticateduser 
+=head2 authenticateduser
 
 Used to test  the L<Ado::Plugin::Auth/authenticated> condition.
 
@@ -99,7 +99,7 @@ Used to test the produced HTML by C<partials/language_menu.html.ep>.
 
 =head2 mark_down
 
-Used to test theC<markdown> helper defined in L<Ado::Plugin::MarkdownRenderer/markdown>. 
+Used to test theC<markdown> helper defined in L<Ado::Plugin::MarkdownRenderer/markdown>.
 
 =head1 AUTHOR
 
@@ -110,10 +110,10 @@ Used to test theC<markdown> helper defined in L<Ado::Plugin::MarkdownRenderer/ma
 Copyright 2014 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
@@ -129,7 +129,7 @@ __DATA__
   <head><%= include 'partials/head'; %></head>
   <body>
 <nav id="adobar" class="ui borderless small purple inverted fixed menu">
-%= include 'partials/language_menu' 
+%= include 'partials/language_menu'
 </nav>
 <main class="ui">
   <article class="ui main container">

@@ -104,7 +104,7 @@ Programmatically:
 =head1 DESCRIPTION
 
 L<Ado::Command::generate::adoplugin> generates directory structures for
-fully functional L<Ado>-specific plugins with optional 
+fully functional L<Ado>-specific plugins with optional
 L<MVC set of files|Ado::Command::generate::crud> in the newly created plugin directory.
 The new plugin is generated in the current directory.
 
@@ -124,7 +124,7 @@ the camelized version of C<Ado::Plugin::$$args{name}>.
 
 Boolean. When set you can pass in addition all the arguments accepted by
 L<Ado::Command::generate::crud>. It is mandatory to pass at least the
-C<--tables> option so the controllers can be generated. 
+C<--tables> option so the controllers can be generated.
 
 When generating a plugin:
 C<--controller_namespace>
@@ -146,7 +146,7 @@ L<Ado::Command::generate> and implements the following new ones.
   #returns Ado::Command::generate::crud instance.
   my $crud = $self->crud->run(%options);
 
-An instance of L<Ado::Command::generate::crud>. 
+An instance of L<Ado::Command::generate::crud>.
 Used by L<Ado::Command::generate::adoplugin> to generate routes for controllers
 and possibly others.
 
@@ -271,10 +271,10 @@ Your Name
 Copyright <%= Time::Piece->new->year %> Your Name.
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
-You may copy, distribute and modify the software provided that 
-modifications are open source. However, software that includes 
+You may copy, distribute and modify the software provided that
+modifications are open source. However, software that includes
 the license may release under a different license.
 
 See http://opensource.org/licenses/lgpl-3.0.html for more information.
@@ -333,6 +333,6 @@ $builder->create_build_script();
   routes => <%= $crud->app->dumper(
     @{$crud->routes} ? $crud->routes : [{route =>"/$decamelized",via => ['GET']}]
     ); %>,
-  # Look at some of the configuration files of the plugins 
+  # Look at some of the configuration files of the plugins
   # that come with Ado for examples.
 }

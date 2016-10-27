@@ -176,7 +176,7 @@ it's subclasses or used in hooks.
 
 =head1 ATTRIBUTES
 
-Ado::Control inherits all attributes from L<Mojolicious::Controller> 
+Ado::Control inherits all attributes from L<Mojolicious::Controller>
 and implements the following new ones.
 
 =head2 description
@@ -203,7 +203,7 @@ to the I<current controller> package only.
 
   #in Ado::Control::List or Ado::Control::Foo or...
   my $myvalue = $c->config('mykey');
-  #a shortcut to 
+  #a shortcut to
   my $myvalue = $app->config(__PACKAGE__)->{mykey}
   ...
 

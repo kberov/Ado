@@ -132,7 +132,7 @@ Ado::Command::generate::crud - Generates MVC set of files
   #on the command-line
   # for one or more tables.
   $ bin/ado generate crud --tables='news,articles'
-  
+
   #programatically
   use Ado::Command::generate::crud;
   my $v = Ado::Command::generate::crud->new;
@@ -140,21 +140,21 @@ Ado::Command::generate::crud - Generates MVC set of files
 
 =head1 DESCRIPTION
 
-B<Disclaimer: I<This command is highly experimental!> 
+B<Disclaimer: I<This command is highly experimental!>
 The generated code is not even expected to work properly.>
 
 L<Ado::Command::generate::crud> generates directory structure for
-a fully functional 
-L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller> 
+a fully functional
+L<MVC|http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>
 set of files, based on existing tables in the database.
-You only need to create the tables. The Model (M) classes are generated on the fly 
+You only need to create the tables. The Model (M) classes are generated on the fly
 from the tables when the controller classes are loaded by L<Ado> for the first time.
-You can dump them to disk if you want using the C<dsc_dump_schema.pl> script that 
-comes with L<DBIx::Simple::Class>. You may decide to use only L<DBIx::Simple> 
+You can dump them to disk if you want using the C<dsc_dump_schema.pl> script that
+comes with L<DBIx::Simple::Class>. You may decide to use only L<DBIx::Simple>
 via the C<$c-E<gt>dbix> helper or L<DBI> via C<$c-E<gt>dbix-E<gt>dbh>.
 That's up to you.
 
-This tool's purpose is to promote 
+This tool's purpose is to promote
 L<RAD|http://en.wikipedia.org/wiki/Rapid_application_development>
 by generating the boilerplate code for controllers (C)
 and help programmers new to L<Ado> and L<Mojolicious> to quickly create
@@ -197,7 +197,7 @@ directory to C<$ENV{PERL5LIB}>, so the classes can be found and loaded.
 
 Optional. The namespace for the model classes to be generated.
 Defaults to L<Ado::Model>. If you wish however to use another namespace
-for another database, you will have to add another item for 
+for another database, you will have to add another item for
 L<Mojolicious::Plugin::DSC> to the list of loaded plugins in C<etc/ado.conf>
 or in your plugin configuration. Yes, multiple database connections/schemas
 are supported.
@@ -229,17 +229,17 @@ Short description of this command, used for the command list.
 
   $self->routtes();
 
-Returns an ARRAY reference containing routes, prepared after C<$self-E<gt>args-E<gt>{tables}>. 
+Returns an ARRAY reference containing routes, prepared after C<$self-E<gt>args-E<gt>{tables}>.
 
-Altough L<Ado> already has defined generic routes for CRUD, 
-this attribute contains more specific routes, that will secure the C<create>, 
-C<update> and C<delete> actions, so they are available only to an 
-authenticated user. This attribute is used for generating routes in 
+Altough L<Ado> already has defined generic routes for CRUD,
+this attribute contains more specific routes, that will secure the C<create>,
+C<update> and C<delete> actions, so they are available only to an
+authenticated user. This attribute is used for generating routes in
 L<Ado::Command::generate::adoplugin>.
-After generating a plugin you should end up with a 
+After generating a plugin you should end up with a
 L<RESTful|http://en.wikipedia.org/wiki/REST>
-service. The generated code uses 
-L<Mojolicious::Controller/respond_to>. For details see 
+service. The generated code uses
+L<Mojolicious::Controller/respond_to>. For details see
 L<Mojolicious::Guides::Rendering/Content-negotiation>.
 
 =head2 usage
@@ -261,7 +261,7 @@ L<Ado::Command> and implements the following new ones.
       #...
   }
 
-Parses arguments and prepares the command to be run. Calling this method for the second time has no effect. 
+Parses arguments and prepares the command to be run. Calling this method for the second time has no effect.
 Returns C<$self>.
 
 =head2 run
@@ -350,12 +350,12 @@ sub list {
     );
 }
 
-# Creates a resource in table <%= $a->{t} %>. A naive example.  
+# Creates a resource in table <%= $a->{t} %>. A naive example.
 sub create {
     my $c = shift;
     my $v = $c->validation;
     return $c->render unless $v->has_data;
-    
+
     $v->required('title')->size(3, 50);
     $v->required('body')->size(3, 1 * 1024 * 1024);#1MB
     my $res;
@@ -393,7 +393,7 @@ sub read {
     );
 }
 
-# Updates a resource in table <%= $a->{t} %>.  
+# Updates a resource in table <%= $a->{t} %>.
 sub update {
     my $c = shift;
     my $v = $c->validation;
@@ -401,7 +401,7 @@ sub update {
     my $res = $table_class->find($id);
     $c->reply->not_found() unless $res->data;
     $c->debug('$data:'.$c->dumper($res->data));
-    
+
     if($v->has_data && $res->data){
         $v->optional('title')->size(3, 50);
         $v->optional('body')->size(3, 1 * 1024 * 1024);#1MB
@@ -415,7 +415,7 @@ sub update {
     );
 }
 
-# "Deletes" a resource from table <%= $a->{t} %>.  
+# "Deletes" a resource from table <%= $a->{t} %>.
 sub delete {
     return shift->render(message => '"delete" is not implemented...');
 }

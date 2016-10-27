@@ -56,11 +56,11 @@ the  next upgrade your changes may be lost.
   │   └── Ado               # Application namespace
   │       ├── Command       # Commands namespace for commands such as Ado::Command::adduser
   │       │   └── generate  # Generators such as Ado::Command::generate::apache2vhost are here
-  │       ├── Control       # Controller namespace where controller classes 
+  │       ├── Control       # Controller namespace where controller classes
   │       │                 # like Ado::Control::Users reside
   │       ├── I18n          # Namespace for lexicon packages such as Ado::I18n::bg
   │       ├── Manual        # Namespace for developer manuals like this very file
-  │       ├── Model         # Controller namespace where controller classes 
+  │       ├── Model         # Controller namespace where controller classes
   │       │                 # like Ado::Model::Users reside
   │       ├── Plugin        # Ado plugins namespace, e.g. Ado::Plugin::Auth
   │       └── Sessions      # Server side sessions - e.g. Ado::Sessions::Database
@@ -119,5 +119,5 @@ L<Ado::Manual>, L<Ado::Manual::Installation>, L<Ado::Manual::Plugins>, L<Mojolic
 Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
-modify it under the terms of the 
+modify it under the terms of the
 GNU Lesser General Public License v3 (LGPL-3.0).
