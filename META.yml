@@ -21,7 +21,7 @@ build_requires:
 configure_requires:
   Module::Build: '0.42'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4216, CPAN::Meta::Converter version 2.150001'
+generated_by: 'Module::Build version 0.422, CPAN::Meta::Converter version 2.150005'
 keywords:
   - Ado
   - Mojolicious
@@ -42,7 +42,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.930'
+    version: '0.932'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -138,4 +138,5 @@ requires:
 resources:
   bugtracker: https://github.com/kberov/Ado/issues
   repository: https://github.com/kberov/Ado
-version: '0.930'
+version: '0.932'
+x_serialization_backend: 'CPAN::Meta::YAML version 0.018'

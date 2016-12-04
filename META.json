@@ -4,7 +4,7 @@
       "ÐÑÐ°ÑÐ¸Ð¼Ð¸Ñ ÐÐµÑÐ¾Ð² <berov@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4216",
+   "generated_by" : "Module::Build version 0.422",
    "keywords" : [
       "Ado",
       "Mojolicious",
@@ -82,7 +82,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.930"
+         "version" : "0.932"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -200,5 +200,6 @@
          "url" : "https://github.com/kberov/Ado"
       }
    },
-   "version" : "0.930"
+   "version" : "0.932",
+   "x_serialization_backend" : "JSON::PP version 2.27300"
 }
