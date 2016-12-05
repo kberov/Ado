@@ -7,7 +7,7 @@ use Mojo::Util 'class_to_path';
 use List::Util 'first';
 
 our $AUTHORITY = 'cpan:BEROV';
-our $VERSION   = '0.932';
+our $VERSION   = '0.933';
 our $CODENAME  = 'U+2C0A GLAGOLITIC CAPITAL LETTER INITIAL IZHE (Ⰺ)';
 
 use Ado::Control;

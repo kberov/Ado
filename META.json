@@ -31,21 +31,8 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Devel::Cover" : "1.15",
-            "Lingua::Ispell" : "0",
             "Module::Build" : "0.42",
-            "Perl::Critic" : "1.124",
-            "Perl::Tidy" : "20140711",
-            "Pod::Markdown" : "2.002",
-            "Test::CheckManifest" : "1.28",
-            "Test::Differences" : "0.62",
-            "Test::Exception" : "0.32",
-            "Test::More" : "0",
-            "Test::Output" : "1.03",
-            "Test::Perl::Critic" : "1.02",
-            "Test::Pod" : "1.48",
-            "Test::Pod::Coverage" : "1.10",
-            "Test::Pod::Spelling" : "0.4"
+            "Test::More" : "0"
          }
       },
       "configure" : {
@@ -56,7 +43,7 @@
       "runtime" : {
          "recommends" : {
             "Apache::LogFormat::Compiler" : "0",
-            "DBD::SQLite" : "1.48",
+            "DBD::SQLite" : "1.52",
             "FCGI" : "0.74",
             "FCGI::ProcManager" : "0.24",
             "Mojo::Server::FastCGI" : "0.41",
@@ -65,10 +52,7 @@
          },
          "requires" : {
             "DBIx::Simple::Class" : "1.009",
-            "EV" : "4.15",
             "Email::Address" : "1.905",
-            "IO::Socket::IP" : "0.24",
-            "IO::Socket::SSL" : "1.957",
             "Locale::Maketext" : "1.25",
             "Mojolicious" : "6.58",
             "Mojolicious::Plugin::DSC" : "1.005",
@@ -82,7 +66,7 @@
    "provides" : {
       "Ado" : {
          "file" : "lib/Ado.pm",
-         "version" : "0.932"
+         "version" : "0.933"
       },
       "Ado::Build" : {
          "file" : "lib/Ado/Build.pm"
@@ -200,6 +184,6 @@
          "url" : "https://github.com/kberov/Ado"
       }
    },
-   "version" : "0.932",
+   "version" : "0.933",
    "x_serialization_backend" : "JSON::PP version 2.27300"
 }

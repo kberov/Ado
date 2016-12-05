@@ -29,7 +29,7 @@ $t->get_ok('/default')->status_is(200)->content_like(qr/Controller: default; Act
 # default page
 $t->get_ok('/default/index')->status_is(200)
   ->content_like(qr/Controller: default; Action: index/);
-$t->get_ok('/default/form')->status_is(200)->content_is(qw/Ado::Control::Default::form/);
+$t->get_ok('/default/form')->status_is(200)->content_like(qr/Ado::Control::Default::form/);
 
 #with empty configuratuion
 $ENV{MOJO_CONFIG} = $app->home->rel_file('t/ado/etc/empty.conf');

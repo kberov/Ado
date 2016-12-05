@@ -1,11 +1,16 @@
 Revision history for Ado
+
+0.933 2016-12-05
+  - Fixed occasionally failing test in t/basic.t.
+  - Required some higher versions for recommended modules.
+
 0.932 2016-12-04
   - Upgraded to Mojolicious 7.11, Mojolicious::Plugin::OAuth2 1.53
     and probably others.
-  - Fixed failing test in t/basic.t
-  - Cleared trailing spaces - RTKH (Artur Khabibullin)
+  - Fixed failing test in t/basic.t.
+  - Cleared trailing spaces - RTKH (Artur Khabibullin).
   - Made some sub arguments assignment slightly more
-    efficient - KABANOID (Michael Katasonov)
+    efficient - KABANOID (Michael Katasonov).
 
 0.931 2016-07-06
   - Upgraded to Mojolicious 7.01.
@@ -16,8 +21,7 @@ Revision history for Ado
   - Upgraded to Mojolicious 6.58.
   - Expanded templates from Ado::Plugin::Auth.
   - Fixed bugs related to improper dynamic routes names usage.
-  - $CODENAME changed to "ИЖЕ" U+2C0A GLAGOLITIC CAPITAL LETTER INITIAL IZHE (Ⰺ)
-
+  - $CODENAME changed to "ИЖЕ" U+2C0A GLAGOLITIC CAPITAL LETTER INITIAL IZHE (Ⰺ).
 
 0.921 2015-06-03
   - Fixed query from i18n table to retrieve translated messages.

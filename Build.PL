@@ -32,9 +32,9 @@ my $author = {
         #To develop and test advanced functionality
         #This should go as "recommends" for regular users
         #when we have functionality depending on these
-        'IO::Socket::SSL' => '1.957',
-        'EV'              => '4.15',
-        'IO::Socket::IP'  => '0.24',
+        'IO::Socket::SSL' => '2.039',
+        'EV'              => '4.22',
+        'IO::Socket::IP'  => '0.37',
 
         #'DBD::mysql'      => '4.025',
     },
@@ -72,7 +72,7 @@ my $builder = Ado::Build->new(
     },
     recommends => {
 
-        'DBD::SQLite'   => '1.48',
+        'DBD::SQLite'   => '1.52',
         'SQL::Abstract' => '1.78',
 
         # Either
