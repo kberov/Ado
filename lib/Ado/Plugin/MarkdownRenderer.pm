@@ -12,8 +12,8 @@ sub register {
     $config->{md_method}        ||= 'markdown';
     $config->{md_options}       ||= {use_wikilinks => 1,};
     $config->{md_helper}        ||= 'md_to_html';
-    $config->{md_root}          ||= $app->home->rel_dir('public/doc');
-    $config->{md_articles_root} ||= $app->home->rel_dir('public/articles');
+    $config->{md_root}          ||= $app->home->rel_file('public/doc');
+    $config->{md_articles_root} ||= $app->home->rel_file('public/articles');
     $config->{md_file_sufixes}  ||= ['.md'];
 
     if ($config->{md_renderer} eq 'Text::MultiMarkdown') {

@@ -1,7 +1,8 @@
 package Ado::Plugin::AdoHelpers;
 use Mojo::Base 'Ado::Plugin';
-use Mojo::Util qw(slurp decode);
+use Mojo::Util qw(decode);
 use List::Util qw(first);
+use Mojo::File 'path';
 
 # allow plugins to process SQL scripts while loading
 sub do_sql_file {
@@ -10,7 +11,7 @@ sub do_sql_file {
 
     #$app->log->debug('do_sql_file:' . $sql_file) if $Ado::Control::DEV_MODE;
 
-    my $SQL = decode('UTF-8', slurp($sql_file));
+    my $SQL = decode('UTF-8', path($sql_file)->slurp());
 
     #Remove multi-line comments
     $SQL =~ s|/\*+.+?\*/\s+?||gsmx;

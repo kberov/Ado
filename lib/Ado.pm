@@ -15,28 +15,14 @@ use Ado::Sessions;
 my $CLASS = __PACKAGE__;
 
 has ado_home => sub {
-    my @home = splitdir $INC{class_to_path $CLASS};
-    while (pop @home) {
-        return Mojo::Home->new->parts([@home])
-          if -s catfile(@home, 'bin', lc $CLASS);    # bin/..
-    }
-    Carp::croak("$CLASS installation directory not found!");
+    Mojo::Home->new->detect($CLASS);
 };
 
 sub CODENAME { return $CODENAME }
 has sessions => sub { Ado::Sessions::get_instance(shift->config) };
 
 has home => sub {
-    my ($app) = @_;
-    my $class = ref $app;
-    return $app->SUPER::home if $ENV{MOJO_HOME};     # MOJO_HOME was forced
-    my @home    = splitdir $INC{class_to_path $class};
-    my $moniker = $app->moniker;
-    while (pop @home) {
-        return Mojo::Home->new->parts([@home])
-          if -s catfile(@home, 'bin', $moniker);     # bin/..
-    }
-    return $app->SUPER::home;                        #fallback to Mojo::Home
+    return Mojo::Home->new->detect(); #fallback to Mojo::Home
 };
 
 
@@ -47,10 +33,10 @@ sub _initialise {
     my $ado_home = $app->ado_home;
 
     # add paths to bundled files if needed.
-    my $templates_dir  = $ado_home->rel_dir('templates');
-    my $site_templates = $home->rel_dir('site_templates');
+    my $templates_dir  = $ado_home->rel_file('templates');
+    my $site_templates = $home->rel_file('site_templates');
     my $renderer_paths = $app->renderer->paths;
-    my $public_dir     = $ado_home->rel_dir('public');
+    my $public_dir     = $ado_home->rel_file('public');
     my $static_paths   = $app->static->paths;
     push @$renderer_paths, $templates_dir
       unless (first { $_ eq $templates_dir } @$renderer_paths);

@@ -12,7 +12,6 @@ sub register {
     $app->config(auth_methods => $conf->{auth_methods});
     $app->config(ref($self)   => $conf);
 
-
     #OAuth2 providers
     my @auth_methods = @{$conf->{auth_methods}};
 
