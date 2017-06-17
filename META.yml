@@ -29,7 +29,7 @@ no_index:
 provides:
   Ado:
     file: lib/Ado.pm
-    version: '0.933'
+    version: '0.935'
   Ado::Build:
     file: lib/Ado/Build.pm
   Ado::BuildPlugin:
@@ -113,7 +113,7 @@ requires:
   DBIx::Simple::Class: '1.009'
   Email::Address: '1.905'
   Locale::Maketext: '1.25'
-  Mojolicious: '6.58'
+  Mojolicious: '7.43'
   Mojolicious::Plugin::DSC: '1.005'
   Mojolicious::Plugin::OAuth2: '1.52'
   Mojolicious::Plugin::SemanticUI: '0.17'
@@ -122,5 +122,5 @@ requires:
 resources:
   bugtracker: https://github.com/kberov/Ado/issues
   repository: https://github.com/kberov/Ado
-version: '0.933'
+version: '0.934'
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'

@@ -3,6 +3,7 @@ use Mojo::Base 'Ado::Control';
 File::Spec::Functions->import(qw(catfile splitpath catdir));
 Mojo::ByteStream->import(qw(b));
 use File::Path qw(make_path);
+use Mojo::File qw(path);
 
 sub show {
     my ($c) = @_;
@@ -14,7 +15,7 @@ sub show {
     my $file_path = catfile($root, $md_file);
 
     if (-s $file_path) {
-        my $markdown = b($file_path)->slurp->decode->to_string;
+        my $markdown = b(path($file_path)->slurp)->decode->to_string;
 
         if ($config->{md_reuse_produced_html}) {
             $html_content = $c->render_to_string('articles/show',
@@ -23,7 +24,7 @@ sub show {
             #save file to disk for later requests and redirect to the generated static file
             my $html_path = catfile($root, $html_file);
             make_path(catdir((splitpath($html_path))[0 .. -2]));
-            b($html_content)->encode->spurt($html_path);
+            path($html_path)->spurt(b($html_content)->encode);
             $c->redirect_to($c->url_for('/articles/' . $html_file));
             return;
         }

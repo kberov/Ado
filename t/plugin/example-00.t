@@ -1,9 +1,9 @@
 #t/plugin/example-00.t
 # testing Ado example plugin
 use Mojo::Base -strict;
+use Cwd qw(abs_path);
 use File::Basename;
 use File::Spec::Functions qw(catdir updir catfile);
-use Cwd qw(abs_path);
 use Test::More;
 
 BEGIN {
@@ -27,10 +27,10 @@ is( $plugin->config_dir,
     catdir($ENV{MOJO_HOME}, 'etc', 'plugins'),
     '$plugin->config_dir is $MOJO_HOME/etc/plugins'
 );
-is($app->home->rel_dir('public'),     $app->static->paths->[0],   'app static path is first');
-is($app->ado_home->rel_dir('public'), $app->static->paths->[1],   'Ado static path is second');
-is($app->home->rel_dir('templates'),  $app->renderer->paths->[0], 'app renderer path is first');
-is( $app->ado_home->rel_dir('templates'),
+is($app->home->rel_file('public'),     $app->static->paths->[0],   'app static path is first');
+is($app->ado_home->rel_file('public'), $app->static->paths->[1],   'Ado static path is second');
+is($app->home->rel_file('templates'),  $app->renderer->paths->[0], 'app renderer path is first');
+is( $app->ado_home->rel_file('templates'),
     $app->renderer->paths->[1],
     'Ado renderer path is second'
 );

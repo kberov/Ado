@@ -1,6 +1,7 @@
 package Ado::Command::generate::apache2htaccess;
 use Mojo::Base 'Ado::Command::generate';
 use Getopt::Long qw(GetOptionsFromArray :config no_auto_abbrev no_ignore_case);
+use Mojo::File 'path';
 
 has description => "Generates Apache2 .htaccess file.\n";
 has usage => sub { shift->extract_usage };
@@ -61,7 +62,7 @@ sub run {
     my $config = Mojo::Template->new->render_file($template_file, $args);
     if ($args->{config_file}) {
         say STDERR 'Writing ' . $args->{config_file} if $args->{verbose};
-        Mojo::Util::spurt($config, $args->{config_file});
+        path($args->{config_file})->spurt($config);
     }
     else {
         say $config;

@@ -31,7 +31,7 @@ sub _get_command_config {
     $config && return $config;
 
     #second try (command specific configuration file)
-    my $conf_file = $app->home->rel_dir('/etc/commands/' . decamelize($name) . '.conf');
+    my $conf_file = $app->home->rel_file('/etc/commands/' . decamelize($name) . '.conf');
     if ($config = eval { Mojolicious::Plugin::Config->new->load($conf_file, {}, $app) }) {
         return $config;
     }

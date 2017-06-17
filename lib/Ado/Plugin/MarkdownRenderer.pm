@@ -1,5 +1,6 @@
 package Ado::Plugin::MarkdownRenderer;
 use Mojo::Base 'Ado::Plugin';
+use Mojo::File qw(path);
 File::Basename->import('fileparse');
 File::Spec::Functions->import(qw(catfile catdir));
 Mojo::ByteStream->import('b');
@@ -41,7 +42,7 @@ sub md_to_html {
     $file_path =~ s{[^#]#.+}{};
     unless ($file_path) { $c->reply->not_found() && return '' }
     my $fullname = catfile($config->{md_root}, $file_path);
-    $c->debug("md_file: $file_path;\$fullname: $fullname");
+    $c->debug("md_file: $file_path; \$fullname: $fullname");
 
     my ($name, $path, $suffix) = fileparse($fullname, @{$config->{md_file_sufixes}});
     my $html_filepath = catfile($path, "$name.html");
@@ -52,19 +53,20 @@ sub md_to_html {
         && (stat($fullname))[9] < (stat($html_filepath))[9])
     {
         $c->debug('Found ' . $html_filepath);
-        return b($html_filepath)->slurp->decode;
+        return b(path($html_filepath)->slurp)->decode;
     }
 
     #404 Not Found
     my $md_filepath = catfile($path, "$name$suffix");
     unless (-s $md_filepath) { $c->reply->not_found() && return '' }
 
-    my $markdown = Mojo::Util::slurp($md_filepath);
+    my $markdown = path($md_filepath)->slurp;
     my $self_url = $c->url_for()->to_string;
     my %options  = (%{$config->{md_options}}, self_url => $self_url);
     my $html     = $c->markdown($markdown, \%options);
     $c->debug($c->dumper({'%options' => \%options, '$html_filepath' => $html_filepath}));
-    return b($html)->spurt($html_filepath)->decode();
+    path($html_filepath)->spurt($html);
+    return b($html)->decode;
 }
 
 1;

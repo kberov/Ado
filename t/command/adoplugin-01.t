@@ -1,12 +1,11 @@
 #t/command/adoplugin-01.t
 use Mojo::Base -strict;
-use Test::More;
+use Cwd;
 use File::Spec::Functions qw(catdir catfile catpath);
 use File::Temp qw(tempdir);
-use Cwd;
-
-use Mojo::Util qw(decamelize slurp);
+use Mojo::File 'path';
 use Test::Mojo;
+use Test::More;
 
 my $command = 'Ado::Command::generate::adoplugin';
 require_ok($command);
@@ -16,7 +15,6 @@ my $tempdir = tempdir(CLEANUP => 1);
 chdir $tempdir;
 my $name         = 'MyBlog';
 my $class        = "Ado::Plugin::$name";
-my $decamelized  = decamelize($name);
 my $create_table = [
     'DROP TABLE IF EXISTS testatii',
     <<TAB,

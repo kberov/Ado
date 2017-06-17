@@ -1,8 +1,9 @@
 package Ado::Sessions::File;
 
 use Mojo::Base 'Ado::Sessions';
-use Mojo::Util qw(slurp spurt b64_decode b64_encode);
+use Mojo::Util qw(b64_decode b64_encode);
 use File::Spec::Functions qw(tmpdir catfile);
+use Mojo::File 'path';
 
 has dstdir => sub {tmpdir};
 
@@ -24,7 +25,7 @@ sub load {
     my $cookie_file = $self->absfile($id);
 
     if ($id and -e $cookie_file) {
-        my $sessiondata = slurp $cookie_file;
+        my $sessiondata = path($cookie_file)->slurp();
         return
           unless $session = Mojo::JSON::j(b64_decode($sessiondata));
     }
@@ -38,7 +39,7 @@ sub store {
     my ($id, $session) = $self->prepare_store($c);
     my $value = b64_encode(Mojo::JSON::encode_json($session), '');
     my $file = $self->absfile($id);
-    spurt $value, $file;
+    path($file)->spurt($value);
     chmod(oct('0600'), $file);
     return;
 }

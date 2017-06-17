@@ -90,6 +90,7 @@ tags$
 .iml
 # Avoid CI tools files
 \.travis.yml
+_Deparsed_XSubs.pm$
 
 # Avoid mode specific configuration files
 \betc/ado\..+\.conf$
