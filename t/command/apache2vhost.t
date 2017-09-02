@@ -1,10 +1,11 @@
 #apache2vhost.t
 use Mojo::Base -strict;
-use Test::More;
-use File::Temp qw(tempdir);
 use File::Spec::Functions qw(catfile);
-use Mojo::Util qw(slurp);
+use File::Temp qw(tempdir);
+use Mojo::File 'path';
 use Test::Mojo;
+use Test::More;
+
 my $IS_DOS = ($^O eq 'MSWin32' or $^O eq 'dos' or $^O eq 'os2');
 
 #plan skip_all => 'Not reliable test under this platform.' if $IS_DOS;
@@ -31,7 +32,7 @@ ok( my $c = $app->start(
 isa_ok($c, $command);
 like($c->description, qr/Apache2 Virtual Host/,            'description looks alike');
 like($c->usage,       qr/the command-line.+with_suexec/ms, 'usage looks alike');
-ok(my $config_file_content = slurp($config_file), 'generated $config_file');
+ok(my $config_file_content = path($config_file)->slurp(), 'generated $config_file');
 my $app_home = $c->app->home;
 
 like($config_file_content, qr/VirtualHost example.com:80/, 'produced file looks alike');

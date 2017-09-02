@@ -1,12 +1,13 @@
 #t/command/adoplugin-00.t
 use Mojo::Base -strict;
-use Test::More;
+use Cwd;
 use File::Spec::Functions qw(catdir catfile catpath);
 use File::Temp qw(tempdir);
-use Cwd;
-
-use Mojo::Util qw(decamelize slurp);
+use Mojo::File 'path';
+use Mojo::Util qw(decamelize);
 use Test::Mojo;
+use Test::More;
+
 my $t   = Test::Mojo->new('Ado');
 my $app = $t->app;
 
@@ -20,10 +21,12 @@ my $class       = "Ado::Plugin::$name";
 my $decamelized = decamelize($name);
 
 ok(my $c = $app->start("generate", "adoplugin", '-n' => $name), 'run() ok');
-my $class_file  = slurp catfile($tempdir, "Ado-Plugin-$name/lib/Ado/Plugin", "$name.pm");
-my $test_file   = slurp catfile($tempdir, "Ado-Plugin-$name/t/plugin",       "$decamelized-00.t");
-my $build_file  = slurp catfile($tempdir, "Ado-Plugin-$name/Build.PL");
-my $config_file = slurp catfile($tempdir, "Ado-Plugin-$name/etc/plugins",    "$decamelized.conf");
+my $class_file = path(catfile($tempdir, "Ado-Plugin-$name/lib/Ado/Plugin", "$name.pm"))->slurp();
+my $test_file =
+  path(catfile($tempdir, "Ado-Plugin-$name/t/plugin", "$decamelized-00.t"))->slurp();
+my $build_file = path(catfile($tempdir, "Ado-Plugin-$name/Build.PL"))->slurp();
+my $config_file =
+  path(catfile($tempdir, "Ado-Plugin-$name/etc/plugins", "$decamelized.conf"))->slurp();
 like($class_file  => qr/register.+initialise/sm,     'Class code is ok');
 like($class_file  => qr/$class - an A.+foooooo/,     'Class documentation is ok');
 like($test_file   => qr/$class.+isa_ok/sm,           'Test file is ok');

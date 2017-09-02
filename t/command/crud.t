@@ -1,12 +1,11 @@
 #t/command/adoplugin.t
 use Mojo::Base -strict;
-use Test::More;
+use Cwd;
 use File::Spec::Functions qw(catdir catfile);
 use File::Temp qw(tempdir);
-use Cwd;
-
-use Mojo::Util qw(decamelize slurp);
+use Mojo::Util qw(decamelize);
 use Test::Mojo;
+use Test::More;
 
 my $tempdir = tempdir(CLEANUP => 1);
 my $create_table = [

@@ -1,7 +1,7 @@
 package Ado::Sessions::Database;
 use Mojo::Base 'Ado::Sessions';
 use Mojo::JSON;
-use Mojo::Util qw(slurp spurt b64_decode b64_encode);
+use Mojo::Util qw(b64_decode b64_encode);
 use Ado::Model::Sessions;
 
 sub load {

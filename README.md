@@ -11,7 +11,7 @@ language](http://www.perl.org/). Ado is a typical well structured,
 [Mojolicious](https://metacpan.org/pod/Mojolicious) application. It aims to allow teams to build on it a CMS, ERP,
 CRM or all of them integrated together.
 
-Please note that the project is still a work-in-progres. Parts of it work,
+Please note that the project is still a work-in-progress. Parts of it work,
 others are simply missing.
 
 # GETTING STARTED
@@ -58,7 +58,7 @@ rules see [Ado::Manual::Contributing](https://metacpan.org/pod/Ado::Manual::Cont
 We expect that you know how Internet works, how to write Perl modules and are
 familiar with [Mojolicious](https://metacpan.org/pod/Mojolicious).
 
-To ease discusssions on Ado further development, a forum was created.
+To ease discussions on Ado further development, a forum was created.
 [https://groups.google.com/d/forum/ado-dev](https://groups.google.com/d/forum/ado-dev).
 
 # REST API
@@ -92,7 +92,7 @@ continuously.
 [CPAN Testers Reports for
 Ado](http://www.cpantesters.org/distro/A/Ado.html)
 
-[Travis-CI](https://travis-ci.org/kberov/Ado) 
+[Travis-CI](https://travis-ci.org/kberov/Ado)
 
 [![Build Status](https://travis-ci.org/kberov/Ado.svg?branch=master)](https://travis-ci.org/kberov/Ado)
 

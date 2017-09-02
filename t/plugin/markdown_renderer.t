@@ -20,9 +20,9 @@ my $plugin  = $class->new();
 my $md_root = $plugin->config('md_root');
 like($md_root, qr/doc$/, "ok md_root:$md_root");
 like(
-    $app->md_to_html('bg/no_title.md'),
-    qr/\<p\>.+?Няма\sЗаглавие/sx,
-    'md_to_html works basicaly'
+  $app->md_to_html('bg/no_title.md'),
+  qr/<p>.+Няма\sЗаглавие/sx,
+  'md_to_html works basicaly'
 );
 
 #cleanup any existing html
@@ -89,7 +89,7 @@ find(
               if $_ =~ /\.html$/;
         }
     },
-    $app->home->rel_dir('public/doc/bg')
+    $app->home->rel_file('public/doc/bg')
 );
 
 #test the helper markdown

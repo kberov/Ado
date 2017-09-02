@@ -6,7 +6,7 @@ use File::Spec::Functions qw(catdir catfile catpath);
 use File::Temp qw(tempdir);
 use lib(-d 'blib' ? 'blib/lib' : 'lib');
 use Ado::Build;
-use Mojo::Util qw(slurp);
+use Mojo::File qw(path);
 $SIG{__WARN__} = sub {
     return if $_[0] =~ m|Wide\scharacter\sin\sprint|x;
     warn @_;
@@ -31,7 +31,7 @@ like(
 );
 
 #MYMETA.json and yml
-my $mymeta = slurp('MYMETA.json');
+my $mymeta = path('MYMETA.json')->slurp();
 unlike($mymeta, qr/Perl\:\:Tidy/,    'ok - no $AUTHOR_TEST  build_requires');
 unlike($mymeta, qr/IO::Socket::SSL/, 'ok - no $AUTHOR_TEST  requires');
 

@@ -35,6 +35,7 @@ public/articles/*.html
 .tags*
 *.iml
 .idea
+_Deparsed_XSubs.pm
 log/development.log
 log/production.log
 

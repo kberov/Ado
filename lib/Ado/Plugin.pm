@@ -1,6 +1,6 @@
 package Ado::Plugin;
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Util qw(decamelize class_to_path slurp decode);
+use Mojo::Util qw(decamelize class_to_path decode);
 
 File::Spec::Functions->import(qw(catfile catdir));
 
